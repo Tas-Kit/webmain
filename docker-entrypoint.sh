@@ -4,4 +4,5 @@
 # Start server
 echo "Starting server"
 npm install
+npm run build
 node app.js
