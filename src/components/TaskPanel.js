@@ -54,19 +54,22 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
       </Grid>
 
       <List>
-        {tasks.map(task => (
-          <ListItem key={task.taskId}>
-            <ListItemIcon className={classes.taskListItemIcon}>
-              <TaskIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={task.task.name}
-              classes={{
-                primary: classes.taskListItemText
-              }}
-            />
-          </ListItem>
-        ))}
+        {tasks.length > 0 &&
+          tasks
+            .filter(task => task.relationship.acceptance === 'a')
+            .map(task => (
+              <ListItem key={task.taskId}>
+                <ListItemIcon className={classes.taskListItemIcon}>
+                  <TaskIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={task.task.name}
+                  classes={{
+                    primary: classes.taskListItemText
+                  }}
+                />
+              </ListItem>
+            ))}
       </List>
     </Drawer>
   );
