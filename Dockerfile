@@ -4,4 +4,3 @@
  ADD package.json /webmain/
  ADD package-lock.json /webmain/
  RUN npm install
- ADD . /webmain/
