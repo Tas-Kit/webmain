@@ -30,10 +30,15 @@ class TaskView extends React.Component {
     api
       .fetchTasks()
       .then(res => {
-        console.log(res);
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res);
+          throw new Error('Failed to fetch tasks');
+        }
       })
       .then(tasks => {
+        console.log(tasks);
         this.setState({
           tasks: tasks,
           isLoading: false,
@@ -57,6 +62,7 @@ class TaskView extends React.Component {
   };
 
   render() {
+    const { tasks, activeTaskId } = this.state;
     return (
       <div
         style={{
@@ -65,16 +71,12 @@ class TaskView extends React.Component {
       >
         <header style={styles.header}>
           <TaskAppBar
-            taskTitle={
-              this.state.activeTaskId
-                ? this.state.tasks[this.state.activeTaskId]
-                : ''
-            }
+            taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
           />
           <TaskToolbar />
         </header>
 
-        <TaskPanel tasks={this.state.tasks} />
+        <TaskPanel tasks={tasks} handleTaskClick={this.handleTaskClick} />
       </div>
     );
   }

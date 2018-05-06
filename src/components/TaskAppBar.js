@@ -22,11 +22,9 @@ const TaskAppBar = props => {
   return (
     <div className={classes.root}>
       <AppBar color={'inherit'} className={classes.appBar} position="static">
-        <Typography
-          variant="display1"
-          color="inherit"
-          className={classes.flex}
-        >{`Task List > ${taskTitle}`}</Typography>
+        <Typography variant="display1" color="inherit" className={classes.flex}>
+          {taskTitle ? 'Task List' : `Task List > ${taskTitle}`}
+        </Typography>
       </AppBar>
     </div>
   );
