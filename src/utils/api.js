@@ -2,7 +2,7 @@ var baseUrl = 'http://localhost:8001/api/v1';
 
 if (typeof window !== 'undefined') {
   var location = window.location;
-  var baseUrl = location.protocol + '//' + location.host + '/api/v1'; // (or whatever)
+  baseUrl = location.protocol + '//' + location.host + '/api/v1'; // (or whatever)
 }
 
 const fetchTasks = () => {

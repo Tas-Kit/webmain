@@ -7,7 +7,7 @@ import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import TaskIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import NotificationIcon from '@material-ui/icons/Notifications';
-import { ACCEPT } from '../constants';
+import { ACCEPTANCE } from '../constants';
 
 const drawerWidth = 240;
 
@@ -57,7 +57,7 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
       <List>
         {tasks.length > 0 &&
           tasks
-            .filter(task => task.relationship.acceptance === ACCEPT)
+            .filter(task => task.relationship.acceptance === ACCEPTANCE.ACCEPT)
             .map(task => (
               <ListItem key={task.taskId}>
                 <ListItemIcon className={classes.taskListItemIcon}>
