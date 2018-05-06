@@ -7,6 +7,7 @@ import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import TaskIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import NotificationIcon from '@material-ui/icons/Notifications';
+import { ACCEPTANCE } from '../constants';
 
 const drawerWidth = 240;
 
@@ -52,6 +53,7 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
         <Avatar className={classes.avatar}>YZ</Avatar>
         <NotificationIcon className={classes.NotificationIcon} />
       </Grid>
+
 
       <List component={'nav'}>
         {Object.keys(tasks).map(id => {

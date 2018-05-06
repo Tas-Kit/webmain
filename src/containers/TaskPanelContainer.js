@@ -16,10 +16,10 @@ class TaskPanelContainer extends React.Component {
     api
       .fetchTasks()
       .then(res => {
-        console.log(res);
         return res.json();
       })
       .then(res => {
+        console.log(res);
         this.setState({
           tasks: api.adaptTasks(res),
           isLoading: false,
