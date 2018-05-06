@@ -53,20 +53,23 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
         <NotificationIcon className={classes.NotificationIcon} />
       </Grid>
 
-      <List>
-        {tasks.map(task => (
-          <ListItem key={task.taskId}>
-            <ListItemIcon className={classes.taskListItemIcon}>
-              <TaskIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={task.task.name}
-              classes={{
-                primary: classes.taskListItemText
-              }}
-            />
-          </ListItem>
-        ))}
+      <List component={'nav'}>
+        {Object.keys(tasks).map(id => {
+          const task = tasks[id];
+          return (
+            <ListItem button key={id} onClick={handleTaskClick(id)}>
+              <ListItemIcon className={classes.taskListItemIcon}>
+                <TaskIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={task.task.name}
+                classes={{
+                  primary: classes.taskListItemText
+                }}
+              />
+            </ListItem>
+          );
+        })}
       </List>
     </Drawer>
   );
