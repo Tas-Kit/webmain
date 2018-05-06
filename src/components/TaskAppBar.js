@@ -23,7 +23,7 @@ const TaskAppBar = props => {
     <div className={classes.root}>
       <AppBar color={'inherit'} className={classes.appBar} position="static">
         <Typography variant="display1" color="inherit" className={classes.flex}>
-          {taskTitle ? 'Task List' : `Task List > ${taskTitle}`}
+          {taskTitle ? taskTitle : 'Task List'}
         </Typography>
       </AppBar>
     </div>

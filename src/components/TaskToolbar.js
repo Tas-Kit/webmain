@@ -25,7 +25,7 @@ const styles = {
 };
 
 const TaskToolbar = props => {
-  const { classes, collaborators = ['YZ'] } = props;
+  const { classes, users = ['YZ'] } = props;
   return (
     <Toolbar className={classes.taskToolBar}>
       <div className={classes.flex}>
@@ -33,11 +33,16 @@ const TaskToolbar = props => {
         <Button key="clone">Clone</Button>
         <Button key="save">Save</Button>
       </div>
-      {collaborators.map(el => (
-        <Avatar key={el} className={classes.letterAvatar}>
-          {el}
-        </Avatar>
-      ))}
+      {Object.keys(users).map(id => {
+        const user = users[id];
+        return (
+          <Avatar key={id} className={classes.letterAvatar}>
+            {`${user['basic']['first_name'][0]}${
+              user['basic']['last_name'][0]
+            }`}
+          </Avatar>
+        );
+      })}
       <IconButton color="inherit" aria-label="Invitation">
         <SupervisorAccount />
       </IconButton>

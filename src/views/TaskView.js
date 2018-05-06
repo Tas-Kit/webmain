@@ -7,11 +7,12 @@ import api from '../utils/api';
 const drawerWidth = 240;
 
 const styles = {
-  header: {
-    position: 'absolute',
-    display: 'inline-box',
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
+  taskView: {
+    color: '#424242',
+    display: 'flex'
+  },
+  content: {
+    flex: 1
   }
 };
 
@@ -20,6 +21,7 @@ class TaskView extends React.Component {
     super(props);
     this.state = {
       activeTaskId: '',
+      currTaskGraph: {},
       tasks: {},
       isLoading: false,
       isError: false
@@ -29,14 +31,6 @@ class TaskView extends React.Component {
   componentDidMount = () => {
     api
       .fetchTasks()
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log(res);
-          throw new Error('Failed to fetch tasks');
-        }
-      })
       .then(tasks => {
         console.log(tasks);
         this.setState({
@@ -53,30 +47,44 @@ class TaskView extends React.Component {
       });
   };
 
+  fetchTaskGraph = id => {
+    api
+      .fetchTaskGraph(id)
+      .then(graph => {
+        this.setState({
+          currTaskGraph: graph,
+          activeTaskId: id
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        this.setState({
+          isError: true
+        });
+      });
+  };
+
   handleTaskClick = id => {
     return () => {
-      this.setState({
-        activeTaskId: id
-      });
+      this.fetchTaskGraph(id);
     };
   };
 
   render() {
-    const { tasks, activeTaskId } = this.state;
+    const { tasks, activeTaskId, currTaskGraph } = this.state;
     return (
-      <div
-        style={{
-          color: '#424242'
-        }}
-      >
-        <header style={styles.header}>
-          <TaskAppBar
-            taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
-          />
-          <TaskToolbar />
-        </header>
-
+      <div style={styles.taskView}>
         <TaskPanel tasks={tasks} handleTaskClick={this.handleTaskClick} />
+        <div style={styles.content}>
+          <header>
+            <TaskAppBar
+              taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
+            />
+            <TaskToolbar
+              users={currTaskGraph.users ? currTaskGraph.users : {}}
+            />
+          </header>
+        </div>
       </div>
     );
   }
