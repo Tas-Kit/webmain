@@ -54,24 +54,25 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
         <NotificationIcon className={classes.NotificationIcon} />
       </Grid>
 
-
       <List component={'nav'}>
-        {Object.keys(tasks).map(id => {
-          const task = tasks[id];
-          return (
-            <ListItem button key={id} onClick={handleTaskClick(id)}>
-              <ListItemIcon className={classes.taskListItemIcon}>
-                <TaskIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={task.task.name}
-                classes={{
-                  primary: classes.taskListItemText
-                }}
-              />
-            </ListItem>
-          );
-        })}
+        {Object.keys(tasks)
+          .filter(id => tasks[id].relationship.acceptance === ACCEPTANCE.ACCEPT)
+          .map(id => {
+            const task = tasks[id];
+            return (
+              <ListItem button key={id} onClick={handleTaskClick(id)}>
+                <ListItemIcon className={classes.taskListItemIcon}>
+                  <TaskIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={task.task.name}
+                  classes={{
+                    primary: classes.taskListItemText
+                  }}
+                />
+              </ListItem>
+            );
+          })}
       </List>
     </Drawer>
   );
