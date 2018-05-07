@@ -35,7 +35,8 @@ class TaskPanelContainer extends React.Component {
   };
 
   render() {
-    return <TaskPanel tasks={this.state.tasks} />;
+    // passing extra props to child
+    return <TaskPanel {...this.props} tasks={this.state.tasks} />;
   }
 }
 
