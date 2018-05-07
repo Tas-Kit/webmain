@@ -56,7 +56,7 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
 
       <List component={'nav'}>
         {Object.keys(tasks)
-          .filter(id => tasks[id].relationship.acceptance === ACCEPTANCE.ACCEPT)
+          .filter(id => tasks[id].has_task.acceptance === ACCEPTANCE.ACCEPT)
           .map(id => {
             const task = tasks[id];
             return (
