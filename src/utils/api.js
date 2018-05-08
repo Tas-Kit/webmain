@@ -5,54 +5,54 @@ if (typeof window !== 'undefined') {
   baseUrl = location.protocol + '//' + location.host + '/api/v1'; // (or whatever)
 }
 
+const handleTimeOut = () => {
+  if (window) {
+    window.location.replace('/login');
+  }
+};
+
+const defaultOnError = res => {
+  throw new Error('Netowkr error');
+};
+
+const transformResponse = (res, onError = defaultOnError) => {
+  console.log(res);
+  if (res.ok) {
+    return res.json();
+  } else {
+    switch (res.status) {
+      case 401:
+        handleTimeOut();
+        break;
+      default:
+        onError(res);
+    }
+  }
+};
+
 export const fetchTasks = () => {
   return fetch(`${baseUrl}/task/?format=json`, {
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json'
     },
     credentials: 'include'
   }).then(res => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      console.log(res);
-      throw new Error('Failed to fetch tasks');
-    }
+    return transformResponse(res);
   });
 };
 
 export const fetchTaskGraph = taskId => {
   return fetch(`${baseUrl}/task/graph/${taskId}`, {
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json'
     },
     credentials: 'include'
   }).then(res => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      console.log(res);
-      throw new Error('Failed to fetch tasks');
-    }
+    return transformResponse(res);
   });
-};
-
-const adaptTasks = tasks => {
-  let keys = Object.keys(tasks);
-  let outputTasks = keys.map(key => {
-    return {
-      id: key,
-      task: tasks[key]['task'],
-      relationship: tasks[key]['relationship']
-    };
-  });
-  return outputTasks;
 };
 
 export default {
   fetchTasks,
-  fetchTaskGraph,
-  adaptTasks
+  fetchTaskGraph
 };
