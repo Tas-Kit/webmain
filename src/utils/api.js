@@ -8,7 +8,6 @@ if (typeof window !== 'undefined') {
 export const fetchTasks = () => {
   return fetch(`${baseUrl}/task/?format=json`, {
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json'
     },
     credentials: 'include'
@@ -25,7 +24,6 @@ export const fetchTasks = () => {
 export const fetchTaskGraph = taskId => {
   return fetch(`${baseUrl}/task/graph/${taskId}`, {
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json'
     },
     credentials: 'include'
