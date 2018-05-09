@@ -2,7 +2,5 @@
 ./wait_for_it.sh proxyserver:8000 -- echo "Proxyserver is up."
 
 # Start server
-npm install
-npm run build
-echo "Starting server"
+echo "Starting server in PROD"
 node app.js
