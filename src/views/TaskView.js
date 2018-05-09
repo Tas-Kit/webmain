@@ -2,6 +2,7 @@ import React from 'react';
 import TaskPanel from '../components/TaskPanel';
 import TaskToolbar from '../components/TaskToolbar';
 import TaskAppBar from '../components/TaskAppBar';
+import { GraphViewer } from '../components/Graph';
 import api from '../utils/api';
 
 const drawerWidth = 240;
@@ -12,6 +13,8 @@ const styles = {
     display: 'flex'
   },
   content: {
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1
   }
 };
@@ -76,14 +79,13 @@ class TaskView extends React.Component {
       <div style={styles.taskView}>
         <TaskPanel tasks={tasks} handleTaskClick={this.handleTaskClick} />
         <div style={styles.content}>
-          <header>
-            <TaskAppBar
-              taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
-            />
-            <TaskToolbar
-              users={currTaskGraph.users ? currTaskGraph.users : {}}
-            />
-          </header>
+          <TaskAppBar
+            taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
+          />
+          <TaskToolbar
+            users={currTaskGraph.users ? currTaskGraph.users : {}}
+          />
+          <GraphViewer />
         </div>
       </div>
     );
