@@ -17,15 +17,15 @@ const inline = {
   addIcon: {
     width: 20,
     height: 20,
-  }
+  },
 };
 
-const BottomPanel = (props) => (
+const BottomPanel = props => (
   <div style={inline.main}>
     <Button mini variant="fab" style={inline.button} onClick={props.toggleDialog} color="primary" >
-      <AddIcon style={inline.addIcon}/>
+      <AddIcon style={inline.addIcon} />
     </Button>
   </div>
-)
+);
 
 export default BottomPanel;

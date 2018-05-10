@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -8,34 +7,39 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
+import TaskInfoContainer from '../../containers/TaskInfoContainer';
+
+const inline = {
+  dialogMain: {
+    // maxWidth: 0.8 * window.innerWidth,
+  },
+  text: {
+    padding: '0px 24px',
+    fontSize: 13,
+  },
+  dialogContent: {
+    padding: 0,
+  },
+};
+
 const CreateTaskDialog = ({ open, toggleDialog }) => (
   <Dialog
     open={open}
     onClose={toggleDialog}
     aria-labelledby="form-dialog-title"
+    style={inline.dialogMain}
+    fullWidth
   >
-    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-    <DialogContent>
+    <DialogTitle id="form-dialog-title">Task Info</DialogTitle>
+    <DialogContent style={inline.dialogContent}>
       <DialogContentText>
-        To subscribe to this website, please enter your email address here. We will send
-        updates occasionally.
+        <span style={inline.text}>To create a task, please fill in the fields below.</span>
       </DialogContentText>
-      <TextField
-        autoFocus
-        margin="dense"
-        id="name"
-        label="Email Address"
-        type="email"
-        fullWidth
-      />
+      <TaskInfoContainer />
     </DialogContent>
     <DialogActions>
-      <Button onClick={toggleDialog} color="primary">
-        Cancel
-      </Button>
-      <Button onClick={toggleDialog} color="primary">
-        Subscribe
-      </Button>
+      <Button onClick={toggleDialog} color="default">Cancel</Button>
+      <Button onClick={toggleDialog} color="secondary">Save</Button>
     </DialogActions>
   </Dialog>
 );
