@@ -12,6 +12,30 @@ class DrawerBottomPanelContainer extends React.Component {
 
   toggleDialog = () => { this.setState({ createTaskOpen: !this.state.createTaskOpen }); }
 
+  handleTaskInfoSave = (taskInfo = {}) => {
+    const {
+      name,
+      status,
+      deadline,
+      time,
+      timeUnit,
+      description,
+      roles,
+    } = taskInfo;
+
+    const requestObject = {
+      name,
+      status,
+      deadline,
+      time,
+      timeUnit,
+      description,
+      roles,
+    };
+
+    console.log(requestObject);
+  }
+
   render() {
     const { createTaskOpen } = this.state;
     return (
@@ -20,6 +44,7 @@ class DrawerBottomPanelContainer extends React.Component {
         <CreateTaskDialog
           open={createTaskOpen}
           toggleDialog={this.toggleDialog}
+          onSave={this.handleTaskInfoSave}
         />
       </div>
     );

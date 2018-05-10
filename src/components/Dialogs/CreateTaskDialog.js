@@ -7,7 +7,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
-import TaskInfoContainer from '../../containers/TaskInfoContainer';
+import TaskInfo from '../TaskInfo';
 
 const inline = {
   dialogMain: {
@@ -22,26 +22,36 @@ const inline = {
   },
 };
 
-const CreateTaskDialog = ({ open, toggleDialog }) => (
-  <Dialog
-    open={open}
-    onClose={toggleDialog}
-    aria-labelledby="form-dialog-title"
-    style={inline.dialogMain}
-    fullWidth
-  >
-    <DialogTitle id="form-dialog-title">Task Info</DialogTitle>
-    <DialogContent style={inline.dialogContent}>
-      <DialogContentText>
-        <span style={inline.text}>To create a task, please fill in the fields below.</span>
-      </DialogContentText>
-      <TaskInfoContainer />
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={toggleDialog} color="default">Cancel</Button>
-      <Button onClick={toggleDialog} color="secondary">Save</Button>
-    </DialogActions>
-  </Dialog>
-);
+class CreateTaskDialog extends React.Component {
+  handleSaveClick = () => {
+    this.props.onSave({ ...this.taskInfoComponent.state });
+    this.props.toggleDialog();
+  };
+
+  render() {
+    const { open, toggleDialog } = this.props;
+    return (
+      <Dialog
+        open={open}
+        onClose={toggleDialog}
+        aria-labelledby="form-dialog-title"
+        style={inline.dialogMain}
+        fullWidth
+      >
+        <DialogTitle id="form-dialog-title">Task Info</DialogTitle>
+        <DialogContent style={inline.dialogContent}>
+          <DialogContentText>
+            <span style={inline.text}>To create a task, please fill in the fields below.</span>
+          </DialogContentText>
+          <TaskInfo ref={(el) => { this.taskInfoComponent = el; }} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={toggleDialog} color="default">Cancel</Button>
+          <Button onClick={this.handleSaveClick} color="secondary">Save</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
 
 export default CreateTaskDialog;

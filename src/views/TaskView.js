@@ -8,13 +8,13 @@ import api from '../utils/api';
 const styles = {
   taskView: {
     color: '#424242',
-    display: 'flex'
+    display: 'flex',
   },
   content: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1
-  }
+    flex: 1,
+  },
 };
 
 class TaskView extends React.Component {

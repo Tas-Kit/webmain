@@ -1,7 +1,11 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/Button';
 import Select from 'material-ui/Select';
+import Chip from 'material-ui/Chip';
 import { MenuItem } from 'material-ui/Menu';
+import AddRole from '@material-ui/icons/PersonAdd';
+import Check from '@material-ui/icons/Check';
 
 const inline = {
   main: {
@@ -19,6 +23,16 @@ const inline = {
     fontSize: 14,
     fontWeight: 600,
   },
+  iconButton: {
+    width: 40,
+    height: 40,
+    minWidth: 'initial',
+    minHeight: 'initial',
+    borderRadius: '50%',
+  },
+  chip: {
+    margin: '0px 5px',
+  },
 };
 
 class TaskInfo extends React.Component {
@@ -27,13 +41,32 @@ class TaskInfo extends React.Component {
     this.state = {
       name: '',
       status: '',
+      deadline: '',
       time: '',
       timeUnit: '',
       description: '',
+      roles: [],
+      inputingRole: false,
+      roleName: '',
     };
   }
 
   handleChange = state => (e) => { this.setState({ [state]: e.target.value }); }
+
+  handleAddRole = () => { this.setState({ inputingRole: true }); }
+
+  handleAddRoleFinish = () => {
+    const { roles, roleName } = this.state;
+    if (roleName !== '') roles.push(roleName);
+    this.setState({ roles, roleName: '', inputingRole: false });
+  }
+
+  handleDeleteRole = role => () => {
+    const { roles } = this.state;
+    const index = roles.indexOf(role);
+    roles.splice(index, 1);
+    this.setState({ roles });
+  }
 
   renderTimeUnits = () => {
     const timeUnits = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
@@ -64,6 +97,10 @@ class TaskInfo extends React.Component {
       status,
       time,
       description,
+      roles,
+      inputingRole,
+      roleName,
+      deadline,
     } = this.state;
 
     return (
@@ -97,14 +134,16 @@ class TaskInfo extends React.Component {
           <TextField
             id="deadline"
             type="datetime-local"
-            value={time}
-            onChange={this.handleChange('time')}
+            value={deadline}
+            onChange={this.handleChange('deadline')}
           />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Expected Effort:</span>
           <TextField
             id="time"
+            value={time}
+            onChange={this.handleChange('time')}
             InputProps={{ endAdornment: this.renderTimeUnits(), style: { width: 210 } }}
           />
         </div>
@@ -118,6 +157,30 @@ class TaskInfo extends React.Component {
             onChange={this.handleChange('description')}
             style={{ width: 400 }}
           />
+        </div>
+        <div style={inline.row}>
+          <span style={inline.fileName}>Roles:</span>
+          {roles.map((role, index) => (
+            <Chip
+              key={`role_${index + 1}`}
+              label={role}
+              onDelete={this.handleDeleteRole(role)}
+              style={inline.chip}
+            />
+          ))}
+          {inputingRole ?
+            <TextField
+              autoFocus
+              id="adding_role"
+              value={roleName}
+              onChange={this.handleChange('roleName')}
+              onBlur={this.handleAddRoleFinish}
+            />
+            : null
+          }
+          <IconButton color="primary" style={inline.iconButton} onClick={this.handleAddRole}>
+            {inputingRole && roleName !== '' ? <Check /> : <AddRole />}
+          </IconButton>
         </div>
       </div>
     );
