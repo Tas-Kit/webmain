@@ -1,16 +1,19 @@
 import React from 'react';
 
-// mui component imports
+// mui components
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
 
-// mui svg imports
+// mui svgs
 import AddRole from '@material-ui/icons/PersonAdd';
 import Check from '@material-ui/icons/Check';
 
-// react component imports
-import { TimeUnitSelect, StatusSelect } from './Select';
+// react components
+import { ExpectedEffortSelect, StatusSelect } from './Select';
+
+// constants
+import { STATUS } from '../constants';
 
 const inline = {
   main: {
@@ -45,7 +48,7 @@ class TaskInfo extends React.Component {
     super();
     this.state = {
       name: '',
-      status: 'New',
+      status: STATUS[0],
       deadline: '',
       time: '',
       timeUnit: '',
@@ -111,14 +114,7 @@ class TaskInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Expected Effort:</span>
-          <TextField
-            id="time"
-            value={time}
-            label="Number"
-            onChange={this.handleChange('time')}
-            style={{ width: 150 }}
-          />
-          <TimeUnitSelect timeUnit={timeUnit} onChange={this.handleChange} />
+          <ExpectedEffortSelect time={time} timeUnit={timeUnit} onChange={this.handleChange} />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Description:</span>

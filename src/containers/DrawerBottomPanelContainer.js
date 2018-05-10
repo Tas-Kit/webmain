@@ -14,6 +14,7 @@ class DrawerBottomPanelContainer extends React.Component {
 
   handleTaskInfoSave = (taskInfo = {}) => {
     console.log(taskInfo);
+    // TODO: add validation for all fields before sending data, will add it when connecting api
   }
 
   render() {
