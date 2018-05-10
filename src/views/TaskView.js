@@ -5,8 +5,6 @@ import TaskAppBar from '../components/TaskAppBar';
 import { GraphViewer } from '../components/Graph';
 import api from '../utils/api';
 
-const drawerWidth = 240;
-
 const styles = {
   taskView: {
     color: '#424242',
