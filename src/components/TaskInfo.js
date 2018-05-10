@@ -1,11 +1,16 @@
 import React from 'react';
+
+// mui component imports
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/Button';
-import Select from 'material-ui/Select';
 import Chip from 'material-ui/Chip';
-import { MenuItem } from 'material-ui/Menu';
+
+// mui svg imports
 import AddRole from '@material-ui/icons/PersonAdd';
 import Check from '@material-ui/icons/Check';
+
+// react component imports
+import { TimeUnitSelect, StatusSelect } from './Select';
 
 const inline = {
   main: {
@@ -40,7 +45,7 @@ class TaskInfo extends React.Component {
     super();
     this.state = {
       name: '',
-      status: '',
+      status: 'New',
       deadline: '',
       time: '',
       timeUnit: '',
@@ -68,34 +73,12 @@ class TaskInfo extends React.Component {
     this.setState({ roles });
   }
 
-  renderTimeUnits = () => {
-    const timeUnits = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
-    const { timeUnit } = this.state;
-    return (
-      <TextField
-        select
-        id="expected_effort"
-        value={timeUnit}
-        onChange={this.handleChange('timeUnit')}
-        style={{ width: 200 }}
-      >
-        {timeUnits.map(unit => (
-          <MenuItem key={unit} value={unit}>
-            {`${unit}(s)`}
-          </MenuItem>
-        ))}
-      </TextField>
-    );
-  }
-
   render() {
-    // hard coded for now, later take data from api response
-    const statuses = ['New', 'Status1', 'Status2'];
-
     const {
       name,
       status,
       time,
+      timeUnit,
       description,
       roles,
       inputingRole,
@@ -115,25 +98,13 @@ class TaskInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Status:</span>
-          <Select
-            value={status}
-            onChange={this.handleChange('status')}
-          >
-            {[
-              <MenuItem key="" value="" />,
-              ...statuses.map(value => (
-                <MenuItem key={value} value={value}>
-                  {value}
-                </MenuItem>
-              )),
-            ]}
-          </Select>
+          <StatusSelect status={status} onChange={this.handleChange} />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Deadline:</span>
           <TextField
             id="deadline"
-            type="datetime-local"
+            type="date"
             value={deadline}
             onChange={this.handleChange('deadline')}
           />
@@ -143,9 +114,11 @@ class TaskInfo extends React.Component {
           <TextField
             id="time"
             value={time}
+            label="Number"
             onChange={this.handleChange('time')}
-            InputProps={{ endAdornment: this.renderTimeUnits(), style: { width: 210 } }}
+            style={{ width: 150 }}
           />
+          <TimeUnitSelect timeUnit={timeUnit} onChange={this.handleChange} />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Description:</span>

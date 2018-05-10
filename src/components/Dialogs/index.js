@@ -1,4 +1,4 @@
-import CreateTaskDialog from './CreateTaskDialog';
+import TaskInfoEditorDialog from './TaskInfoEditorDialog';
 
-export { CreateTaskDialog };
-export default CreateTaskDialog;
+export { TaskInfoEditorDialog };
+export default TaskInfoEditorDialog;
