@@ -4,28 +4,30 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import { withStyles, Avatar } from 'material-ui';
 import Button from 'material-ui/Button';
-
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
+
+import TaskInvitationDialog from './Dialogs/TaskInvitationDialog';
+
 
 const styles = {
   taskToolBar: {
     boxSizing: 'border-box',
     border: 'solid #979797 1px',
-    background: 'white'
+    background: 'white',
   },
   flex: {
-    flex: 1
+    flex: 1,
   },
   letterAvatar: {
     width: 31,
     height: 31,
-    fontSize: 16
+    fontSize: 16,
   },
-  buttonGroup: {}
+  buttonGroup: {},
 };
 
 const TaskToolbar = props => {
-  const { classes, users = ['YZ'] } = props;
+  const { classes, users = ['YZ'], handleInvitationClick } = props;
   return (
     <Toolbar className={classes.taskToolBar}>
       <div className={classes.flex}>
@@ -37,13 +39,13 @@ const TaskToolbar = props => {
         const user = users[id];
         return (
           <Avatar key={id} className={classes.letterAvatar}>
-            {`${user['basic']['first_name'][0]}${
-              user['basic']['last_name'][0]
-            }`}
+            {`${user.basic.first_name[0]}${
+              user.basic.last_name[0]
+              }`}
           </Avatar>
         );
       })}
-      <IconButton color="inherit" aria-label="Invitation">
+      <IconButton onClick={handleInvitationClick} color="inherit" aria-label="Invitation">
         <SupervisorAccount />
       </IconButton>
     </Toolbar>
