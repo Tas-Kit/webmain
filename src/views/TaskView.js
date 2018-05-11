@@ -1,9 +1,9 @@
 import React from 'react';
 import TaskPanel from '../components/TaskPanel';
-import TaskToolbar from '../components/TaskToolbar';
+import TaskToolBarContainer from '../containers/TaskToolbarContainer';
 import TaskAppBar from '../components/TaskAppBar';
 import { GraphViewer } from '../components/Graph';
-import api from '../utils/api';
+import { fetchTasks, fetchTaskGraph } from '../utils/api';
 
 const styles = {
   taskView: {
@@ -25,50 +25,46 @@ class TaskView extends React.Component {
       currTaskGraph: {},
       tasks: {},
       isLoading: false,
-      isError: false
+      isError: false,
     };
   }
 
   componentDidMount = () => {
-    api
-      .fetchTasks()
+    fetchTasks()
       .then(tasks => {
         console.log(tasks);
         this.setState({
-          tasks: tasks,
+          tasks,
           isLoading: false,
-          isError: false
+          isError: false,
         });
       })
       .catch(e => {
         console.log(e);
         this.setState({
-          isError: true
+          isError: true,
         });
       });
   };
 
   fetchTaskGraph = id => {
-    api
-      .fetchTaskGraph(id)
+    fetchTaskGraph(id)
       .then(graph => {
         this.setState({
           currTaskGraph: graph,
-          activeTaskId: id
+          activeTaskId: id,
         });
       })
       .catch(e => {
         console.log(e);
         this.setState({
-          isError: true
+          isError: true,
         });
       });
   };
 
-  handleTaskClick = id => {
-    return () => {
-      this.fetchTaskGraph(id);
-    };
+  handleTaskClick = id => () => {
+    this.fetchTaskGraph(id);
   };
 
   render() {
@@ -80,7 +76,7 @@ class TaskView extends React.Component {
           <TaskAppBar
             taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
           />
-          <TaskToolbar
+          <TaskToolBarContainer
             users={currTaskGraph.users ? currTaskGraph.users : {}}
           />
           <GraphViewer />

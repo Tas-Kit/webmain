@@ -9,12 +9,10 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <React.Fragment>
-          <CssBaseline />
-          <div className="App">
-            <TaskView />
-          </div>
-        </React.Fragment>
+        <CssBaseline />
+        <div className="App">
+          <TaskView />
+        </div>
       </MuiThemeProvider>
     );
   }

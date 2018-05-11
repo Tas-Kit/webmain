@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskPanel from '../components/TaskPanel';
-import api from '../utils/api';
+import { fetchTasks } from '../utils/api';
 
 class TaskPanelContainer extends React.Component {
   constructor(props) {
@@ -8,28 +8,24 @@ class TaskPanelContainer extends React.Component {
     this.state = {
       tasks: [],
       isLoading: false,
-      isError: false
+      isError: false,
     };
   }
 
   componentDidMount = () => {
-    api
-      .fetchTasks()
-      .then(res => {
-        return res.json();
-      })
+    fetchTasks()
       .then(res => {
         console.log(res);
         this.setState({
-          tasks: api.adaptTasks(res),
+          tasks: res,
           isLoading: false,
-          isError: false
+          isError: false,
         });
       })
       .catch(e => {
         console.log(e);
         this.setState({
-          isError: true
+          isError: true,
         });
       });
   };
