@@ -1,12 +1,21 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
-import { withStyles } from 'material-ui/styles';
+
+// mui component imports
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
-import grey from 'material-ui/colors/grey';
+import Drawer from 'material-ui/Drawer';
 import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
+import { withStyles } from 'material-ui/styles';
+import grey from 'material-ui/colors/grey';
+
+// svg imports
 import TaskIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import NotificationIcon from '@material-ui/icons/Notifications';
+
+// react components
+import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer';
+
+// constant import
 import { ACCEPTANCE } from '../constants';
 
 const drawerWidth = 240;
@@ -32,7 +41,7 @@ const styles = theme => ({
   },
   NotificationIcon: {
     transform: 'scale(1.5)'
-  }
+  },
 });
 
 const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
@@ -74,6 +83,7 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
             );
           })}
       </List>
+      <DrawerBottomPanelContainer />
     </Drawer>
   );
 };
