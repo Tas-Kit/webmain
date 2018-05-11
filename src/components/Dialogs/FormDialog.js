@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// mui components
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Dialog, {
@@ -7,9 +11,15 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+
+// svgs
 import Close from '@material-ui/icons/Close';
 
-import TaskInfo from '../TaskInfo';
+// react components
+import TaskInfoContainer from '../../containers/TaskInfoContainer';
+
+// redux actions
+import * as dialogActions from '../../actions/dialogActions';
 
 const inline = {
   text: {
@@ -32,24 +42,22 @@ const inline = {
   },
 };
 
-class TaskInfoEditorDialog extends React.Component {
+class FormDialog extends React.Component {
   handleSaveClick = () => {
-    this.props.onSave({ ...this.taskInfoComponent.state });
-    this.props.toggleDialog();
-  };
+    this.props.actions.toggleFormDialog();
+  }
 
   render() {
-    const { open, toggleDialog } = this.props;
+    const { taskInfoOpen } = this.props.dialogManager;
+    const { toggleFormDialog } = this.props.actions;
     return (
       <Dialog
-        open={open}
+        open={taskInfoOpen}
         aria-labelledby="form-dialog-title"
-        style={inline.dialogMain}
-        fullWidth
       >
         <DialogTitle id="form-dialog-title">
           <span>Task Info</span>
-          <IconButton color="default" style={inline.iconButton} onClick={toggleDialog}>
+          <IconButton color="default" style={inline.iconButton} onClick={toggleFormDialog}>
             <Close />
           </IconButton>
         </DialogTitle>
@@ -57,10 +65,10 @@ class TaskInfoEditorDialog extends React.Component {
           <DialogContentText>
             <span style={inline.text}>To create a task, please fill in the fields below.</span>
           </DialogContentText>
-          <TaskInfo ref={(el) => { this.taskInfoComponent = el; }} />
+          <TaskInfoContainer />
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleDialog} color="default">Cancel</Button>
+          <Button onClick={toggleFormDialog} color="default">Cancel</Button>
           <Button onClick={this.handleSaveClick} color="primary">Save</Button>
         </DialogActions>
       </Dialog>
@@ -68,4 +76,10 @@ class TaskInfoEditorDialog extends React.Component {
   }
 }
 
-export default TaskInfoEditorDialog;
+const mapStateToProps = ({ dialogManager }) => ({ dialogManager });
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ ...dialogActions }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormDialog);

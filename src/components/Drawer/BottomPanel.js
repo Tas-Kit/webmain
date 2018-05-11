@@ -22,7 +22,8 @@ const inline = {
 
 const BottomPanel = props => (
   <div style={inline.main}>
-    <Button mini variant="fab" style={inline.button} onClick={props.toggleDialog} color="primary" >
+    {/* Add Task Button */}
+    <Button mini variant="fab" style={inline.button} onClick={props.toggleFormDialog} color="primary" >
       <AddIcon style={inline.addIcon} />
     </Button>
   </div>

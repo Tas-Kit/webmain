@@ -47,7 +47,6 @@ class TaskInfo extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: '',
       status: STATUS[0],
       deadline: '',
       time: '',
@@ -78,7 +77,6 @@ class TaskInfo extends React.Component {
 
   render() {
     const {
-      name,
       status,
       time,
       timeUnit,
@@ -89,6 +87,8 @@ class TaskInfo extends React.Component {
       deadline,
     } = this.state;
 
+    const { name, changeTaskName } = this.props;
+
     return (
       <div style={inline.main}>
         <div style={inline.row}>
@@ -96,7 +96,7 @@ class TaskInfo extends React.Component {
           <TextField
             id="name"
             value={name}
-            onChange={this.handleChange('name')}
+            onChange={(e) => { changeTaskName(e.target.value); }}
           />
         </div>
         <div style={inline.row}>

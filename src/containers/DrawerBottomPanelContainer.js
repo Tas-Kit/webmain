@@ -1,35 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { BottomPanel } from '../components/Drawer';
-import { TaskInfoEditorDialog } from '../components/Dialogs';
 
-class DrawerBottomPanelContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      createTaskOpen: false,
-    };
-  }
+// redux actions
+import * as dialogActions from '../actions/dialogActions';
 
-  toggleDialog = () => { this.setState({ createTaskOpen: !this.state.createTaskOpen }); }
+const DrawerBottomPanelContainer = (props) => {
+  const { toggleFormDialog } = props.actions;
+  return (
+    <div>
+      <BottomPanel toggleFormDialog={toggleFormDialog} />
+    </div>
+  );
+};
 
-  handleTaskInfoSave = (taskInfo = {}) => {
-    console.log(taskInfo);
-    // TODO: add validation for all fields before sending data, will add it when connecting api
-  }
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ ...dialogActions }, dispatch),
+});
 
-  render() {
-    const { createTaskOpen } = this.state;
-    return (
-      <div>
-        <BottomPanel toggleDialog={this.toggleDialog} />
-        <TaskInfoEditorDialog
-          open={createTaskOpen}
-          toggleDialog={this.toggleDialog}
-          onSave={this.handleTaskInfoSave}
-        />
-      </div>
-    );
-  }
-}
-
-export default DrawerBottomPanelContainer;
+export default connect(null, mapDispatchToProps)(DrawerBottomPanelContainer);
