@@ -14,7 +14,7 @@ const styles = {
   graphContainer: {
     width: window.innerWidth - 240,
     height: window.innerHeight - 136,
-  }
+  },
 };
 
 class Viewer extends React.Component {
@@ -22,7 +22,7 @@ class Viewer extends React.Component {
     super();
     this.state = {
       draggingIndex: -1,
-    }
+    };
 
     this.network = null;
     this.graphData = {
@@ -64,7 +64,6 @@ class Viewer extends React.Component {
     });
 
     const { draggingIndex } = this.state;
-    console.log(draggingIndex);
     const node = {
       shape: 'image',
       image: require(`../../assets/svgs/icon${draggingIndex}.svg`),
@@ -96,10 +95,10 @@ class Viewer extends React.Component {
         onDrop={this.handleDrop}
       >
         {/* Graph */}
-        <div ref={(el) => { this.graphElement = el; }} style={styles.graphContainer}/>
+        <div ref={(el) => { this.graphElement = el; }} style={styles.graphContainer} />
 
         {/* Toolbar */}
-        <Toolbar onDragStart={this.handleDragStart}/>
+        <Toolbar onDragStart={this.handleDragStart} />
       </div>
     );
   }

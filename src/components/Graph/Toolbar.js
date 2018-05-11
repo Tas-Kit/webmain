@@ -28,36 +28,33 @@ const styles = {
   icon: {
     width: 40,
     height: 40,
-  }
-}
+  },
+};
 
-class Toolbar extends React.Component {
-  render() {
-    const prototypes = [
-      <Assignment style={styles.icon} />,
-      <AssignmentLate style={styles.icon} />,
-      <AssignmentTurnedIn style={styles.icon} />,
-      <AssignmentReturned style={styles.icon} />,
-      <AssignmentReturn style={styles.icon} />,
-    ];
+const Toolbar = () => {
+  const prototypes = [
+    <Assignment style={styles.icon} />,
+    <AssignmentLate style={styles.icon} />,
+    <AssignmentTurnedIn style={styles.icon} />,
+    <AssignmentReturned style={styles.icon} />,
+    <AssignmentReturn style={styles.icon} />,
+  ];
 
-    const { onDragStart } = this.props;
-
-    return (
-      <div style={styles.toolbar}>
-        {prototypes.map((item, index) => (
-          <div
-            key={`item_${index}`}
-            draggable="true"
-            style={styles.iconDiv}
-            onDragStart={onDragStart(index)}
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
+  const { onDragStart } = this.props;
+  return (
+    <div style={styles.toolbar}>
+      {prototypes.map((item, index) => (
+        <div
+          key={`item_${index + 1}`}
+          draggable="true"
+          style={styles.iconDiv}
+          onDragStart={onDragStart(index)}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default Toolbar;

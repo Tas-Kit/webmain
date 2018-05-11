@@ -6,19 +6,19 @@ import Typography from 'material-ui/Typography';
 const styles = {
   appBar: {
     padding: '1em',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   flex: {
-    flex: 1
-  }
+    flex: 1,
+  },
 };
 
-const TaskAppBar = props => {
+const TaskAppBar = (props) => {
   const { taskTitle = '', classes } = props;
   return (
-    <AppBar color={'inherit'} className={classes.appBar} position="static">
+    <AppBar color="inherit" className={classes.appBar} position="static">
       <Typography variant="display1" color="inherit" className={classes.flex}>
-        {taskTitle ? taskTitle : 'Task List'}
+        {taskTitle || 'Task List'}
       </Typography>
     </AppBar>
   );
