@@ -21,7 +21,7 @@ const styles = {
 
 const TaskInvitationDialog = props => {
   const {
-    open, onClose, classes, users, handleRevokeInvitationClick,
+    open, onClose, classes, users, handleRevokeInvitationClick, handleInvitationClick
   } = props;
   return (
     <Dialog
@@ -36,7 +36,10 @@ const TaskInvitationDialog = props => {
         </IconButton>
       </div>
       <DialogContent>
-        <TextField id="username" label="Username" fullWidth />
+        <div className={classes.flexContainer}>
+          <TextField className={classes.flex} id="username" label="Username" />
+          <Button variant="raised" color="primary">Invite</Button>
+        </div>
         {Object.keys(users).map(id => {
           const user = users[id];
           return (<UserStatusRow {...user} handleRevokeInvitationClick={handleRevokeInvitationClick} />);
