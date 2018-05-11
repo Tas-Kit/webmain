@@ -6,8 +6,6 @@ import { withStyles, Avatar } from 'material-ui';
 import Button from 'material-ui/Button';
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 
-import TaskInvitationDialog from './Dialogs/TaskInvitationDialog';
-
 
 const styles = {
   taskToolBar: {

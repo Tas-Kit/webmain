@@ -6,11 +6,12 @@ import Close from '@material-ui/icons/Close';
 import TextField from 'material-ui/TextField';
 import { withStyles } from 'material-ui/styles';
 
+import UserStatusRow from '../Dialogs/UserStatusRow';
+
 const styles = {
   flexContainer: {
     display: 'flex',
     alignItems: 'center',
-    padding: '0.5rem',
   },
   flex: {
     flex: 1,
@@ -19,12 +20,14 @@ const styles = {
 
 
 const TaskInvitationDialog = props => {
-  const { open, onClose, classes } = props;
+  const {
+    open, onClose, classes, users, handleRevokeInvitationClick,
+  } = props;
   return (
     <Dialog
-      className={classes.invitationDialog}
       open={open}
       onClose={onClose}
+      fullWidth
     >
       <div className={classes.flexContainer}>
         <DialogTitle className={classes.flex} id="task-invitation-dialog-title">Invitation</DialogTitle>
@@ -32,7 +35,13 @@ const TaskInvitationDialog = props => {
           <Close />
         </IconButton>
       </div>
-
+      <DialogContent>
+        <TextField id="username" label="Username" fullWidth />
+        {Object.keys(users).map(id => {
+          const user = users[id];
+          return (<UserStatusRow {...user} handleRevokeInvitationClick={handleRevokeInvitationClick} />);
+        })}
+      </DialogContent>
     </Dialog>
   );
 };
