@@ -7,10 +7,10 @@ import { BottomPanel } from '../components/Drawer';
 import * as dialogActions from '../actions/dialogActions';
 
 const DrawerBottomPanelContainer = (props) => {
-  const { toggleFormDialog } = props.actions;
+  const { toggleTaskInfo } = props.actions;
   return (
     <div>
-      <BottomPanel toggleFormDialog={toggleFormDialog} />
+      <BottomPanel toggleTaskInfo={toggleTaskInfo} />
     </div>
   );
 };
