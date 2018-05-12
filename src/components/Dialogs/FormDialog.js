@@ -1,4 +1,6 @@
 import React from 'react';
+
+// mui components
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Dialog, {
@@ -7,9 +9,9 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import Close from '@material-ui/icons/Close';
 
-import TaskInfo from '../TaskInfo';
+// svgs
+import Close from '@material-ui/icons/Close';
 
 const inline = {
   text: {
@@ -32,40 +34,37 @@ const inline = {
   },
 };
 
-class TaskInfoEditorDialog extends React.Component {
-  handleSaveClick = () => {
-    this.props.onSave({ ...this.taskInfoComponent.state });
-    this.props.toggleDialog();
-  };
+class FormDialog extends React.Component {
+  handleSave = () => {
+    this.props.toggle();
+  }
 
   render() {
-    const { open, toggleDialog } = this.props;
+    const { open, toggle, component, title, hints } = this.props;
     return (
       <Dialog
         open={open}
         aria-labelledby="form-dialog-title"
-        style={inline.dialogMain}
-        fullWidth
       >
         <DialogTitle id="form-dialog-title">
-          <span>Task Info</span>
-          <IconButton color="default" style={inline.iconButton} onClick={toggleDialog}>
+          <span>{title}</span>
+          <IconButton color="default" style={inline.iconButton} onClick={toggle}>
             <Close />
           </IconButton>
         </DialogTitle>
         <DialogContent style={inline.dialogContent}>
           <DialogContentText>
-            <span style={inline.text}>To create a task, please fill in the fields below.</span>
+            <span style={inline.text}>{hints}</span>
           </DialogContentText>
-          <TaskInfo ref={(el) => { this.taskInfoComponent = el; }} />
+          {component}
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleDialog} color="default">Cancel</Button>
-          <Button onClick={this.handleSaveClick} color="primary">Save</Button>
+          <Button onClick={toggle} color="default">Cancel</Button>
+          <Button onClick={this.handleSave} color="primary">Save</Button>
         </DialogActions>
       </Dialog>
     );
   }
 }
 
-export default TaskInfoEditorDialog;
+export default FormDialog;

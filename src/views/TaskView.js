@@ -3,6 +3,7 @@ import TaskPanel from '../components/TaskPanel';
 import TaskToolbar from '../components/TaskToolbar';
 import TaskAppBar from '../components/TaskAppBar';
 import { GraphViewer } from '../components/Graph';
+import DialogsContainer from '../containers/DialogsContainer';
 import api from '../utils/api';
 
 const styles = {
@@ -85,6 +86,9 @@ class TaskView extends React.Component {
           />
           <GraphViewer />
         </div>
+
+        {/* Dialogs */}
+        <DialogsContainer />
       </div>
     );
   }

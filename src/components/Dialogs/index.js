@@ -1,4 +1,4 @@
-import TaskInfoEditorDialog from './TaskInfoEditorDialog';
+import FormDialog from './FormDialog';
 
-export { TaskInfoEditorDialog };
-export default TaskInfoEditorDialog;
+export { FormDialog };
+export default FormDialog;

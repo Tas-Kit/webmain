@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import vis from 'vis/dist/vis.min';
 import 'vis/dist/vis-network.min.css';
 
 import Toolbar from './Toolbar';
+
+import * as dialogActions from '../../actions/dialogActions';
 
 const { Network, DataSet } = vis;
 
@@ -14,7 +19,7 @@ const styles = {
   graphContainer: {
     width: window.innerWidth - 240,
     height: window.innerHeight - 136,
-  }
+  },
 };
 
 class Viewer extends React.Component {
@@ -22,7 +27,7 @@ class Viewer extends React.Component {
     super();
     this.state = {
       draggingIndex: -1,
-    }
+    };
 
     this.network = null;
     this.graphData = {
@@ -64,7 +69,6 @@ class Viewer extends React.Component {
     });
 
     const { draggingIndex } = this.state;
-    console.log(draggingIndex);
     const node = {
       shape: 'image',
       image: require(`../../assets/svgs/icon${draggingIndex}.svg`),
@@ -73,20 +77,16 @@ class Viewer extends React.Component {
     };
     this.addNode(node);
     this.resetDraggingIndex();
+
+    // open step info dialog and populate data
+    this.props.actions.toggleStepInfo();
   }
 
-  addNode = (node) => {
-    this.graphData.nodes.add(node);
-  }
+  addNode = (node) => { this.graphData.nodes.add(node); }
 
-  handleDragStart = index => () => {
-    console.log(index);
-    this.setState({ draggingIndex: index });
-  }
+  handleDragStart = index => () => { this.setState({ draggingIndex: index }); }
 
-  resetDraggingIndex = () => {
-    this.setState({ draggingIndex: -1 });
-  }
+  resetDraggingIndex = () => { this.setState({ draggingIndex: -1 }); }
 
   render() {
     return (
@@ -96,13 +96,17 @@ class Viewer extends React.Component {
         onDrop={this.handleDrop}
       >
         {/* Graph */}
-        <div ref={(el) => { this.graphElement = el; }} style={styles.graphContainer}/>
+        <div ref={(el) => { this.graphElement = el; }} style={styles.graphContainer} />
 
         {/* Toolbar */}
-        <Toolbar onDragStart={this.handleDragStart}/>
+        <Toolbar onDragStart={this.handleDragStart} />
       </div>
     );
   }
 }
 
-export default Viewer;
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(dialogActions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(Viewer);

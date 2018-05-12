@@ -20,72 +20,66 @@ import { ACCEPTANCE } from '../constants';
 
 const drawerWidth = 240;
 
-const styles = theme => ({
+const styles = () => ({
   avatar: {},
   row: {
-    padding: '12px 24px'
+    padding: '12px 24px',
   },
   taskDrawer: {
     position: 'relative',
     paddingTop: '1em',
     color: 'white',
     background: grey[800],
-    width: drawerWidth
+    width: drawerWidth,
   },
   taskListItemText: {
     color: 'white',
-    fontWidth: '700'
+    fontWidth: '700',
   },
   taskListItemIcon: {
-    color: grey[400]
+    color: grey[400],
   },
   NotificationIcon: {
-    transform: 'scale(1.5)'
+    transform: 'scale(1.5)',
   },
 });
 
-const TaskPanel = ({ tasks, handleTaskClick, classes }) => {
-  return (
-    <Drawer
-      classes={{
-        paper: classes.taskDrawer
-      }}
-      variant="permanent"
-      anchor={'left'}
+const TaskPanel = ({ tasks, handleTaskClick, classes }) => (
+  <Drawer
+    classes={{ paper: classes.taskDrawer }}
+    variant="permanent"
+    anchor="left"
+  >
+    <Grid
+      container
+      justify="space-between"
+      alignItems="center"
+      className={classes.row}
     >
-      <Grid
-        container
-        justify={'space-between'}
-        alignItems={'center'}
-        className={classes.row}
-      >
-        <Avatar className={classes.avatar}>YZ</Avatar>
-        <NotificationIcon className={classes.NotificationIcon} />
-      </Grid>
+      <Avatar className={classes.avatar}>YZ</Avatar>
+      <NotificationIcon className={classes.NotificationIcon} />
+    </Grid>
 
-      <List component={'nav'}>
-        {Object.keys(tasks)
-          .filter(id => tasks[id].has_task.acceptance === ACCEPTANCE.ACCEPT)
-          .map(id => {
-            const task = tasks[id];
-            return (
-              <ListItem button key={id} onClick={handleTaskClick(id)}>
-                <ListItemIcon className={classes.taskListItemIcon}>
-                  <TaskIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={task.task.name}
-                  classes={{
-                    primary: classes.taskListItemText
-                  }}
-                />
-              </ListItem>
-            );
-          })}
-      </List>
-      <DrawerBottomPanelContainer />
-    </Drawer>
-  );
-};
+    <List component="nav">
+      {Object.keys(tasks)
+        .filter(id => tasks[id].has_task.acceptance === ACCEPTANCE.ACCEPT)
+        .map((id) => {
+          const task = tasks[id];
+          return (
+            <ListItem button key={id} onClick={handleTaskClick(id)}>
+              <ListItemIcon className={classes.taskListItemIcon}>
+                <TaskIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={task.task.name}
+                classes={{ primary: classes.taskListItemText }}
+              />
+            </ListItem>
+          );
+        })}
+    </List>
+    <DrawerBottomPanelContainer />
+  </Drawer>
+);
 
 export default withStyles(styles)(TaskPanel);
