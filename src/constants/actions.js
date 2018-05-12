@@ -7,3 +7,4 @@ export const TOGGLE_FORM_DIALOG = 'TOGGLE_FORM_DIALOG';
 
 // Task Actions
 export const UPDATE_TASK_INFO = 'UPDATE_TASK_INFO';
+export const RESET_TASK_INFO = 'RESET_TASK_INFO';

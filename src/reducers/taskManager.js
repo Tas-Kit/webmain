@@ -39,6 +39,9 @@ const taskManager = (state = initialState, action = {}) => {
     case types.UPDATE_TASK_INFO: {
       return { ...state, taskInfo: action.taskInfo };
     }
+    case types.RESET_TASK_INFO: {
+      return { ...state, taskInfo: initialState.taskInfo };
+    }
     default:
       return state;
   }
