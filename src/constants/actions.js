@@ -6,4 +6,4 @@ export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
 export const TOGGLE_FORM_DIALOG = 'TOGGLE_FORM_DIALOG';
 
 // Task Actions
-export const CHANGE_TASK_NAME = 'CHANGE_TASK_NAME';
+export const UPDATE_TASK_INFO = 'UPDATE_TASK_INFO';

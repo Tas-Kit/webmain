@@ -3,21 +3,21 @@ import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 import { TIME_UNITS } from '../../constants';
 
-const ExpectedEffortSelect = ({ time, timeUnit, onChange }) => (
+const ExpectedEffortSelect = props => (
   <div style={{ display: 'inline-block' }}>
     <TextField
       id="time"
-      value={time}
+      value={props.time}
       label="Number"
-      onChange={onChange('time')}
+      onChange={props.onChangeTime}
       style={{ width: 150 }}
     />
     <TextField
       select
       id="expected_effort"
-      value={timeUnit}
+      value={props.timeUnit}
       label="Unit"
-      onChange={onChange('timeUnit')}
+      onChange={props.onChangeUnit}
       style={{ marginLeft: 10, width: 150 }}
     >
       {TIME_UNITS.map(unit => (

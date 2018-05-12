@@ -8,12 +8,12 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
 const TaskInfoContainer = (props) => {
-  const { name } = props.taskManager;
-  const { changeTaskName } = props.actions;
+  const { taskInfo } = props.taskManager;
+  const { updateTaskInfo } = props.actions;
   return (
     <TaskInfo
-      name={name}
-      changeTaskName={changeTaskName}
+      info={taskInfo}
+      update={updateTaskInfo}
     />
   );
 };

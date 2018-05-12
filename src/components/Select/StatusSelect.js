@@ -4,7 +4,7 @@ import { MenuItem } from 'material-ui/Menu';
 import { STATUS } from '../../constants';
 
 const StatusSelect = ({ status, onChange }) => (
-  <Select value={status} onChange={onChange('status')}>
+  <Select value={status} onChange={onChange}>
     {STATUS.map(value => <MenuItem key={value} value={value}>{value}</MenuItem>)}
   </Select>
 );

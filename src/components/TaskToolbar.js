@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -6,6 +8,8 @@ import { withStyles, Avatar } from 'material-ui';
 import Button from 'material-ui/Button';
 
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
+
+import * as dialogActions from '../actions/dialogActions';
 
 const styles = {
   taskToolBar: {
@@ -26,10 +30,11 @@ const styles = {
 
 const TaskToolbar = (props) => {
   const { classes, users = ['YZ'] } = props;
+  const { toggleFormDialog } = props.actions;
   return (
     <Toolbar className={classes.taskToolBar}>
       <div className={classes.flex}>
-        <Button key="info">Info</Button>
+        <Button key="info" onClick={toggleFormDialog}>Info</Button>
         <Button key="clone">Clone</Button>
         <Button key="save">Save</Button>
       </div>
@@ -48,4 +53,8 @@ const TaskToolbar = (props) => {
   );
 };
 
-export default withStyles(styles)(TaskToolbar);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(dialogActions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(TaskToolbar));

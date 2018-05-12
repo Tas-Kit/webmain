@@ -9,11 +9,8 @@ import Chip from 'material-ui/Chip';
 import AddRole from '@material-ui/icons/PersonAdd';
 import Check from '@material-ui/icons/Check';
 
-// react components
+// ui components
 import { ExpectedEffortSelect, StatusSelect } from './Select';
-
-// constants
-import { STATUS } from '../constants';
 
 const inline = {
   main: {
@@ -47,47 +44,46 @@ class TaskInfo extends React.Component {
   constructor() {
     super();
     this.state = {
-      status: STATUS[0],
-      deadline: '',
-      time: '',
-      timeUnit: '',
-      description: '',
-      roles: [],
       inputingRole: false,
       roleName: '',
     };
   }
 
-  handleChange = state => (e) => { this.setState({ [state]: e.target.value }); }
-
   handleAddRole = () => { this.setState({ inputingRole: true }); }
 
   handleAddRoleFinish = () => {
-    const { roles, roleName } = this.state;
-    if (roleName !== '') roles.push(roleName);
-    this.setState({ roles, roleName: '', inputingRole: false });
+    const { roleName } = this.state;
+
+    if (roleName !== '') {
+      const { info, update } = this.props;
+      const roles = [...info.roles];
+      roles.push(roleName);
+      update({ ...info, roles });
+    }
+
+    this.setState({ roleName: '', inputingRole: false });
   }
 
   handleDeleteRole = role => () => {
-    const { roles } = this.state;
+    const { info, update } = this.props;
+    const roles = [...info.roles];
     const index = roles.indexOf(role);
     roles.splice(index, 1);
-    this.setState({ roles });
+    update({ ...info, roles });
+  }
+
+  handleChange = key => (e) => {
+    const { info, update } = this.props;
+    update({ ...info, [key]: e.target.value });
   }
 
   render() {
     const {
-      status,
-      time,
-      timeUnit,
-      description,
-      roles,
       inputingRole,
       roleName,
-      deadline,
     } = this.state;
 
-    const { name, changeTaskName } = this.props;
+    const { info } = this.props;
 
     return (
       <div style={inline.main}>
@@ -95,26 +91,31 @@ class TaskInfo extends React.Component {
           <span style={inline.fileName}>Name:</span>
           <TextField
             id="name"
-            value={name}
-            onChange={(e) => { changeTaskName(e.target.value); }}
+            value={info.name}
+            onChange={this.handleChange('name')}
           />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Status:</span>
-          <StatusSelect status={status} onChange={this.handleChange} />
+          <StatusSelect status={info.status} onChange={this.handleChange('status')} />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Deadline:</span>
           <TextField
             id="deadline"
             type="date"
-            value={deadline}
+            value={info.deadline}
             onChange={this.handleChange('deadline')}
           />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Expected Effort:</span>
-          <ExpectedEffortSelect time={time} timeUnit={timeUnit} onChange={this.handleChange} />
+          <ExpectedEffortSelect
+            time={info.effortTime}
+            timeUnit={info.effortUnit}
+            onChangeTime={this.handleChange('effortTime')}
+            onChangeUnit={this.handleChange('effortUnit')}
+          />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Description:</span>
@@ -122,14 +123,14 @@ class TaskInfo extends React.Component {
             id="description"
             multiline
             rowsMax="6"
-            value={description}
+            value={info.description}
             onChange={this.handleChange('description')}
             style={{ width: 400 }}
           />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Roles:</span>
-          {roles.map((role, index) => (
+          {info.roles.map((role, index) => (
             <Chip
               key={`role_${index + 1}`}
               label={role}
@@ -142,7 +143,7 @@ class TaskInfo extends React.Component {
               autoFocus
               id="adding_role"
               value={roleName}
-              onChange={this.handleChange('roleName')}
+              onChange={(e) => { this.setState({ roleName: e.target.value }); }}
               onBlur={this.handleAddRoleFinish}
             />
             : null
