@@ -10,7 +10,10 @@ import AddRole from '@material-ui/icons/PersonAdd';
 import Check from '@material-ui/icons/Check';
 
 // ui components
-import { ExpectedEffortSelect, StatusSelect } from './Select';
+import { ExpectedEffortSelect, OptionsSelect } from './Select';
+
+// constants
+import { STATUS } from '../constants';
 
 const inline = {
   main: {
@@ -97,7 +100,11 @@ class TaskInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Status:</span>
-          <StatusSelect status={info.status} onChange={this.handleChange('status')} />
+          <OptionsSelect
+            options={STATUS}
+            selectFieldName={info.status}
+            onChange={this.handleChange('status')}
+          />
         </div>
         <div style={inline.row}>
           <span style={inline.fileName}>Deadline:</span>

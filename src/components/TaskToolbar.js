@@ -30,11 +30,11 @@ const styles = {
 
 const TaskToolbar = (props) => {
   const { classes, users = ['YZ'] } = props;
-  const { toggleFormDialog } = props.actions;
+  const { toggleTaskInfo } = props.actions;
   return (
     <Toolbar className={classes.taskToolBar}>
       <div className={classes.flex}>
-        <Button key="info" onClick={toggleFormDialog}>Info</Button>
+        <Button key="info" onClick={toggleTaskInfo}>Info</Button>
         <Button key="clone">Clone</Button>
         <Button key="save">Save</Button>
       </div>

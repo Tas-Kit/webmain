@@ -1,5 +1,5 @@
 import ExpectedEffortSelect from './ExpectedEffortSelect';
-import StatusSelect from './StatusSelect';
+import OptionsSelect from './OptionsSelect';
 
-export { ExpectedEffortSelect, StatusSelect };
+export { ExpectedEffortSelect, OptionsSelect };
 export default ExpectedEffortSelect;
