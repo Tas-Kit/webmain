@@ -1,5 +1,9 @@
 import * as types from '../constants/actions';
 
-export const toggleFormDialog = () => ({
-  type: types.TOGGLE_FORM_DIALOG,
+export const toggleTaskInfo = () => ({
+  type: types.TOGGLE_TASK_INFO,
+});
+
+export const toggleStepInfo = () => ({
+  type: types.TOGGLE_STEP_INFO,
 });

@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import vis from 'vis/dist/vis.min';
 import 'vis/dist/vis-network.min.css';
 
 import Toolbar from './Toolbar';
+
+import * as dialogActions from '../../actions/dialogActions';
 
 const { Network, DataSet } = vis;
 
@@ -72,20 +77,16 @@ class Viewer extends React.Component {
     };
     this.addNode(node);
     this.resetDraggingIndex();
+
+    // open step info dialog and populate data
+    this.props.actions.toggleStepInfo();
   }
 
-  addNode = (node) => {
-    this.graphData.nodes.add(node);
-  }
+  addNode = (node) => { this.graphData.nodes.add(node); }
 
-  handleDragStart = index => () => {
-    console.log(index);
-    this.setState({ draggingIndex: index });
-  }
+  handleDragStart = index => () => { this.setState({ draggingIndex: index }); }
 
-  resetDraggingIndex = () => {
-    this.setState({ draggingIndex: -1 });
-  }
+  resetDraggingIndex = () => { this.setState({ draggingIndex: -1 }); }
 
   render() {
     return (
@@ -104,4 +105,8 @@ class Viewer extends React.Component {
   }
 }
 
-export default Viewer;
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(dialogActions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(Viewer);

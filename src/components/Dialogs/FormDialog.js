@@ -13,9 +13,6 @@ import Dialog, {
 // svgs
 import Close from '@material-ui/icons/Close';
 
-// react components
-import TaskInfoContainer from '../../containers/TaskInfoContainer';
-
 const inline = {
   text: {
     padding: '0px 24px',
@@ -43,23 +40,23 @@ class FormDialog extends React.Component {
   }
 
   render() {
-    const { open, toggle } = this.props;
+    const { open, toggle, component, title, hints } = this.props;
     return (
       <Dialog
         open={open}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          <span>Task Info</span>
+          <span>{title}</span>
           <IconButton color="default" style={inline.iconButton} onClick={toggle}>
             <Close />
           </IconButton>
         </DialogTitle>
         <DialogContent style={inline.dialogContent}>
           <DialogContentText>
-            <span style={inline.text}>To create a task, please fill in the fields below.</span>
+            <span style={inline.text}>{hints}</span>
           </DialogContentText>
-          <TaskInfoContainer />
+          {component}
         </DialogContent>
         <DialogActions>
           <Button onClick={toggle} color="default">Cancel</Button>
