@@ -34,14 +34,14 @@ class APIService {
     throw new Error('Netowkr error');
   };
 
-  // Returns a promise with a boolean indicating success
-  sendRequest = (requestUrl, type, data = {}) => {
+  sendRequest = (method = 'GET', requestUrl, type, data = {}) => {
     this.lastRequestId += 1;
     const request = { id: this.lastRequestId, type, data };
     dispatch(sendRequest(request));
     fetch(requestUrl, {
       headers: { Accept: 'application/json' },
       credentials: 'include',
+      method,
     }).then(res => transformResponse(res))
       .then((jsonData) => {
         if (jsonData) {
