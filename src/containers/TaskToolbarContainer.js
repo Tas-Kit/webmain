@@ -2,7 +2,8 @@ import React from 'react';
 import TaskToolbar from '../components/TaskToolbar';
 import TaskInvitationDialog from '../components/Dialogs/TaskInvitationDialog';
 
-class DrawerBottomPanelContainer extends React.Component {
+
+class TaskToolbarContainer extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -23,12 +24,16 @@ class DrawerBottomPanelContainer extends React.Component {
   }
 
   handleInvitationClick = id => () => {
-    // todo: wire it up with acutal api
+    // todo: wire it up with actual api
+  };
+
+  handleRevokeInvitationClick = id => () => {
+    // todo: wire it up with actual api
   };
 
   render() {
     const { isInvitationOpen } = this.state;
-    const { users } = this.props;
+    const { users, roles } = this.props;
     return (
       <div>
         <TaskToolbar users={users} handleInvitationClick={this.openDialog} />
@@ -36,11 +41,13 @@ class DrawerBottomPanelContainer extends React.Component {
           open={isInvitationOpen}
           onClose={this.closeDialog}
           users={users}
+          roles={roles}
           handleInvitationClick={this.handleInvitationClick}
+          handleRevokeInvitationClick={this.handleRevokeInvitationClick}
         />
       </div>
     );
   }
 }
 
-export default DrawerBottomPanelContainer;
+export default TaskToolbarContainer;
