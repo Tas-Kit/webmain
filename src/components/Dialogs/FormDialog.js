@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 // mui components
 import Button from 'material-ui/Button';
@@ -17,9 +15,6 @@ import Close from '@material-ui/icons/Close';
 
 // react components
 import TaskInfoContainer from '../../containers/TaskInfoContainer';
-
-// redux actions
-import * as dialogActions from '../../actions/dialogActions';
 
 const inline = {
   text: {
@@ -43,21 +38,20 @@ const inline = {
 };
 
 class FormDialog extends React.Component {
-  handleSaveClick = () => {
-    this.props.actions.toggleFormDialog();
+  handleSave = () => {
+    this.props.toggle();
   }
 
   render() {
-    const { taskInfoOpen } = this.props.dialogManager;
-    const { toggleFormDialog } = this.props.actions;
+    const { open, toggle } = this.props;
     return (
       <Dialog
-        open={taskInfoOpen}
+        open={open}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
           <span>Task Info</span>
-          <IconButton color="default" style={inline.iconButton} onClick={toggleFormDialog}>
+          <IconButton color="default" style={inline.iconButton} onClick={toggle}>
             <Close />
           </IconButton>
         </DialogTitle>
@@ -68,18 +62,12 @@ class FormDialog extends React.Component {
           <TaskInfoContainer />
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleFormDialog} color="default">Cancel</Button>
-          <Button onClick={this.handleSaveClick} color="primary">Save</Button>
+          <Button onClick={toggle} color="default">Cancel</Button>
+          <Button onClick={this.handleSave} color="primary">Save</Button>
         </DialogActions>
       </Dialog>
     );
   }
 }
 
-const mapStateToProps = ({ dialogManager }) => ({ dialogManager });
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormDialog);
+export default FormDialog;
