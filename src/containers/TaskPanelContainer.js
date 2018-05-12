@@ -1,43 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+
 import TaskPanel from '../components/TaskPanel';
-import api from '../utils/api';
+// import api from '../utils/api';
+import APIService from '../services/APIService';
 
 class TaskPanelContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [],
-      isLoading: false,
-      isError: false
-    };
-  }
-
   componentDidMount = () => {
-    api
-      .fetchTasks()
-      .then(res => {
-        return res.json();
-      })
-      .then(res => {
-        console.log(res);
-        this.setState({
-          tasks: api.adaptTasks(res),
-          isLoading: false,
-          isError: false
-        });
-      })
-      .catch(e => {
-        console.log(e);
-        this.setState({
-          isError: true
-        });
-      });
+    const url = '/task/?format=json';
+    APIService.sendRequest(url, 'get_tasks');
   };
 
+  handleTaskClick = taskId => () => {
+    const url = `/task/graph/${taskId}`;
+    APIService.sendRequest(url, 'get_task_graph');
+  }
+
   render() {
-    // passing extra props to child
-    return <TaskPanel {...this.props} tasks={this.state.tasks} />;
+    const { tasks } = this.props.taskManager;
+    return <TaskPanel tasks={tasks} onTaskClick={this.handleTaskClick} />;
   }
 }
 
-export default TaskPanelContainer;
+const mapStateToProps = ({ taskManager }) => ({ taskManager });
+
+export default connect(mapStateToProps)(TaskPanelContainer);

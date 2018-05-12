@@ -12,6 +12,7 @@ const initialState = {
     effortTime: '',
     effortUnit: '',
   },
+  tasks: [],
 };
 
 const handleRequest = (request, state) => {
@@ -23,6 +24,19 @@ const handleRequest = (request, state) => {
 
 const handleResponse = (response, state) => {
   switch (response.type) {
+    case 'get_tasks': {
+      const tasksMap = response.json;
+      const keys = Object.keys(tasksMap);
+      const tasks = keys.map(key => ({
+        info: tasksMap[key].task,
+        permission: tasksMap[key].has_task,
+      }));
+      return { ...state, tasks };
+    }
+    case 'get_task_graph': {
+      console.log(response.json);
+      return state;
+    }
     default:
       return state;
   }
