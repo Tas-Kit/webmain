@@ -5,7 +5,7 @@ import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
 
 // constants
-import { PRIMARY, SECONDARY } from '../../constants/colors';
+import { LIGHT_BLUE, PINK } from '../../constants/colors';
 
 const LoadingButton = (props) => {
   const { loading, buttonName, onClick, color } = props;
@@ -15,7 +15,7 @@ const LoadingButton = (props) => {
       position: 'relative',
     },
     progress: {
-      color: color === 'primary' ? PRIMARY : SECONDARY,
+      color: color === 'primary' ? LIGHT_BLUE : PINK,
       position: 'absolute',
       top: '50%',
       left: '50%',

@@ -16,10 +16,6 @@ const styles = {
     position: 'relative',
     flex: 1,
   },
-  graphContainer: {
-    width: window.innerWidth - 240,
-    height: window.innerHeight - 136,
-  },
 };
 
 class Viewer extends React.Component {
@@ -58,6 +54,14 @@ class Viewer extends React.Component {
     };
 
     this.network = new Network(this.graphElement, this.graphData, options);
+
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      this.network.setOptions({
+        width: width >= 840 ? String(window.innerWidth - 240) : 840,
+        height: String(window.innerHeight - 136),
+      });
+    });
   }
 
   handleDrop = (e) => {
@@ -96,7 +100,7 @@ class Viewer extends React.Component {
         onDrop={this.handleDrop}
       >
         {/* Graph */}
-        <div ref={(el) => { this.graphElement = el; }} style={styles.graphContainer} />
+        <div ref={(el) => { this.graphElement = el; }} />
 
         {/* Toolbar */}
         <Toolbar onDragStart={this.handleDragStart} />

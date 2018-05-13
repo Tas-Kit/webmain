@@ -1,14 +1,14 @@
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 
-// let baseUrl = 'http://localhost:8001/api/v1';
-//
-// if (typeof window !== 'undefined') {
-//   const { location } = window;
-//   baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
-// }
+let baseUrl = 'http://localhost:8001/api/v1';
 
-const baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+if (typeof window !== 'undefined') {
+  const { location } = window;
+  baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+}
+
+// const baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 
 const defaultOnError = () => {
   throw new Error('Netowkr error');

@@ -5,7 +5,6 @@ import { GREY } from '../../constants/colors';
 
 const inline = {
   main: {
-    position: 'absolute',
     width: '100%',
     bottom: 10,
   },

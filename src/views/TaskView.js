@@ -17,6 +17,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
+    minWidth: 840,
   },
 };
 

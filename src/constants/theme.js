@@ -1,10 +1,10 @@
 import { createMuiTheme } from 'material-ui/styles';
-import { PRIMARY, SECONDARY } from './colors';
+import { LIGHT_BLUE, PINK } from './colors';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: PRIMARY }, // primary is light blue
-    secondary: { main: SECONDARY },
+    primary: { main: LIGHT_BLUE }, // primary is light blue
+    secondary: { main: PINK },
   },
 });
 
