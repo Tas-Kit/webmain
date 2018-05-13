@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
-import Typography from 'material-ui/Typography';
 
 const styles = {
   appBar: {
     padding: '1em',
     textAlign: 'center',
+    fontSize: 20,
   },
   flex: {
     flex: 1,
@@ -16,10 +16,8 @@ const styles = {
 const TaskAppBar = (props) => {
   const { title = '', classes } = props;
   return (
-    <AppBar color="inherit" className={classes.appBar} position="static">
-      <Typography variant="display1" color="inherit" className={classes.flex}>
-        {title === '' ? 'Task List' : title}
-      </Typography>
+    <AppBar className={classes.appBar} position="static" color="default">
+      {title === '' ? 'Task List' : title}
     </AppBar>
   );
 };

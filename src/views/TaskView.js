@@ -31,48 +31,8 @@ class TaskView extends React.Component {
   }
 
   componentDidMount = () => {
-    // api
-    //   .fetchTasks()
-    //   .then(tasks => {
-    //     console.log(tasks);
-    //     this.setState({
-    //       tasks: tasks,
-    //       isLoading: false,
-    //       isError: false
-    //     });
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //     this.setState({
-    //       isError: true
-    //     });
-    //   });
-
     APIService.sendRequest('/task/?format=json', 'get_tasks');
   };
-
-  // fetchTaskGraph = id => {
-  //   api
-  //     .fetchTaskGraph(id)
-  //     .then(graph => {
-  //       this.setState({
-  //         currTaskGraph: graph,
-  //         activeTaskId: id
-  //       });
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //       this.setState({
-  //         isError: true
-  //       });
-  //     });
-  // };
-  //
-  // handleTaskClick = id => {
-  //   return () => {
-  //     this.fetchTaskGraph(id);
-  //   };
-  // };
 
   render() {
     const { currTaskGraph } = this.state;

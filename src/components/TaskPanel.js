@@ -66,9 +66,6 @@ const TaskPanel = ({ tasks, onTaskClick, classes }) => (
           const { tid, name } = task.info;
           return (
             <ListItem button key={tid} onClick={onTaskClick(tid)}>
-              <ListItemIcon className={classes.taskListItemIcon}>
-                <TaskIcon />
-              </ListItemIcon>
               <ListItemText
                 primary={name}
                 classes={{ primary: classes.taskListItemText }}

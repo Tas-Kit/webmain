@@ -16,7 +16,6 @@ class TaskPanelContainer extends React.Component {
   };
 
   handleTaskClick = taskId => () => {
-    console.log(taskId);
     this.props.actions.setActiveTaskId(taskId);
     const url = `/task/graph/${taskId}`;
     APIService.sendRequest(url, 'get_task_graph');

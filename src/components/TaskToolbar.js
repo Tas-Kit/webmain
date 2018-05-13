@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -11,12 +12,9 @@ import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 
 import * as dialogActions from '../actions/dialogActions';
 
+import { THIRD, TRANSPARENT_THIRD } from '../constants/colors';
+
 const styles = {
-  taskToolBar: {
-    boxSizing: 'border-box',
-    border: 'solid #979797 1px',
-    background: 'white',
-  },
   flex: {
     flex: 1,
   },
@@ -25,18 +23,23 @@ const styles = {
     height: 31,
     fontSize: 16,
   },
-  buttonGroup: {},
+  button: {
+    color: THIRD,
+    '&:hover': {
+      backgroundColor: TRANSPARENT_THIRD,
+    },
+  },
 };
 
 const TaskToolbar = (props) => {
   const { classes, users = ['YZ'] } = props;
   const { toggleTaskInfo } = props.actions;
   return (
-    <Toolbar className={classes.taskToolBar}>
+    <Toolbar>
       <div className={classes.flex}>
-        <Button key="info" onClick={toggleTaskInfo}>Info</Button>
-        <Button key="clone">Clone</Button>
-        <Button key="save">Save</Button>
+        <Button key="info" color="primary" onClick={toggleTaskInfo}>Info</Button>
+        <Button key="clone" color="secondary">Clone</Button>
+        <Button key="save" className={classNames(classes.button)}>Save</Button>
       </div>
       {Object.keys(users).map((id) => {
         const user = users[id];
