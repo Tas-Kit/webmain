@@ -45,14 +45,21 @@ class APIService {
     this.lastRequestId += 1;
     const request = { id: this.lastRequestId, type, data };
     dispatch(sendRequest(request));
-    fetch(`${baseUrl}${url}`, {
+    const requestObject = {
       headers: { Accept: 'application/json' },
       credentials: 'include',
       method,
-    }).then(res => transformResponse(res))
+    };
+    if (method === 'POST') {
+      requestObject.headers['Content-Type'] = 'application/json';
+      requestObject.body = data;
+    }
+    fetch(`${baseUrl}${url}`, requestObject)
+      .then(res => transformResponse(res))
       .then((json) => {
         if (json) {
           const response = { type, json };
+          console.log(`${type}:`, json);
           dispatch(receiveResponse(response));
         }
       });

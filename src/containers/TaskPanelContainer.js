@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 
 import TaskPanel from '../components/TaskPanel';
 // import api from '../utils/api';
 import APIService from '../services/APIService';
+
+// redux actions
+import * as taskActions from '../actions/taskActions';
 
 class TaskPanelContainer extends React.Component {
   componentDidMount = () => {
@@ -13,6 +16,8 @@ class TaskPanelContainer extends React.Component {
   };
 
   handleTaskClick = taskId => () => {
+    console.log(taskId);
+    this.props.actions.setActiveTaskId(taskId);
     const url = `/task/graph/${taskId}`;
     APIService.sendRequest(url, 'get_task_graph');
   }
@@ -25,4 +30,8 @@ class TaskPanelContainer extends React.Component {
 
 const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
-export default connect(mapStateToProps)(TaskPanelContainer);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(taskActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskPanelContainer);

@@ -1,11 +1,10 @@
 import React from 'react';
-import TaskPanel from '../components/TaskPanel';
 import TaskToolbar from '../components/TaskToolbar';
-import TaskAppBar from '../components/TaskAppBar';
 import { GraphViewer } from '../components/Graph';
 import DialogsContainer from '../containers/DialogsContainer';
 import TaskPanelContainer from '../containers/TaskPanelContainer';
-import api from '../utils/api';
+import TaskAppBarContainer from '../containers/TaskAppBarContainer';
+// import api from '../utils/api';
 
 import APIService from '../services/APIService';
 
@@ -25,9 +24,7 @@ class TaskView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTaskId: '',
       currTaskGraph: {},
-      tasks: {},
       isLoading: false,
       isError: false
     };
@@ -78,14 +75,12 @@ class TaskView extends React.Component {
   // };
 
   render() {
-    const { tasks, activeTaskId, currTaskGraph } = this.state;
+    const { currTaskGraph } = this.state;
     return (
       <div style={styles.taskView}>
         <TaskPanelContainer />
         <div style={styles.content}>
-          <TaskAppBar
-            taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
-          />
+          <TaskAppBarContainer />
           <TaskToolbar
             users={currTaskGraph.users ? currTaskGraph.users : {}}
           />

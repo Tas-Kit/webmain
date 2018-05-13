@@ -13,3 +13,4 @@ export const RESET_TASK_INFO = 'RESET_TASK_INFO';
 // Step Actions
 export const UPDATE_STEP_INFO = 'UPDATE_STEP_INFO';
 export const RESET_STEP_INFO = 'RESET_STEP_INFO';
+export const SET_ACTIVE_TASK_ID = 'SET_ACTIVE_TASK_ID';

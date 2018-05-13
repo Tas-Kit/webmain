@@ -37,6 +37,10 @@ const handleResponse = (response, state) => {
       console.log(response.json);
       return state;
     }
+    case 'save_task': {
+      console.log(response.json);
+      return state;
+    }
     default:
       return state;
   }
@@ -55,6 +59,9 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.RESET_TASK_INFO: {
       return { ...state, taskInfo: initialState.taskInfo };
+    }
+    case types.SET_ACTIVE_TASK_ID: {
+      return { ...state, taskId: action.taskId };
     }
     default:
       return state;
