@@ -1,22 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
+import { withStyles, Avatar } from 'material-ui';
 
+// ui components
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
-import { withStyles, Avatar } from 'material-ui';
 import Button from 'material-ui/Button';
 
+// svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 
-import * as dialogActions from '../actions/dialogActions';
+import {
+  THIRD,
+  FOURTH,
+  TRANSPARENT_THIRD,
+  TRANSPARENT_FOURTH,
+} from '../constants/colors';
 
 const styles = {
-  taskToolBar: {
-    boxSizing: 'border-box',
-    border: 'solid #979797 1px',
-    background: 'white',
-  },
   flex: {
     flex: 1,
   },
@@ -25,18 +26,42 @@ const styles = {
     height: 31,
     fontSize: 16,
   },
-  buttonGroup: {},
+  saveBt: {
+    color: THIRD,
+    '&:hover': { backgroundColor: TRANSPARENT_THIRD },
+  },
+  cloneBt: {
+    color: FOURTH,
+    '&:hover': { backgroundColor: TRANSPARENT_FOURTH },
+  },
 };
 
 const TaskToolbar = (props) => {
-  const { classes, users = ['YZ'] } = props;
-  const { toggleTaskInfo } = props.actions;
+  const {
+    classes,
+    users = ['YZ'],
+    toggleTaskInfo,
+    toggleDeleteTask,
+  } = props;
+
   return (
-    <Toolbar className={classes.taskToolBar}>
+    <Toolbar>
       <div className={classes.flex}>
-        <Button key="info" onClick={toggleTaskInfo}>Info</Button>
-        <Button key="clone">Clone</Button>
-        <Button key="save">Save</Button>
+        <Button key="info" color="primary" onClick={toggleTaskInfo}>Info</Button>
+        <Button
+          key="clone"
+          className={classNames(classes.cloneBt)}
+        >
+          Clone
+        </Button>
+        <Button key="save" className={classNames(classes.saveBt)}>Save</Button>
+        <Button
+          key="delete"
+          color="secondary"
+          onClick={toggleDeleteTask}
+        >
+          Delete
+        </Button>
       </div>
       {Object.keys(users).map((id) => {
         const user = users[id];
@@ -53,8 +78,4 @@ const TaskToolbar = (props) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(dialogActions, dispatch),
-});
-
-export default connect(null, mapDispatchToProps)(withStyles(styles)(TaskToolbar));
+export default withStyles(styles)(TaskToolbar);

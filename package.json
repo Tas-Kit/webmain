@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
+    "classnames": "^2.2.5",
     "express": "^4.16.3",
     "material-ui": "^1.0.0-beta.47",
     "react": "^16.3.2",
