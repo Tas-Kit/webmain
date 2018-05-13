@@ -14,7 +14,6 @@ export const setActiveTaskId = taskId => ({
   taskId,
 });
 
-export const addTask = (taskInfo = {}) => ({
-  type: types.ADD_TASK,
-  taskInfo,
+export const toggleTaskActionPending = () => ({
+  type: types.TOGGLE_TASK_ACTION_PENDING,
 });

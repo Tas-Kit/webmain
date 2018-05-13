@@ -9,9 +9,13 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import { CircularProgress } from 'material-ui/Progress';
 
 // svgs
 import Close from '@material-ui/icons/Close';
+
+// constants
+import { PRIMARY } from '../../constants/colors';
 
 const inline = {
   text: {
@@ -32,16 +36,27 @@ const inline = {
     position: 'relative',
     bottom: 10,
   },
+  buttonWrapper: {
+    position: 'relative',
+  },
+  progress: {
+    color: PRIMARY,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 };
 
 class FormDialog extends React.Component {
   handleSave = () => {
-    this.props.toggle();
-    this.props.onSave();
+    this.props.onSave()
+      .then(() => { this.props.toggle(); })
   }
 
   render() {
-    const { openState, toggle, component, title, hints } = this.props;
+    const { openState, toggle, component, title, hints, loading } = this.props;
     return (
       <Dialog
         open={openState}
@@ -49,7 +64,12 @@ class FormDialog extends React.Component {
       >
         <DialogTitle id="form-dialog-title">
           <span>{title}</span>
-          <IconButton color="default" style={inline.iconButton} onClick={toggle}>
+          <IconButton
+            color="default"
+            style={inline.iconButton}
+            onClick={toggle}
+            disabled={loading}
+          >
             <Close />
           </IconButton>
         </DialogTitle>
@@ -60,8 +80,19 @@ class FormDialog extends React.Component {
           {component}
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggle} color="default">Cancel</Button>
-          <Button onClick={this.handleSave} color="primary">Save</Button>
+          <Button
+            onClick={toggle}
+            color="default"
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+          <div style={inline.buttonWrapper}>
+            <Button onClick={this.handleSave} color="primary">
+              {!loading && 'Save'}
+            </Button>
+            {loading && <CircularProgress size={24} style={inline.progress} />}
+          </div>
         </DialogActions>
       </Dialog>
     );

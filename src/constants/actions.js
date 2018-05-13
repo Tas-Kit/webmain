@@ -10,7 +10,7 @@ export const TOGGLE_DELETE_TASK = 'TOGGLE_DELETE_TASK';
 // Task Actions
 export const UPDATE_TASK_INFO = 'UPDATE_TASK_INFO';
 export const RESET_TASK_INFO = 'RESET_TASK_INFO';
-export const ADD_TASK = 'ADD_TASK';
+export const TOGGLE_TASK_ACTION_PENDING = 'TOGGLE_TASK_ACTION_PENDING';
 
 // Step Actions
 export const UPDATE_STEP_INFO = 'UPDATE_STEP_INFO';

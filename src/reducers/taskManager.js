@@ -13,6 +13,7 @@ const initialState = {
     effortUnit: '',
   },
   tasks: [],
+  pending: false,
 };
 
 const handleRequest = (request, state) => {
@@ -63,8 +64,8 @@ const taskManager = (state = initialState, action = {}) => {
     case types.SET_ACTIVE_TASK_ID: {
       return { ...state, taskId: action.taskId };
     }
-    case types.ADD_TASK: {
-      return state;
+    case types.TOGGLE_TASK_ACTION_PENDING: {
+      return { ...state, pending: !state.pending };
     }
     default:
       return state;
