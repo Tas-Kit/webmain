@@ -13,3 +13,8 @@ export const setActiveTaskId = taskId => ({
   type: types.SET_ACTIVE_TASK_ID,
   taskId,
 });
+
+export const addTask = (taskInfo = {}) => ({
+  type: types.ADD_TASK,
+  taskInfo,
+});

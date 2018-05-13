@@ -63,6 +63,9 @@ const taskManager = (state = initialState, action = {}) => {
     case types.SET_ACTIVE_TASK_ID: {
       return { ...state, taskId: action.taskId };
     }
+    case types.ADD_TASK: {
+      return state;
+    }
     default:
       return state;
   }

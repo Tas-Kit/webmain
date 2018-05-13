@@ -41,6 +41,7 @@ class APIService {
     throw new Error('Netowkr error');
   };
 
+  // Returns a promise with a boolean indicating success
   sendRequest = (url, type, data = {}, method = 'GET') => {
     this.lastRequestId += 1;
     const request = { id: this.lastRequestId, type, data };
@@ -50,18 +51,20 @@ class APIService {
       credentials: 'include',
       method,
     };
-    if (method === 'POST') {
+    if (method === 'POST' || method === 'PATCH') {
       requestObject.headers['Content-Type'] = 'application/json';
-      requestObject.body = data;
+      requestObject.body = JSON.stringify(data);
     }
-    fetch(`${baseUrl}${url}`, requestObject)
+    return fetch(`${baseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))
       .then((json) => {
         if (json) {
           const response = { type, json };
           console.log(`${type}:`, json);
           dispatch(receiveResponse(response));
+          return true;
         }
+        return false;
       });
   }
 }

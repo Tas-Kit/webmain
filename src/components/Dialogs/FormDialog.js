@@ -1,6 +1,6 @@
 import React from 'react';
 
-// mui components
+// ui components
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Dialog, {
@@ -41,10 +41,10 @@ class FormDialog extends React.Component {
   }
 
   render() {
-    const { open, toggle, component, title, hints } = this.props;
+    const { openState, toggle, component, title, hints } = this.props;
     return (
       <Dialog
-        open={open}
+        open={openState}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
