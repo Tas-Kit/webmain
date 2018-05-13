@@ -28,9 +28,9 @@ const styles = {
   buttonGroup: {},
 };
 
-const TaskToolbar = (props) => {
+const TaskToolbar = props => {
   const { classes, users = ['YZ'] } = props;
-  const { toggleTaskInfo } = props.actions;
+  const { toggleTaskInfo, toggleInvitation } = props.actions;
   return (
     <Toolbar className={classes.taskToolBar}>
       <div className={classes.flex}>
@@ -38,7 +38,7 @@ const TaskToolbar = (props) => {
         <Button key="clone">Clone</Button>
         <Button key="save">Save</Button>
       </div>
-      {Object.keys(users).map((id) => {
+      {Object.keys(users).map(id => {
         const user = users[id];
         return (
           <Avatar key={id} className={classes.letterAvatar}>
@@ -46,7 +46,7 @@ const TaskToolbar = (props) => {
           </Avatar>
         );
       })}
-      <IconButton color="inherit" aria-label="Invitation">
+      <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
     </Toolbar>

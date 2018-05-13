@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // ui components
-import { FormDialog } from '../components/Dialogs';
+import { FormDialog, PureDisplayDialog } from '../components/Dialogs';
 
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';
@@ -16,9 +16,9 @@ import * as dialogActions from '../actions/dialogActions';
 
 import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
-const DialogsContainer = (props) => {
-  const { taskInfoOpen, stepInfoOpen } = props.dialogManager;
-  const { toggleTaskInfo, toggleStepInfo } = props.actions;
+const DialogsContainer = props => {
+  const { taskInfoOpen, stepInfoOpen, invitationOpen } = props.dialogManager;
+  const { toggleTaskInfo, toggleStepInfo, toggleInvitation } = props.actions;
 
   const handleTaskInfoSave = () => {
     const { taskInfo } = props.taskManager;
@@ -57,6 +57,13 @@ const DialogsContainer = (props) => {
         open={stepInfoOpen}
         toggle={toggleStepInfo}
         component={<StepInfoContainer />}
+      />
+
+      {/* Invitation Dialog */}
+      <PureDisplayDialog
+        title="Invitation"
+        open={invitationOpen}
+        toggle={toggleInvitation}
       />
     </div>
   );

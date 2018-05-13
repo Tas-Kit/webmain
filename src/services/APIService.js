@@ -16,7 +16,7 @@ const defaultOnError = () => {
 
 const handleTimeOut = () => {
   if (window) {
-    window.location.replace('/login');
+    // window.location.replace('/login');
   }
 };
 

@@ -1,4 +1,5 @@
 import FormDialog from './FormDialog';
+import PureDisplayDialog from './PureDisplayDialog';
 
-export { FormDialog };
+export { FormDialog, PureDisplayDialog };
 export default FormDialog;

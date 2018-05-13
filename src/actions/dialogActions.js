@@ -7,3 +7,7 @@ export const toggleTaskInfo = () => ({
 export const toggleStepInfo = () => ({
   type: types.TOGGLE_STEP_INFO,
 });
+
+export const toggleInvitation = () => ({
+  type: types.TOGGLE_INVITATION,
+});
