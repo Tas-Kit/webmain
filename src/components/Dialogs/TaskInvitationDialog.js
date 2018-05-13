@@ -16,13 +16,22 @@ const styles = {
   flex: {
     flex: 1,
   },
+  usernameTextfield: {
+    flex: 1,
+    marginRight: '0.5em',
+  },
+  closeButton: {
+    marginRight: '0.5em',
+  },
 };
 
 
 const TaskInvitationDialog = props => {
   const {
-    open, onClose, roles, classes, users, handleRevokeInvitationClick, handleInvitationClick,
+    open, onClose, roles, classes, users, handleRevokeInvitationClick, handleInvitationClick, handleSuperRoleChange, handleRoleChange,
   } = props;
+
+  console.log(users);
   return (
     <Dialog
       open={open}
@@ -31,18 +40,28 @@ const TaskInvitationDialog = props => {
     >
       <div className={classes.flexContainer}>
         <DialogTitle className={classes.flex} id="task-invitation-dialog-title">Invitation</DialogTitle>
-        <IconButton onClick={onClose}>
+        <IconButton className={classes.closeButton} onClick={onClose}>
           <Close />
         </IconButton>
       </div>
       <DialogContent>
         <div className={classes.flexContainer}>
-          <TextField className={classes.flex} id="username" label="Username" />
+          <TextField className={classes.usernameTextfield} id="username" label="Username" fullWidth />
           <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
         </div>
         {Object.keys(users).map(id => {
           const user = users[id];
-          return (<UserStatusRow {...user} userId={id} roles={roles} handleRevokeInvitationClick={handleRevokeInvitationClick} />);
+          return (<UserStatusRow
+            username={user.basic.username}
+            role={user.has_task.role}
+            superole={user.has_task.super_role}
+            acceptance={user.has_task.acceptance}
+            userId={id}
+            roles={roles}
+            handleRevokeInvitationClick={handleRevokeInvitationClick}
+            handleSuperRoleChange={handleSuperRoleChange}
+            handleRoleChange={handleRoleChange}
+          />);
         })}
       </DialogContent>
     </Dialog>

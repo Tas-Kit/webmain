@@ -4,43 +4,59 @@ import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
-import AcceptanceIcon from "./AcceptanceIcon";
+import AcceptanceIcon from './AcceptanceIcon';
+import { withStyles } from 'material-ui/styles';
 
 import { SUPER_ROLE, SUPER_ROLES } from '../../constants';
 
+const styles = {
+  userStatusRow: {
+    padding: '0 0.5em',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  flex3: {
+    flex: 3,
+  },
+  flex2: {
+    flex: 2,
+  },
+  flex1: {
+    flex: 1,
+  },
+};
+
 const UserStatusRow = props => {
   const {
-    username, superole, role, roles, acceptance = 'a', userId, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange,
+    username, superole, role, roles, acceptance, userId, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
   } = props;
 
   return (
-    <Grid container>
-      <Grid item cs={6}>
+    <div className={classes.userStatusRow} container spacing={8}>
+      <div className={classes.flex3}>
         {username}
-      </Grid>
-      <Grid item cs={6}>
-        {
-          <Select value={superole} onChange={handleSuperRoleChange} disabled={superole !== SUPER_ROLE.ADMIN />}>
-            {Object.keys(SUPER_ROLE).map(key => (<MenuItem value={SUPER_ROLE[key]}>{SUPER_ROLES[SUPER_ROLE[key]]}</MenuItem>))}
-          </Select>
-        }
-      </Grid>
-      <Grid item cs={6}>
-        {
-          <Select value={role} onChange={handleRoleChange} disabled={superole === SUPER_ROLE.STANDARD} >
-            {Object.keys(roles).map(key => (<MenuItem value={key}>{roles[key]}</MenuItem>))}
-          </Select>
-        }
-      </Grid>
-      <Grid item cs={4}>
+      </div>
+      <div className={classes.flex3}>
+        <Select value={superole} onChange={handleSuperRoleChange(userId)} disabled={superole === SUPER_ROLE.OWNER}>
+          {Object.keys(SUPER_ROLE).map(key => (<MenuItem key={key} value={SUPER_ROLE[key]}>{SUPER_ROLES[SUPER_ROLE[key]]}</MenuItem>))}
+        </Select>
+      </div>
+      <div className={classes.flex3}>
+        <Select value={role || 'none'} onChange={handleRoleChange(userId)} disabled={superole === SUPER_ROLE.STANDARD} >
+          {roles.length ? roles.map(el => (<MenuItem key={el} value={el}>{el}</MenuItem>)) : <MenuItem value="none" >None</MenuItem>}
+        </Select>
+      </div>
+      <div className={classes.flex1}>
         <AcceptanceIcon acceptance={acceptance} />
-      </Grid>
-      <Grid item cs={2}>
+
+      </div>
+      <div className={classes.flex1} >
         <IconButton onClick={handleRevokeInvitationClick(userId)}>
           <Close />
         </IconButton>
-      </Grid>
-    </Grid>);
+      </div>
+    </div>);
 };
 
-export default UserStatusRow;
+export default withStyles(styles)(UserStatusRow);

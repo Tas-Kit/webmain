@@ -50,6 +50,7 @@ class TaskView extends React.Component {
   fetchTaskGraph = id => {
     fetchTaskGraph(id)
       .then(graph => {
+        console.log(graph);
         this.setState({
           currTaskGraph: graph,
           activeTaskId: id,
@@ -77,6 +78,7 @@ class TaskView extends React.Component {
             taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
           />
           <TaskToolBarContainer
+            roles={this.activeTaskId ? tasks[this.state.activeTaskId].task.roles : []}
             users={currTaskGraph.users ? currTaskGraph.users : {}}
           />
           <GraphViewer />

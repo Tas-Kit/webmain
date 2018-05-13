@@ -31,6 +31,14 @@ class TaskToolbarContainer extends React.Component {
     // todo: wire it up with actual api
   };
 
+  handleSuperRoleChange = id => () => {
+
+  };
+
+  handleRoleChange = id => () => {
+
+  }
+
   render() {
     const { isInvitationOpen } = this.state;
     const { users, roles } = this.props;
@@ -44,6 +52,8 @@ class TaskToolbarContainer extends React.Component {
           roles={roles}
           handleInvitationClick={this.handleInvitationClick}
           handleRevokeInvitationClick={this.handleRevokeInvitationClick}
+          handleSuperRoleChange = {this.handleSuperRoleChange}
+           handleRoleChange = {this.handleRoleChange}
         />
       </div>
     );
