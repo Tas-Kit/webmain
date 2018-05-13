@@ -9,6 +9,8 @@ import Toolbar from './Toolbar';
 
 import * as dialogActions from '../../actions/dialogActions';
 
+import { MIN_ALLOW_WINDOW_WIDTH, DRAWER_WIDTH, APP_BAR_HEIGHT, TOOL_BAR_HEIGHT } from '../../constants';
+
 const { Network, DataSet } = vis;
 
 const styles = {
@@ -58,8 +60,8 @@ class Viewer extends React.Component {
     window.addEventListener('resize', () => {
       const width = window.innerWidth;
       this.network.setOptions({
-        width: width >= 840 ? String(window.innerWidth - 240) : 840,
-        height: String(window.innerHeight - 136),
+        width: width >= MIN_ALLOW_WINDOW_WIDTH ? String(window.innerWidth - DRAWER_WIDTH) : MIN_ALLOW_WINDOW_WIDTH,
+        height: String(window.innerHeight - APP_BAR_HEIGHT - TOOL_BAR_HEIGHT),
       });
     });
   }

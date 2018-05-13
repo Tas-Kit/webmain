@@ -35,6 +35,11 @@ export const TIME_UNITS_MAP = {
   Year: 'y',
 };
 
+export const MIN_ALLOW_WINDOW_WIDTH = 840;
+export const DRAWER_WIDTH = 240;
+export const APP_BAR_HEIGHT = 63;
+export const TOOL_BAR_HEIGHT = 64;
+
 export default {
   ACCEPTANCE,
   ACCEPTANCES,
@@ -42,4 +47,8 @@ export default {
   STATUS,
   STATUS_MAP,
   TIME_UNITS_MAP,
+  MIN_ALLOW_WINDOW_WIDTH,
+  DRAWER_WIDTH,
+  APP_BAR_HEIGHT,
+  TOOL_BAR_HEIGHT,
 };
