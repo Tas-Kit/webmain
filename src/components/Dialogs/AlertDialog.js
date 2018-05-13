@@ -35,6 +35,11 @@ const inline = {
 };
 
 const AlertDialog = (props) => {
+  const handleConfirm = () => {
+    props.onConfirm();
+    props.toggle();
+  };
+
   const { openState, message, title, toggle, onConfirm } = props;
   return (
     <Dialog
@@ -54,7 +59,7 @@ const AlertDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={toggle} color="default">No</Button>
-        <Button onClick={onConfirm} color="secondary">Yes</Button>
+        <Button onClick={handleConfirm} color="secondary">Yes</Button>
       </DialogActions>
     </Dialog>
   );

@@ -51,10 +51,14 @@ const DialogsContainer = (props) => {
 
   const handleTaskDelete = () => {
     const { taskId } = props.taskManager;
-    const payload = { tid: taskId };
     const url = `/task/${taskId}/`;
-    console.log(taskId);
-    // APIService.sendRequest(url, 'delete_task', payload, 'PATCH');
+    APIService.sendRequest(url, 'delete_task', {}, 'DELETE')
+      .then((success) => {
+        if (success) {
+          APIService.sendRequest('/task/?format=json', 'get_tasks');
+          updateMessage('Task deleted successfully.');
+        }
+      });
   };
 
   return (
