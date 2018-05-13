@@ -9,13 +9,11 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { CircularProgress } from 'material-ui/Progress';
 
 // svgs
 import Close from '@material-ui/icons/Close';
 
-// constants
-import { SECONDARY } from '../../constants/colors';
+import LoadingButton from '../Button';
 
 const inline = {
   text: {
@@ -38,14 +36,6 @@ const inline = {
     float: 'right',
     position: 'relative',
     bottom: 10,
-  },
-  progress: {
-    color: SECONDARY,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
   },
 };
 
@@ -79,16 +69,12 @@ const AlertDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={toggle} color="default" disabled={loading}>No</Button>
-        <div style={{ position: 'relative' }}>
-          <Button
-            onClick={handleConfirm}
-            color="secondary"
-            disabled={loading}
-          >
-            {!loading && 'Yes'}
-          </Button>
-          {loading && <CircularProgress size={24} style={inline.progress} />}
-        </div>
+        <LoadingButton
+          buttonName="Yes"
+          color="secondary"
+          loading={loading}
+          onClick={handleConfirm}
+        />
       </DialogActions>
     </Dialog>
   );

@@ -9,13 +9,11 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { CircularProgress } from 'material-ui/Progress';
 
 // svgs
 import Close from '@material-ui/icons/Close';
 
-// constants
-import { PRIMARY } from '../../constants/colors';
+import LoadingButton from '../Button';
 
 const inline = {
   text: {
@@ -35,17 +33,6 @@ const inline = {
     float: 'right',
     position: 'relative',
     bottom: 10,
-  },
-  buttonWrapper: {
-    position: 'relative',
-  },
-  progress: {
-    color: PRIMARY,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
   },
 };
 
@@ -87,12 +74,12 @@ class FormDialog extends React.Component {
           >
             Cancel
           </Button>
-          <div style={inline.buttonWrapper}>
-            <Button onClick={this.handleSave} color="primary">
-              {!loading && 'Save'}
-            </Button>
-            {loading && <CircularProgress size={24} style={inline.progress} />}
-          </div>
+          <LoadingButton
+            buttonName="Save"
+            color="primary"
+            loading={loading}
+            onClick={this.handleSave}
+          />
         </DialogActions>
       </Dialog>
     );
