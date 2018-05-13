@@ -1,6 +1,15 @@
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 
+// let baseUrl = 'http://localhost:8001/api/v1';
+//
+// if (typeof window !== 'undefined') {
+//   const { location } = window;
+//   baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+// }
+
+const baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+
 const defaultOnError = () => {
   throw new Error('Netowkr error');
 };
@@ -12,9 +21,7 @@ const handleTimeOut = () => {
 };
 
 const transformResponse = (res, onError = defaultOnError) => {
-  if (res.ok) {
-    return res.json();
-  }
+  if (res.ok) { return res.json(); }
   switch (res.status) {
     case 401:
       handleTimeOut();
@@ -34,18 +41,25 @@ class APIService {
     throw new Error('Netowkr error');
   };
 
-  sendRequest = (method = 'GET', requestUrl, type, data = {}) => {
+  sendRequest = (url, type, data = {}, method = 'GET') => {
     this.lastRequestId += 1;
     const request = { id: this.lastRequestId, type, data };
     dispatch(sendRequest(request));
-    fetch(requestUrl, {
+    const requestObject = {
       headers: { Accept: 'application/json' },
       credentials: 'include',
       method,
-    }).then(res => transformResponse(res))
-      .then((jsonData) => {
-        if (jsonData) {
-          const response = { type, jsonData };
+    };
+    if (method === 'POST') {
+      requestObject.headers['Content-Type'] = 'application/json';
+      requestObject.body = data;
+    }
+    fetch(`${baseUrl}${url}`, requestObject)
+      .then(res => transformResponse(res))
+      .then((json) => {
+        if (json) {
+          const response = { type, json };
+          console.log(`${type}:`, json);
           dispatch(receiveResponse(response));
         }
       });

@@ -1,10 +1,12 @@
 import React from 'react';
-import TaskPanel from '../components/TaskPanel';
 import TaskToolbar from '../components/TaskToolbar';
-import TaskAppBar from '../components/TaskAppBar';
 import { GraphViewer } from '../components/Graph';
 import DialogsContainer from '../containers/DialogsContainer';
-import api from '../utils/api';
+import TaskPanelContainer from '../containers/TaskPanelContainer';
+import TaskAppBarContainer from '../containers/TaskAppBarContainer';
+// import api from '../utils/api';
+
+import APIService from '../services/APIService';
 
 const styles = {
   taskView: {
@@ -22,65 +24,63 @@ class TaskView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTaskId: '',
       currTaskGraph: {},
-      tasks: {},
       isLoading: false,
       isError: false
     };
   }
 
   componentDidMount = () => {
-    api
-      .fetchTasks()
-      .then(tasks => {
-        console.log(tasks);
-        this.setState({
-          tasks: tasks,
-          isLoading: false,
-          isError: false
-        });
-      })
-      .catch(e => {
-        console.log(e);
-        this.setState({
-          isError: true
-        });
-      });
+    // api
+    //   .fetchTasks()
+    //   .then(tasks => {
+    //     console.log(tasks);
+    //     this.setState({
+    //       tasks: tasks,
+    //       isLoading: false,
+    //       isError: false
+    //     });
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //     this.setState({
+    //       isError: true
+    //     });
+    //   });
+
+    APIService.sendRequest('/task/?format=json', 'get_tasks');
   };
 
-  fetchTaskGraph = id => {
-    api
-      .fetchTaskGraph(id)
-      .then(graph => {
-        this.setState({
-          currTaskGraph: graph,
-          activeTaskId: id
-        });
-      })
-      .catch(e => {
-        console.log(e);
-        this.setState({
-          isError: true
-        });
-      });
-  };
-
-  handleTaskClick = id => {
-    return () => {
-      this.fetchTaskGraph(id);
-    };
-  };
+  // fetchTaskGraph = id => {
+  //   api
+  //     .fetchTaskGraph(id)
+  //     .then(graph => {
+  //       this.setState({
+  //         currTaskGraph: graph,
+  //         activeTaskId: id
+  //       });
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //       this.setState({
+  //         isError: true
+  //       });
+  //     });
+  // };
+  //
+  // handleTaskClick = id => {
+  //   return () => {
+  //     this.fetchTaskGraph(id);
+  //   };
+  // };
 
   render() {
-    const { tasks, activeTaskId, currTaskGraph } = this.state;
+    const { currTaskGraph } = this.state;
     return (
       <div style={styles.taskView}>
-        <TaskPanel tasks={tasks} handleTaskClick={this.handleTaskClick} />
+        <TaskPanelContainer />
         <div style={styles.content}>
-          <TaskAppBar
-            taskTitle={activeTaskId ? tasks[activeTaskId].task.name : ''}
-          />
+          <TaskAppBarContainer />
           <TaskToolbar
             users={currTaskGraph.users ? currTaskGraph.users : {}}
           />

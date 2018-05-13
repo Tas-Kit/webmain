@@ -9,12 +9,35 @@ import { FormDialog } from '../components/Dialogs';
 import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
 
+import APIService from '../services/APIService';
+
 // redux actions
 import * as dialogActions from '../actions/dialogActions';
+
+import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const DialogsContainer = (props) => {
   const { taskInfoOpen, stepInfoOpen } = props.dialogManager;
   const { toggleTaskInfo, toggleStepInfo } = props.actions;
+
+  const handleTaskInfoSave = () => {
+    const { taskInfo } = props.taskManager;
+    const payload = {
+      name: taskInfo.name,
+      status: STATUS_MAP[taskInfo.status],
+      roles: taskInfo.roles,
+      description: taskInfo.description,
+      deadline: (new Date(taskInfo.deadline)).toISOString(),
+      expected_effort_num: taskInfo.effortTime,
+      expected_effort_unit: TIME_UNITS_MAP[taskInfo.effortUnit],
+    };
+    // const data = new FormData();
+    // data.append('json', JSON.stringify(payload));
+    console.log(JSON.stringify(payload));
+    const url = '/task/';
+    APIService.sendRequest(url, 'save_task', JSON.stringify(payload), 'POST');
+  };
+
   return (
     <div>
       {/* Task Info Form */}
@@ -24,6 +47,7 @@ const DialogsContainer = (props) => {
         open={taskInfoOpen}
         toggle={toggleTaskInfo}
         component={<TaskInfoContainer />}
+        onSave={handleTaskInfoSave}
       />
 
       {/* Step Info Form */}
@@ -38,7 +62,7 @@ const DialogsContainer = (props) => {
   );
 };
 
-const mapStateToProps = ({ dialogManager }) => ({ dialogManager });
+const mapStateToProps = ({ dialogManager, taskManager }) => ({ dialogManager, taskManager });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions }, dispatch),

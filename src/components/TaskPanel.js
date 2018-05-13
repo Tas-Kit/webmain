@@ -44,7 +44,7 @@ const styles = () => ({
   },
 });
 
-const TaskPanel = ({ tasks, handleTaskClick, classes }) => (
+const TaskPanel = ({ tasks, onTaskClick, classes }) => (
   <Drawer
     classes={{ paper: classes.taskDrawer }}
     variant="permanent"
@@ -61,22 +61,22 @@ const TaskPanel = ({ tasks, handleTaskClick, classes }) => (
     </Grid>
 
     <List component="nav">
-      {Object.keys(tasks)
-        .filter(id => tasks[id].has_task.acceptance === ACCEPTANCE.ACCEPT)
-        .map((id) => {
-          const task = tasks[id];
+      {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
+        .map((task) => {
+          const { tid, name } = task.info;
           return (
-            <ListItem button key={id} onClick={handleTaskClick(id)}>
+            <ListItem button key={tid} onClick={onTaskClick(tid)}>
               <ListItemIcon className={classes.taskListItemIcon}>
                 <TaskIcon />
               </ListItemIcon>
               <ListItemText
-                primary={task.task.name}
+                primary={name}
                 classes={{ primary: classes.taskListItemText }}
               />
             </ListItem>
           );
-        })}
+        })
+      }
     </List>
     <DrawerBottomPanelContainer />
   </Drawer>
