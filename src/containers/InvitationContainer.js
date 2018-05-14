@@ -34,10 +34,10 @@ class InvitationContainer extends React.Component {
     const { updateStepInfo } = this.props.actions;
     return (
       <Invitation
-        roles={null}
+        roles={{}}
         usernameToInvite={this.usernameToInvite}
         handleInvitationClik={this.handleInvitationClik}
-        users={null}
+        users={{}}
         hanldeRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
         handleRoleChange={this.handleRoleChange}

@@ -8,6 +8,7 @@ import { FormDialog, PureDisplayDialog } from '../components/Dialogs';
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
+import InvitationContainer from "./InvitationContainer";
 
 import APIService from '../services/APIService';
 
@@ -64,7 +65,9 @@ const DialogsContainer = props => {
         title="Invitation"
         open={invitationOpen}
         toggle={toggleInvitation}
-      />
+      >
+        <InvitationContainer />
+      </PureDisplayDialog>
     </div>
   );
 };

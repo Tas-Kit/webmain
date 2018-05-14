@@ -35,6 +35,18 @@ export const TIME_UNITS_MAP = {
   Year: 'y',
 };
 
+export const SUPER_ROLE = {
+  OWNER: 10,
+  ADMIN: 5,
+  STANDARD: 0,
+};
+
+export const SUPER_ROLES = {
+  [SUPER_ROLE.OWNER]: 'Owner',
+  [SUPER_ROLE.ADMIN]: 'Admin',
+  [SUPER_ROLE.STANDARD]: 'Standard',
+};
+
 export default {
   ACCEPTANCE,
   ACCEPTANCES,
@@ -42,4 +54,6 @@ export default {
   STATUS,
   STATUS_MAP,
   TIME_UNITS_MAP,
+  SUPER_ROLE,
+  SUPER_ROLES,
 };

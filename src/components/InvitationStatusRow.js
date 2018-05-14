@@ -7,7 +7,7 @@ import { MenuItem } from 'material-ui/Menu';
 import AcceptanceIcon from './AcceptanceIcon';
 import { withStyles } from 'material-ui/styles';
 
-import { SUPER_ROLE, SUPER_ROLES } from '../../constants';
+import { SUPER_ROLE, SUPER_ROLES } from '../constants';
 
 const styles = {
   userStatusRow: {

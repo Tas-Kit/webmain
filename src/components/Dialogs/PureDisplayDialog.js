@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 
 // mui components
 import Button from 'material-ui/Button';
@@ -18,9 +18,6 @@ const inline = {
     padding: '0px 24px',
     fontSize: 13,
   },
-  dialogContent: {
-    padding: 0,
-  },
   iconButton: {
     display: 'inline-block',
     width: 40,
@@ -36,7 +33,7 @@ const inline = {
 
 const PureDisplayDialog = props => {
   const {
-    open, toggle, component, title, hints,
+    open, toggle, title, children, hints,
   } = props;
   return (
     <Dialog
@@ -50,11 +47,15 @@ const PureDisplayDialog = props => {
           <Close />
         </IconButton>
       </DialogTitle>
-      <DialogContent style={inline.dialogContent}>
-        <DialogContentText>
-          <span style={inline.text}>{hints}</span>
-        </DialogContentText>
-        {component}
+      <DialogContent >
+        {hints &&
+          (
+            <DialogContentText>
+              <span style={inline.text}>{hints}</span>
+            </DialogContentText>
+          )
+        }
+        {children}
       </DialogContent>
     </Dialog>
   );
