@@ -30,11 +30,11 @@ class InvitationContainer extends React.Component {
 
 
   render() {
-    const { stepInfo } = this.props.stepManager;
+    const { taskInfo } = this.props.taskManager;
     const { updateStepInfo } = this.props.actions;
     return (
       <Invitation
-        roles={{}}
+        roles={taskInfo.roles}
         usernameToInvite={this.usernameToInvite}
         handleInvitationClik={this.handleInvitationClik}
         users={{}}
@@ -46,9 +46,8 @@ class InvitationContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ stepManager, dialogManager }) => ({
-  stepManager,
-  dialogManager,
+const mapStateToProps = ({ taskManager }) => ({
+  taskManager,
 });
 
 const mapDispatchToProps = dispatch => ({
