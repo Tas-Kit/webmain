@@ -8,11 +8,10 @@ import * as dialogActions from '../actions/dialogActions';
 import * as stepActions from '../actions/stepActions';
 
 class InvitationContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      usernameToInvite: ''
+      usernameToInvite: '',
     };
   }
 
@@ -28,6 +27,12 @@ class InvitationContainer extends React.Component {
 
   handleRoleChange = id => () => { }
 
+  handleUsernameToInviteChange = e => {
+    this.setState({
+      usernameToInvite: e.target.value,
+    });
+  }
+
 
   render() {
     const { taskInfo } = this.props.taskManager;
@@ -41,6 +46,7 @@ class InvitationContainer extends React.Component {
         hanldeRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
         handleRoleChange={this.handleRoleChange}
+        handleUsernameToInviteChange={this.handleUsernameToInviteChange}
       />
     );
   }

@@ -26,13 +26,13 @@ const styles = {
 
 const Invitation = props => {
   const {
-    roles, usernameToInvite, handleInvitationClick, users, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
+    roles, usernameToInvite, handleUsernameToInviteChange, handleInvitationClick, users, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
   } = props;
 
   return (
     <div>
       <div className={classes.flexContainer}>
-        <TextField className={classes.usernameTextfield} id="username" label="Username" value={usernameToInvite} fullWidth />
+        <TextField className={classes.usernameTextfield} id="username" label="Username" value={usernameToInvite} onChange={handleUsernameToInviteChange} fullWidth />
         <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
       </div>
       {Object.keys(users).map(id => {
