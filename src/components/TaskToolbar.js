@@ -16,6 +16,7 @@ import {
   TRANSPARENT_TEAL,
   TRANSPARENT_ORANGE,
 } from '../constants/colors';
+import { LETTER_AVARTAR } from '../constants';
 
 const styles = {
   flex: {
@@ -24,7 +25,7 @@ const styles = {
   letterAvatar: {
     width: 31,
     height: 31,
-    fontSize: 16,
+    fontSize: LETTER_AVARTAR,
   },
   saveBt: {
     color: TEAL,

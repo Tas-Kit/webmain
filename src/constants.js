@@ -35,10 +35,17 @@ export const TIME_UNITS_MAP = {
   Year: 'y',
 };
 
+// Component Size
 export const MIN_ALLOW_WINDOW_WIDTH = 840;
 export const DRAWER_WIDTH = 240;
 export const APP_BAR_HEIGHT = 63;
 export const TOOL_BAR_HEIGHT = 64;
+
+// Font Size
+export const TEXT_FIELD_TITLE = 14;
+export const DIALOG_MESSAGE = 13;
+export const APP_BAR_TITLE = 20;
+export const LETTER_AVARTAR = 16;
 
 export default {
   ACCEPTANCE,
@@ -51,4 +58,8 @@ export default {
   DRAWER_WIDTH,
   APP_BAR_HEIGHT,
   TOOL_BAR_HEIGHT,
+  TEXT_FIELD_TITLE,
+  DIALOG_MESSAGE,
+  APP_BAR_TITLE,
+  LETTER_AVARTAR,
 };
