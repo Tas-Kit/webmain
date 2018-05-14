@@ -16,12 +16,14 @@ const defaultOnError = () => {
 
 const handleTimeOut = () => {
   if (window) {
-    // window.location.replace('/login');
+    window.location.replace('/login');
   }
 };
 
 const transformResponse = (res, onError = defaultOnError) => {
-  if (res.ok) { return res.json(); }
+  if (res.ok) {
+    return res.json();
+  }
   switch (res.status) {
     case 401:
       handleTimeOut();
@@ -49,7 +51,7 @@ class APIService {
     const requestObject = {
       headers: { Accept: 'application/json' },
       credentials: 'include',
-      method,
+      method
     };
     if (method === 'POST' || method === 'PATCH') {
       requestObject.headers['Content-Type'] = 'application/json';
@@ -57,7 +59,7 @@ class APIService {
     }
     return fetch(`${baseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))
-      .then((json) => {
+      .then(json => {
         if (json) {
           const response = { type, json };
           console.log(`${type}:`, json);
@@ -66,7 +68,7 @@ class APIService {
         }
         return false;
       });
-  }
+  };
 }
 
 export default new APIService();

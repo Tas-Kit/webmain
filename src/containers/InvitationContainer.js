@@ -11,37 +11,32 @@ class InvitationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      usernameToInvite: '',
+      usernameToInvite: ''
     };
   }
 
-  hanldeRevokeInvitationClick = id => () => {
+  hanldeRevokeInvitationClick = id => () => {};
 
-  }
+  handleInvitationClick = () => {};
 
-  handleInvitationClik = () => {
+  handleSuperRoleChange = id => () => {};
 
-  }
-
-  handleSuperRoleChange = id => () => { }
-
-  handleRoleChange = id => () => { }
+  handleRoleChange = id => () => {};
 
   handleUsernameToInviteChange = e => {
     this.setState({
-      usernameToInvite: e.target.value,
+      usernameToInvite: e.target.value
     });
-  }
-
+  };
 
   render() {
     const { taskInfo } = this.props.taskManager;
-    const { updateStepInfo } = this.props.actions;
+    // const { updateStepInfo } = this.props.actions;
     return (
       <Invitation
         roles={taskInfo.roles}
         usernameToInvite={this.usernameToInvite}
-        handleInvitationClik={this.handleInvitationClik}
+        handleInvitationClick={this.handleInvitationClick}
         users={{}}
         hanldeRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
@@ -53,11 +48,11 @@ class InvitationContainer extends React.Component {
 }
 
 const mapStateToProps = ({ taskManager }) => ({
-  taskManager,
+  taskManager
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...stepActions, ...dialogActions }, dispatch),
-});
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators({ ...stepActions, ...dialogActions }, dispatch)
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvitationContainer);
+export default connect(mapStateToProps, null)(InvitationContainer);

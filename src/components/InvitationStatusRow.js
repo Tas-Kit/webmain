@@ -32,8 +32,10 @@ const styles = {
 
 const UserStatusRow = props => {
   const {
-    username, superole, role, roles, acceptance, userId, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
+    user, roles, userId, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
   } = props;
+  const { username } = user.basic;
+  const { role, super_role, acceptance } = user.has_task;
 
   return (
     <div className={classes.userStatusRow} container spacing={8}>
@@ -41,12 +43,12 @@ const UserStatusRow = props => {
         {username}
       </div>
       <div className={classes.flex3}>
-        <Select value={superole} onChange={handleSuperRoleChange(userId)} disabled={superole === SUPER_ROLE.OWNER}>
+        <Select value={super_role} onChange={handleSuperRoleChange(userId)} disabled={super_role === SUPER_ROLE.OWNER}>
           {Object.keys(SUPER_ROLE).map(key => (<MenuItem key={key} value={SUPER_ROLE[key]}>{SUPER_ROLES[SUPER_ROLE[key]]}</MenuItem>))}
         </Select>
       </div>
       <div className={classes.flex3}>
-        <Select value={role || 'none'} onChange={handleRoleChange(userId)} disabled={superole === SUPER_ROLE.STANDARD} >
+        <Select value={role || 'none'} onChange={handleRoleChange(userId)} disabled={super_role === SUPER_ROLE.STANDARD} >
           {roles.length ? roles.map(el => (<MenuItem key={el} value={el}>{el}</MenuItem>)) : <MenuItem value="none" >None</MenuItem>}
         </Select>
       </div>

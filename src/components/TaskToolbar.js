@@ -36,15 +36,14 @@ const styles = {
   },
 };
 
-const TaskToolbar = (props) => {
+const TaskToolbar = props => {
   const {
     classes,
     users = ['YZ'],
-    toggleTaskInfo,
     toggleDeleteTask,
+    toggleTaskInfo,
+    toggleInvitation
   } = props;
-  
-  const { toggleTaskInfo, toggleInvitation } = props.actions;
 
   return (
     <Toolbar>

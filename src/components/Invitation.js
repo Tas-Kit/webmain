@@ -38,10 +38,7 @@ const Invitation = props => {
       {Object.keys(users).map(id => {
         const user = users[id];
         return (<InvitationStatusRow
-          username={user.basic.username}
-          role={user.has_task.role}
-          superole={user.has_task.super_role}
-          acceptance={user.has_task.acceptance}
+          user={user}
           userId={id}
           roles={roles}
           handleRevokeInvitationClick={handleRevokeInvitationClick}

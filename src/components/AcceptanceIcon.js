@@ -6,14 +6,16 @@ import { ACCEPTANCE } from '../constants';
 
 const AcceptanceIcon = props => {
   const { acceptance } = props;
-  if (acceptance === ACCEPTANCE.ACCEPT) {
-    return (<Done />);
-  } else if (acceptance === ACCEPTANCE.WAITING) {
-    return (<span>...</span>);
-  } else if (acceptance === ACCEPTANCE.REJECT) {
-    return (<Clear />);
+  switch (acceptance) {
+    case ACCEPTANCE.ACCEPT:
+      return <Done />;
+    case ACCEPTANCE.WAITING:
+      return <span>...</span>;
+    case ACCEPTANCE.REJECT:
+      return <Clear />;
+    default:
+      return <span />;
   }
-  return (<span />);
 };
 
 export default AcceptanceIcon;

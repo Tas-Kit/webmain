@@ -9,6 +9,7 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import { dialogHintsSize } from '../../constants/fontSizes';
 
 // svgs
 import Close from '@material-ui/icons/Close';
@@ -16,7 +17,7 @@ import Close from '@material-ui/icons/Close';
 const inline = {
   text: {
     padding: '0px 24px',
-    fontSize: 13,
+    fontSize: dialogHintsSize,
   },
   iconButton: {
     display: 'inline-block',
@@ -33,28 +34,22 @@ const inline = {
 
 const PureDisplayDialog = props => {
   const {
-    open, toggle, title, children, hints,
+    open, toggle, title, children, hints
   } = props;
   return (
-    <Dialog
-      open={open}
-      fullWidth
-      aria-labelledby="form-dialog-title"
-    >
+    <Dialog open={open} fullWidth aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
         <span>{title}</span>
         <IconButton color="default" style={inline.iconButton} onClick={toggle}>
           <Close />
         </IconButton>
       </DialogTitle>
-      <DialogContent >
-        {hints &&
-          (
-            <DialogContentText>
-              <span style={inline.text}>{hints}</span>
-            </DialogContentText>
-          )
-        }
+      <DialogContent>
+        {hints && (
+          <DialogContentText>
+            <span style={inline.text}>{hints}</span>
+          </DialogContentText>
+        )}
         {children}
       </DialogContent>
     </Dialog>
