@@ -1,10 +1,10 @@
 import React from 'react';
-import TaskToolbar from '../components/TaskToolbar';
 import { GraphViewer } from '../components/Graph';
 import DialogsContainer from '../containers/DialogsContainer';
 import TaskPanelContainer from '../containers/TaskPanelContainer';
 import TaskAppBarContainer from '../containers/TaskAppBarContainer';
-// import api from '../utils/api';
+import TaskToolbarContainer from '../containers/TaskToolbarContainer';
+import SnackbarContainer from '../containers/SnackbarContainer';
 
 import APIService from '../services/APIService';
 
@@ -25,54 +25,12 @@ class TaskView extends React.Component {
     super(props);
     this.state = {
       currTaskGraph: {},
-      isLoading: false,
-      isError: false
     };
   }
 
   componentDidMount = () => {
-    // api
-    //   .fetchTasks()
-    //   .then(tasks => {
-    //     console.log(tasks);
-    //     this.setState({
-    //       tasks: tasks,
-    //       isLoading: false,
-    //       isError: false
-    //     });
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //     this.setState({
-    //       isError: true
-    //     });
-    //   });
-
     APIService.sendRequest('/task/?format=json', 'get_tasks');
   };
-
-  // fetchTaskGraph = id => {
-  //   api
-  //     .fetchTaskGraph(id)
-  //     .then(graph => {
-  //       this.setState({
-  //         currTaskGraph: graph,
-  //         activeTaskId: id
-  //       });
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //       this.setState({
-  //         isError: true
-  //       });
-  //     });
-  // };
-  //
-  // handleTaskClick = id => {
-  //   return () => {
-  //     this.fetchTaskGraph(id);
-  //   };
-  // };
 
   render() {
     const { currTaskGraph } = this.state;
@@ -81,14 +39,15 @@ class TaskView extends React.Component {
         <TaskPanelContainer />
         <div style={styles.content}>
           <TaskAppBarContainer />
-          <TaskToolbar
-            users={currTaskGraph.users ? currTaskGraph.users : {}}
-          />
+          <TaskToolbarContainer users={currTaskGraph.users || {}} />
           <GraphViewer />
         </div>
 
         {/* Dialogs */}
         <DialogsContainer />
+
+        {/* Snack Bar */}
+        <SnackbarContainer />
       </div>
     );
   }

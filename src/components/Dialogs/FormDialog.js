@@ -1,6 +1,6 @@
 import React from 'react';
 
-// mui components
+// ui components
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Dialog, {
@@ -12,6 +12,8 @@ import Dialog, {
 
 // svgs
 import Close from '@material-ui/icons/Close';
+
+import LoadingButton from '../Button';
 
 const inline = {
   text: {
@@ -36,20 +38,25 @@ const inline = {
 
 class FormDialog extends React.Component {
   handleSave = () => {
-    this.props.toggle();
-    this.props.onSave();
+    this.props.onSave()
+      .then(() => { this.props.toggle(); })
   }
 
   render() {
-    const { open, toggle, component, title, hints } = this.props;
+    const { openState, toggle, component, title, hints, loading } = this.props;
     return (
       <Dialog
-        open={open}
+        open={openState}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
           <span>{title}</span>
-          <IconButton color="default" style={inline.iconButton} onClick={toggle}>
+          <IconButton
+            color="default"
+            style={inline.iconButton}
+            onClick={toggle}
+            disabled={loading}
+          >
             <Close />
           </IconButton>
         </DialogTitle>
@@ -60,8 +67,19 @@ class FormDialog extends React.Component {
           {component}
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggle} color="default">Cancel</Button>
-          <Button onClick={this.handleSave} color="primary">Save</Button>
+          <Button
+            onClick={toggle}
+            color="default"
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+          <LoadingButton
+            buttonName="Save"
+            color="primary"
+            loading={loading}
+            onClick={this.handleSave}
+          />
         </DialogActions>
       </Dialog>
     );

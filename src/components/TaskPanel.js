@@ -1,7 +1,7 @@
 import React from 'react';
 
 // mui component imports
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 import Drawer from 'material-ui/Drawer';
 import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
@@ -9,7 +9,6 @@ import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
 
 // svg imports
-import TaskIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import NotificationIcon from '@material-ui/icons/Notifications';
 
 // react components
@@ -66,9 +65,6 @@ const TaskPanel = ({ tasks, onTaskClick, classes }) => (
           const { tid, name } = task.info;
           return (
             <ListItem button key={tid} onClick={onTaskClick(tid)}>
-              <ListItemIcon className={classes.taskListItemIcon}>
-                <TaskIcon />
-              </ListItemIcon>
               <ListItemText
                 primary={name}
                 classes={{ primary: classes.taskListItemText }}

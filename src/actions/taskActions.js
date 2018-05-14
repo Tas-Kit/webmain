@@ -13,3 +13,7 @@ export const setActiveTaskId = taskId => ({
   type: types.SET_ACTIVE_TASK_ID,
   taskId,
 });
+
+export const toggleTaskActionPending = () => ({
+  type: types.TOGGLE_TASK_ACTION_PENDING,
+});
