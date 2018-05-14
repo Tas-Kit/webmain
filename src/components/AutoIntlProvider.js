@@ -14,7 +14,7 @@ const languageMap = {
 
 const detectLocale = () => {
   if (navigator) {
-    return navigator.language.split('_')[0];
+    return navigator.language.split(/[-_]/)[0];
   }
   return 'en';
 };
