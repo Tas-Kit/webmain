@@ -9,16 +9,14 @@ import Toolbar from './Toolbar';
 
 import * as dialogActions from '../../actions/dialogActions';
 
+import { MIN_ALLOW_WINDOW_WIDTH, DRAWER_WIDTH, APP_BAR_HEIGHT, TOOL_BAR_HEIGHT } from '../../constants';
+
 const { Network, DataSet } = vis;
 
 const styles = {
   mainContainer: {
     position: 'relative',
     flex: 1,
-  },
-  graphContainer: {
-    width: window.innerWidth - 240,
-    height: window.innerHeight - 136,
   },
 };
 
@@ -58,6 +56,14 @@ class Viewer extends React.Component {
     };
 
     this.network = new Network(this.graphElement, this.graphData, options);
+
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      this.network.setOptions({
+        width: width >= MIN_ALLOW_WINDOW_WIDTH ? String(window.innerWidth - DRAWER_WIDTH) : MIN_ALLOW_WINDOW_WIDTH,
+        height: String(window.innerHeight - APP_BAR_HEIGHT - TOOL_BAR_HEIGHT),
+      });
+    });
   }
 
   handleDrop = (e) => {
@@ -96,7 +102,7 @@ class Viewer extends React.Component {
         onDrop={this.handleDrop}
       >
         {/* Graph */}
-        <div ref={(el) => { this.graphElement = el; }} style={styles.graphContainer} />
+        <div ref={(el) => { this.graphElement = el; }} />
 
         {/* Toolbar */}
         <Toolbar onDragStart={this.handleDragStart} />

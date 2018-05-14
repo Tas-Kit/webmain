@@ -13,12 +13,15 @@ import Dialog, {
 // svgs
 import Close from '@material-ui/icons/Close';
 
-import LoadingButton from '../Button';
+// constants
+import { DIALOG_MESSAGE } from '../../constants';
+
+import { LoadingButton } from '../Button';
 
 const inline = {
   text: {
     padding: '0px 24px',
-    fontSize: 13,
+    fontSize: DIALOG_MESSAGE,
   },
   dialogContent: {
     padding: 0,

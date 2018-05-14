@@ -17,7 +17,7 @@ import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
 // constants
-import { SECONDARY } from '../constants/colors';
+import { PINK } from '../constants/colors';
 import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const DialogsContainer = (props) => {
@@ -105,7 +105,7 @@ const DialogsContainer = (props) => {
         title="Delete Task"
         message={
           <span>Are you sure you want to
-            <span style={{ color: SECONDARY }}> permanently </span>
+            <span style={{ color: PINK }}> permanently </span>
             remove this task?
           </span>
         }

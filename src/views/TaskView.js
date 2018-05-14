@@ -8,15 +8,17 @@ import SnackbarContainer from '../containers/SnackbarContainer';
 
 import APIService from '../services/APIService';
 
+import { MIN_ALLOW_WINDOW_WIDTH } from '../constants';
+
 const styles = {
   taskView: {
-    color: '#424242',
     display: 'flex',
   },
   content: {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
+    minWidth: MIN_ALLOW_WINDOW_WIDTH,
   },
 };
 

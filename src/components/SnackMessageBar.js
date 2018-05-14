@@ -4,7 +4,7 @@ import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { FOURTH } from '../constants/colors';
+import { ORANGE } from '../constants/colors';
 
 const styles = theme => ({
   close: {
@@ -26,7 +26,7 @@ const SnackMessageBar = (props) => {
         autoHideDuration={3000}
         onClose={toggle}
         ContentProps={{ 'aria-describedby': 'message-id' }}
-        message={<span style={{ color: FOURTH }}>{message}</span>}
+        message={<span style={{ color: ORANGE }}>{message}</span>}
         action={[
           <IconButton
             key="close"

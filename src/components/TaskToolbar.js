@@ -11,11 +11,12 @@ import Button from 'material-ui/Button';
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 
 import {
-  THIRD,
-  FOURTH,
-  TRANSPARENT_THIRD,
-  TRANSPARENT_FOURTH,
+  TEAL,
+  ORANGE,
+  TRANSPARENT_TEAL,
+  TRANSPARENT_ORANGE,
 } from '../constants/colors';
+import { LETTER_AVARTAR } from '../constants';
 
 const styles = {
   flex: {
@@ -24,15 +25,15 @@ const styles = {
   letterAvatar: {
     width: 31,
     height: 31,
-    fontSize: 16,
+    fontSize: LETTER_AVARTAR,
   },
   saveBt: {
-    color: THIRD,
-    '&:hover': { backgroundColor: TRANSPARENT_THIRD },
+    color: TEAL,
+    '&:hover': { backgroundColor: TRANSPARENT_TEAL },
   },
   cloneBt: {
-    color: FOURTH,
-    '&:hover': { backgroundColor: TRANSPARENT_FOURTH },
+    color: ORANGE,
+    '&:hover': { backgroundColor: TRANSPARENT_ORANGE },
   },
 };
 
