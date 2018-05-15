@@ -15,13 +15,8 @@ class InvitationContainer extends React.Component {
     };
   }
 
-  hanldeRevokeInvitationClick = id => () => {};
+  handleInvitationClick = () => { };
 
-  handleInvitationClick = () => {};
-
-  handleSuperRoleChange = id => () => {};
-
-  handleRoleChange = id => () => {};
 
   handleUsernameToInviteChange = e => {
     this.setState({
@@ -30,29 +25,17 @@ class InvitationContainer extends React.Component {
   };
 
   render() {
-    const { taskInfo } = this.props.taskManager;
-    // const { updateStepInfo } = this.props.actions;
     return (
       <Invitation
-        roles={taskInfo.roles}
         usernameToInvite={this.usernameToInvite}
-        handleInvitationClick={this.handleInvitationClick}
-        users={{}}
-        hanldeRevokeInvitationClick={this.hanldeRevokeInvitationClick}
-        handleSuperRoleChange={this.handleSuperRoleChange}
-        handleRoleChange={this.handleRoleChange}
         handleUsernameToInviteChange={this.handleUsernameToInviteChange}
+        handleInvitationClick={this.handleInvitationClick}
       />
     );
   }
 }
 
-const mapStateToProps = ({ taskManager }) => ({
-  taskManager
-});
+const mapStateToProps = null;
+const mapDispatchToProps = null;
 
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators({ ...stepActions, ...dialogActions }, dispatch)
-// });
-
-export default connect(mapStateToProps, null)(InvitationContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(InvitationContainer);

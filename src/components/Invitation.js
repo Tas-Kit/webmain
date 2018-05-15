@@ -4,7 +4,8 @@ import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import TextField from 'material-ui/TextField';
 import { withStyles } from 'material-ui/styles';
-import InvitationStatusRow from './InvitationStatusRow';
+import InvitationStatusContainer from "../containers/InvitationStatusContainer";
+
 
 const styles = {
   flexContainer: {
@@ -26,7 +27,7 @@ const styles = {
 
 const Invitation = props => {
   const {
-    roles, usernameToInvite, handleUsernameToInviteChange, handleInvitationClick, users, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
+    usernameToInvite, handleUsernameToInviteChange, handleInvitationClick, classes,
   } = props;
 
   return (
@@ -35,17 +36,7 @@ const Invitation = props => {
         <TextField className={classes.usernameTextfield} id="username" label="Username" value={usernameToInvite} onChange={handleUsernameToInviteChange} fullWidth />
         <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
       </div>
-      {Object.keys(users).map(id => {
-        const user = users[id];
-        return (<InvitationStatusRow
-          user={user}
-          userId={id}
-          roles={roles}
-          handleRevokeInvitationClick={handleRevokeInvitationClick}
-          handleSuperRoleChange={handleSuperRoleChange}
-          handleRoleChange={handleRoleChange}
-        />);
-      })}
+      <InvitationStatusContainer />
     </div>
   );
 };
