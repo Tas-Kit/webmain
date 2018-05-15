@@ -2,22 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InvitationStatus from '../components/InvitationStatus';
 
-const sampleUsers = [
-  {
-    has_task: {
-      acceptance: 'a',
-      role: null,
-      id: 566,
-      super_role: 10,
-    },
-    basic: {
-      username: 'test',
-      first_name: 'Test',
-      last_name: 'TestL',
-    },
-  },
-];
-
 class InvitationStatusContainer extends React.Component {
   //  TODO: Wire up with real actions
 
@@ -30,7 +14,7 @@ class InvitationStatusContainer extends React.Component {
     return (
       <InvitationStatus
         roles={taskInfo.roles}
-        users={sampleUsers}
+        users={{}}
         handleRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
         handleRoleChange={this.handleRoleChange}
