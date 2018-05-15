@@ -9,7 +9,7 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { dialogHintsSize } from '../../constants/fontSizes';
+import { DIALOG_MESSAGE } from "../../constants";
 
 // svgs
 import Close from '@material-ui/icons/Close';
@@ -17,7 +17,7 @@ import Close from '@material-ui/icons/Close';
 const inline = {
   text: {
     padding: '0px 24px',
-    fontSize: dialogHintsSize,
+    fontSize: DIALOG_MESSAGE,
   },
   iconButton: {
     display: 'inline-block',
