@@ -4,8 +4,8 @@ import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
-import AcceptanceIcon from './AcceptanceIcon';
 import { withStyles } from 'material-ui/styles';
+import AcceptanceIcon from './AcceptanceIcon';
 
 import { SUPER_ROLE, SUPER_ROLES } from '../constants';
 

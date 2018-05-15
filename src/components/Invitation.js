@@ -1,10 +1,8 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Close from '@material-ui/icons/Close';
 import TextField from 'material-ui/TextField';
 import { withStyles } from 'material-ui/styles';
-import InvitationStatusContainer from "../containers/InvitationStatusContainer";
+import InvitationStatusContainer from '../containers/InvitationStatusContainer';
 
 
 const styles = {
@@ -25,7 +23,7 @@ const styles = {
 };
 
 
-const Invitation = props => {
+const Invitation = (props) => {
   const {
     usernameToInvite, handleUsernameToInviteChange, handleInvitationClick, classes,
   } = props;

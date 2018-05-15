@@ -1,18 +1,17 @@
-import React, { Children } from 'react';
+import React from 'react';
 
 // mui components
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
+import Close from '@material-ui/icons/Close';
 import Dialog, {
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { DIALOG_MESSAGE } from "../../constants";
+import { DIALOG_MESSAGE } from '../../constants';
 
 // svgs
-import Close from '@material-ui/icons/Close';
+
 
 const inline = {
   text: {
@@ -32,9 +31,9 @@ const inline = {
   },
 };
 
-const PureDisplayDialog = props => {
+const PureDisplayDialog = (props) => {
   const {
-    open, toggle, title, children, hints
+    open, toggle, title, children, hints,
   } = props;
   return (
     <Dialog open={open} fullWidth aria-labelledby="form-dialog-title">

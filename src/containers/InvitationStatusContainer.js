@@ -14,7 +14,7 @@ class InvitationStatusContainer extends React.Component {
     return (
       <InvitationStatus
         roles={taskInfo.roles}
-        users={{}}
+        users={[]}
         handleRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
         handleRoleChange={this.handleRoleChange}
