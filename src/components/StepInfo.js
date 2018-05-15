@@ -6,7 +6,7 @@ import ExpectedEffortSelect from './Select/ExpectedEffortSelect';
 import OptionsSelect from './Select/OptionsSelect';
 
 // constants
-import { STATUS } from '../constants';
+import { STATUS, TEXT_FIELD_TITLE } from '../constants';
 
 const inline = {
   main: {
@@ -17,11 +17,11 @@ const inline = {
   row: {
     margin: '13px 0px',
   },
-  fileName: {
+  fieldName: {
     position: 'relative',
     top: 3,
     marginRight: 10,
-    fontSize: 14,
+    fontSize: TEXT_FIELD_TITLE,
     fontWeight: 600,
   },
 };
@@ -39,7 +39,7 @@ class StepInfo extends React.Component {
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fileName}>Name:</span>
+          <span style={inline.fieldName}>Name:</span>
           <TextField
             id="name"
             value={info.name}
@@ -47,7 +47,7 @@ class StepInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Expected Effort:</span>
+          <span style={inline.fieldName}>Expected Effort:</span>
           <ExpectedEffortSelect
             time={info.effortTime}
             timeUnit={info.effortUnit}
@@ -56,7 +56,7 @@ class StepInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Deadline:</span>
+          <span style={inline.fieldName}>Deadline:</span>
           <TextField
             id="deadline"
             type="date"
@@ -65,7 +65,7 @@ class StepInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Status:</span>
+          <span style={inline.fieldName}>Status:</span>
           <OptionsSelect
             options={STATUS}
             selectFieldName={info.status}
@@ -74,7 +74,7 @@ class StepInfo extends React.Component {
         </div>
         {/*
           <div style={inline.row}>
-          <span style={inline.fileName}>Assignee:</span>
+          <span style={inline.fieldName}>Assignee:</span>
           <OptionsSelect
           options={STATUS}
           selectFieldName={info.status}
@@ -84,7 +84,7 @@ class StepInfo extends React.Component {
         */}
         {/*
           <div style={inline.row}>
-          <span style={inline.fileName}>Reviewer:</span>
+          <span style={inline.fieldName}>Reviewer:</span>
           <OptionsSelect
           options={STATUS}
           selectFieldName={info.status}

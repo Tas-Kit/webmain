@@ -13,7 +13,7 @@ import Check from '@material-ui/icons/Check';
 import { ExpectedEffortSelect, OptionsSelect } from './Select';
 
 // constants
-import { STATUS } from '../constants';
+import { STATUS, TEXT_FIELD_TITLE } from '../constants';
 
 const inline = {
   main: {
@@ -24,11 +24,11 @@ const inline = {
   row: {
     margin: '13px 0px',
   },
-  fileName: {
+  fieldName: {
     position: 'relative',
     top: 3,
     marginRight: 10,
-    fontSize: 14,
+    fontSize: TEXT_FIELD_TITLE,
     fontWeight: 600,
   },
   iconButton: {
@@ -91,7 +91,7 @@ class TaskInfo extends React.Component {
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fileName}>Name:</span>
+          <span style={inline.fieldName}>Name:</span>
           <TextField
             id="name"
             value={info.name}
@@ -99,7 +99,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Status:</span>
+          <span style={inline.fieldName}>Status:</span>
           <OptionsSelect
             options={STATUS}
             selectFieldName={info.status}
@@ -107,7 +107,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Deadline:</span>
+          <span style={inline.fieldName}>Deadline:</span>
           <TextField
             id="deadline"
             type="date"
@@ -116,7 +116,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Expected Effort:</span>
+          <span style={inline.fieldName}>Expected Effort:</span>
           <ExpectedEffortSelect
             time={info.effortTime}
             timeUnit={info.effortUnit}
@@ -125,7 +125,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Description:</span>
+          <span style={inline.fieldName}>Description:</span>
           <TextField
             id="description"
             multiline
@@ -136,7 +136,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fileName}>Roles:</span>
+          <span style={inline.fieldName}>Roles:</span>
           {info.roles.map((role, index) => (
             <Chip
               key={`role_${index + 1}`}

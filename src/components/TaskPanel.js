@@ -41,6 +41,9 @@ const styles = () => ({
   NotificationIcon: {
     transform: 'scale(1.5)',
   },
+  expander: {
+    flexBasis: '100%',
+  },
 });
 
 const TaskPanel = ({ tasks, onTaskClick, classes }) => (
@@ -74,6 +77,7 @@ const TaskPanel = ({ tasks, onTaskClick, classes }) => (
         })
       }
     </List>
+    <div className={classes.expander} />
     <DrawerBottomPanelContainer />
   </Drawer>
 );
