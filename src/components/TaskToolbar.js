@@ -10,6 +10,9 @@ import Button from 'material-ui/Button';
 // svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 
+// i18n
+import { FormattedMessage } from 'react-intl';
+
 import {
   TEAL,
   ORANGE,
@@ -37,7 +40,7 @@ const styles = {
   },
 };
 
-const TaskToolbar = (props) => {
+const TaskToolbar = props => {
   const {
     classes,
     users = ['YZ'],
@@ -48,23 +51,27 @@ const TaskToolbar = (props) => {
   return (
     <Toolbar>
       <div className={classes.flex}>
-        <Button key="info" color="primary" onClick={toggleTaskInfo}>Info</Button>
+        <Button key="info" color="primary" onClick={toggleTaskInfo}>
+          <FormattedMessage id="infoButton" defaultMessage="Info" />
+        </Button>
         <Button
           key="clone"
           className={classNames(classes.cloneBt)}
         >
-          Clone
+          <FormattedMessage id="cloneButton" defaultMessage="Clone" />
         </Button>
-        <Button key="save" className={classNames(classes.saveBt)}>Save</Button>
+        <Button key="save" className={classNames(classes.saveBt)}>
+          <FormattedMessage id="saveButton" defaultMessage="Save" />
+        </Button>
         <Button
           key="delete"
           color="secondary"
           onClick={toggleDeleteTask}
         >
-          Delete
+          <FormattedMessage id="deleteButton" defaultMessage="Delete" />
         </Button>
       </div>
-      {Object.keys(users).map((id) => {
+      {Object.keys(users).map(id => {
         const user = users[id];
         return (
           <Avatar key={id} className={classes.letterAvatar}>
