@@ -32,13 +32,14 @@ const styles = {
 
 const UserStatusRow = (props) => {
   const {
-    user, roles, userId, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
+    user, roles, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
   } = props;
   const { username } = user.basic;
-  const { role, super_role: superRole, acceptance } = user.has_task;
-
+  const {
+    role, super_role: superRole, acceptance, id: userId,
+  } = user.has_task;
   return (
-    <div className={classes.userStatusRow} container spacing={8}>
+    <div className={classes.userStatusRow} spacing={8}>
       <div className={classes.flex3}>
         {username}
       </div>

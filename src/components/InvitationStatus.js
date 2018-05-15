@@ -1,24 +1,21 @@
 import React from 'react';
 import InvitationStatusRow from './InvitationStatusRow';
 
-const InvitationStatus = props => {
+const InvitationStatus = (props) => {
   const {
     users, roles, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange,
   } = props;
   return (
     <div>
       {
-        Object.keys(users).map(id => {
-          const user = users[id];
-          return (<InvitationStatusRow
-            user={user}
-            userId={id}
-            roles={roles}
-            handleRevokeInvitationClick={handleRevokeInvitationClick}
-            handleSuperRoleChange={handleSuperRoleChange}
-            handleRoleChange={handleRoleChange}
-          />);
-        })
+        users.map(user => (<InvitationStatusRow
+          key={user.has_task.id}
+          user={user}
+          roles={roles}
+          handleRevokeInvitationClick={handleRevokeInvitationClick}
+          handleSuperRoleChange={handleSuperRoleChange}
+          handleRoleChange={handleRoleChange}
+        />))
       }
     </div>
   );

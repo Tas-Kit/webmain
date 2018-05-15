@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 // const baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 
 const defaultOnError = () => {
-  // throw new Error('Netowkr error');
+  throw new Error('Netowkr error');
 };
 
 const handleTimeOut = () => {
