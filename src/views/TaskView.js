@@ -32,6 +32,7 @@ class TaskView extends React.Component {
 
   componentDidMount = () => {
     APIService.sendRequest('/task/?format=json', 'get_tasks');
+    APIService.sendRequest('/user', 'get_current_user');
   };
 
   render() {
