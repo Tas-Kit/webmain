@@ -4,6 +4,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
+import { FormControl, FormHelperText } from 'material-ui/Form';
 
 // mui svgs
 import AddRole from '@material-ui/icons/PersonAdd';
@@ -81,22 +82,27 @@ class TaskInfo extends React.Component {
   }
 
   render() {
-    const {
-      inputingRole,
-      roleName,
-    } = this.state;
-
+    const { inputingRole, roleName } = this.state;
     const { info } = this.props;
 
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Name:</span>
-          <TextField
-            id="name"
-            value={info.name}
-            onChange={this.handleChange('name')}
-          />
+          <span style={inline.fieldName}>Name*:</span>
+          <FormControl>
+            <TextField
+              id="name"
+              value={info.name}
+              onChange={this.handleChange('name')}
+              error={info.name.trim() === ''}
+            />
+            {info.name.trim() === '' ?
+              <FormHelperText id="name-error" error={info.name.trim() === ''}>
+                Name is required.
+              </FormHelperText>
+              : null
+            }
+          </FormControl>
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Status:</span>

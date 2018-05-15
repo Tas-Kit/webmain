@@ -34,8 +34,13 @@ const DialogsContainer = (props) => {
   const handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = props.taskManager;
+    if (taskInfo.name.trim() === '' || Number.isNaN(parseFloat(taskInfo.effortTime)) ||
+      (!Number.isNaN(parseFloat(taskInfo.effortTime)) && !Number.isInteger(parseFloat(taskInfo.effortTime)))) {
+      updateMessage('Form data is not valid. Please check it again.');
+      return new Promise(() => false);
+    }
     const payload = {
-      name: taskInfo.name,
+      name: taskInfo.name.trim() !== '' ? taskInfo.name : null,
       status: STATUS_MAP[taskInfo.status],
       roles: taskInfo.roles,
       description: taskInfo.description,
