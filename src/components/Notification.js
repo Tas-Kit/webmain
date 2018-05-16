@@ -16,32 +16,13 @@ import { ACCEPTANCE } from '../constants';
 import { FormattedMessage } from 'react-intl';
 
 const styles = {
-  NotificationIcon: {
+  notificationIcon: {
     width: 44,
   },
-};
-
-const sampleData = [
-  {
-    info: {
-      status: 'n',
-      description: 'a test project',
-      roles: [],
-      deadline: '2018-05-15T09:24:36.961000Z',
-      expected_effort_unit: null,
-      tid: '0af0249fe73e4eea95801895bc9e1834',
-      expected_effort_num: null,
-      id: 667,
-      name: 'test',
-    },
-    permission: {
-      acceptance: ACCEPTANCE.WAITING,
-      role: null,
-      id: 566,
-      super_role: 10,
-    },
+  typography: {
+    margin: '1em',
   },
-];
+};
 
 class Notification extends React.Component {
   constructor(props) {
@@ -66,8 +47,7 @@ class Notification extends React.Component {
   }
 
   render() {
-    const tasks = sampleData;
-    const { classes } = this.props;
+    const { classes, tasks } = this.props;
     const watingTasks = tasks.filter(task => task.permission.acceptance === ACCEPTANCE.WAITING);
 
     return (
@@ -77,14 +57,14 @@ class Notification extends React.Component {
             (
               <Badge badgeContent={watingTasks.length} color="secondary">
                 <NotificationIcon
-                  className={classes.NotificationIcon}
+                  className={classes.notificationIcon}
                   onClick={this.handleNotificationClick}
                 />
               </Badge>
             ) :
             (
               <NotificationIcon
-                className={classes.NotificationIcon}
+                className={classes.notificationIcon}
                 onClick={this.handleNotificationClick}
               />
             )
@@ -102,6 +82,7 @@ class Notification extends React.Component {
             horizontal: 'center',
           }}
         >
+
           <List >
             {watingTasks.map((task) => {
               const { tid, name } = task.info;
