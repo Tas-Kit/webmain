@@ -40,7 +40,7 @@ const styles = {
   },
 };
 
-const TaskToolbar = props => {
+const TaskToolbar = (props) => {
   const {
     classes,
     users = ['YZ'],
@@ -72,7 +72,7 @@ const TaskToolbar = props => {
           <FormattedMessage id="deleteButton" defaultMessage="Delete" />
         </Button>
       </div>
-      {Object.keys(users).map(id => {
+      {Object.keys(users).map((id) => {
         const user = users[id];
         return (
           <Avatar key={id} className={classes.letterAvatar}>
