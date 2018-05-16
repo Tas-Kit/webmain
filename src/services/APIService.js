@@ -21,7 +21,9 @@ const handleTimeOut = () => {
 };
 
 const transformResponse = (res, onError = defaultOnError) => {
-  if (res.ok) { return res.json(); }
+  if (res.ok) {
+    return res.json();
+  }
   switch (res.status) {
     case 401:
       handleTimeOut();
@@ -66,7 +68,7 @@ class APIService {
         }
         return false;
       });
-  }
+  };
 }
 
 export default new APIService();
