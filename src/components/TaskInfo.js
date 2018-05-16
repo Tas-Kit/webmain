@@ -12,6 +12,8 @@ import Check from '@material-ui/icons/Check';
 
 // ui components
 import { ExpectedEffortSelect, OptionsSelect } from './Select';
+import TextInput from './TextInput';
+import TextArea from './TextArea';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -89,20 +91,13 @@ class TaskInfo extends React.Component {
       <div style={inline.main}>
         <div style={inline.row}>
           <span style={inline.fieldName}>Name*:</span>
-          <FormControl>
-            <TextField
-              id="name"
-              value={info.name}
-              onChange={this.handleChange('name')}
-              error={info.name.trim() === ''}
-            />
-            {info.name.trim() === '' ?
-              <FormHelperText id="name-error" error={info.name.trim() === ''}>
-                Name is required.
-              </FormHelperText>
-              : null
-            }
-          </FormControl>
+          <TextInput
+            id="name"
+            value={info.name}
+            onChange={this.handleChange('name')}
+            validationRule="required|max:20"
+            errorMessage="Name is required and less than 20 characters."
+          />
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Status:</span>
@@ -134,13 +129,12 @@ class TaskInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Description:</span>
-          <TextField
+          <TextArea
             id="description"
-            multiline
-            rowsMax="6"
             value={info.description}
             onChange={this.handleChange('description')}
-            style={{ width: 400 }}
+            validationRule="max:2000"
+            errorMessage="Description should be no more than 2000 characters."
           />
         </div>
         <div style={inline.row}>

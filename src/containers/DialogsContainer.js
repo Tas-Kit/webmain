@@ -34,20 +34,27 @@ const DialogsContainer = (props) => {
   const handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = props.taskManager;
-    if (taskInfo.name.trim() === '' || Number.isNaN(parseFloat(taskInfo.effortTime)) ||
-      (!Number.isNaN(parseFloat(taskInfo.effortTime)) && !Number.isInteger(parseFloat(taskInfo.effortTime)))) {
-      updateMessage('Form data is not valid. Please check it again.');
-      return new Promise(() => false);
+    const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
+      || (key === 'roles' && taskInfo[key].length !== 0));
+
+    const payload = {};
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      switch (key) {
+        case 'status':
+          payload.status = STATUS_MAP[taskInfo.status];
+          break;
+        case 'effortUnit':
+          payload.expected_effort_unit = TIME_UNITS_MAP[taskInfo.effortUnit];
+          break;
+        case 'deadline':
+          payload.deadline = (new Date(taskInfo.deadline)).toISOString();
+          break;
+        default:
+          payload[key] = taskInfo[key];
+      }
     }
-    const payload = {
-      name: taskInfo.name.trim() !== '' ? taskInfo.name : null,
-      status: STATUS_MAP[taskInfo.status],
-      roles: taskInfo.roles,
-      description: taskInfo.description,
-      deadline: (new Date(taskInfo.deadline)).toISOString(),
-      expected_effort_num: taskInfo.effortTime,
-      expected_effort_unit: TIME_UNITS_MAP[taskInfo.effortUnit],
-    };
+    console.log(payload);
     toggleTaskActionPending();
     const url = '/task/';
     return APIService.sendRequest(url, 'save_task', payload, 'POST')

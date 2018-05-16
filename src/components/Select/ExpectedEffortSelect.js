@@ -7,18 +7,23 @@ import { TIME_UNITS } from '../../constants';
 
 const ExpectedEffortSelect = (props) => {
   const renderTimeFieldErrorText = () => {
-    const { time, validationRule, errorMessage } = props;
+    const { time, validationRule, errorMessage, timeUnit } = props;
     const data = { time };
     const rules = { time: validationRule };
-    const validator = new Validator(data, rules, errorMessage);
-    return (
-      validator.fails() ?
+    const validator = new Validator(data, rules);
+    if (time === '' && timeUnit !== '') {
+      return (
+        <FormHelperText id="time-error" error>
+          Please specify a number.
+        </FormHelperText>
+      );
+    } else if (validator.fails()) {
+      return (
         <FormHelperText id="time-error" error>
           {errorMessage}
         </FormHelperText>
-        :
-        null
-    );
+      );
+    }
   };
 
   const renderUnitFieldErrorText = () => {
