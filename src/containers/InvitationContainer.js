@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Invitation from '../components/Invitation';
 
 // redux actions
@@ -11,23 +10,23 @@ class InvitationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      usernameToInvite: ''
+      usernameToInvite: '',
     };
   }
 
   handleInvitationClick = () => { };
 
 
-  handleUsernameToInviteChange = e => {
+  handleUsernameToInviteChange = (e) => {
     this.setState({
-      usernameToInvite: e.target.value
+      usernameToInvite: e.target.value,
     });
   };
 
   render() {
     return (
       <Invitation
-        usernameToInvite={this.usernameToInvite}
+        usernameToInvite={this.state.usernameToInvite}
         handleUsernameToInviteChange={this.handleUsernameToInviteChange}
         handleInvitationClick={this.handleInvitationClick}
       />

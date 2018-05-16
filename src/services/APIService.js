@@ -51,7 +51,7 @@ class APIService {
     const requestObject = {
       headers: { Accept: 'application/json' },
       credentials: 'include',
-      method
+      method,
     };
     if (method === 'POST' || method === 'PATCH') {
       requestObject.headers['Content-Type'] = 'application/json';
@@ -59,7 +59,7 @@ class APIService {
     }
     return fetch(`${baseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))
-      .then(json => {
+      .then((json) => {
         if (json) {
           const response = { type, json };
           console.log(`${type}:`, json);
