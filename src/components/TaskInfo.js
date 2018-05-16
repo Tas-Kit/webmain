@@ -124,6 +124,8 @@ class TaskInfo extends React.Component {
         <div style={inline.row}>
           <span style={inline.fieldName}>Expected Effort:</span>
           <ExpectedEffortSelect
+            validationRule="numeric"
+            errorMessage="Time value expects a number."
             time={info.effortTime}
             timeUnit={info.effortUnit}
             onChangeTime={this.handleChange('effortTime')}

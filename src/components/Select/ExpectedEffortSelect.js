@@ -1,4 +1,5 @@
 import React from 'react';
+import Validator from 'validatorjs';
 import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl, FormHelperText } from 'material-ui/Form';
@@ -6,47 +7,62 @@ import { TIME_UNITS } from '../../constants';
 
 const ExpectedEffortSelect = (props) => {
   const renderTimeFieldErrorText = () => {
-    let error = false;
-    if (Number.isNaN(props.time)) {
-      error = true;
-    } else if (!Number.isInteger(parseFloat(props.time))) {
-      error = true;
-    }
+    const { time, validationRule, errorMessage } = props;
+    const data = { time };
+    const rules = { time: validationRule };
+    const validator = new Validator(data, rules, errorMessage);
     return (
-      error ?
+      validator.fails() ?
         <FormHelperText id="time-error" error>
-          Time value expects an integer.
+          {errorMessage}
         </FormHelperText>
         :
         null
     );
   };
+
+  const renderUnitFieldErrorText = () => {
+    const timeValue = props.time.trim();
+    if (timeValue !== '' && props.timeUnit === '') {
+      return (
+        <FormHelperText id="unit-error" error>
+          Pleas select a unit.
+        </FormHelperText>
+      );
+    }
+    return null;
+  };
+
   return (
     <div style={{ display: 'inline-block' }}>
-      <FormControl>
+      <FormControl style={{ width: 150 }}>
         <TextField
           id="time"
           value={props.time}
           label="Number"
           onChange={props.onChangeTime}
-          style={{ width: 150 }}
         />
         {renderTimeFieldErrorText()}
       </FormControl>
-      <TextField
-        select
-        id="expected_effort"
-        value={props.timeUnit}
-        label="Unit"
-        onChange={props.onChangeUnit}
-        style={{ marginLeft: 10, width: 150 }}
-      >
-        {TIME_UNITS.map(unit => (
-          <MenuItem key={unit} value={unit}>
-            {`${unit}(s)`}
-          </MenuItem>
-        ))}
-      </TextField>
+      <FormControl style={{ marginLeft: 10, width: 150 }}>
+        <TextField
+          select
+          id="expected_effort"
+          value={props.timeUnit}
+          label="Unit"
+          onChange={props.onChangeUnit}
+        >
+          {[
+            <MenuItem key="" value="" />,
+            ...TIME_UNITS.map(unit => (
+              <MenuItem key={unit} value={unit}>
+                {`${unit}(s)`}
+              </MenuItem>
+            )),
+          ]}
+        </TextField>
+        {renderUnitFieldErrorText()}
+      </FormControl>
     </div>
   );
 };
