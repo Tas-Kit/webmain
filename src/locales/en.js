@@ -3,6 +3,7 @@ const en = {
   cloneButton: 'Clone',
   saveButton: 'Save',
   deleteButton: 'Delete',
+  invitationNotification: 'You are invited to join {taskName}',
 };
 
 export default en;
