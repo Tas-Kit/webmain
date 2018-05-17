@@ -17,9 +17,10 @@ const handleRequest = (request, state) => {
 
 const handleResponse = (response, state) => {
   switch (response.type) {
-    case 'get_current_user':
+    case 'get_current_user': {
       const { first_name: firstName, last_name: lastName } = response.json;
       return { ...response.json, firstName, lastName };
+    }
     default:
       return state;
   }
