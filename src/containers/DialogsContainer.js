@@ -63,6 +63,9 @@ const DialogsContainer = (props) => {
           APIService.sendRequest('/task/?format=json', 'get_tasks');
           toggleTaskActionPending();
           updateMessage('Task created successfully.');
+        } else {
+          updateMessage('Create task failed.');
+          toggleTaskActionPending();
         }
       })
       .catch(() => {

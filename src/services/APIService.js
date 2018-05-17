@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 // const baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 
 const defaultOnError = () => {
-  // throw new Error('Netowkr error');
+  throw new Error();
 };
 
 const handleTimeOut = () => {
@@ -20,14 +20,14 @@ const handleTimeOut = () => {
   }
 };
 
-const transformResponse = (res, onError = defaultOnError) => {
+const transformResponse = (res) => {
   if (res.ok) { return res.json(); }
   switch (res.status) {
     case 401:
       handleTimeOut();
       break;
     default:
-      onError(res);
+      defaultOnError();
   }
   return null;
 };
