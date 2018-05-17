@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // ui components
-import { FormDialog, AlertDialog } from '../components/Dialogs';
+
+import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
+import InvitationContainer from './InvitationContainer';
 
 import APIService from '../services/APIService';
 
@@ -21,7 +23,9 @@ import { PINK } from '../constants/colors';
 import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const DialogsContainer = (props) => {
-  const { taskInfoOpen, stepInfoOpen, deleteTaskOpen } = props.dialogManager;
+  const {
+    taskInfoOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
+  } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
     toggleTaskInfo,
@@ -29,20 +33,33 @@ const DialogsContainer = (props) => {
     toggleDeleteTask,
     updateMessage,
     toggleTaskActionPending,
+    toggleInvitation,
   } = props.actions;
 
   const handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = props.taskManager;
-    const payload = {
-      name: taskInfo.name,
-      status: STATUS_MAP[taskInfo.status],
-      roles: taskInfo.roles,
-      description: taskInfo.description,
-      deadline: (new Date(taskInfo.deadline)).toISOString(),
-      expected_effort_num: taskInfo.effortTime,
-      expected_effort_unit: TIME_UNITS_MAP[taskInfo.effortUnit],
-    };
+    // filter out empty string and array
+    const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
+      || (key === 'roles' && taskInfo[key].length !== 0));
+
+    const payload = {};
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      switch (key) {
+        case 'status':
+          payload.status = STATUS_MAP[taskInfo.status];
+          break;
+        case 'effortUnit':
+          payload.expected_effort_unit = TIME_UNITS_MAP[taskInfo.effortUnit];
+          break;
+        case 'deadline':
+          payload.deadline = (new Date(taskInfo.deadline)).toISOString();
+          break;
+        default:
+          payload[key] = taskInfo[key];
+      }
+    }
     toggleTaskActionPending();
     const url = '/task/';
     return APIService.sendRequest(url, 'save_task', payload, 'POST')
@@ -51,7 +68,11 @@ const DialogsContainer = (props) => {
           APIService.sendRequest('/task/?format=json', 'get_tasks');
           toggleTaskActionPending();
           updateMessage('Task created successfully.');
+          return true;
         }
+        updateMessage('Create task failed.');
+        toggleTaskActionPending();
+        return false;
       })
       .catch(() => {
         updateMessage('Create task failed.');
@@ -99,6 +120,15 @@ const DialogsContainer = (props) => {
         toggle={toggleStepInfo}
         component={<StepInfoContainer />}
       />
+
+      {/* Invitation Dialog */}
+      <PureDisplayDialog
+        title="Invitation"
+        open={invitationOpen}
+        toggle={toggleInvitation}
+      >
+        <InvitationContainer />
+      </PureDisplayDialog>
 
       {/* Delete Task Alert Dialog */}
       <AlertDialog

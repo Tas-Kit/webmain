@@ -35,6 +35,18 @@ export const TIME_UNITS_MAP = {
   Year: 'y',
 };
 
+export const SUPER_ROLE = {
+  OWNER: 10,
+  ADMIN: 5,
+  STANDARD: 0,
+};
+
+export const SUPER_ROLES = {
+  [SUPER_ROLE.OWNER]: 'Owner',
+  [SUPER_ROLE.ADMIN]: 'Admin',
+  [SUPER_ROLE.STANDARD]: 'Standard',
+};
+
 // Component Size
 export const MIN_ALLOW_WINDOW_WIDTH = 840;
 export const DRAWER_WIDTH = 240;
@@ -54,6 +66,8 @@ export default {
   STATUS,
   STATUS_MAP,
   TIME_UNITS_MAP,
+  SUPER_ROLE,
+  SUPER_ROLES,
   MIN_ALLOW_WINDOW_WIDTH,
   DRAWER_WIDTH,
   APP_BAR_HEIGHT,
