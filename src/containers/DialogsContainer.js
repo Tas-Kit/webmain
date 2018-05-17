@@ -34,6 +34,7 @@ const DialogsContainer = (props) => {
   const handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = props.taskManager;
+    // filter out empty string and array
     const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
       || (key === 'roles' && taskInfo[key].length !== 0));
 
@@ -54,7 +55,6 @@ const DialogsContainer = (props) => {
           payload[key] = taskInfo[key];
       }
     }
-    console.log(payload);
     toggleTaskActionPending();
     const url = '/task/';
     return APIService.sendRequest(url, 'save_task', payload, 'POST')

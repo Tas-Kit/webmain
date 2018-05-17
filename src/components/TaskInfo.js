@@ -95,8 +95,8 @@ class TaskInfo extends React.Component {
             id="name"
             value={info.name}
             onChange={this.handleChange('name')}
-            validationRule="required|max:20"
-            errorMessage="Name is required and less than 20 characters."
+            validationRule="required|max:200"
+            errorMessage="Name is required and less than 200 characters."
           />
         </div>
         <div style={inline.row}>
