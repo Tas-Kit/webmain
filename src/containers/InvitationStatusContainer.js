@@ -38,8 +38,62 @@ class InvitationStatusContainer extends React.Component {
         toggleTaskActionPending();
       });
   };
-  handleSuperRoleChange = uid => () => { };
-  handleRoleChange = uid => () => { };
+
+  handleSuperRoleChange = uid => (e) => {
+    const {
+      toggleTaskActionPending,
+      updateMessage,
+    } = this.props.actions;
+    const { taskId: tid } = this.props.taskManager.taskInfo;
+    const payload = {
+      tid,
+      uid,
+      super_role: e.target.value,
+    };
+    toggleTaskActionPending();
+    const changeUrl = `/task/invitation/change/${tid}`;
+    APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
+      .then((success) => {
+        if (success) {
+          updateMessage('Invitation was revoked successfully');
+          const getGraphUrl = `/task/graph/${tid}`;
+          APIService.sendRequest(getGraphUrl, 'get_task_graph');
+          toggleTaskActionPending();
+        }
+      })
+      .catch(() => {
+        updateMessage('Revoke invitation failed');
+        toggleTaskActionPending();
+      });
+  };
+
+  handleRoleChange = uid => (e) => {
+    const {
+      toggleTaskActionPending,
+      updateMessage,
+    } = this.props.actions;
+    const { taskId: tid } = this.props.taskManager.taskInfo;
+    const payload = {
+      tid,
+      uid,
+      role: e.target.value,
+    };
+    toggleTaskActionPending();
+    const changeUrl = `/task/invitation/change/${tid}`;
+    APIService.sendRequest(changeUrl, 'change_role', payload, 'POST')
+      .then((success) => {
+        if (success) {
+          updateMessage('Invitation was revoked successfully');
+          const getGraphUrl = `/task/graph/${tid}`;
+          APIService.sendRequest(getGraphUrl, 'get_task_graph');
+          toggleTaskActionPending();
+        }
+      })
+      .catch(() => {
+        updateMessage('Revoke invitation failed');
+        toggleTaskActionPending();
+      });
+  };
 
   render() {
     const { taskInfo } = this.props.taskManager;
