@@ -1,7 +1,7 @@
 import * as types from '../constants/actions';
 
 const initialState = {
-  username: '',
+  username: 'user',
   firstName: '',
   lastName: '',
   uid: '',
