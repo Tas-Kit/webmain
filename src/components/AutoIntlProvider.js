@@ -1,15 +1,20 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, addLocaleData } from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import zh from 'react-intl/locale-data/zh';
+
 // polyfill for safari
 import intl from 'intl';
 
 // import locale libraries
-import zh from '../locales/zh';
-import en from '../locales/en';
+import zhMessages from '../locales/zh';
+import enMessages from '../locales/en';
+
+addLocaleData(...zh, ...en);
 
 const languageMap = {
-  zh,
-  en,
+  zh: zhMessages,
+  en: enMessages,
 };
 
 const detectLocale = () => {
@@ -20,7 +25,7 @@ const detectLocale = () => {
 };
 
 
-const AutoIntlProvider = props => {
+const AutoIntlProvider = (props) => {
   const { children } = props;
 
   return (

@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // ui components
-import { FormDialog, AlertDialog } from '../components/Dialogs';
+
+import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
+import InvitationContainer from './InvitationContainer';
 
 import APIService from '../services/APIService';
 
@@ -21,7 +23,9 @@ import { PINK } from '../constants/colors';
 import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const DialogsContainer = (props) => {
-  const { taskInfoOpen, stepInfoOpen, deleteTaskOpen } = props.dialogManager;
+  const {
+    taskInfoOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
+  } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
     toggleTaskInfo,
@@ -29,6 +33,7 @@ const DialogsContainer = (props) => {
     toggleDeleteTask,
     updateMessage,
     toggleTaskActionPending,
+    toggleInvitation,
   } = props.actions;
 
   const handleTaskInfoSave = () => {
@@ -114,6 +119,15 @@ const DialogsContainer = (props) => {
         toggle={toggleStepInfo}
         component={<StepInfoContainer />}
       />
+
+      {/* Invitation Dialog */}
+      <PureDisplayDialog
+        title="Invitation"
+        open={invitationOpen}
+        toggle={toggleInvitation}
+      >
+        <InvitationContainer />
+      </PureDisplayDialog>
 
       {/* Delete Task Alert Dialog */}
       <AlertDialog

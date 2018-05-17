@@ -40,12 +40,13 @@ const styles = {
   },
 };
 
-const TaskToolbar = props => {
+const TaskToolbar = (props) => {
   const {
     classes,
     users = ['YZ'],
-    toggleTaskInfo,
     toggleDeleteTask,
+    toggleTaskInfo,
+    toggleInvitation,
   } = props;
 
   return (
@@ -71,15 +72,15 @@ const TaskToolbar = props => {
           <FormattedMessage id="deleteButton" defaultMessage="Delete" />
         </Button>
       </div>
-      {Object.keys(users).map(id => {
+      {Object.keys(users).map((id) => {
         const user = users[id];
         return (
           <Avatar key={id} className={classes.letterAvatar}>
-            {`${user.basic.first_name[0]}${user.basic.last_name[0]}`}
+            {`${user.basic.username[0]}`}
           </Avatar>
         );
       })}
-      <IconButton color="inherit" aria-label="Invitation">
+      <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
     </Toolbar>

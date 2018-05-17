@@ -66,7 +66,7 @@ class APIService {
         }
         return false;
       });
-  }
+  };
 }
 
 export default new APIService();
