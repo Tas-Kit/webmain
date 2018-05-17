@@ -48,14 +48,14 @@ class Notification extends React.Component {
 
   render() {
     const { classes, tasks } = this.props;
-    const watingTasks = tasks.filter(task => task.permission.acceptance === ACCEPTANCE.WAITING);
+    const waitingTasks = tasks.filter(task => task.permission.acceptance === ACCEPTANCE.WAITING);
 
     return (
       <div ref={this.anchorEl}>
         {
-          watingTasks.length > 0 ?
+          waitingTasks.length > 0 ?
             (
-              <Badge badgeContent={watingTasks.length} color="secondary">
+              <Badge badgeContent={waitingTasks.length} color="secondary">
                 <NotificationIcon
                   className={classes.notificationIcon}
                   onClick={this.handleNotificationClick}
@@ -84,7 +84,7 @@ class Notification extends React.Component {
         >
 
           <List >
-            {watingTasks.map((task) => {
+            {waitingTasks.map((task) => {
               const { tid, name } = task.info;
               return (
                 <ListItem key={tid} >
