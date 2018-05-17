@@ -8,7 +8,7 @@ if (typeof window !== 'undefined') {
   baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
 }
 
-// const baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+// baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 
 const defaultOnError = () => {
   // throw new Error('Netowkr error');
