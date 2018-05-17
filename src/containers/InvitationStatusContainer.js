@@ -10,7 +10,7 @@ import * as snackbarActions from '../actions/snackbarActions';
 import APIService from '../services/APIService';
 
 class InvitationStatusContainer extends React.Component {
-  //  TODO: Wire up with real actions
+  //  TODO: Update locals users after sent invitation
 
   hanldeRevokeInvitationClick = uid => () => {
     const {
@@ -28,8 +28,6 @@ class InvitationStatusContainer extends React.Component {
       .then((success) => {
         if (success) {
           updateMessage('Invitation was revoked successfully');
-          const getGraphUrl = `/task/graph/${tid}`;
-          APIService.sendRequest(getGraphUrl, 'get_task_graph');
           toggleTaskActionPending();
         }
       })
@@ -56,8 +54,6 @@ class InvitationStatusContainer extends React.Component {
       .then((success) => {
         if (success) {
           updateMessage('Super role was sucessulfy changed');
-          const getGraphUrl = `/task/graph/${tid}`;
-          APIService.sendRequest(getGraphUrl, 'get_task_graph');
           toggleTaskActionPending();
         }
       })
@@ -84,8 +80,6 @@ class InvitationStatusContainer extends React.Component {
       .then((success) => {
         if (success) {
           updateMessage('Role was successfully changed');
-          const getGraphUrl = `/task/graph/${tid}`;
-          APIService.sendRequest(getGraphUrl, 'get_task_graph');
           toggleTaskActionPending();
         }
       })
