@@ -55,14 +55,14 @@ class InvitationStatusContainer extends React.Component {
     APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
       .then((success) => {
         if (success) {
-          updateMessage('Invitation was revoked successfully');
+          updateMessage('Super role was sucessulfy changed');
           const getGraphUrl = `/task/graph/${tid}`;
           APIService.sendRequest(getGraphUrl, 'get_task_graph');
           toggleTaskActionPending();
         }
       })
       .catch(() => {
-        updateMessage('Revoke invitation failed');
+        updateMessage('Change super role failed');
         toggleTaskActionPending();
       });
   };
@@ -83,14 +83,14 @@ class InvitationStatusContainer extends React.Component {
     APIService.sendRequest(changeUrl, 'change_role', payload, 'POST')
       .then((success) => {
         if (success) {
-          updateMessage('Invitation was revoked successfully');
+          updateMessage('Role was successfully changed');
           const getGraphUrl = `/task/graph/${tid}`;
           APIService.sendRequest(getGraphUrl, 'get_task_graph');
           toggleTaskActionPending();
         }
       })
       .catch(() => {
-        updateMessage('Revoke invitation failed');
+        updateMessage('Change role failed');
         toggleTaskActionPending();
       });
   };
