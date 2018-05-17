@@ -23,7 +23,7 @@ const handleResponse = (response, state) => {
     default:
       return state;
   }
-}
+};
 
 const currentUserManager = (state = initialState, action = {}) => {
   switch (action.type) {
