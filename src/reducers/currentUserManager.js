@@ -2,8 +2,8 @@ import * as types from '../constants/actions';
 
 const initialState = {
   username: '',
-  first_name: '',
-  last_name: '',
+  firstName: '',
+  lastName: '',
   uid: '',
   email: '',
 };
@@ -18,7 +18,8 @@ const handleRequest = (request, state) => {
 const handleResponse = (response, state) => {
   switch (response.type) {
     case 'get_current_user':
-      return { ...response.json };
+      const { first_name: firstName, last_name: lastName } = response.json;
+      return { ...response.json, firstName, lastName };
     default:
       return state;
   }
