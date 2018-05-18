@@ -25,14 +25,32 @@ export const STATUS_MAP = {
   Skipped: 's',
 };
 
+export const STATUS_MAP_TWO = {
+  n: 'New',
+  ip: 'In Progress',
+  rr: 'Ready For Review',
+  c: 'Completed',
+  s: 'Skipped',
+};
+
 export const TIME_UNITS_MAP = {
   Second: 's',
   Minute: 'm',
   Hour: 'h',
   Day: 'd',
   Week: 'w',
-  Month: 'm',
+  Month: 'M',
   Year: 'y',
+};
+
+export const TIME_UNITS_MAP_TWO = {
+  s: 'Second',
+  m: 'Minute',
+  h: 'Hour',
+  d: 'Day',
+  w: 'Week',
+  M: 'Month',
+  y: 'Year',
 };
 
 export const SUPER_ROLE = {

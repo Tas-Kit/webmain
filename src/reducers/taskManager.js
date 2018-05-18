@@ -1,5 +1,5 @@
 import * as types from '../constants/actions';
-import { STATUS, STATUS_MAP, TIME_UNITS_MAP } from '../constants';
+import { STATUS, STATUS_MAP_TWO, TIME_UNITS_MAP_TWO } from '../constants';
 
 const initialState = {
   taskId: null,
@@ -41,10 +41,10 @@ const handleResponse = (response, state) => {
         deadline: data.deadline || '',
         description: data.description || '',
         effortTime: data.expected_effort_num || '',
-        effortUnit: TIME_UNITS_MAP[data.expected_effort_unit] || '',
+        effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
         name: data.name,
         roles: data.roles || [],
-        status: STATUS_MAP[data.status] || '',
+        status: STATUS_MAP_TWO[data.status] || '',
       };
       return { ...state, taskInfo, taskId: data.tid };
     }
