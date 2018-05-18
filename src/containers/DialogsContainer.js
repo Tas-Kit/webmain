@@ -24,11 +24,12 @@ import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const DialogsContainer = (props) => {
   const {
-    taskInfoOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
+    taskInfoCreatorOpen, taskInfoEditorOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
   } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
-    toggleTaskInfo,
+    toggleTaskInfoCreator,
+    toggleTaskInfoEditor,
     toggleStepInfo,
     toggleDeleteTask,
     updateMessage,
@@ -103,17 +104,32 @@ const DialogsContainer = (props) => {
     new Promise((resolve) => { resolve(); }).then(() => true)
   );
 
+  const handleTaskInfoCreatorData = () => {
+    // reset task info form to create
+    props.actions.resetTaskInfo();
+  };
 
   return (
     <div>
-      {/* Task Info Form */}
+      {/* Task Info Creator Form */}
       <FormDialog
         title="Task Info"
         hints="To create a task, please fill in the fields below."
-        openState={taskInfoOpen}
-        toggle={toggleTaskInfo}
-        component={<TaskInfoContainer />}
+        openState={taskInfoCreatorOpen}
+        toggle={toggleTaskInfoCreator}
+        component={<TaskInfoContainer method={handleTaskInfoCreatorData} />}
         onSave={handleTaskInfoSave}
+        loading={pending}
+      />
+
+      {/* Task Info Editor Form */}
+      <FormDialog
+        title="Task Info"
+        hints="To edit a task, please modify the fields below."
+        openState={taskInfoEditorOpen}
+        toggle={toggleTaskInfoEditor}
+        component={<TaskInfoContainer />}
+        onSave={() => {}}
         loading={pending}
       />
 

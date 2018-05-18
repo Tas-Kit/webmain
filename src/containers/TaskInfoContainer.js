@@ -8,10 +8,7 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
 class TaskInfoContainer extends React.Component {
-  componentDidMount = () => {
-    this.props.actions.resetTaskInfo();
-    // TODO: send request to get actual data to populate
-  }
+  componentDidMount = () => this.props.method();
 
   render() {
     const { taskInfo } = this.props.taskManager;
@@ -33,5 +30,9 @@ const mapStateToProps = ({ taskManager, dialogManager }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions, ...dialogActions }, dispatch),
 });
+
+TaskInfoContainer.defaultProps = {
+  method: () => {},
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskInfoContainer);

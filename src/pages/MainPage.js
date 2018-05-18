@@ -59,7 +59,7 @@ class MainPage extends React.Component {
           </Switch>
         </div>
 
-        {/* Dialogs */}
+        {/* DialogsContainer */}
         <DialogsContainer />
 
         {/* Snack Bar */}

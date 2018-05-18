@@ -32,12 +32,12 @@ class TaskToolbarContainer extends React.Component {
   }
 
   render() {
-    const { toggleTaskInfo, toggleDeleteTask, toggleInvitation } = this.props.actions;
+    const { toggleTaskInfoEditor, toggleDeleteTask, toggleInvitation } = this.props.actions;
     const { users } = this.props;
     return (
       <TaskToolbar
         users={users}
-        toggleTaskInfo={toggleTaskInfo}
+        toggleTaskInfoEditor={toggleTaskInfoEditor}
         toggleDeleteTask={toggleDeleteTask}
         toggleInvitation={toggleInvitation}
       />
