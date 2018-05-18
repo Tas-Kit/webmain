@@ -24,7 +24,7 @@ const inline = {
     top: 3,
     marginRight: 10,
     fontSize: TEXT_FIELD_TITLE,
-    fontWeight: 600,
+    fontWeight: 500,
   },
 };
 
@@ -37,17 +37,34 @@ class StepInfo extends React.Component {
   }
 
   render() {
-    const { info } = this.props;
+    const { info, roles } = this.props;
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Name:</span>
+          <span style={inline.fieldName}>Name*:</span>
           <TextInput
             id="name"
             value={info.name}
             onChange={this.handleChange('name')}
             validationRule="required|max:200"
             errorMessage="Name is required and less than 200 characters."
+          />
+        </div>
+        <div style={inline.row}>
+          <span style={inline.fieldName}>Status:</span>
+          <OptionsSelect
+            options={STATUS}
+            selectFieldName={info.status}
+            onChange={this.handleChange('status')}
+          />
+        </div>
+        <div style={inline.row}>
+          <span style={inline.fieldName}>Deadline:</span>
+          <TextField
+            id="deadline"
+            type="date"
+            value={info.deadline}
+            onChange={this.handleChange('deadline')}
           />
         </div>
         <div style={inline.row}>
@@ -62,23 +79,6 @@ class StepInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Deadline:</span>
-          <TextField
-            id="deadline"
-            type="date"
-            value={info.deadline}
-            onChange={this.handleChange('deadline')}
-          />
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}>Status:</span>
-          <OptionsSelect
-            options={STATUS}
-            selectFieldName={info.status}
-            onChange={this.handleChange('status')}
-          />
-        </div>
-        <div style={inline.row}>
           <span style={inline.fieldName}>Description:</span>
           <TextArea
             id="description"
@@ -88,26 +88,24 @@ class StepInfo extends React.Component {
             errorMessage="Description should be no more than 2000 characters."
           />
         </div>
-        {/*
-          <div style={inline.row}>
+        <div style={inline.row}>
           <span style={inline.fieldName}>Assignee:</span>
           <OptionsSelect
-          options={STATUS}
-          selectFieldName={info.status}
-          onChange={this.handleChange('status')}
+            allowNone
+            options={roles}
+            selectFieldName={info.assigneeRole}
+            onChange={this.handleChange('assigneeRole')}
           />
-          </div>
-        */}
-        {/*
-          <div style={inline.row}>
+        </div>
+        <div style={inline.row}>
           <span style={inline.fieldName}>Reviewer:</span>
           <OptionsSelect
-          options={STATUS}
-          selectFieldName={info.status}
-          onChange={this.handleChange('status')}
+            allowNone
+            options={roles}
+            selectFieldName={info.reviewerRole}
+            onChange={this.handleChange('reviewerRole')}
           />
-          </div>
-        */}
+        </div>
       </div>
     );
   }

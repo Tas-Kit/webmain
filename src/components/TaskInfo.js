@@ -31,7 +31,7 @@ const inline = {
     top: 3,
     marginRight: 10,
     fontSize: TEXT_FIELD_TITLE,
-    fontWeight: 600,
+    fontWeight: 500,
   },
   iconButton: {
     width: 40,

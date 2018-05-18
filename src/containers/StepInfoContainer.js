@@ -15,9 +15,11 @@ class StepInfoContainer extends React.Component {
 
   render() {
     const { stepInfo } = this.props.stepManager;
+    const { roles } = this.props.taskManager.taskInfo;
     const { updateStepInfo } = this.props.actions;
     return (
       <StepInfo
+        roles={roles}
         info={stepInfo}
         update={updateStepInfo}
       />
@@ -25,7 +27,8 @@ class StepInfoContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ stepManager, dialogManager }) => ({
+const mapStateToProps = ({ taskManager, stepManager, dialogManager }) => ({
+  taskManager,
   stepManager,
   dialogManager,
 });

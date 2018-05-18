@@ -35,8 +35,8 @@ const handleResponse = (response, state) => {
       return { ...state, tasks };
     }
     case 'get_task_graph': {
-      console.log(response.json);
-      return state;
+      const taskInfo = response.json.task_info;
+      return { ...state, taskInfo };
     }
     case 'save_task': {
       console.log(response.json);
