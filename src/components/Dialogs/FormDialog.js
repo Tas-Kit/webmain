@@ -48,7 +48,15 @@ class FormDialog extends React.Component {
   }
 
   render() {
-    const { openState, toggle, component, title, hints, loading } = this.props;
+    const {
+      openState,
+      toggle,
+      component,
+      title,
+      hints,
+      loading,
+    } = this.props;
+
     return (
       <Dialog
         open={openState}

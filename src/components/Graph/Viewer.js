@@ -11,6 +11,8 @@ import * as dialogActions from '../../actions/dialogActions';
 
 import { MIN_ALLOW_WINDOW_WIDTH, DRAWER_WIDTH, APP_BAR_HEIGHT, TOOL_BAR_HEIGHT } from '../../constants';
 
+import svg0 from '../../assets/svgs/icon0.svg';
+
 const { Network, DataSet } = vis;
 
 const styles = {
@@ -23,10 +25,6 @@ const styles = {
 class Viewer extends React.Component {
   constructor() {
     super();
-    this.state = {
-      draggingIndex: -1,
-    };
-
     this.network = null;
     this.graphData = {
       nodes: new DataSet(),
@@ -74,25 +72,20 @@ class Viewer extends React.Component {
       y: e.pageY - offsetY,
     });
 
-    const { draggingIndex } = this.state;
+    // const { draggingIndex } = this.state;
     const node = {
       shape: 'image',
-      image: require(`../../assets/svgs/icon${draggingIndex}.svg`),
+      image: svg0,
       x: canvasCoord.x,
       y: canvasCoord.y,
     };
     this.addNode(node);
-    this.resetDraggingIndex();
 
     // open step info dialog and populate data
     this.props.actions.toggleStepInfo();
   }
 
   addNode = (node) => { this.graphData.nodes.add(node); }
-
-  handleDragStart = index => () => { this.setState({ draggingIndex: index }); }
-
-  resetDraggingIndex = () => { this.setState({ draggingIndex: -1 }); }
 
   render() {
     return (

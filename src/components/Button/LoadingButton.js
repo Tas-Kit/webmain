@@ -8,7 +8,12 @@ import { CircularProgress } from 'material-ui/Progress';
 import { LIGHT_BLUE, PINK } from '../../constants/colors';
 
 const LoadingButton = (props) => {
-  const { loading, buttonName, onClick, color } = props;
+  const {
+    loading,
+    buttonName,
+    onClick,
+    color,
+  } = props;
 
   const inline = {
     buttonWrapper: {
