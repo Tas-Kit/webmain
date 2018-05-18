@@ -42,7 +42,11 @@ const inline = {
 class FormDialog extends React.Component {
   handleSave = () => {
     this.props.onSave()
-      .then((success) => { if (success) this.props.toggle(); });
+      .then((success) => {
+        console.log('hellldsafasdfawesfaew');
+        console.log(success);
+        if (success) this.props.toggle();
+      });
   }
 
   render() {

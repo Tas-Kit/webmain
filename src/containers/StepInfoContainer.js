@@ -9,7 +9,6 @@ import * as stepActions from '../actions/stepActions';
 
 class StepInfoContainer extends React.Component {
   componentDidMount = () => {
-    console.log(this.props.actions);
     this.props.actions.resetStepInfo();
   }
 

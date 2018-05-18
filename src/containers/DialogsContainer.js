@@ -99,6 +99,12 @@ const DialogsContainer = (props) => {
       });
   };
 
+  const handleStepInfoSave = () => {
+    console.log('handlestepinfosave');
+    return (new Promise((resolve) => { resolve(); }).then(() => true));
+  };
+
+
   return (
     <div>
       {/* Task Info Form */}
@@ -118,6 +124,7 @@ const DialogsContainer = (props) => {
         hints="To create a step, please fill in the fields below."
         openState={stepInfoOpen}
         toggle={toggleStepInfo}
+        onSave={handleStepInfoSave}
         component={<StepInfoContainer />}
       />
 
