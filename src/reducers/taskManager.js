@@ -1,5 +1,5 @@
 import * as types from '../constants/actions';
-import { STATUS } from '../constants';
+import { STATUS, STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const initialState = {
   taskId: null,
@@ -35,8 +35,18 @@ const handleResponse = (response, state) => {
       return { ...state, tasks };
     }
     case 'get_task_graph': {
-      const taskInfo = response.json.task_info;
-      return { ...state, taskInfo };
+      const data = response.json.task_info;
+      const taskInfo = {
+        ...state.taskInfo,
+        deadline: data.deadline || '',
+        description: data.description || '',
+        effortTime: data.expected_effort_num || '',
+        effortUnit: TIME_UNITS_MAP[data.expected_effort_unit] || '',
+        name: data.name,
+        roles: data.roles || [],
+        status: STATUS_MAP[data.status] || '',
+      };
+      return { ...state, taskInfo, taskId: data.tid };
     }
     case 'save_task': {
       console.log(response.json);

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // ui components
-
 import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
 // ui containers
@@ -11,6 +10,7 @@ import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
 import InvitationContainer from './InvitationContainer';
 
+// services
 import APIService from '../services/APIService';
 
 // redux actions

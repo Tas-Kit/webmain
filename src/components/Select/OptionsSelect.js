@@ -2,12 +2,12 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 
-const OptionsSelect = ({ options, selectFieldName, onChange, width, allowNone }) => (
+const OptionsSelect = ({ options, selectFieldName, onChange, width, allowNone, label }) => (
   <TextField
     select
     id="options_selector"
     value={selectFieldName}
-    label="Role"
+    label={label}
     onChange={onChange}
     style={{ width }}
   >
@@ -23,6 +23,7 @@ const OptionsSelect = ({ options, selectFieldName, onChange, width, allowNone })
 OptionsSelect.defaultProps = {
   width: 150,
   allowNone: false,
+  label: '',
 };
 
 export default OptionsSelect;

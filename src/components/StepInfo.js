@@ -92,6 +92,7 @@ class StepInfo extends React.Component {
           <span style={inline.fieldName}>Assignee:</span>
           <OptionsSelect
             allowNone
+            label="Role"
             options={roles}
             selectFieldName={info.assigneeRole}
             onChange={this.handleChange('assigneeRole')}
@@ -101,6 +102,7 @@ class StepInfo extends React.Component {
           <span style={inline.fieldName}>Reviewer:</span>
           <OptionsSelect
             allowNone
+            label="Role"
             options={roles}
             selectFieldName={info.reviewerRole}
             onChange={this.handleChange('reviewerRole')}

@@ -43,8 +43,6 @@ class FormDialog extends React.Component {
   handleSave = () => {
     this.props.onSave()
       .then((success) => {
-        console.log('hellldsafasdfawesfaew');
-        console.log(success);
         if (success) this.props.toggle();
       });
   }
