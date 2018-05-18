@@ -7,9 +7,9 @@ import { BottomPanel } from '../components/Drawer';
 import * as dialogActions from '../actions/dialogActions';
 
 const DrawerBottomPanelContainer = (props) => {
-  const { toggleTaskInfoCreator } = props.actions;
+  const { toggleTaskInfo } = props.actions;
   return (
-    <BottomPanel toggleTaskInfoCreator={toggleTaskInfoCreator} />
+    <BottomPanel toggleTaskInfo={toggleTaskInfo} />
   );
 };
 

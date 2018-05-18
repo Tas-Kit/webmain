@@ -45,14 +45,14 @@ const TaskToolbar = (props) => {
     classes,
     users = ['YZ'],
     toggleDeleteTask,
-    toggleTaskInfoEditor,
+    toggleTaskInfo,
     toggleInvitation,
   } = props;
 
   return (
     <Toolbar>
       <div className={classes.flex}>
-        <Button key="info" color="primary" onClick={toggleTaskInfoEditor}>
+        <Button key="info" color="primary" onClick={toggleTaskInfo}>
           <FormattedMessage id="infoButton" defaultMessage="Info" />
         </Button>
         <Button

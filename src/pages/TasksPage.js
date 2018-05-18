@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// redux actions
+import * as taskActions from '../actions/taskActions';
 
 const inline = {
   instructions: {
@@ -9,6 +14,22 @@ const inline = {
   },
 };
 
-const TasksPage = () => <div style={inline.instructions}>Please select a task.</div>;
+class TasksPage extends React.Component {
+  componentDidMount = () => {
+    this.props.actions.resetTaskInfo();
+  }
 
-export default TasksPage;
+  render() {
+    return (
+      <div style={inline.instructions}>
+        Please select a task.
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ ...taskActions }, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(TasksPage);

@@ -1,8 +1,7 @@
 import * as types from '../constants/actions';
 
 const initialState = {
-  taskInfoCreatorOpen: false,
-  taskInfoEditorOpen: false,
+  taskInfoOpen: false,
   stepInfoOpen: false,
   invitationOpen: false,
   deleteTaskOpen: false,
@@ -10,10 +9,8 @@ const initialState = {
 
 const dialogManager = (state = initialState, action = {}) => {
   switch (action.type) {
-    case types.TOGGLE_TASK_INFO_CREATOR:
-      return { ...state, taskInfoCreatorOpen: !state.taskInfoCreatorOpen };
-    case types.TOGGLE_TASK_INFO_EDITOR:
-      return { ...state, taskInfoEditorOpen: !state.taskInfoEditorOpen };
+    case types.TOGGLE_TASK_INFO:
+      return { ...state, taskInfoOpen: !state.taskInfoOpen };
     case types.TOGGLE_STEP_INFO:
       return { ...state, stepInfoOpen: !state.stepInfoOpen };
     case types.TOGGLE_INVITATION:

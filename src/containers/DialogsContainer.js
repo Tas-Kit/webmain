@@ -24,12 +24,11 @@ import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
 
 const DialogsContainer = (props) => {
   const {
-    taskInfoCreatorOpen, taskInfoEditorOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
+    taskInfoOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
   } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
-    toggleTaskInfoCreator,
-    toggleTaskInfoEditor,
+    toggleTaskInfo,
     toggleStepInfo,
     toggleDeleteTask,
     updateMessage,
@@ -104,32 +103,16 @@ const DialogsContainer = (props) => {
     new Promise((resolve) => { resolve(); }).then(() => true)
   );
 
-  const handleTaskInfoCreatorData = () => {
-    // reset task info form to create
-    props.actions.resetTaskInfo();
-  };
-
   return (
     <div>
-      {/* Task Info Creator Form */}
+      {/* Task Info Editor */}
       <FormDialog
         title="Task Info"
-        hints="To create a task, please fill in the fields below."
-        openState={taskInfoCreatorOpen}
-        toggle={toggleTaskInfoCreator}
-        component={<TaskInfoContainer method={handleTaskInfoCreatorData} />}
-        onSave={handleTaskInfoSave}
-        loading={pending}
-      />
-
-      {/* Task Info Editor Form */}
-      <FormDialog
-        title="Task Info"
-        hints="To edit a task, please modify the fields below."
-        openState={taskInfoEditorOpen}
-        toggle={toggleTaskInfoEditor}
+        hints="To edit a task, please fill in the fields below."
+        openState={taskInfoOpen}
+        toggle={toggleTaskInfo}
         component={<TaskInfoContainer />}
-        onSave={() => {}}
+        onSave={handleTaskInfoSave}
         loading={pending}
       />
 

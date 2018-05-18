@@ -7,20 +7,16 @@ import TaskInfo from '../components/TaskInfo';
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
-class TaskInfoContainer extends React.Component {
-  componentDidMount = () => this.props.method();
-
-  render() {
-    const { taskInfo } = this.props.taskManager;
-    const { updateTaskInfo } = this.props.actions;
-    return (
-      <TaskInfo
-        info={taskInfo}
-        update={updateTaskInfo}
-      />
-    );
-  }
-}
+const TaskInfoContainer = (props) => {
+  const { taskInfo } = props.taskManager;
+  const { updateTaskInfo } = props.actions;
+  return (
+    <TaskInfo
+      info={taskInfo}
+      update={updateTaskInfo}
+    />
+  );
+};
 
 const mapStateToProps = ({ taskManager, dialogManager }) => ({
   taskManager,
@@ -30,9 +26,5 @@ const mapStateToProps = ({ taskManager, dialogManager }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions, ...dialogActions }, dispatch),
 });
-
-TaskInfoContainer.defaultProps = {
-  method: () => {},
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskInfoContainer);

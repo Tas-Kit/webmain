@@ -1,11 +1,7 @@
 import * as types from '../constants/actions';
 
-export const toggleTaskInfoCreator = () => ({
-  type: types.TOGGLE_TASK_INFO_CREATOR,
-});
-
-export const toggleTaskInfoEditor = () => ({
-  type: types.TOGGLE_TASK_INFO_EDITOR,
+export const toggleTaskInfo = () => ({
+  type: types.TOGGLE_TASK_INFO,
 });
 
 export const toggleStepInfo = () => ({
