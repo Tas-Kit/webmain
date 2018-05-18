@@ -34,9 +34,7 @@ const styles = {
 class TaskView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currTaskGraph: {},
-    };
+    this.state = { currTaskGraph: {} };
   }
 
   componentDidMount = () => {
