@@ -2,7 +2,14 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 
-const OptionsSelect = ({ options, selectFieldName, onChange, width, allowNone, label }) => (
+const OptionsSelect = ({
+  options,
+  selectFieldName,
+  onChange,
+  width,
+  allowNone,
+  label,
+}) => (
   <TextField
     select
     id="options_selector"

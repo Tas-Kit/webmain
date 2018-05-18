@@ -4,7 +4,14 @@ import TextField from 'material-ui/TextField';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 
 const TextInput = (props) => {
-  const { id, value, validationRule, errorMessage, onChange, width } = props;
+  const {
+    id,
+    value,
+    validationRule,
+    errorMessage,
+    onChange,
+    width,
+  } = props;
   let validator;
   const data = { value };
   const rules = { value: validationRule };

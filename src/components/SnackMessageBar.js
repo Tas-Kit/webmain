@@ -14,7 +14,12 @@ const styles = theme => ({
 });
 
 const SnackMessageBar = (props) => {
-  const { classes, openState, toggle, message } = props;
+  const {
+    classes,
+    openState,
+    toggle,
+    message,
+  } = props;
   return (
     <div>
       <Snackbar

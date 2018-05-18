@@ -2,10 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Invitation from '../components/Invitation';
 
-// redux actions
-import * as dialogActions from '../actions/dialogActions';
-import * as stepActions from '../actions/stepActions';
-
 class InvitationContainer extends React.Component {
   constructor(props) {
     super(props);

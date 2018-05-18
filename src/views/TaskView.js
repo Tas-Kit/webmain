@@ -42,8 +42,7 @@ class TaskView extends React.Component {
   componentDidMount = () => {
     const url = '/task/?format=json';
     APIService.sendRequest(url, 'get_tasks')
-      .then((success) => {
-        console.log('get_tasks api success:', success);
+      .then(() => {
       })
       .catch(() => {
         this.props.actions.updateMessage('Get tasks failed.');

@@ -48,10 +48,6 @@ const handleResponse = (response, state) => {
       };
       return { ...state, taskInfo, taskId: data.tid };
     }
-    case 'save_task': {
-      console.log(response.json);
-      return state;
-    }
     default:
       return state;
   }

@@ -18,7 +18,6 @@ const defaultOnError = () => {
 };
 
 const transformResponse = (res, onError = defaultOnError) => {
-  console.log(res);
   if (res.ok) {
     return res.json();
   }

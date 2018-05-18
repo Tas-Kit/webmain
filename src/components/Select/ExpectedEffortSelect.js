@@ -7,7 +7,12 @@ import { TIME_UNITS } from '../../constants';
 
 const ExpectedEffortSelect = (props) => {
   const renderTimeFieldErrorText = () => {
-    const { time, validationRule, errorMessage, timeUnit } = props;
+    const {
+      time,
+      validationRule,
+      errorMessage,
+      timeUnit,
+    } = props;
     const data = { time };
     const rules = { time: validationRule };
     const validator = new Validator(data, rules);
@@ -24,6 +29,7 @@ const ExpectedEffortSelect = (props) => {
         </FormHelperText>
       );
     }
+    return null;
   };
 
   const renderUnitFieldErrorText = () => {

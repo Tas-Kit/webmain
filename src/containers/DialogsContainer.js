@@ -99,10 +99,9 @@ const DialogsContainer = (props) => {
       });
   };
 
-  const handleStepInfoSave = () => {
-    console.log('handlestepinfosave');
-    return (new Promise((resolve) => { resolve(); }).then(() => true));
-  };
+  const handleStepInfoSave = () => (
+    new Promise((resolve) => { resolve(); }).then(() => true)
+  );
 
 
   return (

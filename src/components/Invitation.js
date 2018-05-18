@@ -31,7 +31,14 @@ const Invitation = (props) => {
   return (
     <div>
       <div className={classes.flexContainer}>
-        <TextField className={classes.usernameTextfield} id="username" label="Username" value={usernameToInvite} onChange={handleUsernameToInviteChange} fullWidth />
+        <TextField
+          className={classes.usernameTextfield}
+          id="username"
+          label="Username"
+          value={usernameToInvite}
+          onChange={handleUsernameToInviteChange}
+          fullWidth
+        />
         <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
       </div>
       <InvitationStatusContainer />
