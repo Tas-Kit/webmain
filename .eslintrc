@@ -8,7 +8,7 @@
     "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
     "no-prototype-builtins": "warn",
     "no-underscore-dangle": "warn",
-    "react/prop-types": "warn"
+    "react/prop-types": [0],
   },
   "env": {
     "browser": true

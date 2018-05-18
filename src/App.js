@@ -6,7 +6,7 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import theme from './constants/theme';
 import TaskView from './views/TaskView';
 import ReduxService from './services/ReduxService';
-import AutoIntlProvider from "./components/AutoIntlProvider";
+import AutoIntlProvider from './components/AutoIntlProvider';
 
 const App = () => (
   <AutoIntlProvider>
