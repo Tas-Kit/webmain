@@ -1,41 +1,54 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 
+// ui component
 import TaskToolbar from '../components/TaskToolbar';
 
+// redux action
 import * as dialogActions from '../actions/dialogActions';
+import * as taskActions from '../actions/taskActions';
 
-const styles = {
-  instructions: {
-    fontWeight: 300,
-    marginLeft: 20,
-    marginTop: 20,
-    fontSize: 20,
-  },
-};
+import APIService from '../services/APIService';
 
-const TaskToolbarContainer = (props) => {
-  const { taskId } = props.taskManager;
-  const { toggleTaskInfo, toggleDeleteTask, toggleInvitation } = props.actions;
-  const { users } = props;
-  return (
-    taskId ?
+class TaskToolbarContainer extends React.Component {
+  componentDidMount = () => {
+    const { taskId } = this.props.match.params;
+    this.props.actions.setActiveTaskId(taskId);
+    this.sendRequest(taskId);
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const { taskId: thisTaskId } = this.props.match.params;
+    const { taskId: nextTaskId } = nextProps.match.params;
+    if (thisTaskId !== nextTaskId) this.sendRequest(nextTaskId);
+  }
+
+  sendRequest = (taskId) => {
+    const url = `/task/graph/${taskId}`;
+    APIService.sendRequest(url, 'get_task_graph')
+      .then((success) => { console.log('get_task_graph api call success:', success); });
+  }
+
+  render() {
+    const { toggleTaskInfo, toggleDeleteTask, toggleInvitation } = this.props.actions;
+    const { users } = this.props;
+    return (
       <TaskToolbar
         users={users}
         toggleTaskInfo={toggleTaskInfo}
         toggleDeleteTask={toggleDeleteTask}
         toggleInvitation={toggleInvitation}
       />
-      :
-      <div style={styles.instructions}>Please select a task.</div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(dialogActions, dispatch),
+  actions: bindActionCreators({ ...dialogActions, ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskToolbarContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskToolbarContainer));

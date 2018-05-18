@@ -9,7 +9,9 @@
     "no-prototype-builtins": "warn",
     "no-underscore-dangle": "warn",
     "react/prop-types": [0],
-    "no-console": [0]
+    "no-console": [0],
+    "linebreak-style": [0],
+    "jsx-a11y/anchor-is-valid": [0]
   },
   "env": {
     "browser": true

@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Route, Switch } from 'react-router-dom';
+
+// pages
+import TasksPage from './TasksPage';
+import TaskGraphPage from './TaskGraphPage';
 
 // containers
 import DialogsContainer from '../containers/DialogsContainer';
 import TaskPanelContainer from '../containers/TaskPanelContainer';
 import TaskAppBarContainer from '../containers/TaskAppBarContainer';
-import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import SnackbarContainer from '../containers/SnackbarContainer';
-import GraphViewerContainer from '../containers/GraphViewerContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -31,12 +34,7 @@ const styles = {
   },
 };
 
-class TaskView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { currTaskGraph: {} };
-  }
-
+class MainPage extends React.Component {
   componentDidMount = () => {
     const url = '/task/?format=json';
     APIService.sendRequest(url, 'get_tasks')
@@ -48,17 +46,17 @@ class TaskView extends React.Component {
   };
 
   render() {
-    const { currTaskGraph } = this.state;
-    const { taskId } = this.props.taskManager;
     return (
       <div style={styles.taskView}>
         <TaskPanelContainer />
         <div style={styles.content}>
           <TaskAppBarContainer />
-          <TaskToolbarContainer users={currTaskGraph.users || {}} />
 
-          {/* Graph */}
-          {taskId ? <GraphViewerContainer /> : null}
+          {/* Routes */}
+          <Switch>
+            <Route exact path="/" component={TasksPage} />
+            <Route path="/task/:taskId" component={TaskGraphPage} />
+          </Switch>
         </div>
 
         {/* Dialogs */}
@@ -71,10 +69,8 @@ class TaskView extends React.Component {
   }
 }
 
-const mapStateToProps = ({ taskManager }) => ({ taskManager });
-
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...snackbarActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskView);
+export default connect(null, mapDispatchToProps)(MainPage);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import TaskPanel from '../components/TaskPanel';
@@ -28,4 +29,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskPanelContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskPanelContainer));

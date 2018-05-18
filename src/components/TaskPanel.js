@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // mui component imports
 import List, { ListItem, ListItemText } from 'material-ui/List';
@@ -67,12 +68,14 @@ const TaskPanel = ({ tasks, onTaskClick, classes }) => (
         .map((task) => {
           const { tid, name } = task.info;
           return (
-            <ListItem button key={tid} onClick={onTaskClick(tid)}>
-              <ListItemText
-                primary={name}
-                classes={{ primary: classes.taskListItemText }}
-              />
-            </ListItem>
+            <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+              <ListItem button onClick={onTaskClick(tid)}>
+                <ListItemText
+                  primary={name}
+                  classes={{ primary: classes.taskListItemText }}
+                />
+              </ListItem>
+            </Link>
           );
         })
       }
