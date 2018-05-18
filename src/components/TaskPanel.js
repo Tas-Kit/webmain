@@ -7,6 +7,7 @@ import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
+import Tooltip from 'material-ui/Tooltip';
 
 // svg imports
 import NotificationIcon from '@material-ui/icons/Notifications';
@@ -16,6 +17,7 @@ import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer
 
 // constant import
 import { ACCEPTANCE } from '../constants';
+
 
 const drawerWidth = 240;
 
@@ -46,40 +48,48 @@ const styles = () => ({
   },
 });
 
-const TaskPanel = ({ tasks, onTaskClick, classes }) => (
-  <Drawer
-    classes={{ paper: classes.taskDrawer }}
-    variant="permanent"
-    anchor="left"
-  >
-    <Grid
-      container
-      justify="space-between"
-      alignItems="center"
-      className={classes.row}
+const TaskPanel = (props) => {
+  const {
+    username, tasks, onTaskClick, classes,
+  } = props;
+  return (
+    <Drawer
+      classes={{ paper: classes.taskDrawer }}
+      variant="permanent"
+      anchor="left"
     >
-      <Avatar className={classes.avatar}>YZ</Avatar>
-      <NotificationIcon className={classes.NotificationIcon} />
-    </Grid>
+      <Grid
+        container
+        justify="space-between"
+        alignItems="center"
+        className={classes.row}
+      >
+        <Tooltip id="tooltip-username" title={username}>
+          <Avatar className={classes.avatar}>{username ? username[0] : ''}</Avatar>
+        </Tooltip>
 
-    <List component="nav">
-      {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
-        .map((task) => {
-          const { tid, name } = task.info;
-          return (
-            <ListItem button key={tid} onClick={onTaskClick(tid)}>
-              <ListItemText
-                primary={name}
-                classes={{ primary: classes.taskListItemText }}
-              />
-            </ListItem>
-          );
-        })
-      }
-    </List>
-    <div className={classes.expander} />
-    <DrawerBottomPanelContainer />
-  </Drawer>
-);
+        <NotificationIcon className={classes.NotificationIcon} />
+      </Grid>
+
+      <List component="nav">
+        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
+          .map((task) => {
+            const { tid, name } = task.info;
+            return (
+              <ListItem button key={tid} onClick={onTaskClick(tid)}>
+                <ListItemText
+                  primary={name}
+                  classes={{ primary: classes.taskListItemText }}
+                />
+              </ListItem>
+            );
+          })
+        }
+      </List>
+      <div className={classes.expander} />
+      <DrawerBottomPanelContainer />
+    </Drawer>
+  );
+};
 
 export default withStyles(styles)(TaskPanel);

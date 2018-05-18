@@ -38,6 +38,7 @@ class TaskView extends React.Component {
   }
 
   componentDidMount = () => {
+    
     const url = '/task/?format=json';
     APIService.sendRequest(url, 'get_tasks')
       .then((success) => {
@@ -46,6 +47,14 @@ class TaskView extends React.Component {
       .catch(() => {
         this.props.actions.updateMessage('Get tasks failed.');
       });
+    APIService.sendRequest('/user', 'get_current_user')
+      .then((success) => {
+        console.log('get_user api succeed', success);
+      })
+      .catch(() => {
+        this.props.actions.updateMessage('Get user failed');
+      });
+
   };
 
   render() {

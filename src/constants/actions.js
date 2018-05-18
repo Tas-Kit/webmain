@@ -25,3 +25,6 @@ export const SET_ACTIVE_TASK_ID = 'SET_ACTIVE_TASK_ID';
 // Snackbar Actions
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
+
+// Currentuser Actions
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
