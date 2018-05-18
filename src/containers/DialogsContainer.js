@@ -39,15 +39,27 @@ const DialogsContainer = (props) => {
   const handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = props.taskManager;
-    const payload = {
-      name: taskInfo.name,
-      status: STATUS_MAP[taskInfo.status],
-      roles: taskInfo.roles,
-      description: taskInfo.description,
-      deadline: (new Date(taskInfo.deadline)).toISOString(),
-      expected_effort_num: taskInfo.effortTime,
-      expected_effort_unit: TIME_UNITS_MAP[taskInfo.effortUnit],
-    };
+    // filter out empty string and array
+    const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
+      || (key === 'roles' && taskInfo[key].length !== 0));
+
+    const payload = {};
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      switch (key) {
+        case 'status':
+          payload.status = STATUS_MAP[taskInfo.status];
+          break;
+        case 'effortUnit':
+          payload.expected_effort_unit = TIME_UNITS_MAP[taskInfo.effortUnit];
+          break;
+        case 'deadline':
+          payload.deadline = (new Date(taskInfo.deadline)).toISOString();
+          break;
+        default:
+          payload[key] = taskInfo[key];
+      }
+    }
     toggleTaskActionPending();
     const url = '/task/';
     return APIService.sendRequest(url, 'save_task', payload, 'POST')
@@ -56,7 +68,11 @@ const DialogsContainer = (props) => {
           APIService.sendRequest('/task/?format=json', 'get_tasks');
           toggleTaskActionPending();
           updateMessage('Task created successfully.');
+          return true;
         }
+        updateMessage('Create task failed.');
+        toggleTaskActionPending();
+        return false;
       })
       .catch(() => {
         updateMessage('Create task failed.');

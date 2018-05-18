@@ -4,6 +4,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
+import { FormControl, FormHelperText } from 'material-ui/Form';
 
 // mui svgs
 import AddRole from '@material-ui/icons/PersonAdd';
@@ -11,6 +12,8 @@ import Check from '@material-ui/icons/Check';
 
 // ui components
 import { ExpectedEffortSelect, OptionsSelect } from './Select';
+import TextInput from './TextInput';
+import TextArea from './TextArea';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -81,21 +84,19 @@ class TaskInfo extends React.Component {
   }
 
   render() {
-    const {
-      inputingRole,
-      roleName,
-    } = this.state;
-
+    const { inputingRole, roleName } = this.state;
     const { info } = this.props;
 
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Name:</span>
-          <TextField
+          <span style={inline.fieldName}>Name*:</span>
+          <TextInput
             id="name"
             value={info.name}
             onChange={this.handleChange('name')}
+            validationRule="required|max:200"
+            errorMessage="Name is required and less than 200 characters."
           />
         </div>
         <div style={inline.row}>
@@ -118,6 +119,8 @@ class TaskInfo extends React.Component {
         <div style={inline.row}>
           <span style={inline.fieldName}>Expected Effort:</span>
           <ExpectedEffortSelect
+            validationRule="numeric"
+            errorMessage="Time value expects a number."
             time={info.effortTime}
             timeUnit={info.effortUnit}
             onChangeTime={this.handleChange('effortTime')}
@@ -126,13 +129,12 @@ class TaskInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Description:</span>
-          <TextField
+          <TextArea
             id="description"
-            multiline
-            rowsMax="6"
             value={info.description}
             onChange={this.handleChange('description')}
-            style={{ width: 400 }}
+            validationRule="max:2000"
+            errorMessage="Description should be no more than 2000 characters."
           />
         </div>
         <div style={inline.row}>

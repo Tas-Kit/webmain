@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { GraphViewer } from '../components/Graph';
 import DialogsContainer from '../containers/DialogsContainer';
 import TaskPanelContainer from '../containers/TaskPanelContainer';
@@ -6,8 +8,13 @@ import TaskAppBarContainer from '../containers/TaskAppBarContainer';
 import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import SnackbarContainer from '../containers/SnackbarContainer';
 
+// services
 import APIService from '../services/APIService';
 
+// actions
+import * as snackbarActions from '../actions/snackbarActions';
+
+// constants
 import { MIN_ALLOW_WINDOW_WIDTH } from '../constants';
 
 const styles = {
@@ -31,7 +38,23 @@ class TaskView extends React.Component {
   }
 
   componentDidMount = () => {
-    APIService.sendRequest('/task/?format=json', 'get_tasks');
+    
+    const url = '/task/?format=json';
+    APIService.sendRequest(url, 'get_tasks')
+      .then((success) => {
+        console.log('get_tasks api success:', success);
+      })
+      .catch(() => {
+        this.props.actions.updateMessage('Get tasks failed.');
+      });
+    APIService.sendRequest('/user', 'get_current_user')
+      .then((success) => {
+        console.log('get_user api succeed', success);
+      })
+      .catch(() => {
+        this.props.actions.updateMessage('Get user failed');
+      });
+
   };
 
   render() {
@@ -55,4 +78,9 @@ class TaskView extends React.Component {
   }
 }
 
-export default TaskView;
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ ...snackbarActions }, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(TaskView);

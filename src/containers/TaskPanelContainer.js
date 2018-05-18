@@ -10,11 +10,6 @@ import APIService from '../services/APIService';
 import * as taskActions from '../actions/taskActions';
 
 class TaskPanelContainer extends React.Component {
-  componentDidMount = () => {
-    const url = '/task/?format=json';
-    APIService.sendRequest(url, 'get_tasks');
-  };
-
   handleTaskClick = taskId => () => {
     this.props.actions.setActiveTaskId(taskId);
     const url = `/task/graph/${taskId}`;
@@ -23,14 +18,15 @@ class TaskPanelContainer extends React.Component {
 
   render() {
     const { tasks } = this.props.taskManager;
-    return <TaskPanel tasks={tasks} onTaskClick={this.handleTaskClick} />;
+    const { username } = this.props.currentUserManager;
+    return <TaskPanel username={username} tasks={tasks} onTaskClick={this.handleTaskClick} />;
   }
 }
 
-const mapStateToProps = ({ taskManager }) => ({ taskManager });
+const mapStateToProps = ({ taskManager, currentUserManager }) => ({ taskManager, currentUserManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(taskActions, dispatch),
+  actions: bindActionCreators({ ...taskActions }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskPanelContainer);
