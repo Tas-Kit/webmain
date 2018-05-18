@@ -68,14 +68,14 @@ const TaskPanel = ({ tasks, onTaskClick, classes }) => (
         .map((task) => {
           const { tid, name } = task.info;
           return (
-            <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
-              <ListItem button onClick={onTaskClick(tid)}>
+            <ListItem button onClick={onTaskClick(tid)} key={tid}>
+              <Link to={`/task/${tid}`} style={{ textDecoration: 'none' }}>
                 <ListItemText
                   primary={name}
                   classes={{ primary: classes.taskListItemText }}
                 />
-              </ListItem>
-            </Link>
+              </Link>
+            </ListItem>
           );
         })
       }
