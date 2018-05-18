@@ -9,7 +9,7 @@ import * as taskActions from '../actions/taskActions';
 
 class TaskInfoContainer extends React.Component {
   componentDidMount = () => {
-    this.props.actions.resetTaskInfo();
+    // this.props.actions.resetTaskInfo();
     // TODO: send request to get actual data to populate
   }
 
