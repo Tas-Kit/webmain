@@ -19,11 +19,12 @@ class TaskPanelContainer extends React.Component {
 
   render() {
     const { tasks } = this.props.taskManager;
-    return <TaskPanel tasks={tasks} onTaskClick={this.handleTaskClick} />;
+    const { username } = this.props.currentUserManager;
+    return <TaskPanel username={username} tasks={tasks} onTaskClick={this.handleTaskClick} />;
   }
 }
 
-const mapStateToProps = ({ taskManager }) => ({ taskManager });
+const mapStateToProps = ({ taskManager, currentUserManager }) => ({ taskManager, currentUserManager });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions }, dispatch),
