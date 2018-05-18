@@ -9,6 +9,7 @@
     "no-prototype-builtins": "warn",
     "no-underscore-dangle": "warn",
     "react/prop-types": [0],
+    "no-console": [0]
   },
   "env": {
     "browser": true
