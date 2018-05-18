@@ -4,6 +4,8 @@ import TextField from 'material-ui/TextField';
 // ui components
 import ExpectedEffortSelect from './Select/ExpectedEffortSelect';
 import OptionsSelect from './Select/OptionsSelect';
+import TextInput from './TextInput';
+import TextArea from './TextArea';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -40,15 +42,19 @@ class StepInfo extends React.Component {
       <div style={inline.main}>
         <div style={inline.row}>
           <span style={inline.fieldName}>Name:</span>
-          <TextField
+          <TextInput
             id="name"
             value={info.name}
             onChange={this.handleChange('name')}
+            validationRule="required|max:200"
+            errorMessage="Name is required and less than 200 characters."
           />
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Expected Effort:</span>
           <ExpectedEffortSelect
+            validationRule="numeric"
+            errorMessage="Time value expects a number."
             time={info.effortTime}
             timeUnit={info.effortUnit}
             onChangeTime={this.handleChange('effortTime')}
@@ -70,6 +76,16 @@ class StepInfo extends React.Component {
             options={STATUS}
             selectFieldName={info.status}
             onChange={this.handleChange('status')}
+          />
+        </div>
+        <div style={inline.row}>
+          <span style={inline.fieldName}>Description:</span>
+          <TextArea
+            id="description"
+            value={info.description}
+            onChange={this.handleChange('description')}
+            validationRule="max:2000"
+            errorMessage="Description should be no more than 2000 characters."
           />
         </div>
         {/*

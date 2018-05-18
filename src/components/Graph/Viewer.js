@@ -111,8 +111,10 @@ class Viewer extends React.Component {
   }
 }
 
+const mapStateToProps = ({ taskManager }) => ({ taskManager });
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(dialogActions, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(Viewer);
+export default connect(mapStateToProps, mapDispatchToProps)(Viewer);

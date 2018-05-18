@@ -9,6 +9,7 @@ const initialState = {
     effortUnit: '',
     deadline: '',
     status: STATUS[0],
+    description: '',
   },
 };
 

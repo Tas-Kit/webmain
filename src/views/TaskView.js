@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { GraphViewer } from '../components/Graph';
+
+// containers
 import DialogsContainer from '../containers/DialogsContainer';
 import TaskPanelContainer from '../containers/TaskPanelContainer';
 import TaskAppBarContainer from '../containers/TaskAppBarContainer';
 import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import SnackbarContainer from '../containers/SnackbarContainer';
+import GraphViewerContainer from '../containers/GraphViewerContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -50,13 +52,16 @@ class TaskView extends React.Component {
 
   render() {
     const { currTaskGraph } = this.state;
+    const { taskId } = this.props.taskManager;
     return (
       <div style={styles.taskView}>
         <TaskPanelContainer />
         <div style={styles.content}>
           <TaskAppBarContainer />
           <TaskToolbarContainer users={currTaskGraph.users || {}} />
-          <GraphViewer />
+
+          {/* Graph */}
+          {taskId ? <GraphViewerContainer /> : null}
         </div>
 
         {/* Dialogs */}
@@ -69,9 +74,10 @@ class TaskView extends React.Component {
   }
 }
 
+const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...snackbarActions }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(TaskView);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskView);
