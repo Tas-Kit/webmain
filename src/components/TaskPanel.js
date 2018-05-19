@@ -64,7 +64,7 @@ const TaskPanel = (props) => {
           <Avatar className={classes.avatar}>{username ? username[0] : ''}</Avatar>
         </Tooltip>
 
-       <Notification tasks={tasks} />
+        <Notification tasks={tasks} />
       </Grid>
 
       <List component="nav">
