@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import { Popover } from 'material-ui';
 import Badge from 'material-ui/Badge';
-import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Done from '@material-ui/icons/Done';

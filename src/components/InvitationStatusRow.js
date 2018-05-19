@@ -31,7 +31,8 @@ const styles = {
 
 const UserStatusRow = (props) => {
   const {
-    user, roles, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange, classes,
+    user, roles, handleRevokeInvitationClick,
+    userPermission, handleSuperRoleChange, handleRoleChange, classes,
   } = props;
   const { username } = user.basic;
   const {
@@ -43,7 +44,11 @@ const UserStatusRow = (props) => {
         {username}
       </div>
       <div className={classes.flex3}>
-        <Select value={superRole} onChange={handleSuperRoleChange(userId)} disabled={superRole === SUPER_ROLE.OWNER}>
+        <Select
+          value={superRole}
+          onChange={handleSuperRoleChange(userId)}
+          disabled={userPermission.super_role !== SUPER_ROLE.OWNER}
+        >
           {Object.keys(SUPER_ROLE).map(key => (
             <MenuItem key={key} value={SUPER_ROLE[key]}>
               {SUPER_ROLES[SUPER_ROLE[key]]}
@@ -55,7 +60,7 @@ const UserStatusRow = (props) => {
         <Select
           value={role || 'none'}
           onChange={handleRoleChange(userId)}
-          disabled={superRole === SUPER_ROLE.STANDARD}
+          disabled={userPermission.super_role === SUPER_ROLE.STANDARD}
         >
           {roles.length ?
             roles.map(el => (<MenuItem key={el} value={el}>{el}</MenuItem>))
@@ -69,11 +74,16 @@ const UserStatusRow = (props) => {
 
       </div>
       <div className={classes.flex1} >
-        <IconButton className={classes.deleteButton} onClick={handleRevokeInvitationClick(userId)}>
+        <IconButton
+          className={classes.deleteButton}
+          onClick={handleRevokeInvitationClick(userId)}
+          disabled={userPermission.super_role === SUPER_ROLE.STANDARD
+            || (userPermission.super_role !== SUPER_ROLE.OWNER && superRole === SUPER_ROLE.ADMIN)}
+        >
           <Close />
         </IconButton>
       </div>
-    </div>);
+    </div >);
 };
 
 export default withStyles(styles)(UserStatusRow);
