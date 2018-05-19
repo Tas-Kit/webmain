@@ -12,6 +12,7 @@ const initialState = {
     effortTime: '',
     effortUnit: '',
   },
+  taskUsers: [],
   tasks: [],
   pending: false,
 };
@@ -35,6 +36,7 @@ const handleResponse = (response, state) => {
       return { ...state, tasks };
     }
     case 'get_task_graph': {
+      console.log(response.json);
       const data = response.json.task_info;
       const taskInfo = {
         ...state.taskInfo,
@@ -46,7 +48,13 @@ const handleResponse = (response, state) => {
         roles: data.roles || [],
         status: STATUS_MAP_TWO[data.status] || '',
       };
-      return { ...state, taskInfo, taskId: data.tid };
+      const taskUsers = response.json.users;
+      return {
+        ...state,
+        taskInfo,
+        taskUsers,
+        taskId: data.tid,
+      };
     }
     default:
       return state;

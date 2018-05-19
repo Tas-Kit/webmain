@@ -50,7 +50,7 @@ const styles = () => ({
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, onTaskClick, classes,
+    username, tasks, classes,
   } = props;
   return (
     <Drawer
@@ -77,7 +77,7 @@ const TaskPanel = (props) => {
             const { tid, name } = task.info;
             return (
               <Link to={`/main/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
-                <ListItem button onClick={onTaskClick(tid)}>
+                <ListItem button>
                   <ListItemText
                     primary={name}
                     classes={{ primary: classes.taskListItemText }}
