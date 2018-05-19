@@ -76,7 +76,7 @@ const TaskPanel = (props) => {
           .map((task) => {
             const { tid, name } = task.info;
             return (
-              <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+              <Link to={`/main/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
                 <ListItem button onClick={onTaskClick(tid)}>
                   <ListItemText
                     primary={name}
