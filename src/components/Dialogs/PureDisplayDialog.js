@@ -1,13 +1,12 @@
 import React from 'react';
 
 // mui components
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
-import Dialog, {
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { DIALOG_MESSAGE } from '../../constants';
 
 // svgs
