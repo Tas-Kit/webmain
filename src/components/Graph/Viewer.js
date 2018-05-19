@@ -11,7 +11,7 @@ import * as dialogActions from '../../actions/dialogActions';
 
 import { getAdaptedWidth, getAdaptedHeight } from '../../utils/functions';
 
-import svg0 from '../../assets/svgs/taskIcon.svg';
+import svg0 from '../../assets/svgs/icon0.svg';
 
 const { Network, DataSet } = vis;
 
