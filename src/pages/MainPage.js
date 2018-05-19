@@ -63,6 +63,7 @@ class MainPage extends React.Component {
           <Switch>
             <Route exact path="/main" component={TasksPage} />
             <Route path="/main/task/:taskId" component={TaskGraphPage} />
+            <Route path="/task/:taskId" component={TaskGraphPage} />
             <Route component={TasksPage} />
           </Switch>
         </div>
