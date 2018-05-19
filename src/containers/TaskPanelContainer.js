@@ -4,7 +4,6 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import TaskPanel from '../components/TaskPanel';
-// import api from '../utils/api';
 import APIService from '../services/APIService';
 
 // redux actions
