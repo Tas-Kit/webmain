@@ -15,18 +15,18 @@ class InvitationStatusContainer extends React.Component {
       updateMessage,
       removeUser,
     } = this.props.actions;
-    const { taskId: tid } = this.props.taskManager.taskInfo;
+    const { taskId: tid } = this.props.taskManager;
     const payload = {
       tid,
       uid,
     };
     toggleTaskActionPending();
-    const revokeUrl = `/api/v1/task/invitation/revoke/${tid}`;
+    removeUser(uid);
+    const revokeUrl = `/task/invitation/revoke/${tid}`;
     APIService.sendRequest(revokeUrl, 'revoke_invitation', payload, 'POST')
       .then((success) => {
         if (success) {
           updateMessage('Invitation was revoked successfully');
-          removeUser(uid);
           toggleTaskActionPending();
         }
       })
@@ -42,19 +42,19 @@ class InvitationStatusContainer extends React.Component {
       setUserSuperRole,
       updateMessage,
     } = this.props.actions;
-    const { taskId: tid } = this.props.taskManager.taskInfo;
+    const { taskId: tid } = this.props.taskManager;
     const payload = {
       tid,
       uid,
       super_role: e.target.value,
     };
     toggleTaskActionPending();
+    setUserSuperRole(payload.uid, payload.super_role);
     const changeUrl = `/task/invitation/change/${tid}`;
     APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
       .then((success) => {
         if (success) {
           updateMessage('Super role was sucessulfy changed');
-          setUserSuperRole(payload.uid, payload.super_role);
           toggleTaskActionPending();
         }
       })
@@ -70,7 +70,7 @@ class InvitationStatusContainer extends React.Component {
       setUserRole,
       updateMessage,
     } = this.props.actions;
-    const { taskId: tid } = this.props.taskManager.taskInfo;
+    const { taskId: tid } = this.props.taskManager;
     const payload = {
       tid,
       uid,
@@ -78,11 +78,11 @@ class InvitationStatusContainer extends React.Component {
     };
     toggleTaskActionPending();
     const changeUrl = `/task/invitation/change/${tid}`;
+    setUserRole(payload.uid, payload.role);
     APIService.sendRequest(changeUrl, 'change_role', payload, 'POST')
       .then((success) => {
         if (success) {
           updateMessage('Role was successfully changed');
-          setUserRole(payload.uid, payload.role);
           toggleTaskActionPending();
         }
       })
