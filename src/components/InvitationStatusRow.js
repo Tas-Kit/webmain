@@ -1,9 +1,9 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
-import { withStyles } from 'material-ui/styles';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
 import AcceptanceIcon from './AcceptanceIcon';
 
 import { SUPER_ROLE, SUPER_ROLES } from '../constants';

@@ -1,7 +1,8 @@
 import React from 'react';
 import Validator from 'validatorjs';
-import TextField from 'material-ui/TextField';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const TextArea = (props) => {
   const {
