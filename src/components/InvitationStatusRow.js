@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Select from 'material-ui/Select';
@@ -45,12 +44,24 @@ const UserStatusRow = (props) => {
       </div>
       <div className={classes.flex3}>
         <Select value={superRole} onChange={handleSuperRoleChange(userId)} disabled={superRole === SUPER_ROLE.OWNER}>
-          {Object.keys(SUPER_ROLE).map(key => (<MenuItem key={key} value={SUPER_ROLE[key]}>{SUPER_ROLES[SUPER_ROLE[key]]}</MenuItem>))}
+          {Object.keys(SUPER_ROLE).map(key => (
+            <MenuItem key={key} value={SUPER_ROLE[key]}>
+              {SUPER_ROLES[SUPER_ROLE[key]]}
+            </MenuItem>
+          ))}
         </Select>
       </div>
       <div className={classes.flex3}>
-        <Select value={role || 'none'} onChange={handleRoleChange(userId)} disabled={superRole === SUPER_ROLE.STANDARD} >
-          {roles.length ? roles.map(el => (<MenuItem key={el} value={el}>{el}</MenuItem>)) : <MenuItem value="none" >None</MenuItem>}
+        <Select
+          value={role || 'none'}
+          onChange={handleRoleChange(userId)}
+          disabled={superRole === SUPER_ROLE.STANDARD}
+        >
+          {roles.length ?
+            roles.map(el => (<MenuItem key={el} value={el}>{el}</MenuItem>))
+            :
+            <MenuItem value="none" >None</MenuItem>
+          }
         </Select>
       </div>
       <div className={classes.flex1}>

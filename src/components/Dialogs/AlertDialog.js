@@ -48,7 +48,14 @@ const AlertDialog = (props) => {
       .then(() => { props.toggle(); });
   };
 
-  const { openState, message, title, toggle, loading } = props;
+  const {
+    openState,
+    message,
+    title,
+    toggle,
+    loading,
+  } = props;
+
   return (
     <Dialog
       open={openState}

@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { GraphViewer } from '../components/Graph';
+import { Route, Switch } from 'react-router-dom';
+
+// pages
+import TasksPage from './TasksPage';
+import TaskGraphPage from './TaskGraphPage';
+
+// containers
 import DialogsContainer from '../containers/DialogsContainer';
 import TaskPanelContainer from '../containers/TaskPanelContainer';
 import TaskAppBarContainer from '../containers/TaskAppBarContainer';
-import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import SnackbarContainer from '../containers/SnackbarContainer';
 
 // services
@@ -29,20 +34,11 @@ const styles = {
   },
 };
 
-class TaskView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currTaskGraph: {},
-    };
-  }
-
+class MainPage extends React.Component {
   componentDidMount = () => {
-    
     const url = '/task/?format=json';
     APIService.sendRequest(url, 'get_tasks')
-      .then((success) => {
-        console.log('get_tasks api success:', success);
+      .then(() => {
       })
       .catch(() => {
         this.props.actions.updateMessage('Get tasks failed.');
@@ -54,21 +50,25 @@ class TaskView extends React.Component {
       .catch(() => {
         this.props.actions.updateMessage('Get user failed');
       });
-
   };
 
   render() {
-    const { currTaskGraph } = this.state;
     return (
       <div style={styles.taskView}>
         <TaskPanelContainer />
         <div style={styles.content}>
           <TaskAppBarContainer />
-          <TaskToolbarContainer users={currTaskGraph.users || {}} />
-          <GraphViewer />
+
+          {/* Routes */}
+          <Switch>
+            <Route exact path="/main" component={TasksPage} />
+            <Route path="/main/task/:taskId" component={TaskGraphPage} />
+            <Route path="/task/:taskId" component={TaskGraphPage} />
+            <Route component={TasksPage} />
+          </Switch>
         </div>
 
-        {/* Dialogs */}
+        {/* DialogsContainer */}
         <DialogsContainer />
 
         {/* Snack Bar */}
@@ -78,9 +78,8 @@ class TaskView extends React.Component {
   }
 }
 
-
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...snackbarActions }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(TaskView);
+export default connect(null, mapDispatchToProps)(MainPage);

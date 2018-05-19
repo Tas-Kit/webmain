@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 
+// ui component
 import TaskToolbar from '../components/TaskToolbar';
 
+// redux action
 import * as dialogActions from '../actions/dialogActions';
+import * as taskActions from '../actions/taskActions';
 
 const TaskToolbarContainer = (props) => {
   const { toggleTaskInfo, toggleDeleteTask, toggleInvitation } = props.actions;
@@ -19,8 +23,10 @@ const TaskToolbarContainer = (props) => {
   );
 };
 
+const mapStateToProps = ({ taskManager }) => ({ taskManager });
+
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(dialogActions, dispatch),
+  actions: bindActionCreators({ ...dialogActions, ...taskActions }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(TaskToolbarContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskToolbarContainer));

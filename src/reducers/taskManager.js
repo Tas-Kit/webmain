@@ -1,5 +1,5 @@
 import * as types from '../constants/actions';
-import { STATUS } from '../constants';
+import { STATUS, STATUS_MAP_TWO, TIME_UNITS_MAP_TWO } from '../constants';
 
 const initialState = {
   taskId: null,
@@ -12,6 +12,7 @@ const initialState = {
     effortTime: '',
     effortUnit: '',
   },
+  taskUsers: [],
   tasks: [],
   pending: false,
 };
@@ -36,11 +37,24 @@ const handleResponse = (response, state) => {
     }
     case 'get_task_graph': {
       console.log(response.json);
-      return state;
-    }
-    case 'save_task': {
-      console.log(response.json);
-      return state;
+      const data = response.json.task_info;
+      const taskInfo = {
+        ...state.taskInfo,
+        deadline: data.deadline || '',
+        description: data.description || '',
+        effortTime: data.expected_effort_num || '',
+        effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
+        name: data.name,
+        roles: data.roles || [],
+        status: STATUS_MAP_TWO[data.status] || '',
+      };
+      const taskUsers = response.json.users;
+      return {
+        ...state,
+        taskInfo,
+        taskUsers,
+        taskId: data.tid,
+      };
     }
     default:
       return state;
@@ -59,7 +73,7 @@ const taskManager = (state = initialState, action = {}) => {
       return { ...state, taskInfo: action.taskInfo };
     }
     case types.RESET_TASK_INFO: {
-      return { ...state, taskInfo: initialState.taskInfo };
+      return { ...state, taskInfo: initialState.taskInfo, taskId: null };
     }
     case types.SET_ACTIVE_TASK_ID: {
       return { ...state, taskId: action.taskId };

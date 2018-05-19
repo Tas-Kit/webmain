@@ -31,7 +31,7 @@ const styles = {
   },
 };
 
-const Toolbar = (props) => {
+const Toolbar = () => {
   const prototypes = [
     <Assignment style={styles.icon} />,
     <AssignmentLate style={styles.icon} />,
@@ -40,7 +40,6 @@ const Toolbar = (props) => {
     <AssignmentReturn style={styles.icon} />,
   ];
 
-  const { onDragStart } = props;
   return (
     <div style={styles.toolbar}>
       {prototypes.map((item, index) => (
@@ -48,7 +47,6 @@ const Toolbar = (props) => {
           key={`item_${index + 1}`}
           draggable="true"
           style={styles.iconDiv}
-          onDragStart={onDragStart(index)}
         >
           {item}
         </div>

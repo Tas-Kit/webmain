@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // mui component imports
 import List, { ListItem, ListItemText } from 'material-ui/List';
@@ -17,7 +18,6 @@ import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer
 
 // constant import
 import { ACCEPTANCE } from '../constants';
-
 
 const drawerWidth = 240;
 
@@ -50,7 +50,7 @@ const styles = () => ({
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, onTaskClick, classes,
+    username, tasks, classes,
   } = props;
   return (
     <Drawer
@@ -76,12 +76,14 @@ const TaskPanel = (props) => {
           .map((task) => {
             const { tid, name } = task.info;
             return (
-              <ListItem button key={tid} onClick={onTaskClick(tid)}>
-                <ListItemText
-                  primary={name}
-                  classes={{ primary: classes.taskListItemText }}
-                />
-              </ListItem>
+              <Link to={`/main/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+                <ListItem button>
+                  <ListItemText
+                    primary={name}
+                    classes={{ primary: classes.taskListItemText }}
+                  />
+                </ListItem>
+              </Link>
             );
           })
         }

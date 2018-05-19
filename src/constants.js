@@ -18,11 +18,19 @@ export const TIME_UNITS = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', '
 export const STATUS = ['New', 'In Progress', 'Ready For Review', 'Completed', 'Skipped'];
 
 export const STATUS_MAP = {
-  'New': 'n',
+  New: 'n',
   'In Progress': 'ip',
   'Ready For Review': 'rr',
-  'Completed': 'c',
-  'Skipped': 's',
+  Completed: 'c',
+  Skipped: 's',
+};
+
+export const STATUS_MAP_TWO = {
+  n: 'New',
+  ip: 'In Progress',
+  rr: 'Ready For Review',
+  c: 'Completed',
+  s: 'Skipped',
 };
 
 export const TIME_UNITS_MAP = {
@@ -31,8 +39,18 @@ export const TIME_UNITS_MAP = {
   Hour: 'h',
   Day: 'd',
   Week: 'w',
-  Month: 'm',
+  Month: 'M',
   Year: 'y',
+};
+
+export const TIME_UNITS_MAP_TWO = {
+  s: 'Second',
+  m: 'Minute',
+  h: 'Hour',
+  d: 'Day',
+  w: 'Week',
+  M: 'Month',
+  y: 'Year',
 };
 
 export const SUPER_ROLE = {

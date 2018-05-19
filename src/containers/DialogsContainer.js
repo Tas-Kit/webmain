@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // ui components
-
 import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
 // ui containers
@@ -11,6 +10,7 @@ import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
 import InvitationContainer from './InvitationContainer';
 
+// services
 import APIService from '../services/APIService';
 
 // redux actions
@@ -99,12 +99,16 @@ const DialogsContainer = (props) => {
       });
   };
 
+  const handleStepInfoSave = () => (
+    new Promise((resolve) => { resolve(); }).then(() => true)
+  );
+
   return (
     <div>
-      {/* Task Info Form */}
+      {/* Task Info Editor */}
       <FormDialog
         title="Task Info"
-        hints="To create a task, please fill in the fields below."
+        hints="To edit a task, please fill in the fields below."
         openState={taskInfoOpen}
         toggle={toggleTaskInfo}
         component={<TaskInfoContainer />}
@@ -118,6 +122,7 @@ const DialogsContainer = (props) => {
         hints="To create a step, please fill in the fields below."
         openState={stepInfoOpen}
         toggle={toggleStepInfo}
+        onSave={handleStepInfoSave}
         component={<StepInfoContainer />}
       />
 

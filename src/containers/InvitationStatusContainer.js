@@ -5,9 +5,9 @@ import InvitationStatus from '../components/InvitationStatus';
 class InvitationStatusContainer extends React.Component {
   //  TODO: Wire up with real actions
 
-  hanldeRevokeInvitationClick = id => () => { };
-  handleSuperRoleChange = id => () => { };
-  handleRoleChange = id => () => { };
+  hanldeRevokeInvitationClick = () => { };
+  handleSuperRoleChange = () => { };
+  handleRoleChange = () => { };
 
   render() {
     const { taskInfo } = this.props.taskManager;

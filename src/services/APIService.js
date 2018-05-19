@@ -60,7 +60,6 @@ class APIService {
       .then((json) => {
         if (json) {
           const response = { type, json };
-          console.log(`${type}:`, json);
           dispatch(receiveResponse(response));
           return true;
         }
