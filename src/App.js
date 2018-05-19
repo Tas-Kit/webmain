@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CssBaseline from 'material-ui/CssBaseline';
 import { MuiThemeProvider } from 'material-ui/styles';
 
@@ -16,7 +16,10 @@ const App = () => (
         <React.Fragment>
           <CssBaseline />
           <BrowserRouter>
-            <Route path="/" component={MainPage} />
+            <Switch>
+              <Route path="/main" component={MainPage} />
+              <Route component={MainPage} />
+            </Switch>
           </BrowserRouter>
         </React.Fragment>
       </MuiThemeProvider>
