@@ -26,3 +26,6 @@ export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
 
 // Currentuser Actions
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+// TaskUsers Actions
+export const SET_USER_ROLE = 'SET_USER_ROLE';

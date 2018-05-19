@@ -6,14 +6,14 @@ import List, { ListItem } from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import Close from '@material-ui/icons/Close';
 import Done from '@material-ui/icons/Done';
-
+import { FormattedMessage } from 'react-intl';
 
 // svg imports
 import NotificationIcon from '@material-ui/icons/Notifications';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
-import { FormattedMessage } from 'react-intl';
+
 
 const styles = {
   notificationIcon: {

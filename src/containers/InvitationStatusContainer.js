@@ -87,14 +87,16 @@ class InvitationStatusContainer extends React.Component {
   };
 
   render() {
-    const { taskInfo, tasks, taskId } = this.props.taskManager;
+    const {
+      taskInfo, tasks, taskId, taskUsers,
+    } = this.props.taskManager;
     const activeTask = tasks.find(task => task.info.tid === taskId);
     const userPermission = activeTask ? activeTask.permission : {};
 
     return (
       <InvitationStatus
         roles={taskInfo.roles}
-        users={[]}
+        users={taskUsers}
         userPermission={userPermission}
         handleRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
