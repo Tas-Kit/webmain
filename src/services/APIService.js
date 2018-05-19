@@ -55,11 +55,12 @@ class APIService {
       requestObject.headers['Content-Type'] = 'application/json';
       requestObject.body = JSON.stringify(data);
     }
+    const response = { id: this.lastRequestId, type };
     return fetch(`${baseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))
       .then((json) => {
         if (json) {
-          const response = { type, json };
+          response.json = json;
           dispatch(receiveResponse(response));
           return true;
         }
