@@ -45,7 +45,7 @@ class TaskEditorDialogContainer extends React.Component {
       }
     }
     toggleTaskActionPending();
-    const url = `/task/${taskId}`;
+    const url = `/task/${taskId}/`;
     return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
       .then((success) => {
         if (success) {
