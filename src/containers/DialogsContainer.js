@@ -21,6 +21,7 @@ import * as taskActions from '../actions/taskActions';
 // constants
 import { PINK } from '../constants/colors';
 import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
+import * as apiTypes from '../constants/apiTypes';
 
 const DialogsContainer = (props) => {
   const {
@@ -62,10 +63,10 @@ const DialogsContainer = (props) => {
     }
     toggleTaskActionPending();
     const url = '/task/';
-    return APIService.sendRequest(url, 'save_task', payload, 'POST')
+    return APIService.sendRequest(url, apiTypes.SAVE_TASK, payload, 'POST')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', 'get_tasks');
+          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskActionPending();
           updateMessage('Task created successfully.');
           return true;
@@ -85,10 +86,10 @@ const DialogsContainer = (props) => {
     toggleTaskActionPending();
     const { taskId } = props.taskManager;
     const url = `/task/${taskId}/`;
-    return APIService.sendRequest(url, 'delete_task', {}, 'DELETE')
+    return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', 'get_tasks');
+          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskActionPending();
           updateMessage('Task deleted successfully.');
         }

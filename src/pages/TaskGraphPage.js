@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import GraphViewerContainer from '../containers/GraphViewerContainer';
+import LoadingProgress from '../components/LoadingProgress';
 
 // redux actions
 import * as taskActions from '../actions/taskActions';
 
+// services
 import APIService from '../services/APIService';
+
+// constants
+import * as apiTypes from '../constants/apiTypes';
 
 class TaskGraphPage extends React.Component {
   componentDidMount = () => {
@@ -17,6 +22,7 @@ class TaskGraphPage extends React.Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
+    console.log(nextProps);
     const { taskId: thisTaskId } = this.props.match.params;
     const { taskId: nextTaskId } = nextProps.match.params;
     if (thisTaskId !== nextTaskId) this.sendRequest(nextTaskId);
@@ -24,24 +30,30 @@ class TaskGraphPage extends React.Component {
 
   sendRequest = (taskId) => {
     const url = `/task/graph/${taskId}`;
-    APIService.sendRequest(url, 'get_task_graph')
+    APIService.sendRequest(url, apiTypes.GET_TASK_GRAPH)
       .then((success) => { console.log('get_task_graph api call success:', success); });
   }
 
   render() {
+    const { pending } = this.props.taskManager;
     return (
-      <div>
-        {/* Task Toolbar */}
-        <TaskToolbarContainer users={{}} />
-        {/* Graph */}
-        <GraphViewerContainer />
-      </div>
+      pending ?
+        <LoadingProgress />
+        :
+        <div>
+          {/* Task Toolbar */}
+          <TaskToolbarContainer users={{}} />
+          {/* Graph */}
+          <GraphViewerContainer />
+        </div>
     );
   }
 }
+
+const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(TaskGraphPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskGraphPage);
