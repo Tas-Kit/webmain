@@ -41,6 +41,15 @@ class Viewer extends React.Component {
     const options = {
       width: String(getAdaptedWidth()),
       height: String(getAdaptedHeight()),
+      nodes: {
+        shadow: {
+          enabled: true,
+          color: '#c8c8c8',
+          size: 10,
+          x: 3,
+          y: 3,
+        },
+      },
       edges: {
         color: {
           color: '#ccc',

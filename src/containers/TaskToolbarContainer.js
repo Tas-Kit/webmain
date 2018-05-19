@@ -11,12 +11,12 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
 const TaskToolbarContainer = (props) => {
-  const { toggleTaskInfo, toggleDeleteTask, toggleInvitation } = props.actions;
+  const { toggleTaskEditor, toggleDeleteTask, toggleInvitation } = props.actions;
   const { users } = props;
   return (
     <TaskToolbar
       users={users}
-      toggleTaskInfo={toggleTaskInfo}
+      toggleTaskEditor={toggleTaskEditor}
       toggleDeleteTask={toggleDeleteTask}
       toggleInvitation={toggleInvitation}
     />

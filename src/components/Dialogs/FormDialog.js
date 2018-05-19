@@ -39,6 +39,10 @@ const inline = {
 };
 
 class FormDialog extends React.Component {
+  componentDidMount = () => {
+    this.props.mountMethod();
+  }
+
   handleSave = () => {
     this.props.onSave()
       .then((success) => {
@@ -97,5 +101,9 @@ class FormDialog extends React.Component {
     );
   }
 }
+
+FormDialog.defaultProps = {
+  mountMethod: () => {},
+};
 
 export default FormDialog;
