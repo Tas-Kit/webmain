@@ -1,8 +1,8 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 const LoadingProgress = () => (
-  <CircularProgress color="primary" style={{ margin: 'auto' }} />
+  <div style={{ margin: 'auto' }}>Loading...</div>
 );
 
 export default LoadingProgress;
