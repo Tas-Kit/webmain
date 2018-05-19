@@ -15,9 +15,9 @@ const App = () => (
       <MuiThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
-          <BrowserRouter>
+          <BrowserRouter basename="/main">
             <Switch>
-              <Route path="/main" component={MainPage} />
+              <Route path="/" component={MainPage} />
               <Route component={MainPage} />
             </Switch>
           </BrowserRouter>
