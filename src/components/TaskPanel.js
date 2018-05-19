@@ -64,7 +64,7 @@ const TaskPanel = (props) => {
           <Avatar className={classes.avatar}>{username ? username[0] : ''}</Avatar>
         </Tooltip>
 
-       <Notification tasks={tasks} />
+        <Notification tasks={tasks} />
       </Grid>
 
       <List component="nav">
@@ -72,7 +72,7 @@ const TaskPanel = (props) => {
           .map((task) => {
             const { tid, name } = task.info;
             return (
-              <Link to={`/main/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+              <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
                 <ListItem button>
                   <ListItemText
                     primary={name}
