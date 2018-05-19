@@ -10,11 +10,10 @@ import { withStyles } from 'material-ui/styles';
 import grey from 'material-ui/colors/grey';
 import Tooltip from 'material-ui/Tooltip';
 
-// svg imports
-import NotificationIcon from '@material-ui/icons/Notifications';
 
 // react components
 import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer';
+import Notification from './Notification';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
@@ -39,9 +38,6 @@ const styles = () => ({
   },
   taskListItemIcon: {
     color: grey[400],
-  },
-  NotificationIcon: {
-    transform: 'scale(1.5)',
   },
   expander: {
     flexBasis: '100%',
@@ -68,7 +64,7 @@ const TaskPanel = (props) => {
           <Avatar className={classes.avatar}>{username ? username[0] : ''}</Avatar>
         </Tooltip>
 
-        <NotificationIcon className={classes.NotificationIcon} />
+       <Notification tasks={tasks} />
       </Grid>
 
       <List component="nav">
