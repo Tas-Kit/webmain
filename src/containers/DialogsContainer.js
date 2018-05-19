@@ -9,6 +9,7 @@ import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialog
 import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
 import InvitationContainer from './InvitationContainer';
+import TaskCreatorDialogContainer from './TaskCreatorDialogContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -106,16 +107,8 @@ const DialogsContainer = (props) => {
 
   return (
     <div>
-      {/* Task Info Editor */}
-      <FormDialog
-        title="Task Info"
-        hints="To edit a task, please fill in the fields below."
-        openState={taskInfoOpen}
-        toggle={toggleTaskInfo}
-        component={<TaskInfoContainer />}
-        onSave={handleTaskInfoSave}
-        loading={pending}
-      />
+      {/* Task Creator */}
+      <TaskCreatorDialogContainer />
 
       {/* Step Info Form */}
       <FormDialog

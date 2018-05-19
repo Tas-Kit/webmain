@@ -11,7 +11,7 @@ import * as dialogActions from '../../actions/dialogActions';
 
 import { getAdaptedWidth, getAdaptedHeight } from '../../utils/functions';
 
-import svg0 from '../../assets/svgs/icon0.svg';
+import svg0 from '../../assets/svgs/taskIcon.svg';
 
 const { Network, DataSet } = vis;
 
@@ -41,6 +41,15 @@ class Viewer extends React.Component {
     const options = {
       width: String(getAdaptedWidth()),
       height: String(getAdaptedHeight()),
+      nodes: {
+        shadow: {
+          enabled: true,
+          color: '#c8c8c8',
+          size: 10,
+          x: 3,
+          y: 3,
+        },
+      },
       edges: {
         color: {
           color: '#ccc',
