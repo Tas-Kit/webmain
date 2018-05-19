@@ -18,10 +18,10 @@ import * as dialogActions from '../actions/dialogActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
-class TaskCreatorDialogContainer extends React.Component {
-  handleTaskInfoSave = () => {
+class TaskEditorDialogContainer extends React.Component {
+  handleTaskModify = () => {
     // return a promise
-    const { taskInfo } = this.props.taskManager;
+    const { taskInfo, taskId } = this.props.taskManager;
     const { toggleTaskActionPending, updateMessage } = this.props.actions;
     // filter out empty string and array
     const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
@@ -45,37 +45,37 @@ class TaskCreatorDialogContainer extends React.Component {
       }
     }
     toggleTaskActionPending();
-    const url = '/task/';
-    return APIService.sendRequest(url, apiTypes.SAVE_TASK, payload, 'POST')
+    const url = `/task/${taskId}`;
+    return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
       .then((success) => {
         if (success) {
           APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskActionPending();
-          updateMessage('Task created successfully.');
+          updateMessage('Task modified successfully.');
           return true;
         }
-        updateMessage('Create task failed.');
+        updateMessage('Modify task failed.');
         toggleTaskActionPending();
         return false;
       })
       .catch(() => {
-        updateMessage('Create task failed.');
+        updateMessage('Modify task failed.');
         toggleTaskActionPending();
       });
-  };
+  }
 
   render() {
-    const { taskCreatorOpen } = this.props.dialogManager;
+    const { taskEditorOpen } = this.props.dialogManager;
     const { pending } = this.props.taskManager;
-    const { toggleTaskCreator } = this.props.actions;
+    const { toggleTaskEditor } = this.props.actions;
     return (
       <FormDialog
-        title="Task Creator"
-        hints="To create a task, please fill in the fields below."
-        openState={taskCreatorOpen}
-        toggle={toggleTaskCreator}
+        title="Task Editor"
+        hints="To edit a task, please fill in the fields below."
+        openState={taskEditorOpen}
+        toggle={toggleTaskEditor}
         component={<TaskInfoContainer />}
-        onSave={this.handleTaskInfoSave}
+        onSave={this.handleTaskModify}
         loading={pending}
       />
     );
@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskCreatorDialogContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskEditorDialogContainer);

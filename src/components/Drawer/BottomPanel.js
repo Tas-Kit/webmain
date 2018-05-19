@@ -23,7 +23,7 @@ const inline = {
 const BottomPanel = (props) => {
   const handleAddTask = () => {
     props.resetTaskInfo();
-    props.toggleTaskInfo();
+    props.toggleTaskCreator();
   };
 
   return (

@@ -8,10 +8,10 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
 const DrawerBottomPanelContainer = (props) => {
-  const { toggleTaskInfo, resetTaskInfo } = props.actions;
+  const { toggleTaskCreator, resetTaskInfo } = props.actions;
   return (
     <BottomPanel
-      toggleTaskInfo={toggleTaskInfo}
+      toggleTaskCreator={toggleTaskCreator}
       resetTaskInfo={resetTaskInfo}
     />
   );
