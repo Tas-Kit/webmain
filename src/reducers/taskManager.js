@@ -81,6 +81,43 @@ const taskManager = (state = initialState, action = {}) => {
     case types.TOGGLE_TASK_ACTION_PENDING: {
       return { ...state, pending: !state.pending };
     }
+    case types.SET_USER_ROLE: {
+      const taskUsers = state.taskUsers.map((item) => {
+        if (item.has_task.id === action.userId) {
+          return {
+            ...item,
+            has_task: {
+              ...item.has_task,
+              role: action.role,
+            },
+          };
+        }
+        return item;
+      });
+      return { ...state, taskUsers };
+    }
+    case types.SET_USER_SUPER_ROLE: {
+      const taskUsers = state.taskUsers.map((item) => {
+        if (item.has_task.id === action.userId) {
+          return {
+            ...item,
+            has_task: {
+              ...item.has_task,
+              super_role: action.superRole,
+            },
+          };
+        }
+        return item;
+      });
+      return { ...state, taskUsers };
+    }
+    case types.REMOVE_USER: {
+      return {
+        ...state,
+        taskUsers: (state.taskUsers
+          .filter(item => item.has_task.id !== action.userId)),
+      };
+    }
     default:
       return state;
   }

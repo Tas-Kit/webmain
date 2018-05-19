@@ -29,3 +29,5 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 // TaskUsers Actions
 export const SET_USER_ROLE = 'SET_USER_ROLE';
+export const SET_USER_SUPER_ROLE = 'SET_USER_SUPER_ROLE';
+export const REMOVE_USER = 'REMOVE_USER';
