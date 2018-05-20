@@ -56,7 +56,7 @@ const DialogsContainer = (props) => {
       });
   };
 
-  const handleTaskQuit = () => { }
+  const handleTaskQuit = () => { };
 
   const handleStepInfoSave = () => (
     new Promise((resolve) => { resolve(); }).then(() => true)
