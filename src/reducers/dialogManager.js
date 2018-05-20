@@ -6,6 +6,7 @@ const initialState = {
   stepInfoOpen: false,
   invitationOpen: false,
   deleteTaskOpen: false,
+  quitTaskOpen: false,
 };
 
 const dialogManager = (state = initialState, action = {}) => {
@@ -20,6 +21,8 @@ const dialogManager = (state = initialState, action = {}) => {
       return { ...state, invitationOpen: !state.invitationOpen };
     case types.TOGGLE_DELETE_TASK:
       return { ...state, deleteTaskOpen: !state.deleteTaskOpen };
+    case types.TOGGLE_QUIT_TASK:
+      return { ...state, quitTaskOpen: !state.quitTaskOpen };
     default:
       return state;
   }

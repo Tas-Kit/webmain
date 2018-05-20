@@ -19,3 +19,8 @@ export const toggleInvitation = () => ({
 export const toggleDeleteTask = () => ({
   type: types.TOGGLE_DELETE_TASK,
 });
+
+export const toggleQuitTask = () => ({
+  type: types.TOGGLE_QUIT_TASK,
+});
+

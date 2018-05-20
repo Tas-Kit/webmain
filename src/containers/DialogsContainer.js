@@ -25,7 +25,7 @@ import * as apiTypes from '../constants/apiTypes';
 
 const DialogsContainer = (props) => {
   const {
-    stepInfoOpen, deleteTaskOpen, invitationOpen,
+    stepInfoOpen, deleteTaskOpen, invitationOpen, quitTaskOpen,
   } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
@@ -34,6 +34,7 @@ const DialogsContainer = (props) => {
     updateMessage,
     toggleTaskActionPending,
     toggleInvitation,
+    toggleQuitTask,
   } = props.actions;
 
   const handleTaskDelete = () => {
@@ -54,6 +55,8 @@ const DialogsContainer = (props) => {
         toggleTaskActionPending();
       });
   };
+
+  const handleTaskQuit = () => { }
 
   const handleStepInfoSave = () => (
     new Promise((resolve) => { resolve(); }).then(() => true)
@@ -98,6 +101,21 @@ const DialogsContainer = (props) => {
         openState={deleteTaskOpen}
         toggle={toggleDeleteTask}
         onConfirm={handleTaskDelete}
+        loading={pending}
+      />
+
+      {/* Quit Task Alert Dialog */}
+      <AlertDialog
+        title="Quit Task"
+        message={
+          <span>Are you sure you want to
+            <span style={{ color: PINK }}> permanently </span>
+            quit from this task?
+          </span>
+        }
+        openState={quitTaskOpen}
+        toggle={toggleQuitTask}
+        onConfirm={handleTaskQuit}
         loading={pending}
       />
     </div>
