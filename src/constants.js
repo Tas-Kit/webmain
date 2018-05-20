@@ -77,6 +77,13 @@ export const DIALOG_MESSAGE = 13;
 export const APP_BAR_TITLE = 20;
 export const LETTER_AVARTAR = 16;
 
+// validation rules
+export const TASK_INFO_RULE = {
+  name: 'required',
+  expected_effort_num: 'required_with:expected_effort_unit',
+  expected_effort_unit: 'required_with:expected_effort_num',
+};
+
 export default {
   ACCEPTANCE,
   ACCEPTANCES,
