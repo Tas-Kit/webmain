@@ -1,5 +1,4 @@
 import React from 'react';
-import Validator from 'validatorjs';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -8,25 +7,11 @@ import { TIME_UNITS } from '../../constants';
 
 const ExpectedEffortSelect = (props) => {
   const renderTimeFieldErrorText = () => {
-    const {
-      time,
-      validationRule,
-      errorMessage,
-      timeUnit,
-    } = props;
-    const data = { time };
-    const rules = { time: validationRule };
-    const validator = new Validator(data, rules);
+    const { time, timeUnit } = props;
     if (time === '' && timeUnit !== '') {
       return (
         <FormHelperText id="time-error" error>
           Please specify a number.
-        </FormHelperText>
-      );
-    } else if (validator.fails()) {
-      return (
-        <FormHelperText id="time-error" error>
-          {errorMessage}
         </FormHelperText>
       );
     }
@@ -34,8 +19,8 @@ const ExpectedEffortSelect = (props) => {
   };
 
   const renderUnitFieldErrorText = () => {
-    const timeValue = props.time.trim();
-    if (timeValue !== '' && props.timeUnit === '') {
+    const { time, timeUnit } = props;
+    if (time !== '' && timeUnit === '') {
       return (
         <FormHelperText id="unit-error" error>
           Pleas select a unit.
@@ -52,6 +37,8 @@ const ExpectedEffortSelect = (props) => {
           id="time"
           value={props.time}
           label="Number"
+          type="number"
+          inputProps={{ min: 0.01 }}
           onChange={props.onChangeTime}
         />
         {renderTimeFieldErrorText()}
