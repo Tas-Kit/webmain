@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "private": true,
+  "homepage": "http://localhost:8001/main",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
     "start": "react-scripts start",
