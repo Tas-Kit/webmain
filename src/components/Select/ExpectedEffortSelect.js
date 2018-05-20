@@ -1,8 +1,9 @@
 import React from 'react';
 import Validator from 'validatorjs';
-import TextField from 'material-ui/TextField';
-import { MenuItem } from 'material-ui/Menu';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import { TIME_UNITS } from '../../constants';
 
 const ExpectedEffortSelect = (props) => {

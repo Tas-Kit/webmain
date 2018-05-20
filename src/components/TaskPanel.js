@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // mui component imports
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Drawer from 'material-ui/Drawer';
-import Grid from 'material-ui/Grid';
-import Avatar from 'material-ui/Avatar';
-import { withStyles } from 'material-ui/styles';
-import grey from 'material-ui/colors/grey';
-import Tooltip from 'material-ui/Tooltip';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Drawer from '@material-ui/core/Drawer';
+import { withStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import grey from '@material-ui/core/colors/grey';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 // react components
@@ -21,7 +22,9 @@ import { ACCEPTANCE } from '../constants';
 const drawerWidth = 240;
 
 const styles = () => ({
-  avatar: {},
+  avatar: {
+    marginLeft: 20,
+  },
   row: {
     padding: '12px 24px',
   },
@@ -44,6 +47,17 @@ const styles = () => ({
   },
 });
 
+const inline = {
+  taskPanelTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: 80,
+  },
+  notification: {
+    marginLeft: 'auto',
+  },
+};
+
 const TaskPanel = (props) => {
   const {
     username, tasks, classes,
@@ -54,25 +68,21 @@ const TaskPanel = (props) => {
       variant="permanent"
       anchor="left"
     >
-      <Grid
-        container
-        justify="space-between"
-        alignItems="center"
-        className={classes.row}
-      >
+      <div style={inline.taskPanelTitle}>
         <Tooltip id="tooltip-username" title={username}>
           <Avatar className={classes.avatar}>{username ? username[0] : ''}</Avatar>
         </Tooltip>
-
-        <Notification tasks={tasks} />
-      </Grid>
+        <div style={inline.notification} >
+          <Notification tasks={tasks} />
+        </div>
+      </div>
 
       <List component="nav">
         {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
           .map((task) => {
             const { tid, name } = task.info;
             return (
-              <Link to={`/main/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+              <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
                 <ListItem button>
                   <ListItemText
                     primary={name}

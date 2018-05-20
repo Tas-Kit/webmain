@@ -20,6 +20,7 @@ import APIService from '../services/APIService';
 import * as snackbarActions from '../actions/snackbarActions';
 
 // constants
+import * as apiTypes from '../constants/apiTypes';
 import { MIN_ALLOW_WINDOW_WIDTH } from '../constants';
 
 const styles = {
@@ -37,7 +38,7 @@ const styles = {
 class MainPage extends React.Component {
   componentDidMount = () => {
     const url = '/task/?format=json';
-    APIService.sendRequest(url, 'get_tasks')
+    APIService.sendRequest(url, apiTypes.GET_TASKS)
       .then(() => {
       })
       .catch(() => {
@@ -61,8 +62,7 @@ class MainPage extends React.Component {
 
           {/* Routes */}
           <Switch>
-            <Route exact path="/main" component={TasksPage} />
-            <Route path="/main/task/:taskId" component={TaskGraphPage} />
+            <Route exact path="/" component={TasksPage} />
             <Route path="/task/:taskId" component={TaskGraphPage} />
             <Route component={TasksPage} />
           </Switch>

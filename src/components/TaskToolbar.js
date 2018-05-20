@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import { withStyles, Avatar } from 'material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 
 // ui components
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import Button from 'material-ui/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
 // svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
@@ -45,14 +46,14 @@ const TaskToolbar = (props) => {
     classes,
     users = ['YZ'],
     toggleDeleteTask,
-    toggleTaskInfo,
+    toggleTaskEditor,
     toggleInvitation,
   } = props;
 
   return (
     <Toolbar>
       <div className={classes.flex}>
-        <Button key="info" color="primary" onClick={toggleTaskInfo}>
+        <Button key="info" color="primary" onClick={toggleTaskEditor}>
           <FormattedMessage id="infoButton" defaultMessage="Info" />
         </Button>
         <Button

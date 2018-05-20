@@ -9,7 +9,7 @@ import Toolbar from './Toolbar';
 
 import * as dialogActions from '../../actions/dialogActions';
 
-import { MIN_ALLOW_WINDOW_WIDTH, DRAWER_WIDTH, APP_BAR_HEIGHT, TOOL_BAR_HEIGHT } from '../../constants';
+import { getAdaptedWidth, getAdaptedHeight } from '../../utils/functions';
 
 import svg0 from '../../assets/svgs/icon0.svg';
 
@@ -39,6 +39,17 @@ class Viewer extends React.Component {
   graphInit = () => {
     // vis options
     const options = {
+      width: String(getAdaptedWidth()),
+      height: String(getAdaptedHeight()),
+      nodes: {
+        shadow: {
+          enabled: true,
+          color: '#c8c8c8',
+          size: 10,
+          x: 3,
+          y: 3,
+        },
+      },
       edges: {
         color: {
           color: '#ccc',
@@ -56,10 +67,9 @@ class Viewer extends React.Component {
     this.network = new Network(this.graphElement, this.graphData, options);
 
     window.addEventListener('resize', () => {
-      const width = window.innerWidth;
       this.network.setOptions({
-        width: width >= MIN_ALLOW_WINDOW_WIDTH ? String(window.innerWidth - DRAWER_WIDTH) : MIN_ALLOW_WINDOW_WIDTH,
-        height: String(window.innerHeight - APP_BAR_HEIGHT - TOOL_BAR_HEIGHT),
+        width: String(getAdaptedWidth()),
+        height: String(getAdaptedHeight()),
       });
     });
   }

@@ -1,9 +1,10 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import { Popover } from 'material-ui';
-import Badge from 'material-ui/Badge';
-import List, { ListItem } from 'material-ui/List';
-import IconButton from 'material-ui/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import Popover from '@material-ui/core/Popover';
+import Badge from '@material-ui/core/Badge';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import Done from '@material-ui/icons/Done';
 import { FormattedMessage } from 'react-intl';
@@ -13,7 +14,6 @@ import NotificationIcon from '@material-ui/icons/Notifications';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
-
 
 const styles = {
   notificationIcon: {

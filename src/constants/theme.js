@@ -1,4 +1,4 @@
-import { createMuiTheme } from 'material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { LIGHT_BLUE, PINK } from './colors';
 
 const theme = createMuiTheme({

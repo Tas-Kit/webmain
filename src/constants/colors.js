@@ -1,8 +1,8 @@
-import lightBlue from 'material-ui/colors/lightBlue';
-import grey from 'material-ui/colors/grey';
-import orange from 'material-ui/colors/orange';
-import teal from 'material-ui/colors/teal';
-import pink from 'material-ui/colors/pink';
+import lightBlue from '@material-ui/core/colors/lightBlue';
+import grey from '@material-ui/core/colors/grey';
+import orange from '@material-ui/core/colors/orange';
+import teal from '@material-ui/core/colors/teal';
+import pink from '@material-ui/core/colors/pink';
 
 export const LIGHT_BLUE = lightBlue.A700;
 export const PINK = pink.A400;

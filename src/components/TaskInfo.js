@@ -1,9 +1,9 @@
 import React from 'react';
 
 // mui components
-import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/Button';
-import Chip from 'material-ui/Chip';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 
 // mui svgs
 import AddRole from '@material-ui/icons/PersonAdd';

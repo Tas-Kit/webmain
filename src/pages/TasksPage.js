@@ -14,19 +14,11 @@ const inline = {
   },
 };
 
-class TasksPage extends React.Component {
-  componentDidMount = () => {
-    this.props.actions.resetTaskInfo();
-  }
-
-  render() {
-    return (
-      <div style={inline.instructions}>
-        Please select a task.
-      </div>
-    );
-  }
-}
+const TasksPage = () => (
+  <div style={inline.instructions}>
+    Please select a task.
+  </div>
+);
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions }, dispatch),

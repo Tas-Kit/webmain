@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import CssBaseline from 'material-ui/CssBaseline';
-import { MuiThemeProvider } from 'material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import theme from './constants/theme';
 import MainPage from './pages/MainPage';
@@ -15,9 +15,9 @@ const App = () => (
       <MuiThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
-          <BrowserRouter>
+          <BrowserRouter basename="/main">
             <Switch>
-              <Route path="/main" component={MainPage} />
+              <Route path="/" component={MainPage} />
               <Route component={MainPage} />
             </Switch>
           </BrowserRouter>

@@ -6,9 +6,10 @@ import { bindActionCreators } from 'redux';
 import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
 // ui containers
-import TaskInfoContainer from './TaskInfoContainer';
 import StepInfoContainer from './StepInfoContainer';
 import InvitationContainer from './InvitationContainer';
+import TaskCreatorDialogContainer from './TaskCreatorDialogContainer';
+import TaskEditorDialogContainer from './TaskEditorDialogContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -20,15 +21,14 @@ import * as taskActions from '../actions/taskActions';
 
 // constants
 import { PINK } from '../constants/colors';
-import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
+import * as apiTypes from '../constants/apiTypes';
 
 const DialogsContainer = (props) => {
   const {
-    taskInfoOpen, stepInfoOpen, deleteTaskOpen, invitationOpen,
+    stepInfoOpen, deleteTaskOpen, invitationOpen,
   } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
-    toggleTaskInfo,
     toggleStepInfo,
     toggleDeleteTask,
     updateMessage,
@@ -36,59 +36,15 @@ const DialogsContainer = (props) => {
     toggleInvitation,
   } = props.actions;
 
-  const handleTaskInfoSave = () => {
-    // return a promise
-    const { taskInfo } = props.taskManager;
-    // filter out empty string and array
-    const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
-      || (key === 'roles' && taskInfo[key].length !== 0));
-
-    const payload = {};
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      switch (key) {
-        case 'status':
-          payload.status = STATUS_MAP[taskInfo.status];
-          break;
-        case 'effortUnit':
-          payload.expected_effort_unit = TIME_UNITS_MAP[taskInfo.effortUnit];
-          break;
-        case 'deadline':
-          payload.deadline = (new Date(taskInfo.deadline)).toISOString();
-          break;
-        default:
-          payload[key] = taskInfo[key];
-      }
-    }
-    toggleTaskActionPending();
-    const url = '/task/';
-    return APIService.sendRequest(url, 'save_task', payload, 'POST')
-      .then((success) => {
-        if (success) {
-          APIService.sendRequest('/task/?format=json', 'get_tasks');
-          toggleTaskActionPending();
-          updateMessage('Task created successfully.');
-          return true;
-        }
-        updateMessage('Create task failed.');
-        toggleTaskActionPending();
-        return false;
-      })
-      .catch(() => {
-        updateMessage('Create task failed.');
-        toggleTaskActionPending();
-      });
-  };
-
   const handleTaskDelete = () => {
     // return a promise
     toggleTaskActionPending();
     const { taskId } = props.taskManager;
     const url = `/task/${taskId}/`;
-    return APIService.sendRequest(url, 'delete_task', {}, 'DELETE')
+    return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', 'get_tasks');
+          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskActionPending();
           updateMessage('Task deleted successfully.');
         }
@@ -105,16 +61,11 @@ const DialogsContainer = (props) => {
 
   return (
     <div>
-      {/* Task Info Editor */}
-      <FormDialog
-        title="Task Info"
-        hints="To edit a task, please fill in the fields below."
-        openState={taskInfoOpen}
-        toggle={toggleTaskInfo}
-        component={<TaskInfoContainer />}
-        onSave={handleTaskInfoSave}
-        loading={pending}
-      />
+      {/* Task Creator */}
+      <TaskCreatorDialogContainer />
+
+      {/* Task Editor */}
+      <TaskEditorDialogContainer />
 
       {/* Step Info Form */}
       <FormDialog

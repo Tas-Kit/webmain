@@ -1,8 +1,8 @@
 import React from 'react';
 
 // ui components
-import Button from 'material-ui/Button';
-import { CircularProgress } from 'material-ui/Progress';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // constants
 import { LIGHT_BLUE, PINK } from '../../constants/colors';

@@ -1,4 +1,5 @@
 import * as types from '../constants/actions';
+import * as apiTypes from '../constants/apiTypes';
 import { STATUS, STATUS_MAP_TWO, TIME_UNITS_MAP_TWO } from '../constants';
 
 const initialState = {
@@ -15,10 +16,18 @@ const initialState = {
   taskUsers: [],
   tasks: [],
   pending: false,
+  pendingRequestId: -1,
 };
 
 const handleRequest = (request, state) => {
   switch (request.type) {
+    case apiTypes.GET_TASK_GRAPH: {
+      return {
+        ...state,
+        pendingRequestId: request.id,
+        pending: true,
+      };
+    }
     default:
       return state;
   }
@@ -26,7 +35,7 @@ const handleRequest = (request, state) => {
 
 const handleResponse = (response, state) => {
   switch (response.type) {
-    case 'get_tasks': {
+    case apiTypes.GET_TASKS: {
       const tasksMap = response.json;
       const keys = Object.keys(tasksMap);
       const tasks = keys.map(key => ({
@@ -35,26 +44,30 @@ const handleResponse = (response, state) => {
       }));
       return { ...state, tasks };
     }
-    case 'get_task_graph': {
-      console.log(response.json);
-      const data = response.json.task_info;
-      const taskInfo = {
-        ...state.taskInfo,
-        deadline: data.deadline || '',
-        description: data.description || '',
-        effortTime: data.expected_effort_num || '',
-        effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
-        name: data.name,
-        roles: data.roles || [],
-        status: STATUS_MAP_TWO[data.status] || '',
-      };
-      const taskUsers = response.json.users;
-      return {
-        ...state,
-        taskInfo,
-        taskUsers,
-        taskId: data.tid,
-      };
+    case apiTypes.GET_TASK_GRAPH: {
+      if (response.id === state.pendingRequestId) {
+        const data = response.json.task_info;
+        const taskInfo = {
+          ...state.taskInfo,
+          deadline: data.deadline || '',
+          description: data.description || '',
+          effortTime: data.expected_effort_num || '',
+          effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
+          name: data.name,
+          roles: data.roles || [],
+          status: STATUS_MAP_TWO[data.status] || '',
+        };
+        const taskUsers = response.json.users;
+        return {
+          ...state,
+          taskInfo,
+          taskUsers,
+          taskId: data.tid,
+          pending: false,
+          pendingRequestId: -1,
+        };
+      }
+      return state;
     }
     default:
       return state;

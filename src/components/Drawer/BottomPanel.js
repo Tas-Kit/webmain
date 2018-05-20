@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { GREY } from '../../constants/colors';
 
@@ -20,15 +20,22 @@ const inline = {
   },
 };
 
-const BottomPanel = props => (
-  <div style={inline.main}>
-    {/* Add Task Button */}
-    <Link to="/">
-      <Button mini variant="fab" style={inline.button} onClick={props.toggleTaskInfo} color="primary" >
-        <AddIcon style={inline.addIcon} />
-      </Button>
-    </Link>
-  </div>
-);
+const BottomPanel = (props) => {
+  const handleAddTask = () => {
+    props.resetTaskInfo();
+    props.toggleTaskCreator();
+  };
+
+  return (
+    <div style={inline.main}>
+      {/* Add Task Button */}
+      <Link to="/">
+        <Button mini variant="fab" style={inline.button} onClick={handleAddTask} color="primary" >
+          <AddIcon style={inline.addIcon} />
+        </Button>
+      </Link>
+    </div>
+  );
+};
 
 export default BottomPanel;

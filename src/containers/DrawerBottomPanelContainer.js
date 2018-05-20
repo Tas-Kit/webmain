@@ -5,16 +5,20 @@ import { BottomPanel } from '../components/Drawer';
 
 // redux actions
 import * as dialogActions from '../actions/dialogActions';
+import * as taskActions from '../actions/taskActions';
 
 const DrawerBottomPanelContainer = (props) => {
-  const { toggleTaskInfo } = props.actions;
+  const { toggleTaskCreator, resetTaskInfo } = props.actions;
   return (
-    <BottomPanel toggleTaskInfo={toggleTaskInfo} />
+    <BottomPanel
+      toggleTaskCreator={toggleTaskCreator}
+      resetTaskInfo={resetTaskInfo}
+    />
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions }, dispatch),
+  actions: bindActionCreators({ ...dialogActions, ...taskActions }, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(DrawerBottomPanelContainer);
