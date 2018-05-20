@@ -5,6 +5,7 @@ import InvitationStatus from '../components/InvitationStatus';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import APIService from '../services/APIService';
+import { SUPER_ROLE } from '../constants';
 
 class InvitationStatusContainer extends React.Component {
   //  TODO: Update locals users after sent invitation
@@ -42,19 +43,24 @@ class InvitationStatusContainer extends React.Component {
       setUserSuperRole,
       updateMessage,
     } = this.props.actions;
-    const { taskId: tid } = this.props.taskManager;
+    const { taskId: tid, taskUsers } = this.props.taskManager;
     const payload = {
       tid,
       uid,
       super_role: e.target.value,
     };
-    toggleTaskActionPending();
+    const currentOwner = taskUsers
+      .find(element => element.has_task.super_role === SUPER_ROLE.OWNER);
     const changeUrl = `/task/invitation/change/${tid}/`;
+    toggleTaskActionPending();
     APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
       .then((success) => {
         if (success) {
           setUserSuperRole(payload.uid, payload.super_role);
           updateMessage('Super role was sucessulfy changed');
+          if (payload.super_role === SUPER_ROLE.OWNER) {
+            setUserSuperRole(currentOwner.basic.uid, SUPER_ROLE.ADMIN);
+          }
           toggleTaskActionPending();
         }
       })
