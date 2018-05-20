@@ -14,6 +14,7 @@ const initialState = {
     effortUnit: '',
   },
   taskUsers: [],
+  taskNodes: [],
   tasks: [],
   pending: false,
   pendingRequestId: -1,
@@ -46,6 +47,7 @@ const handleResponse = (response, state) => {
     }
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
+        console.log(response.json);
         const data = response.json.task_info;
         const taskInfo = {
           ...state.taskInfo,
@@ -58,10 +60,12 @@ const handleResponse = (response, state) => {
           status: STATUS_MAP_TWO[data.status] || '',
         };
         const taskUsers = response.json.users;
+        const taskNodes = response.json.nodes;
         return {
           ...state,
           taskInfo,
           taskUsers,
+          taskNodes,
           taskId: data.tid,
           pending: false,
           pendingRequestId: -1,

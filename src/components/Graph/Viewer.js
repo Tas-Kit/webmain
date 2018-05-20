@@ -10,8 +10,11 @@ import Toolbar from './Toolbar';
 import * as dialogActions from '../../actions/dialogActions';
 
 import { getAdaptedWidth, getAdaptedHeight } from '../../utils/functions';
+import networkOptions from '../../constants/networkOptions';
 
-import svg0 from '../../assets/svgs/icon0.svg';
+import gs from '../../services/GraphService';
+
+import { NODE_IMAGE_MAP, NODE_COORD_MAP, NODE_LABEL_MAP } from '../../constants/nodes';
 
 const { Network, DataSet } = vis;
 
@@ -30,38 +33,34 @@ class Viewer extends React.Component {
       nodes: new DataSet(),
       edges: new DataSet(),
     };
+    this.draggingIndex = -1;
   }
 
   componentDidMount = () => {
-    this.graphInit();
+    gs.createGraph(this.graphElement);
+    gs.clearAllNodes();
+    const { taskNodes } = this.props.taskManager;
+    const nodes = taskNodes.map((node) => {
+      const DOMCoord = NODE_COORD_MAP[node.node_type];
+      const canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
+      return ({
+        id: node.sid,
+        shape: 'image',
+        image: NODE_IMAGE_MAP[node.node_type],
+        label: NODE_LABEL_MAP[node.node_type],
+        x: canvasCoord.x,
+        y: canvasCoord.y,
+      });
+    });
+    gs.addNode(nodes);
   }
 
   graphInit = () => {
     // vis options
     const options = {
+      ...networkOptions,
       width: String(getAdaptedWidth()),
       height: String(getAdaptedHeight()),
-      nodes: {
-        shadow: {
-          enabled: true,
-          color: '#c8c8c8',
-          size: 10,
-          x: 3,
-          y: 3,
-        },
-      },
-      edges: {
-        color: {
-          color: '#ccc',
-          highlight: '#ccc',
-          hover: '#ccc',
-          inherit: 'from',
-          opacity: 0.8,
-        },
-      },
-      physics: {
-        enabled: false,
-      },
     };
 
     this.network = new Network(this.graphElement, this.graphData, options);
@@ -77,25 +76,26 @@ class Viewer extends React.Component {
   handleDrop = (e) => {
     const offsetX = 240; // width of drawer
     const offsetY = 136; // height of top bars
-    const canvasCoord = this.network.DOMtoCanvas({
+    const canvasCoord = gs.network.DOMtoCanvas({
       x: e.pageX - offsetX,
       y: e.pageY - offsetY,
     });
-
-    // const { draggingIndex } = this.state;
     const node = {
       shape: 'image',
-      image: svg0,
+      image: NODE_IMAGE_MAP[this.draggingIndex],
       x: canvasCoord.x,
       y: canvasCoord.y,
+      label: 'task1',
     };
-    this.addNode(node);
+    gs.addNode(node);
 
     // open step info dialog and populate data
     this.props.actions.toggleStepInfo();
   }
 
-  addNode = (node) => { this.graphData.nodes.add(node); }
+  handleDragStart = index => () => {
+    this.draggingIndex = index;
+  }
 
   render() {
     return (
