@@ -21,11 +21,11 @@ class InvitationStatusContainer extends React.Component {
       uid,
     };
     toggleTaskActionPending();
-    removeUser(uid);
-    const revokeUrl = `/task/invitation/revoke/${tid}`;
+    const revokeUrl = `/task/invitation/revoke/${tid}/`;
     APIService.sendRequest(revokeUrl, 'revoke_invitation', payload, 'POST')
       .then((success) => {
         if (success) {
+          removeUser(uid);
           updateMessage('Invitation was revoked successfully');
           toggleTaskActionPending();
         }
@@ -49,11 +49,11 @@ class InvitationStatusContainer extends React.Component {
       super_role: e.target.value,
     };
     toggleTaskActionPending();
-    setUserSuperRole(payload.uid, payload.super_role);
-    const changeUrl = `/task/invitation/change/${tid}`;
+    const changeUrl = `/task/invitation/change/${tid}/`;
     APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
       .then((success) => {
         if (success) {
+          setUserSuperRole(payload.uid, payload.super_role);
           updateMessage('Super role was sucessulfy changed');
           toggleTaskActionPending();
         }
@@ -77,11 +77,11 @@ class InvitationStatusContainer extends React.Component {
       role: e.target.value,
     };
     toggleTaskActionPending();
-    const changeUrl = `/task/invitation/change/${tid}`;
-    setUserRole(payload.uid, payload.role);
+    const changeUrl = `/task/invitation/change/${tid}/`;
     APIService.sendRequest(changeUrl, 'change_role', payload, 'POST')
       .then((success) => {
         if (success) {
+          setUserRole(payload.uid, payload.role);
           updateMessage('Role was successfully changed');
           toggleTaskActionPending();
         }
@@ -112,8 +112,8 @@ class InvitationStatusContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ taskManager }) => ({
-  taskManager,
+const mapStateToProps = ({ taskManager, currentUserManager }) => ({
+  taskManager, currentUserManager,
 });
 
 const mapDispatchToProps = dispatch => ({

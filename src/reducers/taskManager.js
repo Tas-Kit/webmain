@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy';
 import * as types from '../constants/actions';
 import * as apiTypes from '../constants/apiTypes';
 import { STATUS, STATUS_MAP_TWO, TIME_UNITS_MAP_TWO } from '../constants';
@@ -57,7 +58,14 @@ const handleResponse = (response, state) => {
           roles: data.roles || [],
           status: STATUS_MAP_TWO[data.status] || '',
         };
-        const taskUsers = response.json.users;
+        const taskUsers = sortBy(
+          response.json.users,
+          [
+            o => o.has_task.acceptance, o => o.has_task.super_role,
+            o => o.has_task.role, o => o.basic.username,
+          ],
+        );
+
         return {
           ...state,
           taskInfo,
@@ -98,7 +106,7 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.SET_USER_ROLE: {
       const taskUsers = state.taskUsers.map((item) => {
-        if (item.has_task.id === action.userId) {
+        if (item.basic.uid === action.userId) {
           return {
             ...item,
             has_task: {
@@ -113,7 +121,7 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.SET_USER_SUPER_ROLE: {
       const taskUsers = state.taskUsers.map((item) => {
-        if (item.has_task.id === action.userId) {
+        if (item.basic.uid === action.userId) {
           return {
             ...item,
             has_task: {
@@ -130,7 +138,7 @@ const taskManager = (state = initialState, action = {}) => {
       return {
         ...state,
         taskUsers: (state.taskUsers
-          .filter(item => item.has_task.id !== action.userId)),
+          .filter(item => item.basic.uid !== action.userId)),
       };
     }
     default:

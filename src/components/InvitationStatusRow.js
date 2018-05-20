@@ -34,9 +34,9 @@ const UserStatusRow = (props) => {
     user, roles, handleRevokeInvitationClick,
     userPermission, handleSuperRoleChange, handleRoleChange, classes,
   } = props;
-  const { username } = user.basic;
+  const { username, uid: userId } = user.basic;
   const {
-    role, super_role: superRole, acceptance, id: userId,
+    role, super_role: superRole, acceptance,
   } = user.has_task;
   return (
     <div className={classes.userStatusRow} spacing={8}>
@@ -47,7 +47,8 @@ const UserStatusRow = (props) => {
         <Select
           value={superRole}
           onChange={handleSuperRoleChange(userId)}
-          disabled={userPermission.super_role !== SUPER_ROLE.OWNER}
+          disabled={userPermission.super_role !== SUPER_ROLE.OWNER
+            || superRole === SUPER_ROLE.OWNER}
         >
           {Object.keys(SUPER_ROLE).map(key => (
             <MenuItem key={key} value={SUPER_ROLE[key]}>
