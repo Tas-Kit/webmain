@@ -40,6 +40,7 @@ const Toolbar = (props) => {
     <img src={task4} style={{ width: 40, height: 40 }} alt="taskSvg" />,
     <img src={task5} style={{ width: 40, height: 40 }} alt="taskSvg" />,
   ];
+  const { onDragStart } = props;
 
   return (
     <div style={styles.toolbar}>
@@ -48,7 +49,7 @@ const Toolbar = (props) => {
           key={`item_${index + 1}`}
           draggable="true"
           style={styles.iconDiv}
-          onDragStart={props.onDragStart(index)}
+          onDragStart={() => { onDragStart(index); }}
         >
           {item}
         </div>

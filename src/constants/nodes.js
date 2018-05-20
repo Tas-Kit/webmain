@@ -21,9 +21,4 @@ export const NODE_COORD_MAP = {
   e: { x: window.innerWidth - 300, y: (window.innerHeight - 128) / 2 },
 };
 
-export const NODE_LABEL_MAP = {
-  e: 'End',
-  s: 'Start',
-};
-
 export default { NODE_IMAGE_MAP, NODE_COORD_MAP };
