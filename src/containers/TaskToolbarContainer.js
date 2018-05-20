@@ -11,14 +11,20 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
 const TaskToolbarContainer = (props) => {
-  const { toggleTaskEditor, toggleDeleteTask, toggleInvitation } = props.actions;
-  const { users } = props;
+  const {
+    toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask,
+  } = props.actions;
+  const { taskUsers, tasks, taskId } = props.taskManager;
+  const activeTask = tasks.find(task => task.info.tid === taskId);
+  const userPermission = activeTask ? activeTask.permission : {};
   return (
     <TaskToolbar
-      users={users}
+      users={taskUsers}
+      userSuperRole={userPermission.super_role}
       toggleTaskEditor={toggleTaskEditor}
       toggleDeleteTask={toggleDeleteTask}
       toggleInvitation={toggleInvitation}
+      toggleQuitTask={toggleQuitTask}
     />
   );
 };

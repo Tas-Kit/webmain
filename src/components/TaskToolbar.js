@@ -20,7 +20,7 @@ import {
   TRANSPARENT_TEAL,
   TRANSPARENT_ORANGE,
 } from '../constants/colors';
-import { LETTER_AVARTAR } from '../constants';
+import { LETTER_AVARTAR, SUPER_ROLE } from '../constants';
 
 const styles = {
   flex: {
@@ -44,10 +44,12 @@ const styles = {
 const TaskToolbar = (props) => {
   const {
     classes,
-    users = ['YZ'],
+    users,
+    userSuperRole,
     toggleDeleteTask,
     toggleTaskEditor,
     toggleInvitation,
+    toggleQuitTask,
   } = props;
 
   return (
@@ -65,22 +67,31 @@ const TaskToolbar = (props) => {
         <Button key="save" className={classNames(classes.saveBt)}>
           <FormattedMessage id="saveButton" defaultMessage="Save" />
         </Button>
-        <Button
-          key="delete"
-          color="secondary"
-          onClick={toggleDeleteTask}
-        >
-          <FormattedMessage id="deleteButton" defaultMessage="Delete" />
-        </Button>
+        {
+          userSuperRole === SUPER_ROLE.OWNER ?
+            (
+              <Button
+                key="delete"
+                color="secondary"
+                onClick={toggleDeleteTask}
+              >
+                <FormattedMessage id="deleteButton" defaultMessage="Delete" />
+              </Button>)
+            : (
+              <Button
+                key="quit"
+                color="secondary"
+                onClick={toggleQuitTask}
+              >
+                <FormattedMessage id="quitButton" defaultMessage="Quit" />
+              </Button>)
+        }
       </div>
-      {Object.keys(users).map((id) => {
-        const user = users[id];
-        return (
-          <Avatar key={id} className={classes.letterAvatar}>
-            {`${user.basic.username[0]}`}
-          </Avatar>
-        );
-      })}
+      {users.map(user => (
+        <Avatar key={user.basic.uid} className={classes.letterAvatar}>
+          {`${user.basic.username[0]}`}
+        </Avatar>
+      ))}
       <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
