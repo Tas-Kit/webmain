@@ -19,13 +19,13 @@ class InvitationContainer extends React.Component {
       toggleTaskActionPending,
       updateMessage,
     } = this.props.actions;
-    const { taskId: tid } = this.props.taskManager.taskInfo;
+    const { taskId: tid } = this.props.taskManager;
     const payload = {
       tid,
       username: this.state.usernameToInvite,
     };
     toggleTaskActionPending();
-    const inviteUrl = `/api/v1/task/invitation/${tid}`;
+    const inviteUrl = `/task/invitation/${tid}`;
     APIService.sendRequest(inviteUrl, 'create_invitation', payload, 'POST')
       .then((success) => {
         if (success) {
