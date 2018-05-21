@@ -8,8 +8,8 @@ export const toggleTaskEditor = () => ({
   type: types.TOGGLE_TASK_EDITOR,
 });
 
-export const toggleStepInfo = () => ({
-  type: types.TOGGLE_STEP_INFO,
+export const toggleStepCreator = () => ({
+  type: types.TOGGLE_STEP_CREATOR,
 });
 
 export const toggleInvitation = () => ({

@@ -22,7 +22,6 @@ class TaskGraphPage extends React.Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps);
     const { taskId: thisTaskId } = this.props.match.params;
     const { taskId: nextTaskId } = nextProps.match.params;
     if (thisTaskId !== nextTaskId) this.sendRequest(nextTaskId);

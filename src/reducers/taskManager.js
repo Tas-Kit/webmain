@@ -16,6 +16,7 @@ const initialState = {
     effortUnit: '',
   },
   taskUsers: [],
+  taskNodes: [],
   tasks: [],
   pending: false,
   pendingRequestId: -1,
@@ -62,6 +63,7 @@ const handleResponse = (response, state) => {
           taskId: data.tid,
           taskInfo,
           taskUsers,
+          taskNodes: response.json.nodes,
           pending: false,
           pendingRequestId: -1,
         };
