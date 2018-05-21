@@ -11,6 +11,7 @@ import gs from '../services/GraphService';
 // actions
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
+import * as graphActions from '../actions/graphActions';
 
 import { NODE_IMAGE_MAP, NODE_COORD_MAP } from '../constants/nodes';
 
@@ -20,7 +21,6 @@ class GraphViewerContainer extends React.Component {
   }
 
   initNetwork = () => {
-    console.log(this.graphViewer);
     gs.createGraph(this.graphViewer.graphElement);
     gs.clearAllNodes();
     const { taskNodes } = this.props.taskManager;
@@ -52,24 +52,14 @@ class GraphViewerContainer extends React.Component {
   );
 
   handleDrop = (e) => {
-    const { draggingIndex } = this.props.graphManager;
+    const { setNodeCanvasCoord } = this.props.actions;
     const offsetX = 240; // width of drawer
     const offsetY = 128; // height of top bars
     const canvasCoord = gs.network.DOMtoCanvas({
       x: e.pageX - offsetX,
       y: e.pageY - offsetY,
     });
-    const node = {
-      shape: 'image',
-      image: NODE_IMAGE_MAP[draggingIndex],
-      x: canvasCoord.x,
-      y: canvasCoord.y,
-      label: 'task1',
-      size: 15,
-    };
-    gs.addNode(node);
-
-    // open step info dialog and populate data
+    setNodeCanvasCoord(canvasCoord);
     this.props.actions.toggleStepCreator();
   }
 
@@ -86,7 +76,7 @@ class GraphViewerContainer extends React.Component {
 const mapStateToProps = ({ taskManager, graphManager }) => ({ taskManager, graphManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions, ...taskActions }, dispatch),
+  actions: bindActionCreators({ ...dialogActions, ...taskActions, ...graphActions }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GraphViewerContainer);

@@ -48,7 +48,6 @@ const handleResponse = (response, state) => {
     }
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
-        console.log(response.json);
         const data = response.json.task_info;
         const taskInfo = mapTaskInfoResponseData(data);
         return {

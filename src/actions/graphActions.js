@@ -5,4 +5,7 @@ export const setDraggingIndex = index => ({
   index,
 });
 
-export default { setDraggingIndex };
+export const setNodeCanvasCoord = coord => ({
+  type: types.SET_NODE_CANVAS_COORD,
+  coord,
+});

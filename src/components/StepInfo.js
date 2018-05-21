@@ -2,11 +2,10 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 // ui components
-import ExpectedEffortSelect from './Select/ExpectedEffortSelect';
-import OptionsSelect from './Select/OptionsSelect';
+import { ExpectedEffortSelect, OptionsSelect, MultiSelect } from './Select';
+import { TaskitCheckbox } from './TaskitCheckbox';
 import TextInput from './TextInput';
 import TextArea from './TextArea';
-import { MultiSelect } from './Select';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -33,6 +32,11 @@ class StepInfo extends React.Component {
   handleChange = key => (e) => {
     const { info, update } = this.props;
     update({ ...info, [key]: e.target.value });
+  }
+
+  handleCheckboxChange = key => (e) => {
+    const { info, update } = this.props;
+    update({ ...info, [key]: e.target.checked });
   }
 
   render() {
@@ -88,19 +92,27 @@ class StepInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
+          <span style={inline.fieldName}>Optional:</span>
+          <TaskitCheckbox
+            checked={info.optional}
+            selectFieldName="optional"
+            onChange={this.handleCheckboxChange('optional')}
+          />
+        </div>
+        <div style={inline.row}>
           <span style={inline.fieldName}>Assignee:</span>
           <MultiSelect
             options={roles}
-            selectFieldName={info.assigneeRole}
-            onChange={this.handleChange('assigneeRole')}
+            selectFieldName={info.assigneeRoles}
+            onChange={this.handleChange('assigneeRoles')}
           />
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Reviewer:</span>
           <MultiSelect
             options={roles}
-            selectFieldName={info.reviewerRole}
-            onChange={this.handleChange('reviewerRole')}
+            selectFieldName={info.reviewerRoles}
+            onChange={this.handleChange('reviewerRoles')}
           />
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import shortid from 'shortid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -13,11 +14,26 @@ import * as taskActions from '../actions/taskActions';
 // services
 import gs from '../services/GraphService';
 
+// constants and utils
+import { NODE_IMAGE_MAP } from '../constants/nodes';
+import { mapStepInfoToNode } from '../utils/functions';
+
 class StepCreatorDialogContainer extends React.Component {
   handleStepInfoSave = () => {
     // add node
     const { stepInfo } = this.props.stepManager;
+    const { canvasCoord, draggingIndex } = this.props.graphManager;
     console.log(stepInfo);
+    const stepNode = {
+      ...stepInfo,
+      id: shortid.generate(),
+      x: canvasCoord.x,
+      y: canvasCoord.y,
+      node_type: 'n',
+      image: NODE_IMAGE_MAP[draggingIndex],
+    };
+    const nodeToAdd = mapStepInfoToNode(stepNode);
+    gs.addNode(nodeToAdd);
     return new Promise((resolve) => { resolve(); }).then(() => true);
   };
 
@@ -39,10 +55,11 @@ class StepCreatorDialogContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ dialogManager, stepManager, snackbarManager }) => ({
-  dialogManager,
-  stepManager,
-  snackbarManager,
+const mapStateToProps = store => ({
+  dialogManager: store.dialogManager,
+  stepManager: store.stepManager,
+  snackbarManager: store.snackbarManager,
+  graphManager: store.graphManager,
 });
 
 const mapDispatchToProps = dispatch => ({

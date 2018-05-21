@@ -2,6 +2,7 @@ import * as types from '../constants/actions';
 
 const initialState = {
   draggingIndex: -1,
+  canvasCoord: { x: 0, y: 0 },
 };
 
 const handleRequest = (request, state) => {
@@ -28,6 +29,9 @@ const graphManager = (state = initialState, action = {}) => {
     }
     case types.SET_DRAGGING_INDEX: {
       return { ...state, draggingIndex: action.index };
+    }
+    case types.SET_NODE_CANVAS_COORD: {
+      return { ...state, canvasCoord: action.coord };
     }
     default:
       return state;

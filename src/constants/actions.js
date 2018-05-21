@@ -28,3 +28,4 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 // Graph Actions
 export const SET_DRAGGING_INDEX = 'SET_DRAGGING_INDEX';
+export const SET_NODE_CANVAS_COORD = 'SET_NODE_CANVAS_COORD';
