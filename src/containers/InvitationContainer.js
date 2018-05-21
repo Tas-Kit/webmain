@@ -21,7 +21,6 @@ class InvitationContainer extends React.Component {
     } = this.props.actions;
     const { taskId: tid } = this.props.taskManager;
     const payload = {
-      tid,
       username: this.state.usernameToInvite,
     };
     toggleTaskActionPending();

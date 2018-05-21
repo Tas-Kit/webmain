@@ -18,7 +18,6 @@ class InvitationStatusContainer extends React.Component {
     } = this.props.actions;
     const { taskId: tid } = this.props.taskManager;
     const payload = {
-      tid,
       uid,
     };
     toggleTaskActionPending();
@@ -45,7 +44,6 @@ class InvitationStatusContainer extends React.Component {
     } = this.props.actions;
     const { taskId: tid, taskUsers } = this.props.taskManager;
     const payload = {
-      tid,
       uid,
       super_role: e.target.value,
     };
@@ -78,7 +76,6 @@ class InvitationStatusContainer extends React.Component {
     } = this.props.actions;
     const { taskId: tid } = this.props.taskManager;
     const payload = {
-      tid,
       uid,
       role: e.target.value,
     };
