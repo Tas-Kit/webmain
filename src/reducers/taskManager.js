@@ -61,7 +61,7 @@ const handleResponse = (response, state) => {
           ...state,
           taskId: data.tid,
           taskInfo,
-          taskUsers: response.json.users,
+          taskUsers,
           pending: false,
           pendingRequestId: -1,
         };
