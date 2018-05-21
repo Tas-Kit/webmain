@@ -13,6 +13,7 @@ const initialState = {
     assigneeRole: '',
     reviewerRole: '',
   },
+  pending: false,
 };
 
 const handleRequest = (request, state) => {

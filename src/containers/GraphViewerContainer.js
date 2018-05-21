@@ -70,7 +70,7 @@ class GraphViewerContainer extends React.Component {
     gs.addNode(node);
 
     // open step info dialog and populate data
-    this.props.actions.toggleStepInfo();
+    this.props.actions.toggleStepCreator();
   }
 
   render() {
