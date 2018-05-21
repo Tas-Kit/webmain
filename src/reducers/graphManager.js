@@ -1,20 +1,8 @@
 import * as types from '../constants/actions';
-import { STATUS } from '../constants';
 
 const initialState = {
-  stepId: null,
-  stepInfo: {
-    name: '',
-    effortTime: '',
-    effortUnit: '',
-    deadline: '',
-    status: STATUS[0],
-    description: '',
-    assigneeRoles: [],
-    reviewerRoles: [],
-    optional: false,
-  },
-  pending: false,
+  draggingIndex: -1,
+  canvasCoord: { x: 0, y: 0 },
 };
 
 const handleRequest = (request, state) => {
@@ -31,7 +19,7 @@ const handleResponse = (response, state) => {
   }
 };
 
-const stepManager = (state = initialState, action = {}) => {
+const graphManager = (state = initialState, action = {}) => {
   switch (action.type) {
     case types.SEND_REQUEST: {
       return handleRequest(action.request, state);
@@ -39,15 +27,15 @@ const stepManager = (state = initialState, action = {}) => {
     case types.RECEIVE_RESPONSE: {
       return handleResponse(action.response, state);
     }
-    case types.UPDATE_STEP_INFO: {
-      return { ...state, stepInfo: action.stepInfo };
+    case types.SET_DRAGGING_INDEX: {
+      return { ...state, draggingIndex: action.index };
     }
-    case types.RESET_STEP_INFO: {
-      return { ...state, stepInfo: initialState.stepInfo };
+    case types.SET_NODE_CANVAS_COORD: {
+      return { ...state, canvasCoord: action.coord };
     }
     default:
       return state;
   }
 };
 
-export default stepManager;
+export default graphManager;

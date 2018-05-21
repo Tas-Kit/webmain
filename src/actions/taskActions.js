@@ -17,3 +17,21 @@ export const setActiveTaskId = taskId => ({
 export const toggleTaskActionPending = () => ({
   type: types.TOGGLE_TASK_ACTION_PENDING,
 });
+
+export const setUserRole = (userId, role) => ({
+  type: types.SET_USER_ROLE,
+  userId,
+  role,
+});
+
+export const setUserSuperRole = (userId, superRole) => ({
+  type: types.SET_USER_SUPER_ROLE,
+  userId,
+  superRole,
+});
+
+export const removeUser = userId => ({
+  type: types.REMOVE_USER,
+  userId,
+});
+

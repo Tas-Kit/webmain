@@ -22,14 +22,13 @@ class TaskGraphPage extends React.Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps);
     const { taskId: thisTaskId } = this.props.match.params;
     const { taskId: nextTaskId } = nextProps.match.params;
     if (thisTaskId !== nextTaskId) this.sendRequest(nextTaskId);
   }
 
   sendRequest = (taskId) => {
-    const url = `/task/graph/${taskId}`;
+    const url = `/task/graph/${taskId}/`;
     APIService.sendRequest(url, apiTypes.GET_TASK_GRAPH)
       .then((success) => { console.log('get_task_graph api call success:', success); });
   }

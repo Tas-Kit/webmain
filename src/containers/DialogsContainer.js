@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // ui components
-import { FormDialog, PureDisplayDialog, AlertDialog } from '../components/Dialogs';
+import { PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
 // ui containers
-import StepInfoContainer from './StepInfoContainer';
 import InvitationContainer from './InvitationContainer';
+import StepCreatorDialogContainer from './StepCreatorDialogContainer';
 import TaskCreatorDialogContainer from './TaskCreatorDialogContainer';
 import TaskEditorDialogContainer from './TaskEditorDialogContainer';
 
@@ -24,12 +24,9 @@ import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
 
 const DialogsContainer = (props) => {
-  const {
-    stepInfoOpen, deleteTaskOpen, invitationOpen, quitTaskOpen,
-  } = props.dialogManager;
+  const { deleteTaskOpen, invitationOpen,quitTaskOpen, } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
-    toggleStepInfo,
     toggleDeleteTask,
     updateMessage,
     toggleTaskActionPending,
@@ -59,11 +56,7 @@ const DialogsContainer = (props) => {
   const handleTaskQuit = () => (
     new Promise((resolve) => { resolve(); }).then(() => true)
   );
-
-  const handleStepInfoSave = () => (
-    new Promise((resolve) => { resolve(); }).then(() => true)
-  );
-
+  
   return (
     <div>
       {/* Task Creator */}
@@ -72,15 +65,8 @@ const DialogsContainer = (props) => {
       {/* Task Editor */}
       <TaskEditorDialogContainer />
 
-      {/* Step Info Form */}
-      <FormDialog
-        title="Step Info"
-        hints="To create a step, please fill in the fields below."
-        openState={stepInfoOpen}
-        toggle={toggleStepInfo}
-        onSave={handleStepInfoSave}
-        component={<StepInfoContainer />}
-      />
+      {/* Step Creator */}
+      <StepCreatorDialogContainer />
 
       {/* Invitation Dialog */}
       <PureDisplayDialog

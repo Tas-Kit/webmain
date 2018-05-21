@@ -1,9 +1,10 @@
 import React from 'react';
-import Assignment from '@material-ui/icons/Assignment';
-import AssignmentLate from '@material-ui/icons/AssignmentLate';
-import AssignmentReturn from '@material-ui/icons/AssignmentReturn';
-import AssignmentReturned from '@material-ui/icons/AssignmentReturned';
-import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
+
+import task1 from '../../assets/svgs/task1.svg';
+import task2 from '../../assets/svgs/task2.svg';
+import task3 from '../../assets/svgs/task3.svg';
+import task4 from '../../assets/svgs/task4.svg';
+import task5 from '../../assets/svgs/task5.svg';
 
 const styles = {
   toolbar: {
@@ -31,14 +32,15 @@ const styles = {
   },
 };
 
-const Toolbar = () => {
+const Toolbar = (props) => {
   const prototypes = [
-    <Assignment style={styles.icon} />,
-    <AssignmentLate style={styles.icon} />,
-    <AssignmentTurnedIn style={styles.icon} />,
-    <AssignmentReturned style={styles.icon} />,
-    <AssignmentReturn style={styles.icon} />,
+    <img src={task1} style={{ width: 40, height: 40 }} alt="taskSvg" />,
+    <img src={task2} style={{ width: 40, height: 40 }} alt="taskSvg" />,
+    <img src={task3} style={{ width: 40, height: 40 }} alt="taskSvg" />,
+    <img src={task4} style={{ width: 40, height: 40 }} alt="taskSvg" />,
+    <img src={task5} style={{ width: 40, height: 40 }} alt="taskSvg" />,
   ];
+  const { onDragStart } = props;
 
   return (
     <div style={styles.toolbar}>
@@ -47,6 +49,7 @@ const Toolbar = () => {
           key={`item_${index + 1}`}
           draggable="true"
           style={styles.iconDiv}
+          onDragStart={() => { onDragStart(index); }}
         >
           {item}
         </div>

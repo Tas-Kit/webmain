@@ -1,4 +1,5 @@
 import React from 'react';
+import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormDialog } from '../components/Dialogs';
@@ -6,9 +7,10 @@ import { FormDialog } from '../components/Dialogs';
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';
 
-// constants
+// constants & utils
+import { mapTaskInfoRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
-import { STATUS_MAP, TIME_UNITS_MAP } from '../constants';
+import { TASK_INFO_RULE } from '../constants';
 
 // services
 import APIService from '../services/APIService';
@@ -23,45 +25,33 @@ class TaskEditorDialogContainer extends React.Component {
     // return a promise
     const { taskInfo, taskId } = this.props.taskManager;
     const { toggleTaskActionPending, updateMessage } = this.props.actions;
-    // filter out empty string and array
-    const keys = Object.keys(taskInfo).filter(key => (key !== 'roles' && taskInfo[key] !== '')
-      || (key === 'roles' && taskInfo[key].length !== 0));
-
-    const payload = {};
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      switch (key) {
-        case 'status':
-          payload.status = STATUS_MAP[taskInfo.status];
-          break;
-        case 'effortUnit':
-          payload.expected_effort_unit = TIME_UNITS_MAP[taskInfo.effortUnit];
-          break;
-        case 'deadline':
-          payload.deadline = (new Date(taskInfo.deadline)).toISOString();
-          break;
-        default:
-          payload[key] = taskInfo[key];
-      }
-    }
-    toggleTaskActionPending();
-    const url = `/task/${taskId}/`;
-    return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
-      .then((success) => {
-        if (success) {
-          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+    const payload = mapTaskInfoRequestData(taskInfo);
+    const validation = new Validator(payload, TASK_INFO_RULE);
+    if (validation.passes()) {
+      toggleTaskActionPending();
+      const url = `/task/${taskId}/`;
+      return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
+        .then((success) => {
+          if (success) {
+            APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+            toggleTaskActionPending();
+            updateMessage('Task modified successfully.');
+            return true;
+          }
+          updateMessage('Modify task failed.');
           toggleTaskActionPending();
-          updateMessage('Task modified successfully.');
-          return true;
-        }
-        updateMessage('Modify task failed.');
-        toggleTaskActionPending();
-        return false;
-      })
-      .catch(() => {
-        updateMessage('Modify task failed.');
-        toggleTaskActionPending();
-      });
+          return false;
+        })
+        .catch(() => {
+          updateMessage('Modify task failed.');
+          toggleTaskActionPending();
+        });
+    }
+    return new Promise((resolve) => {
+      updateMessage('Invalid form data. Please check it again.');
+      resolve();
+    })
+      .then(() => false);
   }
 
   render() {

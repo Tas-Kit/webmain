@@ -3,7 +3,8 @@ import InvitationStatusRow from './InvitationStatusRow';
 
 const InvitationStatus = (props) => {
   const {
-    users, roles, handleRevokeInvitationClick, handleSuperRoleChange, handleRoleChange,
+    users, roles, userPermission, handleRevokeInvitationClick,
+    handleSuperRoleChange, handleRoleChange,
   } = props;
   return (
     <div>
@@ -12,6 +13,7 @@ const InvitationStatus = (props) => {
           key={user.has_task.id}
           user={user}
           roles={roles}
+          userPermission={userPermission}
           handleRevokeInvitationClick={handleRevokeInvitationClick}
           handleSuperRoleChange={handleSuperRoleChange}
           handleRoleChange={handleRoleChange}

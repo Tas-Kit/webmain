@@ -1,6 +1,8 @@
+import sortBy from 'lodash/sortBy';
 import * as types from '../constants/actions';
 import * as apiTypes from '../constants/apiTypes';
-import { STATUS, STATUS_MAP_TWO, TIME_UNITS_MAP_TWO } from '../constants';
+import { mapTaskInfoResponseData } from '../utils/functions';
+import { STATUS } from '../constants';
 
 const initialState = {
   taskId: null,
@@ -14,6 +16,7 @@ const initialState = {
     effortUnit: '',
   },
   taskUsers: [],
+  taskNodes: [],
   tasks: [],
   pending: false,
   pendingRequestId: -1,
@@ -47,22 +50,20 @@ const handleResponse = (response, state) => {
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
         const data = response.json.task_info;
-        const taskInfo = {
-          ...state.taskInfo,
-          deadline: data.deadline || '',
-          description: data.description || '',
-          effortTime: data.expected_effort_num || '',
-          effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
-          name: data.name,
-          roles: data.roles || [],
-          status: STATUS_MAP_TWO[data.status] || '',
-        };
-        const taskUsers = response.json.users;
+        const taskUsers = sortBy(
+          response.json.users,
+          [
+            o => o.has_task.acceptance, o => o.has_task.super_role,
+            o => o.has_task.role, o => o.basic.username,
+          ],
+        );
+        const taskInfo = mapTaskInfoResponseData(data);
         return {
           ...state,
+          taskId: data.tid,
           taskInfo,
           taskUsers,
-          taskId: data.tid,
+          taskNodes: response.json.nodes,
           pending: false,
           pendingRequestId: -1,
         };
@@ -86,13 +87,52 @@ const taskManager = (state = initialState, action = {}) => {
       return { ...state, taskInfo: action.taskInfo };
     }
     case types.RESET_TASK_INFO: {
-      return { ...state, taskInfo: initialState.taskInfo, taskId: null };
+      return {
+        ...state, taskInfo: initialState.taskInfo, taskId: null, taskUsers: [],
+      };
     }
     case types.SET_ACTIVE_TASK_ID: {
       return { ...state, taskId: action.taskId };
     }
     case types.TOGGLE_TASK_ACTION_PENDING: {
       return { ...state, pending: !state.pending };
+    }
+    case types.SET_USER_ROLE: {
+      const taskUsers = state.taskUsers.map((item) => {
+        if (item.basic.uid === action.userId) {
+          return {
+            ...item,
+            has_task: {
+              ...item.has_task,
+              role: action.role,
+            },
+          };
+        }
+        return item;
+      });
+      return { ...state, taskUsers };
+    }
+    case types.SET_USER_SUPER_ROLE: {
+      const taskUsers = state.taskUsers.map((item) => {
+        if (item.basic.uid === action.userId) {
+          return {
+            ...item,
+            has_task: {
+              ...item.has_task,
+              super_role: action.superRole,
+            },
+          };
+        }
+        return item;
+      });
+      return { ...state, taskUsers };
+    }
+    case types.REMOVE_USER: {
+      return {
+        ...state,
+        taskUsers: (state.taskUsers
+          .filter(item => item.basic.uid !== action.userId)),
+      };
     }
     default:
       return state;

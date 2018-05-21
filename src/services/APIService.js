@@ -8,7 +8,7 @@ if (typeof window !== 'undefined') {
   baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
 }
 
-baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+// baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 
 const defaultOnError = () => {
   throw new Error();
@@ -21,7 +21,9 @@ const handleTimeOut = () => {
 };
 
 const transformResponse = (res) => {
-  if (res.ok) { return res.json(); }
+  if (res.ok) {
+    return res.json();
+  }
   switch (res.status) {
     case 401:
       handleTimeOut();
@@ -55,6 +57,7 @@ class APIService {
       requestObject.headers['Content-Type'] = 'application/json';
       requestObject.body = JSON.stringify(data);
     }
+    console.log(requestObject);
     const response = { id: this.lastRequestId, type };
     return fetch(`${baseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))

@@ -77,6 +77,19 @@ export const DIALOG_MESSAGE = 13;
 export const APP_BAR_TITLE = 20;
 export const LETTER_AVARTAR = 16;
 
+// validation rules
+export const TASK_INFO_RULE = {
+  name: 'required',
+  expected_effort_num: 'required_with:expected_effort_unit',
+  expected_effort_unit: 'required_with:expected_effort_num',
+};
+
+export const STEP_INFO_RULE = {
+  name: 'required',
+  effortTime: 'required_with:effortUnit',
+  effortUnit: 'required_with:effortTime',
+};
+
 export default {
   ACCEPTANCE,
   ACCEPTANCES,
@@ -94,4 +107,6 @@ export default {
   DIALOG_MESSAGE,
   APP_BAR_TITLE,
   LETTER_AVARTAR,
+  TASK_INFO_RULE,
+  STEP_INFO_RULE,
 };
