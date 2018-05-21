@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
-
+import Grid from '@material-ui/core/Grid';
 
 // react components
 import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer';
@@ -22,9 +22,6 @@ import { ACCEPTANCE } from '../constants';
 const drawerWidth = 240;
 
 const styles = () => ({
-  avatar: {
-    marginLeft: 20,
-  },
   row: {
     padding: '12px 24px',
   },
@@ -47,16 +44,6 @@ const styles = () => ({
   },
 });
 
-const inline = {
-  taskPanelTitle: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: 80,
-  },
-  notification: {
-    marginLeft: 'auto',
-  },
-};
 
 const TaskPanel = (props) => {
   const {
@@ -68,14 +55,18 @@ const TaskPanel = (props) => {
       variant="permanent"
       anchor="left"
     >
-      <div style={inline.taskPanelTitle}>
+      <Grid
+        container
+        justify="space-between"
+        alignItems="center"
+        className={classes.row}
+      >
         <Tooltip id="tooltip-username" title={username}>
-          <Avatar className={classes.avatar}>{username ? username[0] : ''}</Avatar>
+          <Avatar >{username ? username[0] : ''}</Avatar>
         </Tooltip>
-        <div style={inline.notification} >
-          <Notification tasks={tasks} />
-        </div>
-      </div>
+
+        <Notification tasks={tasks} />
+      </Grid>
 
       <List component="nav">
         {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
