@@ -17,7 +17,8 @@ import { ACCEPTANCE } from '../constants';
 
 const styles = {
   notificationIcon: {
-    width: 44,
+    width: 40,
+    height: 40,
   },
   typography: {
     margin: '1em',

@@ -26,6 +26,11 @@ export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
 // Currentuser Actions
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
+// TaskUsers Actions
+export const SET_USER_ROLE = 'SET_USER_ROLE';
+export const SET_USER_SUPER_ROLE = 'SET_USER_SUPER_ROLE';
+export const REMOVE_USER = 'REMOVE_USER';
+
 // Graph Actions
 export const SET_DRAGGING_INDEX = 'SET_DRAGGING_INDEX';
 export const SET_NODE_CANVAS_COORD = 'SET_NODE_CANVAS_COORD';

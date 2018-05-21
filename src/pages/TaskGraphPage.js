@@ -28,7 +28,7 @@ class TaskGraphPage extends React.Component {
   }
 
   sendRequest = (taskId) => {
-    const url = `/task/graph/${taskId}`;
+    const url = `/task/graph/${taskId}/`;
     APIService.sendRequest(url, apiTypes.GET_TASK_GRAPH)
       .then((success) => { console.log('get_task_graph api call success:', success); });
   }
