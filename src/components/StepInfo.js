@@ -6,6 +6,7 @@ import ExpectedEffortSelect from './Select/ExpectedEffortSelect';
 import OptionsSelect from './Select/OptionsSelect';
 import TextInput from './TextInput';
 import TextArea from './TextArea';
+import { MultiSelect } from './Select';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -29,8 +30,6 @@ const inline = {
 };
 
 class StepInfo extends React.Component {
-  componentDidMount = () => {}
-
   handleChange = key => (e) => {
     const { info, update } = this.props;
     update({ ...info, [key]: e.target.value });
@@ -90,9 +89,7 @@ class StepInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Assignee:</span>
-          <OptionsSelect
-            allowNone
-            label="Role"
+          <MultiSelect
             options={roles}
             selectFieldName={info.assigneeRole}
             onChange={this.handleChange('assigneeRole')}
@@ -100,9 +97,7 @@ class StepInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Reviewer:</span>
-          <OptionsSelect
-            allowNone
-            label="Role"
+          <MultiSelect
             options={roles}
             selectFieldName={info.reviewerRole}
             onChange={this.handleChange('reviewerRole')}

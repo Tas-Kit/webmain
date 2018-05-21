@@ -10,10 +10,17 @@ import * as dialogActions from '../actions/dialogActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
+// services
+import gs from '../services/GraphService';
+
 class StepCreatorDialogContainer extends React.Component {
-  handleStepInfoSave = () => (
-    new Promise((resolve) => { resolve(); }).then(() => true)
-  );
+  handleStepInfoSave = () => {
+    // add node
+    const { stepInfo } = this.props.stepManager;
+    console.log(stepInfo);
+    return new Promise((resolve) => { resolve(); }).then(() => true);
+  };
+
   render() {
     const { stepCreatorOpen } = this.props.dialogManager;
     const { pending } = this.props.stepManager;

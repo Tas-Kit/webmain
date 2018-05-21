@@ -10,8 +10,8 @@ const initialState = {
     deadline: '',
     status: STATUS[0],
     description: '',
-    assigneeRole: '',
-    reviewerRole: '',
+    assigneeRole: [],
+    reviewerRole: [],
   },
   pending: false,
 };
