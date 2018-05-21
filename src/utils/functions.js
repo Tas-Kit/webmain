@@ -62,8 +62,8 @@ export const mapStepInfoToNode = data => ({
 
 export const logout = () => {
   if (window) {
-    window.location.replace('/login');
     Cookies.remove('sessionid');
     Cookies.remove('JWT');
+    window.location.replace('/login');
   }
 };

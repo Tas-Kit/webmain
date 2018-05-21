@@ -3,16 +3,19 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { GREY } from '../../constants/colors';
+import { withStyles } from '@material-ui/core';
 
-const inline = {
+const styles = {
   main: {
     width: '100%',
-    bottom: 10,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1em',
   },
   button: {
     color: GREY,
     float: 'right',
-    margin: '10px 20px',
   },
   addIcon: {
     width: 20,
@@ -21,21 +24,32 @@ const inline = {
 };
 
 const BottomPanel = (props) => {
-  const handleAddTask = () => {
-    props.resetTaskInfo();
-    props.toggleTaskCreator();
-  };
+  const { handleAddTask, handleLogoutClick, classes } = props;
 
   return (
-    <div style={inline.main}>
+    <div className={classes.main}>
+      {/* Logout */}
+      <Button
+        variant="raised"
+        color="secondary"
+        onClick={handleLogoutClick}
+      >
+        Logout
+      </Button>
       {/* Add Task Button */}
       <Link to="/">
-        <Button mini variant="fab" style={inline.button} onClick={handleAddTask} color="primary" >
-          <AddIcon style={inline.addIcon} />
+        <Button
+          mini
+          variant="fab"
+          className={classes.button}
+          onClick={handleAddTask}
+          color="primary"
+        >
+          <AddIcon className={classes.addIcon} />
         </Button>
       </Link>
     </div>
   );
 };
 
-export default BottomPanel;
+export default withStyles(styles)(BottomPanel);
