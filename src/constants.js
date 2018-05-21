@@ -84,6 +84,12 @@ export const TASK_INFO_RULE = {
   expected_effort_unit: 'required_with:expected_effort_num',
 };
 
+export const STEP_INFO_RULE = {
+  name: 'required',
+  effortTime: 'required_with:effortUnit',
+  effortUnit: 'required_with:effortTime',
+};
+
 export default {
   ACCEPTANCE,
   ACCEPTANCES,
@@ -101,4 +107,6 @@ export default {
   DIALOG_MESSAGE,
   APP_BAR_TITLE,
   LETTER_AVARTAR,
+  TASK_INFO_RULE,
+  STEP_INFO_RULE,
 };

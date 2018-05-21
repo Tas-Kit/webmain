@@ -38,3 +38,23 @@ export const mapTaskInfoRequestData = data => ({
   description: data.description.trim() === '' ? null : data.description,
   deadline: data.deadline === '' ? null : (new Date(data.deadline)).toISOString(),
 });
+
+export const mapStepInfoToNode = data => ({
+  name: data.name,
+  label: data.name,
+  status: STATUS_MAP[data.status],
+  description: data.description,
+  reviewers: data.reviewerRoles,
+  assignees: data.assigneeRoles,
+  deadline: data.deadline,
+  expected_effort_time: data.effortTime,
+  expected_effort_unit: data.effortUnit,
+  is_optional: data.optional,
+  id: data.id,
+  x: data.x,
+  y: data.y,
+  node_type: data.node_type,
+  image: data.image,
+  shape: 'image',
+  size: 15,
+});
