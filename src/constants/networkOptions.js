@@ -10,6 +10,7 @@ const networkOptions = {
   },
   edges: {
     smooth: {
+      type: 'continuous',
       forceDirection: 'none',
     },
     color: {

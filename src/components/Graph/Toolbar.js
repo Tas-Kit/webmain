@@ -54,7 +54,7 @@ const Toolbar = (props) => {
   const prototypes = [
     <img src={task1} style={inline.icon} alt="taskSvg" />,
   ];
-  const { onDragStart } = props;
+  const { onDragStart, onAddEdge } = props;
 
   return (
     <div style={inline.main}>
@@ -73,7 +73,7 @@ const Toolbar = (props) => {
         <IconButton style={inline.deleteButton}>
           <Delete />
         </IconButton>
-        <IconButton style={inline.edgeButton}>
+        <IconButton style={inline.edgeButton} onClick={onAddEdge}>
           <Link />
         </IconButton>
       </div>

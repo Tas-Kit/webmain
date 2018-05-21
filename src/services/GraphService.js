@@ -20,6 +20,14 @@ class GraphService {
       ...networkOptions,
       width: String(getAdaptedWidth()),
       height: String(getAdaptedHeight()),
+      manipulation: {
+        enabled: false,
+        initiallyActive: false,
+        addEdge: (edgeData, callback) => {
+          const newEdgeData = Object.assign({}, edgeData);
+          callback(newEdgeData);
+        },
+      },
     };
 
     this.network = new Network(graphElement, this.activeData, options);
@@ -33,6 +41,8 @@ class GraphService {
   }
 
   addNode = (nodeData) => { this.activeData.nodes.add(nodeData); }
+
+  addEdgeMode = () => { this.network.addEdgeMode(); }
 
   clearAllNodes = () => { this.activeData.nodes.clear(); }
 }

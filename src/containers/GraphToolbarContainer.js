@@ -6,10 +6,14 @@ import { GraphToolbar } from '../components/Graph';
 // actions
 import * as graphActions from '../actions/graphActions';
 
+// services
+import gs from '../services/GraphService';
+
 const GraphToolbarContainer = (props) => {
   const { setDraggingIndex } = props.actions;
+  const handleAddEdge = () => { gs.addEdgeMode(); };
   return (
-    <GraphToolbar onDragStart={setDraggingIndex} />
+    <GraphToolbar onDragStart={setDraggingIndex} onAddEdge={handleAddEdge} />
   );
 };
 
