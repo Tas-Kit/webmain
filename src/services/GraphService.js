@@ -44,6 +44,12 @@ class GraphService {
 
   addEdgeMode = () => { this.network.addEdgeMode(); }
 
+  removeNode = (nodeData) => { this.activeData.nodes.remove(nodeData); }
+
+  removeEdge = (edgeData) => { this.activeData.edges.remove(edgeData); }
+
+  getNode = nodeId => this.activeData.nodes.get(nodeId)
+
   clearAllNodes = () => { this.activeData.nodes.clear(); }
 }
 
