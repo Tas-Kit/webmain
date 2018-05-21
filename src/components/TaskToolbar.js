@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import { Tooltip } from '@material-ui/core';
 
 // svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
@@ -21,7 +22,6 @@ import {
   TRANSPARENT_ORANGE,
 } from '../constants/colors';
 import { LETTER_AVARTAR, SUPER_ROLE } from '../constants';
-import { Tooltip } from '@material-ui/core';
 
 const styles = {
   flex: {
