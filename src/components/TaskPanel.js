@@ -72,9 +72,10 @@ const TaskPanel = (props) => {
         {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
           .map((task) => {
             const { tid, name } = task.info;
+            const { onTaskClick } = props;
             return (
               <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
-                <ListItem button>
+                <ListItem button onClick={() => { onTaskClick(tid); }}>
                   <ListItemText
                     primary={name}
                     classes={{ primary: classes.taskListItemText }}

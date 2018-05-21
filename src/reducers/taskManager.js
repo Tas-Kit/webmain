@@ -1,7 +1,8 @@
 import sortBy from 'lodash/sortBy';
 import * as types from '../constants/actions';
 import * as apiTypes from '../constants/apiTypes';
-import { STATUS, STATUS_MAP_TWO, TIME_UNITS_MAP_TWO } from '../constants';
+import { mapTaskInfoResponseData } from '../utils/functions';
+import { STATUS } from '../constants';
 
 const initialState = {
   taskId: null,
@@ -48,16 +49,6 @@ const handleResponse = (response, state) => {
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
         const data = response.json.task_info;
-        const taskInfo = {
-          ...state.taskInfo,
-          deadline: data.deadline || '',
-          description: data.description || '',
-          effortTime: data.expected_effort_num || '',
-          effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
-          name: data.name,
-          roles: data.roles || [],
-          status: STATUS_MAP_TWO[data.status] || '',
-        };
         const taskUsers = sortBy(
           response.json.users,
           [
@@ -65,12 +56,12 @@ const handleResponse = (response, state) => {
             o => o.has_task.role, o => o.basic.username,
           ],
         );
-
+        const taskInfo = mapTaskInfoResponseData(data);
         return {
           ...state,
-          taskInfo,
-          taskUsers,
           taskId: data.tid,
+          taskInfo,
+          taskUsers: response.json.users,
           pending: false,
           pendingRequestId: -1,
         };
