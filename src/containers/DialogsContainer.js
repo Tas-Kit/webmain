@@ -24,7 +24,7 @@ import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
 
 const DialogsContainer = (props) => {
-  const { deleteTaskOpen, invitationOpen,quitTaskOpen, } = props.dialogManager;
+  const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;
   const { pending } = props.taskManager;
   const {
     toggleDeleteTask,
@@ -56,7 +56,7 @@ const DialogsContainer = (props) => {
   const handleTaskQuit = () => (
     new Promise((resolve) => { resolve(); }).then(() => true)
   );
-  
+
   return (
     <div>
       {/* Task Creator */}

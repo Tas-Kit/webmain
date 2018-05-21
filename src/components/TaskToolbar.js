@@ -21,6 +21,7 @@ import {
   TRANSPARENT_ORANGE,
 } from '../constants/colors';
 import { LETTER_AVARTAR, SUPER_ROLE } from '../constants';
+import { Tooltip } from '@material-ui/core';
 
 const styles = {
   flex: {
@@ -88,14 +89,17 @@ const TaskToolbar = (props) => {
         }
       </div>
       {users.map(user => (
-        <Avatar key={user.basic.uid} className={classes.letterAvatar}>
-          {`${user.basic.username[0]}`}
-        </Avatar>
-      ))}
+        <Tooltip id={`tooltip-user-${user.basic.username}`} title={user.basic.username}>
+          <Avatar key={user.basic.uid} className={classes.letterAvatar}>
+            {`${user.basic.username[0]}`}
+          </Avatar>
+        </Tooltip>
+      ))
+      }
       <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
-    </Toolbar>
+    </Toolbar >
   );
 };
 
