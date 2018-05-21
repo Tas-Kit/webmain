@@ -13,7 +13,12 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 import * as graphActions from '../actions/graphActions';
 
-import { NODE_IMAGE_MAP, NODE_COORD_MAP } from '../constants/nodes';
+import {
+  NODE_IMAGE_MAP,
+  NODE_COORD_MAP,
+  START_NODE,
+  END_NODE,
+} from '../constants/nodes';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
@@ -31,7 +36,7 @@ class GraphViewerContainer extends React.Component {
   mapNodes = nodes => (
     nodes.map((node) => {
       let canvasCoord;
-      if (node.node_type === 'e' || node.node_type === 's') {
+      if (node.node_type === END_NODE || node.node_type === START_NODE) {
         const DOMCoord = NODE_COORD_MAP[node.node_type];
         canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
       } else {

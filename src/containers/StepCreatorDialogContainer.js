@@ -17,7 +17,7 @@ import gs from '../services/GraphService';
 
 // constants and utils
 import { STEP_INFO_RULE } from '../constants';
-import { NODE_IMAGE_MAP } from '../constants/nodes';
+import { NODE_IMAGE_MAP, NORMAL_NODE } from '../constants/nodes';
 import { mapStepInfoToNode } from '../utils/functions';
 
 class StepCreatorDialogContainer extends React.Component {
@@ -33,7 +33,7 @@ class StepCreatorDialogContainer extends React.Component {
         id: shortid.generate(),
         x: canvasCoord.x,
         y: canvasCoord.y,
-        node_type: 'n',
+        node_type: NORMAL_NODE,
         image: NODE_IMAGE_MAP[draggingIndex],
       };
       const nodeToAdd = mapStepInfoToNode(stepNode);
