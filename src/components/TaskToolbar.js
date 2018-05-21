@@ -89,8 +89,8 @@ const TaskToolbar = (props) => {
         }
       </div>
       {users.map(user => (
-        <Tooltip id={`tooltip-user-${user.basic.username}`} title={user.basic.username}>
-          <Avatar key={user.basic.uid} className={classes.letterAvatar}>
+        <Tooltip key={user.basic.uid} id={`tooltip-user-${user.basic.username}`} title={user.basic.username}>
+          <Avatar className={classes.letterAvatar}>
             {`${user.basic.username[0]}`}
           </Avatar>
         </Tooltip>

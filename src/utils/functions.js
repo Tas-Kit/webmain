@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Cookies from 'js-cookie';
 import {
   MIN_ALLOW_WINDOW_WIDTH,
   DRAWER_WIDTH,
@@ -58,3 +59,11 @@ export const mapStepInfoToNode = data => ({
   shape: 'image',
   size: 15,
 });
+
+export const logout = () => {
+  if (window) {
+    window.location.replace('/login');
+    Cookies.remove('sessionid');
+    Cookies.remove('JWT');
+  }
+};
