@@ -1,7 +1,6 @@
-import redux from './ReduxService';
 import vis from 'vis/dist/vis.min';
 import 'vis/dist/vis-network.min.css';
-
+import redux from './ReduxService';
 import networkOptions from '../constants/networkOptions';
 import { getAdaptedWidth, getAdaptedHeight } from '../utils/functions';
 
