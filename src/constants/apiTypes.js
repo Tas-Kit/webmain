@@ -4,3 +4,4 @@ export const GET_TASKS = 'get_tasks';
 export const SAVE_TASK = 'save_task';
 export const DELETE_TASK = 'delete_task';
 export const MODIFY_TASK = 'modify_task';
+export const SAVE_GRAPH = 'save_graph';

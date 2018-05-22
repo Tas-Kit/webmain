@@ -58,3 +58,21 @@ export const mapStepInfoToNode = data => ({
   shape: 'image',
   size: 15,
 });
+
+export const mapNodeToRequestData = data => ({
+  status: data.status,
+  pos_x: data.x,
+  pos_y: data.y,
+  name: data.name,
+  reviewers: data.reviewers,
+  assignees: data.assignees,
+  node_type: data.node_type,
+  deadline: (data.deadline === '' || data.deadline === null) ? null : (new Date(data.deadline)).toISOString(),
+  expected_effort_unit: (data.expected_effort_unit === '' || data.expected_effort_unit === null) ?
+    null : TIME_UNITS_MAP[data.expected_effort_unit],
+  sid: data.id,
+  is_optional: data.is_optional,
+  expected_effort_num: (data.expected_effort_num === '' || data.expected_effort_num === null)
+    ? null : data.expected_effort_num,
+  description: (data.description === null || data.description === '') ? null : data.description,
+});

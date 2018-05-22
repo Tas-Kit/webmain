@@ -52,6 +52,8 @@ class GraphService {
 
   addNode = (nodeData) => { this.activeData.nodes.add(nodeData); }
 
+  addEdge = (edgeData) => { this.activeData.edges.add(edgeData); }
+
   addEdgeMode = () => { this.network.addEdgeMode(); }
 
   removeNode = (nodeData) => { this.activeData.nodes.remove(nodeData); }
