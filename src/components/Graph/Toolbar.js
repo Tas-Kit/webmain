@@ -4,7 +4,7 @@ import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
 import task1 from '../../assets/svgs/task1.svg';
 
-import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, TOOLBAR_GREY, GREY } from '../../constants/colors';
+import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE } from '../../constants/colors';
 
 const inline = {
   main: {
