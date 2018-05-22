@@ -9,3 +9,7 @@ export const setNodeCanvasCoord = coord => ({
   type: types.SET_NODE_CANVAS_COORD,
   coord,
 });
+
+export const toggleAddEdgeButton = () => ({
+  type: types.TOGGLE_ADD_EDGE_BUTTON,
+});

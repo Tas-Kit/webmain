@@ -1,3 +1,4 @@
+import redux from './ReduxService';
 import vis from 'vis/dist/vis.min';
 import 'vis/dist/vis-network.min.css';
 
@@ -32,6 +33,16 @@ class GraphService {
 
     this.network = new Network(graphElement, this.activeData, options);
 
+    this.network.on('dragEnd', (data) => {
+      // reactivate addEdge mode if in addEdge mode and end pointer is on an end node
+      const { addEdgeSelected } = redux.store.getState().graphManager;
+      if (addEdgeSelected) {
+        const DOMCoord = data.pointer.DOM;
+        const endAtNode = this.network.getNodeAt(DOMCoord);
+        if (endAtNode) this.network.addEdgeMode();
+      }
+    });
+
     window.addEventListener('resize', () => {
       this.network.setOptions({
         width: String(getAdaptedWidth()),
@@ -51,6 +62,8 @@ class GraphService {
   getNode = nodeId => this.activeData.nodes.get(nodeId)
 
   clearAllNodes = () => { this.activeData.nodes.clear(); }
+
+  exitEditMode = () => { this.network.disableEditMode(); }
 }
 
 export default new GraphService();

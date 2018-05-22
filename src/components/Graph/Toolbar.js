@@ -4,7 +4,7 @@ import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
 import task1 from '../../assets/svgs/task1.svg';
 
-import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE } from '../../constants/colors';
+import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, TOOLBAR_GREY, GREY } from '../../constants/colors';
 
 const inline = {
   main: {
@@ -40,13 +40,23 @@ const inline = {
     backgroundColor: 'silver',
     margin: '0px 15px',
   },
-  deleteButton: {
+  delete: {
     verticalAlign: 'top',
     color: LIGHT_PINK,
   },
-  edgeButton: {
+  deleteSelected: {
+    verticalAlign: 'top',
+    color: LIGHT_PINK,
+    backgroundColor: 'silver',
+  },
+  addEdge: {
     verticalAlign: 'top',
     color: TRANSPARENT_LIGHT_BLUE,
+  },
+  addEdgeSelected: {
+    verticalAlign: 'top',
+    color: TRANSPARENT_LIGHT_BLUE,
+    backgroundColor: 'silver',
   },
 };
 
@@ -54,7 +64,13 @@ const Toolbar = (props) => {
   const prototypes = [
     <img src={task1} style={inline.icon} alt="taskSvg" />,
   ];
-  const { onDragStart, onAddEdge, onDelete } = props;
+  const {
+    onDragStart,
+    onAddEdge,
+    onDelete,
+    deleteSelected,
+    addEdgeSelected,
+  } = props;
 
   return (
     <div style={inline.main}>
@@ -70,11 +86,17 @@ const Toolbar = (props) => {
           </div>
         ))}
         <div style={inline.divider} />
-        <IconButton style={inline.deleteButton} onClick={onDelete}>
-          <Delete />
-        </IconButton>
-        <IconButton style={inline.edgeButton} onClick={onAddEdge}>
+        <IconButton
+          style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
+          onClick={onAddEdge}
+        >
           <Link />
+        </IconButton>
+        <IconButton
+          style={deleteSelected ? inline.deleteSelected : inline.delete}
+          onClick={onDelete}
+        >
+          <Delete />
         </IconButton>
       </div>
     </div>

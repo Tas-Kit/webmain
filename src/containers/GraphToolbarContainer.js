@@ -14,9 +14,22 @@ import gs from '../services/GraphService';
 import { START_NODE, END_NODE } from '../constants/nodes';
 
 const GraphToolbarContainer = (props) => {
-  const { setDraggingIndex, updateMessage } = props.actions;
+  const {
+    setDraggingIndex,
+    updateMessage,
+    toggleAddEdgeButton,
+  } = props.actions;
+  const { addEdgeSelected } = props.graphManager;
 
-  const handleAddEdge = () => { gs.addEdgeMode(); };
+  const handleAddEdge = () => {
+    const newAddEdgeSelected = !addEdgeSelected;
+    toggleAddEdgeButton();
+    if (newAddEdgeSelected) {
+      gs.addEdgeMode();
+    } else {
+      gs.exitEditMode();
+    }
+  };
 
   const handleDelete = () => {
     const { nodes, edges } = gs.network.getSelection();
@@ -34,6 +47,8 @@ const GraphToolbarContainer = (props) => {
     } else if (nodes.length === 0 && edges.length === 1) {
       // it's an edge to be deleted
       gs.removeEdge(edges);
+    } else if (nodes.length === 0 && edges.length === 0) {
+      updateMessage('Please select a node or an edge to delete.');
     }
   };
 
@@ -42,12 +57,15 @@ const GraphToolbarContainer = (props) => {
       onDragStart={setDraggingIndex}
       onAddEdge={handleAddEdge}
       onDelete={handleDelete}
+      addEdgeSelected={addEdgeSelected}
     />
   );
 };
+
+const mapStateToProps = ({ graphManager }) => ({ graphManager });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...graphActions, ...snackbarActions }, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(GraphToolbarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GraphToolbarContainer);

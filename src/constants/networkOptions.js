@@ -1,3 +1,5 @@
+import { PINK, TOOLBAR_GREY } from './colors';
+
 const networkOptions = {
   nodes: {
     shadow: {
@@ -9,16 +11,21 @@ const networkOptions = {
     },
   },
   edges: {
+    arrows: {
+      to: {
+        enabled: true,
+        scaleFactor: 1,
+      },
+    },
+    selectionWidth: 0.5,
+    arrowStrikethrough: false,
     smooth: {
       type: 'continuous',
       forceDirection: 'none',
     },
     color: {
-      color: '#ccc',
-      highlight: '#ccc',
-      hover: '#ccc',
-      inherit: 'from',
-      opacity: 0.8,
+      color: TOOLBAR_GREY,
+      highlight: PINK,
     },
   },
   physics: {

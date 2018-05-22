@@ -1,6 +1,7 @@
 import * as types from '../constants/actions';
 
 const initialState = {
+  addEdgeSelected: false,
   draggingIndex: -1,
   canvasCoord: { x: 0, y: 0 },
 };
@@ -32,6 +33,9 @@ const graphManager = (state = initialState, action = {}) => {
     }
     case types.SET_NODE_CANVAS_COORD: {
       return { ...state, canvasCoord: action.coord };
+    }
+    case types.TOGGLE_ADD_EDGE_BUTTON: {
+      return { ...state, addEdgeSelected: !state.addEdgeSelected };
     }
     default:
       return state;
