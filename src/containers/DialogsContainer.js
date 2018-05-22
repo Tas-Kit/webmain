@@ -22,6 +22,10 @@ import * as taskActions from '../actions/taskActions';
 // constants
 import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
+import { ACCEPTANCE } from '../constants';
+
+// utils
+import { backToMain } from "../utils/functions";
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;
@@ -42,9 +46,10 @@ const DialogsContainer = (props) => {
     return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          // APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskActionPending();
           updateMessage('Task deleted successfully.');
+          backToMain();
         }
       })
       .catch(() => {
@@ -53,9 +58,26 @@ const DialogsContainer = (props) => {
       });
   };
 
-  const handleTaskQuit = () => (
-    new Promise((resolve) => { resolve(); }).then(() => true)
-  );
+  const handleTaskQuit = () => {
+    toggleTaskActionPending();
+    const { taskId } = props.taskManager;
+    const url = `/task/invitation/respond/${taskId}/`;
+    return APIService.sendRequest(url, apiTypes.QUIT_TASK, {
+      acceptance: ACCEPTANCE.REJECT,
+    }, 'POST')
+      .then((success) => {
+        if (success) {
+          // APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          toggleTaskActionPending();
+          updateMessage('Task quit successfully.');
+          backToMain();
+        }
+      })
+      .catch(() => {
+        updateMessage('Quit task failed.');
+        toggleTaskActionPending();
+      });
+  };
 
   return (
     <div>

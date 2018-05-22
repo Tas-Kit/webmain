@@ -67,3 +67,9 @@ export const logout = () => {
     window.location.replace('/login');
   }
 };
+
+export const backToMain = () => {
+  if (window) {
+    window.location.replace('/');
+  }
+};
