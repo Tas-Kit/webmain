@@ -11,6 +11,7 @@ export const NODE_IMAGE_MAP = {
   e: end,
   s: start,
   0: task1,
+  n: task1,
 };
 
 export const NODE_COORD_MAP = {

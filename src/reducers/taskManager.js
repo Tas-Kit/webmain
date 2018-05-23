@@ -17,6 +17,7 @@ const initialState = {
   },
   taskUsers: [],
   taskNodes: [],
+  taskEdges: [],
   tasks: [],
   pending: false,
   pendingRequestId: -1,
@@ -64,6 +65,7 @@ const handleResponse = (response, state) => {
           taskInfo,
           taskUsers,
           taskNodes: response.json.nodes,
+          taskEdges: response.json.edges,
           pending: false,
           pendingRequestId: -1,
         };
