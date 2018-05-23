@@ -22,10 +22,10 @@ import * as taskActions from '../actions/taskActions';
 // constants
 import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
-import { ACCEPTANCE } from '../constants';
 
 // utils
 import { backToMain } from '../utils/functions';
+import { rejectInvitation } from '../utils/api';
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;
@@ -61,10 +61,7 @@ const DialogsContainer = (props) => {
   const handleTaskQuit = () => {
     toggleTaskActionPending();
     const { taskId } = props.taskManager;
-    const url = `/task/invitation/respond/${taskId}/`;
-    return APIService.sendRequest(url, apiTypes.QUIT_TASK, {
-      acceptance: ACCEPTANCE.REJECT,
-    }, 'POST')
+    rejectInvitation(taskId)
       .then((success) => {
         if (success) {
           // APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);

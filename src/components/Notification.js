@@ -48,7 +48,9 @@ class Notification extends React.Component {
   }
 
   render() {
-    const { classes, tasks } = this.props;
+    const {
+      classes, tasks, handleAcceptClick, handleRejctClick,
+    } = this.props;
     const waitingTasks = tasks.filter(task => task.permission.acceptance === ACCEPTANCE.WAITING);
 
     return (
@@ -98,10 +100,18 @@ class Notification extends React.Component {
                       }}
                     />
                   </p>
-                  <IconButton aria-label="Accept" color="primary">
+                  <IconButton
+                    aria-label="Accept"
+                    color="primary"
+                    onClick={handleAcceptClick(tid)}
+                  >
                     <Done />
                   </IconButton>
-                  <IconButton aria-label="Reject" color="secondary">
+                  <IconButton
+                    aria-label="Reject"
+                    color="secondary"
+                    onClick={handleRejctClick(tid)}
+                  >
                     <Close />
                   </IconButton>
                 </ListItem>

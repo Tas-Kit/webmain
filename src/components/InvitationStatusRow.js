@@ -79,7 +79,8 @@ const UserStatusRow = (props) => {
           className={classes.deleteButton}
           onClick={handleRevokeInvitationClick(userId)}
           disabled={userPermission.super_role === SUPER_ROLE.STANDARD
-            || (userPermission.super_role !== SUPER_ROLE.OWNER && superRole === SUPER_ROLE.ADMIN)}
+            || (userPermission.super_role !== SUPER_ROLE.OWNER && superRole === SUPER_ROLE.ADMIN)
+            || superRole === SUPER_ROLE.OWNER}
         >
           <Close />
         </IconButton>
