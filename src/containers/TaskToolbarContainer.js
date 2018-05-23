@@ -25,9 +25,7 @@ const TaskToolbarContainer = (props) => {
   const { taskUsers, tasks, taskId } = props.taskManager;
   const activeTask = tasks.find(task => task.info.tid === taskId);
   const userPermission = activeTask ? activeTask.permission : {};
-  const { users } = props;
   const handleGraphSave = () => {
-    const { taskId } = props.taskManager;
     const url = `/task/graph/${taskId}/`;
     const payload = {
       tid: taskId,
