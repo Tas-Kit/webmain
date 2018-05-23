@@ -1,6 +1,6 @@
 import end from '../assets/svgs/end.svg';
 import start from '../assets/svgs/start.svg';
-import task1 from '../assets/svgs/task1.svg';
+import basic from '../assets/svgs/basic.svg';
 
 // Node Type
 export const NORMAL_NODE = 'n';
@@ -10,8 +10,8 @@ export const END_NODE = 'e';
 export const NODE_IMAGE_MAP = {
   e: end,
   s: start,
-  0: task1,
-  n: task1,
+  0: basic,
+  n: basic,
 };
 
 export const NODE_COORD_MAP = {

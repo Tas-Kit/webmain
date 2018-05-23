@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
-import task1 from '../../assets/svgs/task1.svg';
+import basic from '../../assets/svgs/basic.svg';
 
 import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE } from '../../constants/colors';
 
@@ -62,7 +62,7 @@ const inline = {
 
 const Toolbar = (props) => {
   const prototypes = [
-    <img src={task1} style={inline.icon} alt="taskSvg" />,
+    <img src={basic} style={inline.icon} alt="taskSvg" />,
   ];
   const {
     onDragStart,

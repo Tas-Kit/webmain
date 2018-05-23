@@ -52,7 +52,7 @@ class GraphViewerContainer extends React.Component {
         label: node.name,
         x: canvasCoord.x,
         y: canvasCoord.y,
-        size: 20,
+        size: 40,
       });
     })
   );
