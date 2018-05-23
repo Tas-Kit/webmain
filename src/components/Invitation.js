@@ -25,7 +25,11 @@ const styles = {
 
 const Invitation = (props) => {
   const {
-    usernameToInvite, handleUsernameToInviteChange, handleInvitationClick, classes,
+    usernameToInvite,
+    handleUsernameToInviteChange,
+    handleInvitationClick,
+    isLoading,
+    classes,
   } = props;
 
   return (
@@ -39,7 +43,12 @@ const Invitation = (props) => {
           onChange={handleUsernameToInviteChange}
           fullWidth
         />
-        <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
+        {
+          isLoading ?
+            '...'
+            :
+            <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
+        }
       </div>
       <InvitationStatusContainer />
     </div>

@@ -22,9 +22,19 @@ export const getTask = () => {
   return APIService.sendRequest(url, apiTypes.GET_TASKS);
 };
 
+export const revokeInvitation = (tid, payload) => {
+  const revokeUrl = `/task/invitation/revoke/${tid}/`;
+  return APIService.sendRequest(revokeUrl, apiTypes.REVOKE_INVITATION, payload, 'POST');
+};
+
+export const createInvitation = (tid, payload) => {
+  const inviteUrl = `/task/invitation/${tid}/`;
+  return APIService.sendRequest(inviteUrl, apiTypes.CREATE_INVITATION, payload, 'POST');
+};
 
 export default {
   rejectInvitation,
   acceptInvitation,
   getTask,
+  revokeInvitation,
 };

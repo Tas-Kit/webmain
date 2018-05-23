@@ -6,6 +6,7 @@ import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import APIService from '../services/APIService';
 import { SUPER_ROLE } from '../constants';
+import { revokeInvitation } from '../utils/api';
 
 class InvitationStatusContainer extends React.Component {
   //  TODO: Update locals users after sent invitation
@@ -21,8 +22,7 @@ class InvitationStatusContainer extends React.Component {
       uid,
     };
     toggleTaskActionPending();
-    const revokeUrl = `/task/invitation/revoke/${tid}/`;
-    APIService.sendRequest(revokeUrl, 'revoke_invitation', payload, 'POST')
+    revokeInvitation(tid, payload)
       .then((success) => {
         if (success) {
           removeUser(uid);

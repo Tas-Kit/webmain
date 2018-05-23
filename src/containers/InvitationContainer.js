@@ -5,37 +5,36 @@ import Invitation from '../components/Invitation';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import APIService from '../services/APIService';
-import { CREATE_INVITATION } from '../constants/apiTypes';
+import { createInvitation } from '../utils/api';
 
 class InvitationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       usernameToInvite: '',
+      isLoading: false,
     };
   }
 
   handleInvitationClick = () => {
     const {
-      toggleTaskActionPending,
       updateMessage,
     } = this.props.actions;
     const { taskId: tid } = this.props.taskManager;
     const payload = {
       username: this.state.usernameToInvite,
     };
-    toggleTaskActionPending();
-    const inviteUrl = `/task/invitation/${tid}/`;
-    APIService.sendRequest(inviteUrl, CREATE_INVITATION, payload, 'POST')
+    this.setState({ isLoading: true });
+    createInvitation(tid, payload)
       .then((success) => {
+        this.setState({ isLoading: false });
         if (success) {
           updateMessage('You have successfully sent the invitation');
-          toggleTaskActionPending();
         }
       })
       .catch(() => {
+        this.setState({ isLoading: false });
         updateMessage('Invitation failed');
-        toggleTaskActionPending();
       });
   };
 
@@ -52,6 +51,7 @@ class InvitationContainer extends React.Component {
         usernameToInvite={this.state.usernameToInvite}
         handleUsernameToInviteChange={this.handleUsernameToInviteChange}
         handleInvitationClick={this.handleInvitationClick}
+        isLoading={this.state.isLoading}
       />
     );
   }

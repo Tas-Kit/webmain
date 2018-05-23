@@ -49,7 +49,7 @@ class Notification extends React.Component {
 
   render() {
     const {
-      classes, tasks, handleAcceptClick, handleRejctClick,
+      classes, tasks, handleAcceptClick, handleRejectClick,
     } = this.props;
     const waitingTasks = tasks.filter(task => task.permission.acceptance === ACCEPTANCE.WAITING);
 
@@ -110,7 +110,7 @@ class Notification extends React.Component {
                   <IconButton
                     aria-label="Reject"
                     color="secondary"
-                    onClick={handleRejctClick(tid)}
+                    onClick={handleRejectClick(tid)}
                   >
                     <Close />
                   </IconButton>
