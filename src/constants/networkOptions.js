@@ -1,4 +1,4 @@
-import { PINK, TOOLBAR_GREY, BLACK } from './colors';
+import { PINK, EDGE_GREY, BLACK } from './colors';
 
 const networkOptions = {
   nodes: {
@@ -29,9 +29,17 @@ const networkOptions = {
       forceDirection: 'none',
     },
     color: {
-      color: TOOLBAR_GREY,
+      color: EDGE_GREY,
       highlight: PINK,
     },
+    scaling: {
+      min: 2,
+      max: 2,
+      label: {
+        enabled: false,
+      },
+    },
+    value: 2,
   },
   physics: {
     enabled: false,

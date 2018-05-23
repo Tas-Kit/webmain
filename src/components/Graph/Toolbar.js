@@ -10,7 +10,7 @@ const inline = {
   main: {
     display: 'flex',
     position: 'absolute',
-    height: 50,
+    height: 80,
     left: 0,
     right: 0,
     bottom: 10,
@@ -22,41 +22,60 @@ const inline = {
     backgroundColor: 'rgba(222, 222, 222, 0.6)',
     padding: '10px 30px 2px 30px',
     borderRadius: 8,
+    height: 80,
   },
   iconDiv: {
     display: 'inline-block',
     alignItems: 'center',
     justifyContent: 'center',
     verticalAlign: 'top',
+    width: 60,
+    height: 60,
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
   },
   divider: {
     display: 'inline-block',
     width: 1,
-    height: 40,
+    height: 60,
     backgroundColor: 'silver',
     margin: '0px 15px',
   },
   delete: {
     verticalAlign: 'top',
     color: LIGHT_PINK,
+    width: 45,
+    height: 45,
+    top: 5,
   },
   deleteSelected: {
     verticalAlign: 'top',
     color: LIGHT_PINK,
     backgroundColor: 'silver',
+    width: 50,
+    height: 50,
+    top: 5,
   },
   addEdge: {
     verticalAlign: 'top',
     color: TRANSPARENT_LIGHT_BLUE,
+    width: 50,
+    height: 50,
+    top: 5,
   },
   addEdgeSelected: {
     verticalAlign: 'top',
     color: TRANSPARENT_LIGHT_BLUE,
     backgroundColor: 'silver',
+    width: 50,
+    height: 50,
+    top: 5,
+  },
+  iconButton: {
+    width: 40,
+    height: 40,
   },
 };
 
@@ -90,13 +109,13 @@ const Toolbar = (props) => {
           style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
           onClick={onAddEdge}
         >
-          <Link />
+          <Link style={inline.iconButton} />
         </IconButton>
         <IconButton
           style={deleteSelected ? inline.deleteSelected : inline.delete}
           onClick={onDelete}
         >
-          <Delete />
+          <Delete style={inline.iconButton} />
         </IconButton>
       </div>
     </div>

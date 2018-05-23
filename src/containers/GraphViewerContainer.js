@@ -37,11 +37,11 @@ class GraphViewerContainer extends React.Component {
   mapNodes = nodes => (
     nodes.map((node) => {
       let canvasCoord;
-      if (node.node_type === END_NODE || node.node_type === START_NODE) {
+      if (node.pos_x && node.pos_y) {
+        canvasCoord = { x: node.pos_x, y: node.pos_y };
+      } else {
         const DOMCoord = NODE_COORD_MAP[node.node_type];
         canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
-      } else {
-        canvasCoord = { x: node.pos_x, y: node.pos_y };
       }
       return ({
         ...node,
