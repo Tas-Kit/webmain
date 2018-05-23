@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import InvitationStatusContainer from '../containers/InvitationStatusContainer';
+import { LoadingButton } from './Button';
 
 
 const styles = {
@@ -43,12 +44,12 @@ const Invitation = (props) => {
           onChange={handleUsernameToInviteChange}
           fullWidth
         />
-        {
-          isLoading ?
-            '...'
-            :
-            <Button variant="raised" color="primary" onClick={handleInvitationClick}>Invite</Button>
-        }
+        <LoadingButton
+          loading={isLoading}
+          buttonName="Invite"
+          onClick={handleInvitationClick}
+          color="primary"
+        />
       </div>
       <InvitationStatusContainer />
     </div>

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import Invitation from '../components/Invitation';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
-import APIService from '../services/APIService';
 import { createInvitation } from '../utils/api';
 
 class InvitationContainer extends React.Component {
