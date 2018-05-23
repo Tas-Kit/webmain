@@ -25,7 +25,7 @@ import * as apiTypes from '../constants/apiTypes';
 import { ACCEPTANCE } from '../constants';
 
 // utils
-import { backToMain } from "../utils/functions";
+import { backToMain } from '../utils/functions';
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;

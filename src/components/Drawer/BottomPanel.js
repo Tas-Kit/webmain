@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import IconButton from "@material-ui/core/IconButton";
 import AddIcon from '@material-ui/icons/Add';
+import { PowerSettingsNew } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core';
 import { GREY } from '../../constants/colors';
 
@@ -29,13 +31,13 @@ const BottomPanel = (props) => {
   return (
     <div className={classes.main}>
       {/* Logout */}
-      <Button
-        variant="raised"
+      <IconButton
+        aria-label="Accept"
         color="secondary"
         onClick={handleLogoutClick}
       >
-        Logout
-      </Button>
+        <PowerSettingsNew />
+      </IconButton>
       {/* Add Task Button */}
       <Link to="/">
         <Button
