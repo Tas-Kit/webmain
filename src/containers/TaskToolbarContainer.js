@@ -17,12 +17,15 @@ import APIService from '../services/APIService';
 // util & constants
 import { mapNodeToRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
+import { ACCEPTANCE } from '../constants';
 
 const TaskToolbarContainer = (props) => {
   const {
     toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask,
   } = props.actions;
   const { taskUsers, tasks, taskId } = props.taskManager;
+  const acceptedUsers = taskUsers
+    .filter(taskUser => taskUser.has_task.acceptance === ACCEPTANCE.ACCEPT);
   const activeTask = tasks.find(task => task.info.tid === taskId);
   const userPermission = activeTask ? activeTask.permission : {};
   const handleGraphSave = () => {
@@ -41,7 +44,7 @@ const TaskToolbarContainer = (props) => {
   };
   return (
     <TaskToolbar
-      users={taskUsers}
+      users={acceptedUsers}
       userSuperRole={userPermission.super_role}
       toggleTaskEditor={toggleTaskEditor}
       toggleDeleteTask={toggleDeleteTask}

@@ -1,4 +1,4 @@
-import sortBy from 'lodash/sortBy';
+import { orderBy } from 'lodash';
 import * as types from '../constants/actions';
 import * as apiTypes from '../constants/apiTypes';
 import { mapTaskInfoResponseData } from '../utils/functions';
@@ -51,11 +51,16 @@ const handleResponse = (response, state) => {
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
         const data = response.json.task_info;
-        const taskUsers = sortBy(
+        const taskUsers = orderBy(
           response.json.users,
           [
-            o => o.has_task.acceptance, o => o.has_task.super_role,
-            o => o.has_task.role, o => o.basic.username,
+            o => o.has_task.acceptance,
+            o => o.has_task.super_role,
+            o => o.has_task.role,
+            o => o.basic.username,
+          ],
+          [
+            'asc', 'desc', 'asc', 'asc',
           ],
         );
         const taskInfo = mapTaskInfoResponseData(data);

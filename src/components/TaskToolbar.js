@@ -31,6 +31,7 @@ const styles = {
     width: 31,
     height: 31,
     fontSize: LETTER_AVARTAR,
+    margin: '0 0.25em',
   },
   saveBt: {
     color: TEAL,
@@ -89,7 +90,7 @@ const TaskToolbar = (props) => {
               </Button>)
         }
       </div>
-      {users.map(user => (
+      {users.slice(0, 5).map(user => (
         <Tooltip key={user.basic.uid} id={`tooltip-user-${user.basic.username}`} title={user.basic.username}>
           <Avatar className={classes.letterAvatar}>
             {`${user.basic.username[0]}`}
@@ -97,6 +98,7 @@ const TaskToolbar = (props) => {
         </Tooltip>
       ))
       }
+      {users.length > 5 && <span>...</span>}
       <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
