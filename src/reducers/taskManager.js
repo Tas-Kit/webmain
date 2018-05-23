@@ -17,6 +17,7 @@ const initialState = {
   },
   taskUsers: [],
   taskNodes: [],
+  taskEdges: [],
   tasks: [],
   pending: false,
   pendingRequestId: -1,
@@ -64,11 +65,18 @@ const handleResponse = (response, state) => {
           taskInfo,
           taskUsers,
           taskNodes: response.json.nodes,
+          taskEdges: response.json.edges,
           pending: false,
           pendingRequestId: -1,
         };
       }
       return state;
+    }
+    case apiTypes.CREATE_INVITATION: {
+      return {
+        ...state,
+        taskUsers: [...state.taskUsers, response.json],
+      };
     }
     default:
       return state;

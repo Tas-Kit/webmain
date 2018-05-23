@@ -5,6 +5,7 @@ import Invitation from '../components/Invitation';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import APIService from '../services/APIService';
+import { CREATE_INVITATION } from '../constants/apiTypes';
 
 class InvitationContainer extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class InvitationContainer extends React.Component {
     };
     toggleTaskActionPending();
     const inviteUrl = `/task/invitation/${tid}/`;
-    APIService.sendRequest(inviteUrl, 'create_invitation', payload, 'POST')
+    APIService.sendRequest(inviteUrl, CREATE_INVITATION, payload, 'POST')
       .then((success) => {
         if (success) {
           updateMessage('You have successfully sent the invitation');

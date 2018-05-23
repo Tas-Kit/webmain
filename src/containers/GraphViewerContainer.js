@@ -28,9 +28,10 @@ class GraphViewerContainer extends React.Component {
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
     gs.clearAllNodes();
-    const { taskNodes } = this.props.taskManager;
+    const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = this.mapNodes(taskNodes);
     gs.addNode(nodes);
+    gs.addEdge(taskEdges);
   }
 
   mapNodes = nodes => (

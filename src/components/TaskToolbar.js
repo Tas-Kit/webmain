@@ -51,6 +51,7 @@ const TaskToolbar = (props) => {
     toggleTaskEditor,
     toggleInvitation,
     toggleQuitTask,
+    onGraphSave,
   } = props;
 
   return (
@@ -65,7 +66,7 @@ const TaskToolbar = (props) => {
         >
           <FormattedMessage id="cloneButton" defaultMessage="Clone" />
         </Button>
-        <Button key="save" className={classNames(classes.saveBt)}>
+        <Button key="save" className={classNames(classes.saveBt)} onClick={onGraphSave}>
           <FormattedMessage id="saveButton" defaultMessage="Save" />
         </Button>
         {

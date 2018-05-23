@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { PowerSettingsNew } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core';
 import { GREY } from '../../constants/colors';
+import { WHITE } from '../../constants/colors';
 
 const styles = {
   main: {
@@ -16,7 +17,7 @@ const styles = {
     padding: '1em',
   },
   button: {
-    color: GREY,
+    color: WHITE,
     float: 'right',
   },
   addIcon: {

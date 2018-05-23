@@ -1,14 +1,17 @@
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 
-let baseUrl = 'http://localhost:8001/api/v1';
+let baseUrl;
 
-if (typeof window !== 'undefined') {
-  const { location } = window;
-  baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+} else {
+  baseUrl = 'http://localhost:8001/api/v1';
+  if (typeof window !== 'undefined') {
+    const { location } = window;
+    baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+  }
 }
-
-baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 
 const defaultOnError = () => {
   throw new Error();
@@ -25,7 +28,7 @@ const transformResponse = (res) => {
     return res.json();
   }
   switch (res.status) {
-    case 401:
+    case 403:
       handleTimeOut();
       break;
     default:
