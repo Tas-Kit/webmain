@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { GREY } from '../../constants/colors';
+import { WHITE } from '../../constants/colors';
 
 const inline = {
   main: {
@@ -10,7 +10,7 @@ const inline = {
     bottom: 10,
   },
   button: {
-    color: GREY,
+    color: WHITE,
     float: 'right',
     margin: '10px 20px',
   },
