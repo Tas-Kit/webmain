@@ -1,4 +1,4 @@
-import { PINK, TOOLBAR_GREY } from './colors';
+import { PINK, TOOLBAR_GREY, BLACK } from './colors';
 
 const networkOptions = {
   nodes: {
@@ -8,6 +8,11 @@ const networkOptions = {
       size: 10,
       x: 3,
       y: 3,
+    },
+    font: {
+      face: 'roboto',
+      size: 20,
+      color: BLACK,
     },
   },
   edges: {

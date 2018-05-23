@@ -15,3 +15,4 @@ export const WHITE = '#ffffff';
 export const LIGHT_PINK = 'rgb(239, 144, 178)';
 export const TRANSPARENT_LIGHT_PINK = 'rgb(239, 144, 178, 0.08)';
 export const TOOLBAR_GREY = 'rgba(222, 222, 222, 0.6)';
+export const BLACK = '#000000';
