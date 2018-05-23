@@ -72,6 +72,12 @@ const handleResponse = (response, state) => {
       }
       return state;
     }
+    case apiTypes.CREATE_INVITATION: {
+      return {
+        ...state,
+        taskUsers: [...state.taskUsers, response.json],
+      };
+    }
     default:
       return state;
   }
