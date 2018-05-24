@@ -78,6 +78,13 @@ class GraphService {
 
   clearAllNodes = () => { this.activeData.nodes.clear(); }
 
+  clearAllEdges = () => { this.activeData.edges.clear(); }
+
+  clearAll = () => {
+    this.clearAllNodes();
+    this.clearAllEdges();
+  }
+
   exitEditMode = () => { this.network.disableEditMode(); }
 }
 

@@ -13,12 +13,7 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 import * as graphActions from '../actions/graphActions';
 
-import {
-  NODE_IMAGE_MAP,
-  NODE_COORD_MAP,
-  START_NODE,
-  END_NODE,
-} from '../constants/nodes';
+import { NODE_IMAGE_MAP, NODE_COORD_MAP } from '../constants/nodes';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
@@ -27,7 +22,7 @@ class GraphViewerContainer extends React.Component {
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
-    gs.clearAllNodes();
+    gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = this.mapNodes(taskNodes);
     gs.addNode(nodes);

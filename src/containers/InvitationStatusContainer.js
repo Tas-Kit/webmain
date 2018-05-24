@@ -10,9 +10,19 @@ import { SUPER_ROLE } from '../constants';
 class InvitationStatusContainer extends React.Component {
   //  TODO: Update locals users after sent invitation
 
+  // I comment out toggleTaskActionPending() call in all the functions below for now,
+  // because it's causing ui conflict
+  // plus you are not using this pending state anywhere in your render function
+  // -YIYANG
+
+  // TODO: Create another state in the reducer for invitation pending, name it sth.
+  // else to differentiate between task pending and invitation pending and use it
+  // in the ui so that the user can be aware that he's waiting for sth. to return.
+  // -YIYANG
+
   hanldeRevokeInvitationClick = uid => () => {
     const {
-      toggleTaskActionPending,
+      // toggleTaskActionPending,
       updateMessage,
       removeUser,
     } = this.props.actions;
@@ -20,25 +30,25 @@ class InvitationStatusContainer extends React.Component {
     const payload = {
       uid,
     };
-    toggleTaskActionPending();
+    // toggleTaskActionPending();
     const revokeUrl = `/task/invitation/revoke/${tid}/`;
     APIService.sendRequest(revokeUrl, 'revoke_invitation', payload, 'POST')
       .then((success) => {
         if (success) {
           removeUser(uid);
           updateMessage('Invitation was revoked successfully');
-          toggleTaskActionPending();
+          // toggleTaskActionPending();
         }
       })
       .catch(() => {
         updateMessage('Revoke invitation failed');
-        toggleTaskActionPending();
+        // toggleTaskActionPending();
       });
   };
 
   handleSuperRoleChange = uid => (e) => {
     const {
-      toggleTaskActionPending,
+      // toggleTaskActionPending,
       setUserSuperRole,
       updateMessage,
     } = this.props.actions;
@@ -50,7 +60,7 @@ class InvitationStatusContainer extends React.Component {
     const currentOwner = taskUsers
       .find(element => element.has_task.super_role === SUPER_ROLE.OWNER);
     const changeUrl = `/task/invitation/change/${tid}/`;
-    toggleTaskActionPending();
+    // toggleTaskActionPending();
     APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
       .then((success) => {
         if (success) {
@@ -59,18 +69,18 @@ class InvitationStatusContainer extends React.Component {
           if (payload.super_role === SUPER_ROLE.OWNER) {
             setUserSuperRole(currentOwner.basic.uid, SUPER_ROLE.ADMIN);
           }
-          toggleTaskActionPending();
+          // toggleTaskActionPending();
         }
       })
       .catch(() => {
         updateMessage('Change super role failed');
-        toggleTaskActionPending();
+        // toggleTaskActionPending();
       });
   };
 
   handleRoleChange = uid => (e) => {
     const {
-      toggleTaskActionPending,
+      // toggleTaskActionPending,
       setUserRole,
       updateMessage,
     } = this.props.actions;
@@ -79,19 +89,19 @@ class InvitationStatusContainer extends React.Component {
       uid,
       role: e.target.value,
     };
-    toggleTaskActionPending();
+    // toggleTaskActionPending();
     const changeUrl = `/task/invitation/change/${tid}/`;
     APIService.sendRequest(changeUrl, 'change_role', payload, 'POST')
       .then((success) => {
         if (success) {
           setUserRole(payload.uid, payload.role);
           updateMessage('Role was successfully changed');
-          toggleTaskActionPending();
+          // toggleTaskActionPending();
         }
       })
       .catch(() => {
         updateMessage('Change role failed');
-        toggleTaskActionPending();
+        // toggleTaskActionPending();
       });
   };
 

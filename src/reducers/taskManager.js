@@ -19,7 +19,7 @@ const initialState = {
   taskNodes: [],
   taskEdges: [],
   tasks: [],
-  pending: false,
+  pending: false, // use it only when creating or loading a task
   pendingRequestId: -1,
 };
 
