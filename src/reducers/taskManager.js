@@ -19,6 +19,7 @@ const initialState = {
   taskNodes: [],
   taskEdges: [],
   tasks: [],
+  savePending: false,
   deletePending: false,
   pending: false, // use it only when creating or loading a task
   pendingRequestId: -1,
@@ -108,6 +109,9 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_TASK_DELETE_PENDING: {
       return { ...state, deletePending: !state.deletePending };
+    }
+    case types.TOGGLE_TASK_SAVE_PENDING: {
+      return { ...state, savePending: !state.savePending };
     }
     case types.SET_USER_ROLE: {
       const taskUsers = state.taskUsers.map((item) => {
