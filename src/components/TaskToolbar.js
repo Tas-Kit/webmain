@@ -72,7 +72,6 @@ const TaskToolbar = (props) => {
           loading={savePending}
           onClick={onGraphSave}
           className={classNames(classes.saveBt)}
-          style={{ display: 'inline-block' }}
         />
         <Button
           key="delete"

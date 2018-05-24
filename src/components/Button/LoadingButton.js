@@ -14,7 +14,6 @@ const LoadingButton = (props) => {
     onClick,
     color,
     className,
-    style,
   } = props;
 
   const getColorObject = (colorValue) => {
@@ -31,7 +30,7 @@ const LoadingButton = (props) => {
   const inline = {
     buttonWrapper: {
       position: 'relative',
-      ...style,
+      display: 'inline-block',
     },
     progress: {
       color: getColorObject(color),
@@ -54,7 +53,6 @@ const LoadingButton = (props) => {
 
 LoadingButton.defaultProps = {
   className: {},
-  style: {},
 };
 
 export default LoadingButton;

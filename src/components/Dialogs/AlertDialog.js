@@ -14,7 +14,6 @@ import Close from '@material-ui/icons/Close';
 
 // constants
 import { DIALOG_MESSAGE } from '../../constants';
-import { PINK } from '../../constants/colors';
 
 import { LoadingButton } from '../Button';
 
