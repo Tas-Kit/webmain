@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 
 // ui components
 import { PureDisplayDialog, AlertDialog } from '../components/Dialogs';
@@ -25,30 +26,31 @@ import * as apiTypes from '../constants/apiTypes';
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen } = props.dialogManager;
-  const { pending } = props.taskManager;
+  const { deletePending } = props.taskManager;
   const {
     toggleDeleteTask,
     updateMessage,
-    toggleTaskActionPending,
+    toggleTaskDeletePending,
     toggleInvitation,
   } = props.actions;
 
   const handleTaskDelete = () => {
     // return a promise
-    toggleTaskActionPending();
+    toggleTaskDeletePending();
     const { taskId } = props.taskManager;
     const url = `/task/${taskId}/`;
     return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
           APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
-          toggleTaskActionPending();
+          toggleTaskDeletePending();
           updateMessage('Task deleted successfully.');
+          props.history.push('/');
         }
       })
       .catch(() => {
         updateMessage('Delete task failed.');
-        toggleTaskActionPending();
+        toggleTaskDeletePending();
       });
   };
 
@@ -84,7 +86,7 @@ const DialogsContainer = (props) => {
         openState={deleteTaskOpen}
         toggle={toggleDeleteTask}
         onConfirm={handleTaskDelete}
-        loading={pending}
+        loading={deletePending}
       />
     </div>
   );
@@ -100,4 +102,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DialogsContainer));
