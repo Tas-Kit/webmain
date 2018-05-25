@@ -1,5 +1,3 @@
-import { NEW, IN_PROGRESS, READY_4_REVIEW, COMPLETED, SKIPPED } from '../constants/colors';
-
 export const e = () => (
   `
   <svg

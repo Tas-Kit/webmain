@@ -86,6 +86,8 @@ class GraphService {
   }
 
   exitEditMode = () => { this.network.disableEditMode(); }
+
+  fit = () => { this.network.fit({ animation: { duration: 800 } }); }
 }
 
 export default new GraphService();

@@ -28,6 +28,7 @@ class GraphViewerContainer extends React.Component {
     const nodes = this.mapNodes(taskNodes);
     gs.addNode(nodes);
     gs.addEdge(taskEdges);
+    gs.fit();
   }
 
   mapNodes = nodes => (
