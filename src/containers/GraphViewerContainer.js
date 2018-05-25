@@ -13,12 +13,7 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 import * as graphActions from '../actions/graphActions';
 
-import {
-  NODE_IMAGE_MAP,
-  NODE_COORD_MAP,
-  START_NODE,
-  END_NODE,
-} from '../constants/nodes';
+import { NODE_IMAGE_MAP, NODE_COORD_MAP } from '../constants/nodes';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
@@ -27,7 +22,7 @@ class GraphViewerContainer extends React.Component {
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
-    gs.clearAllNodes();
+    gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = this.mapNodes(taskNodes);
     gs.addNode(nodes);
@@ -37,11 +32,11 @@ class GraphViewerContainer extends React.Component {
   mapNodes = nodes => (
     nodes.map((node) => {
       let canvasCoord;
-      if (node.node_type === END_NODE || node.node_type === START_NODE) {
+      if (node.pos_x && node.pos_y) {
+        canvasCoord = { x: node.pos_x, y: node.pos_y };
+      } else {
         const DOMCoord = NODE_COORD_MAP[node.node_type];
         canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
-      } else {
-        canvasCoord = { x: node.pos_x, y: node.pos_y };
       }
       return ({
         ...node,
@@ -52,7 +47,7 @@ class GraphViewerContainer extends React.Component {
         label: node.name,
         x: canvasCoord.x,
         y: canvasCoord.y,
-        size: 20,
+        size: 40,
       });
     })
   );

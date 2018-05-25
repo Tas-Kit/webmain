@@ -40,6 +40,18 @@ class GraphService {
         const endAtNode = this.network.getNodeAt(DOMCoord);
         if (endAtNode) this.network.addEdgeMode();
       }
+
+      // at the end of dragging a node
+      if (data.nodes.length === 1) {
+        const nodeId = data.nodes[0];
+        const node = this.activeData.nodes.get(nodeId);
+        const canvasCoord = data.pointer.canvas;
+        this.updateNode({
+          ...node,
+          x: canvasCoord.x,
+          y: canvasCoord.y,
+        });
+      }
     });
 
     window.addEventListener('resize', () => {
@@ -52,6 +64,8 @@ class GraphService {
 
   addNode = (nodeData) => { this.activeData.nodes.add(nodeData); }
 
+  updateNode = (nodeData) => { this.activeData.nodes.update(nodeData); }
+
   addEdge = (edgeData) => { this.activeData.edges.add(edgeData); }
 
   addEdgeMode = () => { this.network.addEdgeMode(); }
@@ -63,6 +77,13 @@ class GraphService {
   getNode = nodeId => this.activeData.nodes.get(nodeId)
 
   clearAllNodes = () => { this.activeData.nodes.clear(); }
+
+  clearAllEdges = () => { this.activeData.edges.clear(); }
+
+  clearAll = () => {
+    this.clearAllNodes();
+    this.clearAllEdges();
+  }
 
   exitEditMode = () => { this.network.disableEditMode(); }
 }

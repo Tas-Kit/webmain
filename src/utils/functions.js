@@ -57,7 +57,7 @@ export const mapStepInfoToNode = data => ({
   node_type: data.node_type,
   image: data.image,
   shape: 'image',
-  size: 15,
+  size: 40,
 });
 
 

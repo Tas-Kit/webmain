@@ -15,6 +15,8 @@ import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 // i18n
 import { FormattedMessage } from 'react-intl';
 
+import { LoadingButton } from './Button';
+
 import {
   TEAL,
   ORANGE,
@@ -53,6 +55,7 @@ const TaskToolbar = (props) => {
     toggleInvitation,
     toggleQuitTask,
     onGraphSave,
+    savePending,
   } = props;
 
   return (
@@ -67,9 +70,14 @@ const TaskToolbar = (props) => {
         >
           <FormattedMessage id="cloneButton" defaultMessage="Clone" />
         </Button>
-        <Button key="save" className={classNames(classes.saveBt)} onClick={onGraphSave}>
-          <FormattedMessage id="saveButton" defaultMessage="Save" />
-        </Button>
+<LoadingButton
+          buttonName="Save"
+          color={TEAL}
+          loading={savePending}
+          onClick={onGraphSave}
+          className={classNames(classes.saveBt)}
+        />
+
         {
           userSuperRole === SUPER_ROLE.OWNER ?
             (

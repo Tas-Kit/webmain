@@ -22,6 +22,7 @@ class Viewer extends React.Component {
 
         {/* Toolbar */}
         <GraphToolbarContainer />
+
       </div>
     );
   }
