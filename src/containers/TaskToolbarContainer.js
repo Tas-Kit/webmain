@@ -9,6 +9,7 @@ import TaskToolbar from '../components/TaskToolbar';
 // redux action
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
+import * as snackbarActions from '../actions/snackbarActions';
 
 // service
 import gs from '../services/GraphService';
@@ -19,7 +20,14 @@ import { mapNodeToRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
 
 const TaskToolbarContainer = (props) => {
-  const { toggleTaskEditor, toggleDeleteTask, toggleInvitation } = props.actions;
+  const {
+    toggleTaskEditor,
+    toggleDeleteTask,
+    toggleInvitation,
+    toggleTaskSavePending,
+    updateMessage,
+  } = props.actions;
+  const { savePending } = props.taskManager;
   const { users } = props;
   const handleGraphSave = () => {
     const { taskId } = props.taskManager;
@@ -29,12 +37,18 @@ const TaskToolbarContainer = (props) => {
       nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),
       edges: gs.activeData.edges.get(),
     };
+    toggleTaskSavePending();
     APIService.sendRequest(url, apiTypes.SAVE_GRAPH, payload, 'PATCH')
       .then((success) => {
-        console.log('save graph success', success);
+        if (success) {
+          toggleTaskSavePending();
+          updateMessage('Graph saved successfully.');
+        }
+      })
+      .catch(() => {
+        toggleTaskSavePending();
+        updateMessage('Save graph failed.');
       });
-    // console.log(gs.activeData.nodes.get());
-    // console.log(gs.activeData.edges.get());
   };
   return (
     <TaskToolbar
@@ -43,6 +57,7 @@ const TaskToolbarContainer = (props) => {
       toggleDeleteTask={toggleDeleteTask}
       toggleInvitation={toggleInvitation}
       onGraphSave={handleGraphSave}
+      savePending={savePending}
     />
   );
 };
@@ -50,7 +65,7 @@ const TaskToolbarContainer = (props) => {
 const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions, ...taskActions }, dispatch),
+  actions: bindActionCreators({ ...dialogActions, ...taskActions, ...snackbarActions }, dispatch),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskToolbarContainer));
