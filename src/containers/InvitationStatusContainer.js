@@ -6,7 +6,7 @@ import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import APIService from '../services/APIService';
 import { SUPER_ROLE } from '../constants';
-import { revokeInvitation } from '../utils/api';
+import { revokeInvitation, changeUserSuperRole, changeUserRole } from '../utils/api';
 
 class InvitationStatusContainer extends React.Component {
   //  TODO: Update locals users after sent invitation
@@ -49,8 +49,7 @@ class InvitationStatusContainer extends React.Component {
     };
     const currentOwner = taskUsers
       .find(element => element.has_task.super_role === SUPER_ROLE.OWNER);
-    const changeUrl = `/task/invitation/change/${tid}/`;
-    APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST')
+    changeUserSuperRole(tid, payload)
       .then((success) => {
         if (success) {
           setUserSuperRole(payload.uid, payload.super_role);
@@ -77,8 +76,7 @@ class InvitationStatusContainer extends React.Component {
       uid,
       role: e.target.value,
     };
-    const changeUrl = `/task/invitation/change/${tid}/`;
-    APIService.sendRequest(changeUrl, 'change_role', payload, 'POST')
+    changeUserRole(tid, payload)
       .then((success) => {
         if (success) {
           setUserRole(payload.uid, payload.role);

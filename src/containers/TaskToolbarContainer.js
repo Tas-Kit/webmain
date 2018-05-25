@@ -22,10 +22,12 @@ import { ACCEPTANCE } from '../constants';
 
 const TaskToolbarContainer = (props) => {
   const {
-    toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask,toggleTaskSavePending,
+    toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask, toggleTaskSavePending,
     updateMessage,
   } = props.actions;
-  const { taskUsers, tasks, taskId, savePending } = props.taskManager;
+  const {
+    taskUsers, tasks, taskId, savePending,
+  } = props.taskManager;
   const acceptedUsers = taskUsers
     .filter(taskUser => taskUser.has_task.acceptance === ACCEPTANCE.ACCEPT);
   const activeTask = tasks.find(task => task.info.tid === taskId);

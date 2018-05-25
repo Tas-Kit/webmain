@@ -32,9 +32,21 @@ export const createInvitation = (tid, payload) => {
   return APIService.sendRequest(inviteUrl, apiTypes.CREATE_INVITATION, payload, 'POST');
 };
 
+export const changeUserSuperRole = (tid, payload) => {
+  const changeUrl = `/task/invitation/change/${tid}/`;
+  return APIService.sendRequest(changeUrl, 'change_superrole', payload, 'POST');
+};
+
+export const changeUserRole = (tid, payload) => {
+  const changeUrl = `/task/invitation/change/${tid}/`;
+  APIService.sendRequest(changeUrl, 'change_role', payload, 'POST');
+};
+
 export default {
   rejectInvitation,
   acceptInvitation,
   getTask,
   revokeInvitation,
+  changeUserSuperRole,
+  changeUserRole,
 };
