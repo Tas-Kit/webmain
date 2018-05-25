@@ -13,7 +13,8 @@ import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 import * as graphActions from '../actions/graphActions';
 
-import { NODE_IMAGE_MAP, NODE_COORD_MAP } from '../constants/nodes';
+import { NODE_COORD_MAP, NODE_STATUS_COLOR_MAP, START_NODE, END_NODE } from '../constants/nodes';
+import * as svgStrings from '../assets/svgStrings';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
@@ -31,6 +32,14 @@ class GraphViewerContainer extends React.Component {
 
   mapNodes = nodes => (
     nodes.map((node) => {
+      let svgString;
+      if (node.status === START_NODE || node.status === END_NODE) {
+        svgString = svgStrings[node.node_type]();
+      } else {
+        const color = NODE_STATUS_COLOR_MAP[node.status];
+        svgString = svgStrings[node.node_type](color);
+      }
+      const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
       let canvasCoord;
       if (node.pos_x && node.pos_y) {
         canvasCoord = { x: node.pos_x, y: node.pos_y };
@@ -43,7 +52,7 @@ class GraphViewerContainer extends React.Component {
         id: node.sid,
         old_id: node.id,
         shape: 'image',
-        image: NODE_IMAGE_MAP[node.node_type],
+        image: imageUrl,
         label: node.name,
         x: canvasCoord.x,
         y: canvasCoord.y,

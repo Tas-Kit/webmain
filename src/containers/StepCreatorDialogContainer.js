@@ -24,7 +24,7 @@ class StepCreatorDialogContainer extends React.Component {
   handleStepInfoSave = () => {
     // add node
     const { stepInfo } = this.props.stepManager;
-    const { canvasCoord, draggingIndex } = this.props.graphManager;
+    const { canvasCoord, draggingNodeType } = this.props.graphManager;
     const { updateMessage } = this.props.actions;
     const validation = new Validator(stepInfo, STEP_INFO_RULE);
     if (validation.passes()) {
@@ -34,7 +34,7 @@ class StepCreatorDialogContainer extends React.Component {
         x: canvasCoord.x,
         y: canvasCoord.y,
         node_type: NORMAL_NODE,
-        image: NODE_IMAGE_MAP[draggingIndex],
+        image: NODE_IMAGE_MAP[draggingNodeType],
       };
       const nodeToAdd = mapStepInfoToNode(stepNode);
       gs.addNode(nodeToAdd);

@@ -10,13 +10,20 @@ export const END_NODE = 'e';
 export const NODE_IMAGE_MAP = {
   e: end,
   s: start,
-  0: basic,
   n: basic,
 };
 
 export const NODE_COORD_MAP = {
   s: { x: 60, y: (window.innerHeight - 128) / 2 },
   e: { x: window.innerWidth - 300, y: (window.innerHeight - 128) / 2 },
+};
+
+export const NODE_STATUS_COLOR_MAP = {
+  n: '#4f86cc',
+  ip: '#f3ca50',
+  rr: '#59B1A8',
+  c: '#83b369',
+  s: '#c6ccd2',
 };
 
 export default {

@@ -99,7 +99,7 @@ const Toolbar = (props) => {
             key={`item_${index + 1}`}
             draggable="true"
             style={inline.iconDiv}
-            onDragStart={() => { onDragStart(index); }}
+            onDragStart={() => { onDragStart('n'); }}
           >
             {item}
           </div>

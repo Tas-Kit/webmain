@@ -15,7 +15,7 @@ import { START_NODE, END_NODE } from '../constants/nodes';
 
 const GraphToolbarContainer = (props) => {
   const {
-    setDraggingIndex,
+    setDraggingNodeType,
     updateMessage,
     toggleAddEdgeButton,
   } = props.actions;
@@ -54,7 +54,7 @@ const GraphToolbarContainer = (props) => {
 
   return (
     <GraphToolbar
-      onDragStart={setDraggingIndex}
+      onDragStart={setDraggingNodeType}
       onAddEdge={handleAddEdge}
       onDelete={handleDelete}
       addEdgeSelected={addEdgeSelected}
