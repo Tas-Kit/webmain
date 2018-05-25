@@ -70,7 +70,7 @@ const TaskToolbar = (props) => {
         >
           <FormattedMessage id="cloneButton" defaultMessage="Clone" />
         </Button>
-<LoadingButton
+        <LoadingButton
           buttonName="Save"
           color={TEAL}
           loading={savePending}

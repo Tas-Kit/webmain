@@ -48,7 +48,7 @@ const DialogsContainer = (props) => {
       .then((success) => {
         if (success) {
           APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
-toggleTaskDeletePending();
+          toggleTaskDeletePending();
           updateMessage('Task deleted successfully.');
           backToMain();
         }
@@ -60,6 +60,7 @@ toggleTaskDeletePending();
   };
 
   const handleTaskQuit = () => {
+    const { toggleTaskActionPending } = this.props.actions;
     toggleTaskActionPending();
     const { taskId } = props.taskManager;
     rejectInvitation(taskId)
@@ -124,7 +125,7 @@ toggleTaskDeletePending();
         openState={quitTaskOpen}
         toggle={toggleQuitTask}
         onConfirm={handleTaskQuit}
-        loading={pending}
+        loading={deletePending}
       />
     </div>
   );

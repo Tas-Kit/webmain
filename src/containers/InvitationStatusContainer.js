@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import InvitationStatus from '../components/InvitationStatus';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
-import APIService from '../services/APIService';
 import { SUPER_ROLE } from '../constants';
 import { revokeInvitation, changeUserSuperRole, changeUserRole } from '../utils/api';
 
