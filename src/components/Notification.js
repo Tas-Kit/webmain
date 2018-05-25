@@ -23,6 +23,12 @@ const styles = {
   typography: {
     margin: '1em',
   },
+  notificationContainer: {
+    width: 300,
+  },
+  notice: {
+    textAlign: 'center',
+  },
 };
 
 class Notification extends React.Component {
@@ -85,40 +91,46 @@ class Notification extends React.Component {
             horizontal: 'center',
           }}
         >
-
-          <List >
-            {waitingTasks.map((task) => {
-              const { tid, name } = task.info;
-              return (
-                <ListItem key={tid} >
-                  <p>
-                    <FormattedMessage
-                      id="invitationNotification"
-                      defaultMessage="You are invited to join {taskName}"
-                      values={{
-                        taskName: <b>{name}</b>,
-                      }}
-                    />
-                  </p>
-                  <IconButton
-                    aria-label="Accept"
-                    color="primary"
-                    onClick={handleAcceptClick(tid)}
-                  >
-                    <Done />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Reject"
-                    color="secondary"
-                    onClick={handleRejectClick(tid)}
-                  >
-                    <Close />
-                  </IconButton>
-                </ListItem>
-              );
-            })
+          <div className={classes.notificationContainer}>
+            {
+              waitingTasks.length ?
+                <List >
+                  {waitingTasks.map((task) => {
+                    const { tid, name } = task.info;
+                    return (
+                      <ListItem key={tid} >
+                        <p>
+                          <FormattedMessage
+                            id="invitationNotification"
+                            defaultMessage="You are invited to join {taskName}"
+                            values={{
+                              taskName: <b>{name}</b>,
+                            }}
+                          />
+                        </p>
+                        <IconButton
+                          aria-label="Accept"
+                          color="primary"
+                          onClick={handleAcceptClick(tid)}
+                        >
+                          <Done />
+                        </IconButton>
+                        <IconButton
+                          aria-label="Reject"
+                          color="secondary"
+                          onClick={handleRejectClick(tid)}
+                        >
+                          <Close />
+                        </IconButton>
+                      </ListItem>
+                    );
+                  })
+                  }
+                </List>
+                :
+                <p className={classes.notice}>You have no invitation yet</p>
             }
-          </List>
+          </div>
         </Popover>
       </div>
     );
