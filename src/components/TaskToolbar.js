@@ -33,13 +33,21 @@ const styles = {
     height: 31,
     fontSize: LETTER_AVARTAR,
   },
+  infoBt: {
+    fontSize: 12,
+  },
   saveBt: {
+    fontSize: 12,
     color: TEAL,
     '&:hover': { backgroundColor: TRANSPARENT_TEAL },
   },
   cloneBt: {
+    fontSize: 12,
     color: ORANGE,
     '&:hover': { backgroundColor: TRANSPARENT_ORANGE },
+  },
+  deleteBt: {
+    fontSize: 12,
   },
 };
 
@@ -57,7 +65,12 @@ const TaskToolbar = (props) => {
   return (
     <Toolbar>
       <div className={classes.flex}>
-        <Button key="info" color="primary" onClick={toggleTaskEditor}>
+        <Button
+          key="info"
+          color="primary"
+          onClick={toggleTaskEditor}
+          className={classNames(classes.infoBt)}
+        >
           <FormattedMessage id="infoButton" defaultMessage="Info" />
         </Button>
         <Button
@@ -77,6 +90,7 @@ const TaskToolbar = (props) => {
           key="delete"
           color="secondary"
           onClick={toggleDeleteTask}
+          className={classNames(classes.deleteBt)}
         >
           <FormattedMessage id="deleteButton" defaultMessage="Delete" />
         </Button>
