@@ -60,21 +60,17 @@ const DialogsContainer = (props) => {
   };
 
   const handleTaskQuit = () => {
-    const { toggleTaskActionPending } = this.props.actions;
-    toggleTaskActionPending();
     const { taskId } = props.taskManager;
     rejectInvitation(taskId)
       .then((success) => {
         if (success) {
           // APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
-          toggleTaskActionPending();
           updateMessage('Task quit successfully.');
           backToMain();
         }
       })
       .catch(() => {
         updateMessage('Quit task failed.');
-        toggleTaskActionPending();
       });
   };
 
