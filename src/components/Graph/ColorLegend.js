@@ -31,7 +31,7 @@ const ColorLegend = () => {
   return (
     <div style={inline.main}>
       {statusTypes.map(status => (
-        <div style={inline.legend}>
+        <div key={status} style={inline.legend}>
           <div style={{ ...inline.colorBall, backgroundColor: NODE_STATUS_COLOR_MAP[status] }} />
           <div style={inline.text}>{STATUS_MAP_TWO[status]}</div>
         </div>

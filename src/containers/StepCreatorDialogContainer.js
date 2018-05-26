@@ -16,9 +16,8 @@ import * as taskActions from '../actions/taskActions';
 import gs from '../services/GraphService';
 
 // constants and utils
-import { INIT } from '../constants/colors';
-import { STEP_INFO_RULE } from '../constants';
-import { NORMAL_NODE } from '../constants/nodes';
+import { STEP_INFO_RULE, STATUS_MAP } from '../constants';
+import { NORMAL_NODE, NODE_STATUS_COLOR_MAP } from '../constants/nodes';
 import { mapStepInfoToNode } from '../utils/functions';
 import * as svgStrings from '../assets/svgStrings';
 
@@ -30,7 +29,8 @@ class StepCreatorDialogContainer extends React.Component {
     const { updateMessage } = this.props.actions;
     const validation = new Validator(stepInfo, STEP_INFO_RULE);
     if (validation.passes()) {
-      const svgString = svgStrings[NORMAL_NODE](INIT);
+      const color = NODE_STATUS_COLOR_MAP[STATUS_MAP[stepInfo.status]];
+      const svgString = svgStrings[NORMAL_NODE](color);
       const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
       const stepNode = {
         ...stepInfo,
