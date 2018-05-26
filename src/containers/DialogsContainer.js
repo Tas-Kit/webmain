@@ -30,11 +30,12 @@ import { rejectInvitation } from '../utils/api';
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;
-  const { deletePending } = props.taskManager;
+  const { deletePending, quitPending } = props.taskManager;
   const {
     toggleDeleteTask,
     updateMessage,
     toggleTaskDeletePending,
+    toggleTaskQuitPending,
     toggleInvitation,
     toggleQuitTask,
   } = props.actions;
@@ -61,15 +62,18 @@ const DialogsContainer = (props) => {
 
   const handleTaskQuit = () => {
     const { taskId } = props.taskManager;
-    rejectInvitation(taskId)
+    toggleTaskQuitPending();
+    return rejectInvitation(taskId)
       .then((success) => {
         if (success) {
-          // APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          toggleTaskQuitPending();
           updateMessage('Task quit successfully.');
           backToMain();
         }
       })
       .catch(() => {
+        toggleTaskQuitPending();
         updateMessage('Quit task failed.');
       });
   };
@@ -121,7 +125,7 @@ const DialogsContainer = (props) => {
         openState={quitTaskOpen}
         toggle={toggleQuitTask}
         onConfirm={handleTaskQuit}
-        loading={deletePending}
+        loading={quitPending}
       />
     </div>
   );
