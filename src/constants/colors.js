@@ -20,6 +20,8 @@ export const BLACK = '#000000';
 // color name by status
 export const NEW = '#4f86cc';
 export const IN_PROGRESS = '#f3ca50';
-export const READY_4_REVIEW = '#59B1A8';
+export const READY_4_REVIEW = '#ff6b6b';
 export const COMPLETED = '#83b369';
 export const SKIPPED = '#c6ccd2';
+
+export const INIT = '#c6ccd2';

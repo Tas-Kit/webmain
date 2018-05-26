@@ -16,25 +16,29 @@ import * as taskActions from '../actions/taskActions';
 import gs from '../services/GraphService';
 
 // constants and utils
+import { INIT } from '../constants/colors';
 import { STEP_INFO_RULE } from '../constants';
-import { NODE_IMAGE_MAP, NORMAL_NODE } from '../constants/nodes';
+import { NORMAL_NODE } from '../constants/nodes';
 import { mapStepInfoToNode } from '../utils/functions';
+import * as svgStrings from '../assets/svgStrings';
 
 class StepCreatorDialogContainer extends React.Component {
   handleStepInfoSave = () => {
     // add node
     const { stepInfo } = this.props.stepManager;
-    const { canvasCoord, draggingNodeType } = this.props.graphManager;
+    const { canvasCoord } = this.props.graphManager;
     const { updateMessage } = this.props.actions;
     const validation = new Validator(stepInfo, STEP_INFO_RULE);
     if (validation.passes()) {
+      const svgString = svgStrings[NORMAL_NODE](INIT);
+      const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
       const stepNode = {
         ...stepInfo,
         id: shortid.generate(),
         x: canvasCoord.x,
         y: canvasCoord.y,
-        node_type: NORMAL_NODE,
-        image: NODE_IMAGE_MAP[draggingNodeType],
+        node_type: NORMAL_NODE, // current only NORMAL_NODE is available
+        image: imageUrl,
       };
       const nodeToAdd = mapStepInfoToNode(stepNode);
       gs.addNode(nodeToAdd);
