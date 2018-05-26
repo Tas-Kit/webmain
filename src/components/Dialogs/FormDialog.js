@@ -58,6 +58,7 @@ class FormDialog extends React.Component {
       title,
       hints,
       loading,
+      disableButtons,
     } = this.props;
 
     return (
@@ -82,21 +83,24 @@ class FormDialog extends React.Component {
           </DialogContentText>
           {component}
         </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={toggle}
-            color="default"
-            disabled={loading}
-          >
-            Cancel
-          </Button>
-          <LoadingButton
-            buttonName="Save"
-            color="primary"
-            loading={loading}
-            onClick={this.handleSave}
-          />
-        </DialogActions>
+        {!disableButtons ?
+          <DialogActions>
+            <Button
+              onClick={toggle}
+              color="default"
+              disabled={loading}
+            >
+              Cancel
+            </Button>
+            <LoadingButton
+              buttonName="Save"
+              color="primary"
+              loading={loading}
+              onClick={this.handleSave}
+            />
+          </DialogActions>
+          : null
+        }
       </Dialog>
     );
   }
@@ -104,6 +108,10 @@ class FormDialog extends React.Component {
 
 FormDialog.defaultProps = {
   mountMethod: () => {},
+  hints: '',
+  disableButtons: false,
+  loading: false,
+  dialogStyle: {},
 };
 
 export default FormDialog;

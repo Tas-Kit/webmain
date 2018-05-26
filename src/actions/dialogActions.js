@@ -12,6 +12,10 @@ export const toggleStepCreator = () => ({
   type: types.TOGGLE_STEP_CREATOR,
 });
 
+export const toggleStepViewer = () => ({
+  type: types.TOGGLE_STEP_VIEWER,
+});
+
 export const toggleInvitation = () => ({
   type: types.TOGGLE_INVITATION,
 });

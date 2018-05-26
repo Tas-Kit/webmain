@@ -28,7 +28,7 @@ const inline = {
   },
 };
 
-class StepInfo extends React.Component {
+class StepInfoForm extends React.Component {
   handleChange = key => (e) => {
     const { info, update } = this.props;
     update({ ...info, [key]: e.target.value });
@@ -120,4 +120,4 @@ class StepInfo extends React.Component {
   }
 }
 
-export default StepInfo;
+export default StepInfoForm;

@@ -6,6 +6,7 @@ import { getAdaptedWidth, getAdaptedHeight } from '../utils/functions';
 
 const { DataSet, Network } = vis;
 
+
 class GraphService {
   constructor() {
     this.activeData = {

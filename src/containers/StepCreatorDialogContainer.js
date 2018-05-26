@@ -4,7 +4,7 @@ import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import StepInfoContainer from './StepInfoContainer';
+import StepInfoFormContainer from './StepInfoFormContainer';
 import { FormDialog } from '../components/Dialogs';
 
 // redux actions
@@ -57,12 +57,12 @@ class StepCreatorDialogContainer extends React.Component {
     const { toggleStepCreator } = this.props.actions;
     return (
       <FormDialog
-        title="Step Info"
+        title="Step Creator"
         hints="To create a step, please fill in the fields below."
         openState={stepCreatorOpen}
         toggle={toggleStepCreator}
         onSave={this.handleStepInfoSave}
-        component={<StepInfoContainer />}
+        component={<StepInfoFormContainer />}
         loading={pending}
       />
     );

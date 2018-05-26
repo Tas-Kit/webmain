@@ -30,6 +30,18 @@ class GraphViewerContainer extends React.Component {
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
+
+    // initialize listeners
+    gs.network.on('oncontext', (data) => {
+      console.log(data);
+      data.event.preventDefault();
+      const nodeId = gs.network.getNodeAt(data.pointer.DOM);
+      if (nodeId) {
+        console.log('node');
+        this.props.actions.toggleStepViewer();
+      }
+    });
+
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = this.mapNodes(taskNodes);
