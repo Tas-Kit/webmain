@@ -1,8 +1,8 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import InvitationStatusContainer from '../containers/InvitationStatusContainer';
 import { LoadingButton } from './Button';
+import { Input } from '@material-ui/core';
 
 
 const styles = {
@@ -35,10 +35,10 @@ const Invitation = (props) => {
   return (
     <div>
       <div className={classes.flexContainer}>
-        <TextField
+        <Input
           className={classes.usernameTextfield}
           id="username"
-          label="Username"
+          placeholder="username"
           value={usernameToInvite}
           onChange={handleUsernameToInviteChange}
           fullWidth
@@ -46,6 +46,7 @@ const Invitation = (props) => {
         <LoadingButton
           loading={isLoading}
           buttonName="Invite"
+          className="invite"
           onClick={handleInvitationClick}
           color="primary"
         />
