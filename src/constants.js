@@ -68,7 +68,7 @@ export const SUPER_ROLES = {
 // Component Size
 export const MIN_ALLOW_WINDOW_WIDTH = 840;
 export const DRAWER_WIDTH = 240;
-export const APP_BAR_HEIGHT = 64;
+export const APP_BAR_HEIGHT = 67;
 export const TOOL_BAR_HEIGHT = 64;
 
 // Font Size

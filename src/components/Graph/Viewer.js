@@ -1,5 +1,6 @@
 import React from 'react';
 import GraphToolbarContainer from '../../containers/GraphToolbarContainer';
+import ColorLegend from './ColorLegend';
 
 const styles = {
   mainContainer: {
@@ -17,11 +18,15 @@ class Viewer extends React.Component {
         onDragOver={(e) => { e.preventDefault(); }}
         onDrop={onDrop}
       >
+
         {/* Graph */}
         <div ref={(el) => { this.graphElement = el; }} />
 
         {/* Toolbar */}
         <GraphToolbarContainer />
+
+        {/* Color Legend */}
+        <ColorLegend />
 
       </div>
     );

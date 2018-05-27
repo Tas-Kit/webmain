@@ -2,9 +2,18 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
-import basic from '../../assets/svgs/basic.svg';
 
-import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE } from '../../constants/colors';
+// contants
+import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, INIT } from '../../constants/colors';
+import {
+  NORMAL_NODE,
+  CHECK_LIST_NODE,
+  FILE_NODE,
+  JOIN_NODE,
+  MULTIPLE_CHOICE_NODE,
+  SUB_TASK_NODE,
+} from '../../constants/nodes';
+import * as svgStrings from '../../assets/svgStrings';
 
 const inline = {
   main: {
@@ -31,6 +40,7 @@ const inline = {
     verticalAlign: 'top',
     width: 60,
     height: 60,
+    margin: '0px 5px',
   },
   icon: {
     width: 60,
@@ -80,9 +90,6 @@ const inline = {
 };
 
 const Toolbar = (props) => {
-  const prototypes = [
-    <img src={basic} style={inline.icon} alt="taskSvg" />,
-  ];
   const {
     onDragStart,
     onAddEdge,
@@ -90,6 +97,25 @@ const Toolbar = (props) => {
     deleteSelected,
     addEdgeSelected,
   } = props;
+
+  const generateNodePrototypes = (nodeTypes = []) => (
+    nodeTypes.map((type) => {
+      const svgString = svgStrings[type](INIT);
+      const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
+      return (
+        <img src={imageUrl} style={inline.icon} alt="taskSvg" nodetype={type} />
+      );
+    })
+  );
+
+  const prototypes = generateNodePrototypes([
+    NORMAL_NODE,
+    CHECK_LIST_NODE,
+    FILE_NODE,
+    JOIN_NODE,
+    MULTIPLE_CHOICE_NODE,
+    SUB_TASK_NODE,
+  ]);
 
   return (
     <div style={inline.main}>
@@ -99,7 +125,7 @@ const Toolbar = (props) => {
             key={`item_${index + 1}`}
             draggable="true"
             style={inline.iconDiv}
-            onDragStart={() => { onDragStart(index); }}
+            onDragStart={() => { onDragStart(item.props.nodetype); }}
           >
             {item}
           </div>

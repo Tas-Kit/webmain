@@ -2,7 +2,7 @@ import * as types from '../constants/actions';
 
 const initialState = {
   addEdgeSelected: false,
-  draggingIndex: -1,
+  draggingNodeType: '',
   canvasCoord: { x: 0, y: 0 },
 };
 
@@ -28,8 +28,8 @@ const graphManager = (state = initialState, action = {}) => {
     case types.RECEIVE_RESPONSE: {
       return handleResponse(action.response, state);
     }
-    case types.SET_DRAGGING_INDEX: {
-      return { ...state, draggingIndex: action.index };
+    case types.SET_DRAGGING_NODE_TYPE: {
+      return { ...state, draggingNodeType: action.nodeType };
     }
     case types.SET_NODE_CANVAS_COORD: {
       return { ...state, canvasCoord: action.coord };

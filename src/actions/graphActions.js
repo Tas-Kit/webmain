@@ -1,8 +1,8 @@
 import * as types from '../constants/actions';
 
-export const setDraggingIndex = index => ({
-  type: types.SET_DRAGGING_INDEX,
-  index,
+export const setDraggingNodeType = nodeType => ({
+  type: types.SET_DRAGGING_NODE_TYPE,
+  nodeType,
 });
 
 export const setNodeCanvasCoord = coord => ({

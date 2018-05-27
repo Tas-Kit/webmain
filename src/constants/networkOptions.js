@@ -11,7 +11,7 @@ const networkOptions = {
     },
     font: {
       face: 'roboto',
-      size: 20,
+      size: 15,
       color: BLACK,
     },
   },
