@@ -1,8 +1,8 @@
 import * as types from '../constants/actions';
-import { STATUS } from '../constants';
 import * as apiTypes from '../constants/apiTypes';
-import gs from '../services/GraphService';
 import { mapNodeResponseData } from '../utils/functions';
+import { STATUS } from '../constants';
+import gs from '../services/GraphService';
 
 const initialState = {
   stepId: null,

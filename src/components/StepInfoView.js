@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { LoadingButton } from './Button';
 
@@ -41,7 +40,7 @@ const styles = () => ({
     margin: '0px 2.5px',
   },
   trigger: {
-    margin: '0px 0px 10px 0px',
+    margin: '10px 0px',
   },
 });
 
@@ -69,7 +68,12 @@ class StepInfoView extends React.Component {
   }
 
   render() {
-    const { info, classes, triggerPending, onTrigger } = this.props;
+    const {
+      info,
+      classes,
+      triggerPending,
+      onTrigger,
+    } = this.props;
     return (
       <div style={inline.main}>
         <div style={inline.row}>
