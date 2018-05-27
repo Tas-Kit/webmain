@@ -1,14 +1,8 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-
-// ui components
-import { ExpectedEffortSelect, OptionsSelect, MultiSelect } from './Select';
-import { TaskitCheckbox } from './TaskitCheckbox';
-import TextInput from './TextInput';
-import TextArea from './TextArea';
-
-// constants
-import { STATUS } from '../constants';
+import { withStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
 
 const inline = {
   main: {
@@ -33,10 +27,35 @@ const inline = {
     marginRight: 10,
     fontSize: 14,
     fontWeight: 600,
+    display: 'inline-block',
+  },
+  triggerMain: {
+    marginLeft: 'auto',
   },
 };
 
+const styles = () => ({
+  chip: {
+    margin: '0px 2.5px',
+  },
+  trigger: {
+    margin: '10px 0px',
+  },
+});
+
 class StepInfoView extends React.Component {
+  getTriggerPermission = () => {
+    const { info, userTaskRole } = this.props;
+    if (userTaskRole === null) {
+      return true;
+    } else if (info.status === 'In Progress' && info.assigneeRoles.indexOf(userTaskRole) >= 0) {
+      return false;
+    } else if (info.status === 'Ready For Review' && info.reviewerRoles.indexOf(userTaskRole) >= 0) {
+      return false;
+    }
+    return true;
+  }
+
   handleChange = key => (e) => {
     const { info, update } = this.props;
     update({ ...info, [key]: e.target.value });
@@ -48,11 +67,11 @@ class StepInfoView extends React.Component {
   }
 
   render() {
-    const { info, roles } = this.props;
+    const { info, classes } = this.props;
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Name*:</span>
+          <span style={inline.fieldName}>Name:</span>
           <span style={inline.fieldContent}>{info.name}</span>
         </div>
         <div style={inline.row}>
@@ -73,19 +92,41 @@ class StepInfoView extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Optional:</span>
-          <span style={inline.fieldContent}>{info.optional}</span>
+          <div style={inline.fieldContent}>
+            <Checkbox disabled checked={info.optional} />
+          </div>
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Assignee:</span>
-          <span style={inline.fieldContent}>{info.assigneeRoles}</span>
+          <div style={inline.fieldContent}>
+            {info.assigneeRoles.map(role => (
+              <Chip label={role} className={classes.chip} />
+            ))}
+            {info.assigneeRoles.length === 0 ? 'None' : null}
+          </div>
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Reviewer:</span>
-          <span style={inline.fieldContent}>{info.reviewerRoles}</span>
+          <div style={inline.fieldContent}>
+            {info.reviewerRoles.map(role => (
+              <Chip label={role} className={classes.chip} />
+            ))}
+            {info.reviewerRoles.length === 0 ? 'None' : null}
+          </div>
+        </div>
+        <div style={inline.triggerMain}>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.trigger}
+            disabled={this.getTriggerPermission()}
+          >
+            Trigger
+          </Button>
         </div>
       </div>
     );
   }
 }
 
-export default StepInfoView;
+export default withStyles(styles)(StepInfoView);

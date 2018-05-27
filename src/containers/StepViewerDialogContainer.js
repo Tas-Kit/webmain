@@ -24,7 +24,6 @@ class StepViewerDialogContainer extends React.Component {
         hints="View the information of this step below."
         openState={stepViewerOpen}
         toggle={toggleStepViewer}
-        dialogStyle={{ minWidth: 400 }}
         component={<StepInfoViewerContainer />}
       />
     );

@@ -37,6 +37,7 @@ const TaskToolbarContainer = (props) => {
       nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),
       edges: gs.activeData.edges.get(),
     };
+    console.log(payload);
     toggleTaskSavePending();
     APIService.sendRequest(url, apiTypes.SAVE_GRAPH, payload, 'PATCH')
       .then((success) => {

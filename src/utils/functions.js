@@ -47,7 +47,7 @@ export const mapStepInfoToNode = data => ({
   reviewers: data.reviewerRoles,
   assignees: data.assigneeRoles,
   deadline: data.deadline,
-  expected_effort_time: data.effortTime,
+  expected_effort_num: data.effortTime,
   expected_effort_unit: data.effortUnit,
   is_optional: data.optional,
   id: data.id,
@@ -75,4 +75,16 @@ export const mapNodeToRequestData = data => ({
   expected_effort_num: (data.expected_effort_num === '' || data.expected_effort_num === null)
     ? null : data.expected_effort_num,
   description: (data.description === null || data.description === '') ? null : data.description,
+});
+
+export const mapNodeToStepInfo = data => ({
+  name: data.label,
+  effortTime: data.expected_effort_num || 'None',
+  effortUnit: data.expected_effort_unit || '',
+  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : 'None',
+  status: STATUS_MAP_TWO[data.status],
+  description: data.description || 'None',
+  assigneeRoles: data.assignees,
+  reviewerRoles: data.reviewers,
+  optional: data.is_optional,
 });

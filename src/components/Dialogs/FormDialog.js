@@ -111,7 +111,6 @@ FormDialog.defaultProps = {
   hints: '',
   disableButtons: false,
   loading: false,
-  dialogStyle: {},
 };
 
 export default FormDialog;

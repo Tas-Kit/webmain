@@ -11,6 +11,7 @@ import gs from '../services/GraphService';
 // actions
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
+import * as stepActions from '../actions/stepActions';
 import * as graphActions from '../actions/graphActions';
 import * as snackbarActions from '../actions/snackbarActions';
 
@@ -22,6 +23,7 @@ import {
   NORMAL_NODE,
 } from '../constants/nodes';
 import * as svgStrings from '../assets/svgStrings';
+import { mapNodeToStepInfo } from '../utils/functions';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
@@ -37,8 +39,15 @@ class GraphViewerContainer extends React.Component {
       data.event.preventDefault();
       const nodeId = gs.network.getNodeAt(data.pointer.DOM);
       if (nodeId) {
-        console.log('node');
-        this.props.actions.toggleStepViewer();
+        const { updateMessage, updateStepInfo, toggleStepViewer } = this.props.actions;
+        const nodeData = gs.getNode(nodeId);
+        if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
+          updateMessage('No step information on start or end node.');
+        } else {
+          const newStepInfo = mapNodeToStepInfo(nodeData);
+          updateStepInfo(newStepInfo);
+          toggleStepViewer();
+        }
       }
     });
 
@@ -53,7 +62,7 @@ class GraphViewerContainer extends React.Component {
   mapNodes = nodes => (
     nodes.map((node) => {
       let svgString;
-      if (node.status === START_NODE || node.status === END_NODE) {
+      if (node.node_type === START_NODE || node.node_type === END_NODE) {
         svgString = svgStrings[node.node_type]();
       } else {
         const color = NODE_STATUS_COLOR_MAP[node.status];
@@ -113,6 +122,7 @@ const mapStateToProps = ({ taskManager, graphManager }) => ({ taskManager, graph
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    ...stepActions,
     ...dialogActions,
     ...taskActions,
     ...graphActions,
