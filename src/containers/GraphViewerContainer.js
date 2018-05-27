@@ -16,17 +16,15 @@ import * as graphActions from '../actions/graphActions';
 import * as snackbarActions from '../actions/snackbarActions';
 
 import {
-  NODE_COORD_MAP,
-  NODE_STATUS_COLOR_MAP,
   START_NODE,
   END_NODE,
   NORMAL_NODE,
 } from '../constants/nodes';
-import * as svgStrings from '../assets/svgStrings';
-import { mapNodeToStepInfo } from '../utils/functions';
+import { mapNodeToStepInfo, mapNodeResponseData } from '../utils/functions';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
+    console.log('cdm');
     this.initNetwork();
   }
 
@@ -45,7 +43,7 @@ class GraphViewerContainer extends React.Component {
           updateMessage('No step information on start or end node.');
         } else {
           const newStepInfo = mapNodeToStepInfo(nodeData);
-          updateStepInfo(newStepInfo);
+          updateStepInfo(newStepInfo, nodeData.sid);
           toggleStepViewer();
         }
       }
@@ -53,42 +51,11 @@ class GraphViewerContainer extends React.Component {
 
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
-    const nodes = this.mapNodes(taskNodes);
+    const nodes = mapNodeResponseData(taskNodes);
     gs.addNode(nodes);
     gs.addEdge(taskEdges);
     gs.fit();
   }
-
-  mapNodes = nodes => (
-    nodes.map((node) => {
-      let svgString;
-      if (node.node_type === START_NODE || node.node_type === END_NODE) {
-        svgString = svgStrings[node.node_type]();
-      } else {
-        const color = NODE_STATUS_COLOR_MAP[node.status];
-        svgString = svgStrings[node.node_type](color);
-      }
-      const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-      let canvasCoord;
-      if (node.pos_x && node.pos_y) {
-        canvasCoord = { x: node.pos_x, y: node.pos_y };
-      } else {
-        const DOMCoord = NODE_COORD_MAP[node.node_type];
-        canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
-      }
-      return ({
-        ...node,
-        id: node.sid,
-        old_id: node.id,
-        shape: 'image',
-        image: imageUrl,
-        label: node.name,
-        x: canvasCoord.x,
-        y: canvasCoord.y,
-        size: 40,
-      });
-    })
-  );
 
   handleDrop = (e) => {
     const { draggingNodeType } = this.props.graphManager;

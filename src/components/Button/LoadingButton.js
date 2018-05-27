@@ -11,9 +11,8 @@ const LoadingButton = (props) => {
   const {
     loading,
     buttonName,
-    onClick,
     color,
-    className,
+    ...other
   } = props;
 
   const getColorObject = (colorValue) => {
@@ -43,7 +42,7 @@ const LoadingButton = (props) => {
   };
   return (
     <div style={inline.buttonWrapper}>
-      <Button onClick={onClick} color={color} className={className}>
+      <Button color={color} {...other}>
         {!loading && buttonName}
       </Button>
       {loading && <CircularProgress size={24} style={inline.progress} />}
@@ -53,6 +52,12 @@ const LoadingButton = (props) => {
 
 LoadingButton.defaultProps = {
   className: {},
+  variant: '',
+  disabled: false,
+  onClick: () => {},
+  color: 'primary',
+  loading: false,
+  buttonName: 'Button',
 };
 
 export default LoadingButton;

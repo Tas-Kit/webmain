@@ -1,5 +1,8 @@
 import * as types from '../constants/actions';
 import { STATUS } from '../constants';
+import * as apiTypes from '../constants/apiTypes';
+import gs from '../services/GraphService';
+import { mapNodeResponseData } from '../utils/functions';
 
 const initialState = {
   stepId: null,
@@ -14,7 +17,7 @@ const initialState = {
     reviewerRoles: [],
     optional: false,
   },
-  pending: false,
+  triggerPending: false,
 };
 
 const handleRequest = (request, state) => {
@@ -26,6 +29,11 @@ const handleRequest = (request, state) => {
 
 const handleResponse = (response, state) => {
   switch (response.type) {
+    case apiTypes.TRIGGER: {
+      const updatedNodes = mapNodeResponseData(response.json.nodes);
+      gs.updateNode(updatedNodes);
+      return state;
+    }
     default:
       return state;
   }
@@ -40,10 +48,13 @@ const stepManager = (state = initialState, action = {}) => {
       return handleResponse(action.response, state);
     }
     case types.UPDATE_STEP_INFO: {
-      return { ...state, stepInfo: action.stepInfo };
+      return { ...state, stepInfo: action.stepInfo, stepId: action.sid };
     }
     case types.RESET_STEP_INFO: {
       return { ...state, stepInfo: initialState.stepInfo };
+    }
+    case types.TOGGLE_TRIGGER_PENDING: {
+      return { ...state, triggerPending: !state.triggerPending };
     }
     default:
       return state;
