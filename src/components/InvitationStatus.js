@@ -1,13 +1,20 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core';
 import InvitationStatusRow from './InvitationStatusRow';
+
+const styles = {
+  invitationStatusContainer: {
+    marginTop: '0.5em',
+  },
+};
 
 const InvitationStatus = (props) => {
   const {
     users, roles, userPermission, handleRevokeInvitationClick,
-    handleSuperRoleChange, handleRoleChange,
+    handleSuperRoleChange, handleRoleChange, classes,
   } = props;
   return (
-    <div>
+    <div className={classes.invitationStatusContainer}>
       {
         users.map(user => (<InvitationStatusRow
           key={user.has_task.id}
@@ -23,4 +30,4 @@ const InvitationStatus = (props) => {
   );
 };
 
-export default InvitationStatus;
+export default withStyles(styles)(InvitationStatus);
