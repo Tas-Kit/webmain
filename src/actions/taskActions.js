@@ -22,6 +22,10 @@ export const toggleTaskDeletePending = () => ({
   type: types.TOGGLE_TASK_DELETE_PENDING,
 });
 
+export const toggleTaskQuitPending = () => ({
+  type: types.TOGGLE_TASK_QUIT_PENDING,
+});
+
 export const toggleTaskSavePending = () => ({
   type: types.TOGGLE_TASK_SAVE_PENDING,
 });

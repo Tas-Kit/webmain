@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import { Tooltip } from '@material-ui/core';
 
 // svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
@@ -22,7 +23,7 @@ import {
   TRANSPARENT_TEAL,
   TRANSPARENT_ORANGE,
 } from '../constants/colors';
-import { LETTER_AVARTAR } from '../constants';
+import { LETTER_AVARTAR, SUPER_ROLE } from '../constants';
 
 const styles = {
   flex: {
@@ -32,6 +33,7 @@ const styles = {
     width: 31,
     height: 31,
     fontSize: LETTER_AVARTAR,
+    margin: '0 0.25em',
   },
   saveBt: {
     color: TEAL,
@@ -46,10 +48,12 @@ const styles = {
 const TaskToolbar = (props) => {
   const {
     classes,
-    users = ['YZ'],
+    users,
+    userSuperRole,
     toggleDeleteTask,
     toggleTaskEditor,
     toggleInvitation,
+    toggleQuitTask,
     onGraphSave,
     savePending,
   } = props;
@@ -73,26 +77,40 @@ const TaskToolbar = (props) => {
           onClick={onGraphSave}
           className={classNames(classes.saveBt)}
         />
-        <Button
-          key="delete"
-          color="secondary"
-          onClick={toggleDeleteTask}
-        >
-          <FormattedMessage id="deleteButton" defaultMessage="Delete" />
-        </Button>
+
+        {
+          userSuperRole === SUPER_ROLE.OWNER ?
+            (
+              <Button
+                key="delete"
+                color="secondary"
+                onClick={toggleDeleteTask}
+              >
+                <FormattedMessage id="deleteButton" defaultMessage="Delete" />
+              </Button>)
+            : (
+              <Button
+                key="quit"
+                color="secondary"
+                onClick={toggleQuitTask}
+              >
+                <FormattedMessage id="quitButton" defaultMessage="Quit" />
+              </Button>)
+        }
       </div>
-      {Object.keys(users).map((id) => {
-        const user = users[id];
-        return (
-          <Avatar key={id} className={classes.letterAvatar}>
+      {users.slice(0, 5).map(user => (
+        <Tooltip key={user.basic.uid} id={`tooltip-user-${user.basic.username}`} title={user.basic.username}>
+          <Avatar className={classes.letterAvatar}>
             {`${user.basic.username[0]}`}
           </Avatar>
-        );
-      })}
+        </Tooltip>
+      ))
+      }
+      {users.length > 5 && <span>...</span>}
       <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
-    </Toolbar>
+    </Toolbar >
   );
 };
 

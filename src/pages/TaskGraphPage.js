@@ -41,7 +41,7 @@ class TaskGraphPage extends React.Component {
         :
         <div>
           {/* Task Toolbar */}
-          <TaskToolbarContainer users={{}} />
+          <TaskToolbarContainer />
           {/* Graph */}
           <GraphViewerContainer />
         </div>

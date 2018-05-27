@@ -7,7 +7,6 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = 'https://sandbox.tas-kit.com/api/v1';
 } else {
   baseUrl = 'http://localhost:8001/api/v1';
-
   if (typeof window !== 'undefined') {
     const { location } = window;
     baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
@@ -29,7 +28,7 @@ const transformResponse = (res) => {
     return res.json();
   }
   switch (res.status) {
-    case 403:
+    case 401:
       handleTimeOut();
       break;
     default:

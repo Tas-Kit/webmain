@@ -7,12 +7,21 @@ import { BottomPanel } from '../components/Drawer';
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
+import { logout } from '../utils/functions';
+
 const DrawerBottomPanelContainer = (props) => {
   const { toggleTaskCreator, resetTaskInfo } = props.actions;
+  const handleAddTask = () => {
+    resetTaskInfo();
+    toggleTaskCreator();
+  };
+  const handleLogoutClick = () => {
+    logout();
+  };
   return (
     <BottomPanel
-      toggleTaskCreator={toggleTaskCreator}
-      resetTaskInfo={resetTaskInfo}
+      handleAddTask={handleAddTask}
+      handleLogoutClick={handleLogoutClick}
     />
   );
 };

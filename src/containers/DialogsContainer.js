@@ -24,14 +24,20 @@ import * as taskActions from '../actions/taskActions';
 import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
 
+// utils
+import { backToMain } from '../utils/functions';
+import { rejectInvitation } from '../utils/api';
+
 const DialogsContainer = (props) => {
-  const { deleteTaskOpen, invitationOpen } = props.dialogManager;
-  const { deletePending } = props.taskManager;
+  const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;
+  const { deletePending, quitPending } = props.taskManager;
   const {
     toggleDeleteTask,
     updateMessage,
     toggleTaskDeletePending,
+    toggleTaskQuitPending,
     toggleInvitation,
+    toggleQuitTask,
   } = props.actions;
 
   const handleTaskDelete = () => {
@@ -45,12 +51,30 @@ const DialogsContainer = (props) => {
           APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskDeletePending();
           updateMessage('Task deleted successfully.');
-          props.history.push('/');
+          backToMain();
         }
       })
       .catch(() => {
         updateMessage('Delete task failed.');
         toggleTaskDeletePending();
+      });
+  };
+
+  const handleTaskQuit = () => {
+    const { taskId } = props.taskManager;
+    toggleTaskQuitPending();
+    return rejectInvitation(taskId)
+      .then((success) => {
+        if (success) {
+          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          toggleTaskQuitPending();
+          updateMessage('Task quit successfully.');
+          backToMain();
+        }
+      })
+      .catch(() => {
+        toggleTaskQuitPending();
+        updateMessage('Quit task failed.');
       });
   };
 
@@ -87,6 +111,21 @@ const DialogsContainer = (props) => {
         toggle={toggleDeleteTask}
         onConfirm={handleTaskDelete}
         loading={deletePending}
+      />
+
+      {/* Quit Task Alert Dialog */}
+      <AlertDialog
+        title="Quit Task"
+        message={
+          <span>Are you sure you want to
+            <span style={{ color: PINK }}> permanently </span>
+            quit from this task?
+          </span>
+        }
+        openState={quitTaskOpen}
+        toggle={toggleQuitTask}
+        onConfirm={handleTaskQuit}
+        loading={quitPending}
       />
     </div>
   );

@@ -15,7 +15,7 @@ import Grid from '@material-ui/core/Grid';
 
 // react components
 import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer';
-import Notification from './Notification';
+import NotificationContainer from '../containers/NotificationContainer';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
@@ -65,7 +65,7 @@ const TaskPanel = (props) => {
           <Avatar >{username ? username[0] : ''}</Avatar>
         </Tooltip>
 
-        <Notification tasks={tasks} />
+        <NotificationContainer />
       </Grid>
 
       <List component="nav">
