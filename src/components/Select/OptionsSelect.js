@@ -1,12 +1,19 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = () => ({
+  textField: {
+    width: 160,
+  },
+});
 
 const OptionsSelect = ({
   options,
   selectFieldName,
   onChange,
-  width,
+  classes,
   allowNone,
   label,
 }) => (
@@ -15,8 +22,8 @@ const OptionsSelect = ({
     id="options_selector"
     value={selectFieldName}
     label={label}
+    className={classes.textField}
     onChange={onChange}
-    style={{ width }}
   >
     {allowNone ? <MenuItem key="" value="" /> : null}
     {options.map(unit => (
@@ -33,4 +40,4 @@ OptionsSelect.defaultProps = {
   label: '',
 };
 
-export default OptionsSelect;
+export default withStyles(styles)(OptionsSelect);
