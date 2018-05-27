@@ -1,4 +1,4 @@
-import sortBy from 'lodash/sortBy';
+import { orderBy } from 'lodash';
 import * as types from '../constants/actions';
 import * as apiTypes from '../constants/apiTypes';
 import { mapTaskInfoResponseData } from '../utils/functions';
@@ -21,6 +21,7 @@ const initialState = {
   tasks: [],
   savePending: false,
   deletePending: false,
+  quitPending: false,
   pending: false, // use it only when creating or loading a task
   pendingRequestId: -1,
 };
@@ -53,11 +54,16 @@ const handleResponse = (response, state) => {
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
         const data = response.json.task_info;
-        const taskUsers = sortBy(
+        const taskUsers = orderBy(
           response.json.users,
           [
-            o => o.has_task.acceptance, o => o.has_task.super_role,
-            o => o.has_task.role, o => o.basic.username,
+            o => o.has_task.acceptance,
+            o => o.has_task.super_role,
+            o => o.has_task.role,
+            o => o.basic.username,
+          ],
+          [
+            'asc', 'desc', 'asc', 'asc',
           ],
         );
         const taskInfo = mapTaskInfoResponseData(data);
@@ -112,6 +118,9 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_TASK_SAVE_PENDING: {
       return { ...state, savePending: !state.savePending };
+    }
+    case types.TOGGLE_TASK_QUIT_PENDING: {
+      return { ...state, quitPending: !state.quitPending };
     }
     case types.SET_USER_ROLE: {
       const taskUsers = state.taskUsers.map((item) => {
