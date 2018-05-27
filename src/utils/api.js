@@ -39,7 +39,7 @@ export const changeUserSuperRole = (tid, payload) => {
 
 export const changeUserRole = (tid, payload) => {
   const changeUrl = `/task/invitation/change/${tid}/`;
-  APIService.sendRequest(changeUrl, 'change_role', payload, 'POST');
+  return APIService.sendRequest(changeUrl, 'change_role', payload, 'POST');
 };
 
 export default {
