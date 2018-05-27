@@ -1,8 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Input } from '@material-ui/core';
 import InvitationStatusContainer from '../containers/InvitationStatusContainer';
 import { LoadingButton } from './Button';
-import { Input } from '@material-ui/core';
 
 
 const styles = {
