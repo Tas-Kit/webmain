@@ -7,10 +7,9 @@ import * as taskActions from '../actions/taskActions';
 
 const inline = {
   instructions: {
-    fontWeight: 300,
     marginLeft: 20,
     marginTop: 20,
-    fontSize: 20,
+    fontSize: 16,
   },
 };
 

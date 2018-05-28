@@ -11,6 +11,17 @@ import {
   TIME_UNITS_MAP_TWO,
 } from '../constants';
 
+import {
+  NODE_COORD_MAP,
+  NODE_STATUS_COLOR_MAP,
+  START_NODE,
+  END_NODE,
+} from '../constants/nodes';
+
+import * as svgStrings from '../assets/svgStrings';
+
+import gs from '../services/GraphService';
+
 export const getAdaptedWidth = () => {
   if (window.innerWidth >= MIN_ALLOW_WINDOW_WIDTH) {
     return window.innerWidth - DRAWER_WIDTH;
@@ -48,7 +59,7 @@ export const mapStepInfoToNode = data => ({
   reviewers: data.reviewerRoles,
   assignees: data.assigneeRoles,
   deadline: data.deadline,
-  expected_effort_time: data.effortTime,
+  expected_effort_num: data.effortTime,
   expected_effort_unit: data.effortUnit,
   is_optional: data.optional,
   id: data.id,
@@ -91,3 +102,46 @@ export const mapNodeToRequestData = data => ({
     ? null : data.expected_effort_num,
   description: (data.description === null || data.description === '') ? null : data.description,
 });
+
+export const mapNodeToStepInfo = data => ({
+  name: data.label,
+  effortTime: data.expected_effort_num || 'None',
+  effortUnit: data.expected_effort_unit || '',
+  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : 'None',
+  status: STATUS_MAP_TWO[data.status],
+  description: data.description || 'None',
+  assigneeRoles: data.assignees,
+  reviewerRoles: data.reviewers,
+  optional: data.is_optional,
+});
+
+export const mapNodeResponseData = nodes => (
+  nodes.map((node) => {
+    let svgString;
+    if (node.node_type === START_NODE || node.node_type === END_NODE) {
+      svgString = svgStrings[node.node_type]();
+    } else {
+      const color = NODE_STATUS_COLOR_MAP[node.status];
+      svgString = svgStrings[node.node_type](color);
+    }
+    const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
+    let canvasCoord;
+    if (node.pos_x && node.pos_y) {
+      canvasCoord = { x: node.pos_x, y: node.pos_y };
+    } else {
+      const DOMCoord = NODE_COORD_MAP[node.node_type];
+      canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
+    }
+    return ({
+      ...node,
+      id: node.sid,
+      old_id: node.id,
+      shape: 'image',
+      image: imageUrl,
+      label: node.name,
+      x: canvasCoord.x,
+      y: canvasCoord.y,
+      size: 40,
+    });
+  })
+);

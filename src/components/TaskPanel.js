@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Drawer from '@material-ui/core/Drawer';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
+import Assignment from '@material-ui/icons/Assignment';
 
 
 // react components
@@ -36,6 +38,7 @@ const styles = () => ({
   taskListItemText: {
     color: 'white',
     fontWidth: '700',
+    fontSize: 13,
   },
   taskListItemIcon: {
     color: grey[400],
@@ -44,6 +47,14 @@ const styles = () => ({
     flexBasis: '100%',
   },
 });
+
+const inline = {
+  svgIcon: {
+    top: 1.5,
+    color: grey[400],
+    position: 'relative',
+  },
+};
 
 const TaskPanel = (props) => {
   const {
@@ -76,6 +87,9 @@ const TaskPanel = (props) => {
             return (
               <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
                 <ListItem button onClick={() => { onTaskClick(tid); }}>
+                  <ListItemIcon>
+                    <Assignment style={inline.svgIcon} />
+                  </ListItemIcon>
                   <ListItemText
                     primary={name}
                     classes={{ primary: classes.taskListItemText }}

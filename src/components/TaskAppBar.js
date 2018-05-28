@@ -6,7 +6,7 @@ import { APP_BAR_TITLE } from '../constants';
 
 const styles = {
   appBar: {
-    padding: '1em',
+    padding: '20px 0px',
     textAlign: 'center',
     fontSize: APP_BAR_TITLE,
   },

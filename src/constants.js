@@ -74,7 +74,7 @@ export const TOOL_BAR_HEIGHT = 64;
 // Font Size
 export const TEXT_FIELD_TITLE = 14;
 export const DIALOG_MESSAGE = 13;
-export const APP_BAR_TITLE = 20;
+export const APP_BAR_TITLE = 17;
 export const LETTER_AVARTAR = 16;
 
 // validation rules

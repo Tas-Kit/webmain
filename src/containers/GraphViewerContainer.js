@@ -11,63 +11,51 @@ import gs from '../services/GraphService';
 // actions
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
+import * as stepActions from '../actions/stepActions';
 import * as graphActions from '../actions/graphActions';
 import * as snackbarActions from '../actions/snackbarActions';
 
 import {
-  NODE_COORD_MAP,
-  NODE_STATUS_COLOR_MAP,
   START_NODE,
   END_NODE,
   NORMAL_NODE,
 } from '../constants/nodes';
-import * as svgStrings from '../assets/svgStrings';
+import { mapNodeToStepInfo, mapNodeResponseData } from '../utils/functions';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => {
+    console.log('cdm');
     this.initNetwork();
   }
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
+
+    // initialize listeners
+    gs.network.on('oncontext', (data) => {
+      console.log(data);
+      data.event.preventDefault();
+      const nodeId = gs.network.getNodeAt(data.pointer.DOM);
+      if (nodeId) {
+        const { updateMessage, updateStepInfo, toggleStepViewer } = this.props.actions;
+        const nodeData = gs.getNode(nodeId);
+        if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
+          updateMessage('No step information on start or end node.');
+        } else {
+          const newStepInfo = mapNodeToStepInfo(nodeData);
+          updateStepInfo(newStepInfo, nodeData.sid);
+          toggleStepViewer();
+        }
+      }
+    });
+
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
-    const nodes = this.mapNodes(taskNodes);
+    const nodes = mapNodeResponseData(taskNodes);
     gs.addNode(nodes);
     gs.addEdge(taskEdges);
     gs.fit();
   }
-
-  mapNodes = nodes => (
-    nodes.map((node) => {
-      let svgString;
-      if (node.status === START_NODE || node.status === END_NODE) {
-        svgString = svgStrings[node.node_type]();
-      } else {
-        const color = NODE_STATUS_COLOR_MAP[node.status];
-        svgString = svgStrings[node.node_type](color);
-      }
-      const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-      let canvasCoord;
-      if (node.pos_x && node.pos_y) {
-        canvasCoord = { x: node.pos_x, y: node.pos_y };
-      } else {
-        const DOMCoord = NODE_COORD_MAP[node.node_type];
-        canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
-      }
-      return ({
-        ...node,
-        id: node.sid,
-        old_id: node.id,
-        shape: 'image',
-        image: imageUrl,
-        label: node.name,
-        x: canvasCoord.x,
-        y: canvasCoord.y,
-        size: 40,
-      });
-    })
-  );
 
   handleDrop = (e) => {
     const { draggingNodeType } = this.props.graphManager;
@@ -101,6 +89,7 @@ const mapStateToProps = ({ taskManager, graphManager }) => ({ taskManager, graph
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    ...stepActions,
     ...dialogActions,
     ...taskActions,
     ...graphActions,

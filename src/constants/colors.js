@@ -24,4 +24,4 @@ export const READY_4_REVIEW = '#ff6b6b';
 export const COMPLETED = '#83b369';
 export const SKIPPED = '#c6ccd2';
 
-export const INIT = '#c6ccd2';
+export const INIT = '#424242';

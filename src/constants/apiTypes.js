@@ -9,3 +9,4 @@ export const ACCEPT_INVITATION = 'ACCEPT_INVITATION';
 export const CREATE_INVITATION = 'CREATE_INVITATION';
 export const SAVE_GRAPH = 'save_graph';
 export const REVOKE_INVITATION = 'REVOKE_INVITATION';
+export const TRIGGER = 'TRIGGER';
