@@ -6,6 +6,7 @@ const initialState = {
   lastName: '',
   uid: '',
   email: '',
+  editMode: false,
 };
 
 const handleRequest = (request, state) => {
@@ -36,6 +37,9 @@ const currentUserManager = (state = initialState, action = {}) => {
     }
     case types.SET_CURRENT_USER: {
       return { ...action.currentUser };
+    }
+    case types.TOGGLE_EDIT_MODE: {
+      return { ...state, editMode: !state.editMode };
     }
     default:
       return state;

@@ -5,6 +5,11 @@ const setCurrentUser = (currentUser = {}) => ({
   currentUser,
 });
 
+const toggleEditMode = () => ({
+  type: types.TOGGLE_EDIT_MODE,
+});
+
 export default {
   setCurrentUser,
+  toggleEditMode,
 };

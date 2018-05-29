@@ -3,11 +3,12 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
-// ui components
+// mui
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import { Tooltip } from '@material-ui/core';
+
 
 // svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
@@ -15,6 +16,8 @@ import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 // i18n
 import { FormattedMessage } from 'react-intl';
 
+// containers and components
+import EditSwitchContainer from '../containers/EditSwitchContainer';
 import { LoadingButton } from './Button';
 
 import {
@@ -125,6 +128,7 @@ const TaskToolbar = (props) => {
       <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
+      <EditSwitchContainer />
     </Toolbar >
   );
 };
