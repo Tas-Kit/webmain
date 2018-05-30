@@ -46,6 +46,9 @@ const currentUserManager = (state = initialState, action = {}) => {
     case types.TOGGLE_EDIT_MODE: {
       return { ...state, editMode: !state.editMode };
     }
+    case types.RESET_EDIT_MODE: {
+      return { ...state, editMode: false };
+    }
     default:
       return state;
   }
