@@ -1,5 +1,4 @@
 import React from 'react';
-import shortid from 'shortid';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
