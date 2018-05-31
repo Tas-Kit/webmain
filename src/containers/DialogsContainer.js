@@ -12,6 +12,7 @@ import TaskCreatorDialogContainer from './TaskCreatorDialogContainer';
 import TaskEditorDialogContainer from './TaskEditorDialogContainer';
 import TaskViewerDialogContainer from './TaskViewerDialogContainer';
 import StepCreatorDialogContainer from './StepCreatorDialogContainer';
+import StepEditorDialogContainer from './StepEditorDialogContainer';
 import StepViewerDialogContainer from './StepViewerDialogContainer';
 
 // services
@@ -93,6 +94,9 @@ const DialogsContainer = (props) => {
 
       {/* Step Creator */}
       <StepCreatorDialogContainer />
+
+      {/* Step Editor */}
+      <StepEditorDialogContainer />
 
       {/* Step Viewer */}
       <StepViewerDialogContainer />

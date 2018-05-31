@@ -37,7 +37,6 @@ const inline = {
 
 const TaskInfoView = (props) => {
   const { info, classes } = props;
-  console.log(info);
   return (
     <div style={inline.main}>
       <div style={inline.row}>

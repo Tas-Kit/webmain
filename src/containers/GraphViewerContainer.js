@@ -23,28 +23,33 @@ import {
 import { mapNodeToStepInfo, mapNodeResponseData } from '../utils/functions';
 
 class GraphViewerContainer extends React.Component {
-  componentDidMount = () => {
-    console.log('cdm');
-    this.initNetwork();
-  }
+  componentDidMount = () => { this.initNetwork(); }
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
 
     // initialize listeners
     gs.network.on('oncontext', (data) => {
-      console.log(data);
       data.event.preventDefault();
       const nodeId = gs.network.getNodeAt(data.pointer.DOM);
       if (nodeId) {
-        const { updateMessage, updateStepInfo, toggleStepViewer } = this.props.actions;
+        const {
+          updateMessage, updateStepInfo, toggleStepViewer,
+          toggleStepEditor,
+        } = this.props.actions;
+        const { editMode } = this.props.currentUserManager;
         const nodeData = gs.getNode(nodeId);
         if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
           updateMessage('No step information on start or end node.');
         } else {
           const newStepInfo = mapNodeToStepInfo(nodeData);
+          gs.setActiveItemId(nodeData.id);
           updateStepInfo(newStepInfo, nodeData.sid);
-          toggleStepViewer();
+          if (editMode) {
+            toggleStepEditor();
+          } else {
+            toggleStepViewer();
+          }
         }
       }
     });
@@ -59,7 +64,8 @@ class GraphViewerContainer extends React.Component {
 
   handleDrop = (e) => {
     const { draggingNodeType } = this.props.graphManager;
-    const { updateMessage } = this.props.actions;
+    const { resetStepInfo, updateMessage } = this.props.actions;
+    resetStepInfo();
     if (draggingNodeType === NORMAL_NODE) {
       const { setNodeCanvasCoord } = this.props.actions;
       const offsetX = 240; // width of drawer
@@ -85,7 +91,11 @@ class GraphViewerContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ taskManager, graphManager }) => ({ taskManager, graphManager });
+const mapStateToProps = store => ({
+  taskManager: store.taskManager,
+  graphManager: store.graphManager,
+  currentUserManager: store.currentUserManager,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({

@@ -14,6 +14,7 @@ class GraphService {
       edges: new DataSet(),
     };
     this.network = null;
+    this.activeItemId = null;
   }
 
   createGraph = (graphElement) => {
@@ -62,6 +63,8 @@ class GraphService {
       });
     });
   }
+
+  setActiveItemId = (id) => { this.activeItemId = id; }
 
   addNode = (nodeData) => { this.activeData.nodes.add(nodeData); }
 

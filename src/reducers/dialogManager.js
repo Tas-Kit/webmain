@@ -5,6 +5,7 @@ const initialState = {
   taskEditorOpen: false,
   taskViewerOpen: false,
   stepCreatorOpen: false,
+  stepEditorOpen: false,
   stepViewerOpen: false,
   invitationOpen: false,
   deleteTaskOpen: false,
@@ -21,6 +22,8 @@ const dialogManager = (state = initialState, action = {}) => {
       return { ...state, taskViewerOpen: !state.taskViewerOpen };
     case types.TOGGLE_STEP_CREATOR:
       return { ...state, stepCreatorOpen: !state.stepCreatorOpen };
+    case types.TOGGLE_STEP_EDITOR:
+      return { ...state, stepEditorOpen: !state.stepEditorOpen };
     case types.TOGGLE_STEP_VIEWER:
       return { ...state, stepViewerOpen: !state.stepViewerOpen };
     case types.TOGGLE_INVITATION:

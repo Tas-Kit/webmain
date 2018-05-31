@@ -105,11 +105,11 @@ export const mapNodeToRequestData = data => ({
 
 export const mapNodeToStepInfo = data => ({
   name: data.label,
-  effortTime: data.expected_effort_num || 'None',
+  effortTime: data.expected_effort_num || '',
   effortUnit: data.expected_effort_unit || '',
-  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : 'None',
+  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
   status: STATUS_MAP_TWO[data.status],
-  description: data.description || 'None',
+  description: data.description || '',
   assigneeRoles: data.assignees,
   reviewerRoles: data.reviewers,
   optional: data.is_optional,

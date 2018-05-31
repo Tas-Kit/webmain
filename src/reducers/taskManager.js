@@ -55,7 +55,6 @@ const handleResponse = (response, state) => {
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
         const data = response.json.task_info;
-        console.log(response.json.users);
         const taskUsers = orderBy(
           response.json.users,
           [
@@ -68,7 +67,6 @@ const handleResponse = (response, state) => {
             'asc', 'desc', 'asc', 'asc',
           ],
         );
-        console.log(taskUsers);
         const taskInfo = mapTaskInfoResponseData(data);
         return {
           ...state,

@@ -118,8 +118,6 @@ const Toolbar = (props) => {
     SUB_TASK_NODE,
   ]);
 
-  console.log(editMode);
-
   if (editMode) {
     return (
       <div style={inline.main}>

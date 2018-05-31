@@ -16,6 +16,10 @@ export const toggleStepCreator = () => ({
   type: types.TOGGLE_STEP_CREATOR,
 });
 
+export const toggleStepEditor = () => ({
+  type: types.TOGGLE_STEP_EDITOR,
+});
+
 export const toggleStepViewer = () => ({
   type: types.TOGGLE_STEP_VIEWER,
 });
