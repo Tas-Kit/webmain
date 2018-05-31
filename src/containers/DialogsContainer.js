@@ -10,6 +10,7 @@ import { PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 import InvitationContainer from './InvitationContainer';
 import TaskCreatorDialogContainer from './TaskCreatorDialogContainer';
 import TaskEditorDialogContainer from './TaskEditorDialogContainer';
+import TaskViewerDialogContainer from './TaskViewerDialogContainer';
 import StepCreatorDialogContainer from './StepCreatorDialogContainer';
 import StepViewerDialogContainer from './StepViewerDialogContainer';
 
@@ -86,6 +87,9 @@ const DialogsContainer = (props) => {
 
       {/* Task Editor */}
       <TaskEditorDialogContainer />
+
+      {/* Task Viewer */}
+      <TaskViewerDialogContainer />
 
       {/* Step Creator */}
       <StepCreatorDialogContainer />

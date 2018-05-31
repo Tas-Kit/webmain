@@ -23,11 +23,12 @@ import { ACCEPTANCE } from '../constants';
 const TaskToolbarContainer = (props) => {
   const {
     toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask, toggleTaskSavePending,
-    updateMessage,
+    updateMessage, toggleTaskViewer,
   } = props.actions;
   const {
     taskUsers, tasks, taskId, savePending,
   } = props.taskManager;
+  const { editMode } = props.currentUserManager;
   const acceptedUsers = taskUsers
     .filter(taskUser => taskUser.has_task.acceptance === ACCEPTANCE.ACCEPT);
   const activeTask = tasks.find(task => task.info.tid === taskId);
@@ -57,16 +58,21 @@ const TaskToolbarContainer = (props) => {
       users={acceptedUsers}
       userSuperRole={userPermission.super_role}
       toggleTaskEditor={toggleTaskEditor}
+      toggleTaskViewer={toggleTaskViewer}
       toggleDeleteTask={toggleDeleteTask}
       toggleInvitation={toggleInvitation}
       toggleQuitTask={toggleQuitTask}
       onGraphSave={handleGraphSave}
       savePending={savePending}
+      editMode={editMode}
     />
   );
 };
 
-const mapStateToProps = ({ taskManager }) => ({ taskManager });
+const mapStateToProps = store => ({
+  taskManager: store.taskManager,
+  currentUserManager: store.currentUserManager,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions, ...taskActions, ...snackbarActions }, dispatch),

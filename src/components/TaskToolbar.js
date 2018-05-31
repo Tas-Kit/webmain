@@ -63,10 +63,12 @@ const TaskToolbar = (props) => {
     userSuperRole,
     toggleDeleteTask,
     toggleTaskEditor,
+    toggleTaskViewer,
     toggleInvitation,
     toggleQuitTask,
     onGraphSave,
     savePending,
+    editMode,
   } = props;
 
   return (
@@ -75,10 +77,14 @@ const TaskToolbar = (props) => {
         <Button
           key="info"
           color="primary"
-          onClick={toggleTaskEditor}
+          onClick={editMode ? toggleTaskEditor : toggleTaskViewer}
           className={classNames(classes.infoBt)}
         >
-          <FormattedMessage id="infoButton" defaultMessage="Info" />
+          {editMode ?
+            <FormattedMessage id="taskEditButton" defaultMessage="Edit" />
+            :
+            <FormattedMessage id="infoButton" defaultMessage="Info" />
+          }
         </Button>
         <Button
           key="clone"
