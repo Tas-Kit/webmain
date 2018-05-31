@@ -6,9 +6,6 @@ const styles = () => ({
   chip: {
     margin: '0px 2.5px',
   },
-  trigger: {
-    margin: '10px 0px',
-  },
 });
 
 const inline = {
@@ -16,6 +13,7 @@ const inline = {
     display: 'flex',
     flexDirection: 'column',
     padding: '0px 24px 24px',
+    minWidth: 600,
   },
   row: {
     margin: '13px 0px',
@@ -26,16 +24,6 @@ const inline = {
     marginRight: 10,
     fontSize: 13,
     fontWeight: 500,
-  },
-  iconButton: {
-    width: 40,
-    height: 40,
-    minWidth: 'initial',
-    minHeight: 'initial',
-    borderRadius: '50%',
-  },
-  chip: {
-    margin: '0px 5px',
   },
   fieldContent: {
     position: 'relative',
@@ -74,10 +62,12 @@ const TaskInfoView = (props) => {
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}>Roles:</span>
-        {info.roles.map(role => (
-          <Chip key={`assignee_${role}`} label={role} className={classes.chip} />
-        ))}
-        {info.roles.length === 0 ? 'None' : null}
+        <div style={inline.fieldContent}>
+          {info.roles.map(role => (
+            <Chip key={`assignee_${role}`} label={role} className={classes.chip} />
+          ))}
+          {info.roles.length === 0 ? 'None' : null}
+        </div>
       </div>
     </div>
   );
