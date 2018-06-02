@@ -119,7 +119,8 @@ export const mapNodeResponseData = nodes => (
   nodes.map((node) => {
     let svgString;
     if (node.node_type === START_NODE || node.node_type === END_NODE) {
-      svgString = svgStrings[node.node_type]();
+      const color = NODE_STATUS_COLOR_MAP[node.status];
+      svgString = svgStrings[node.node_type](color);
     } else {
       const color = NODE_STATUS_COLOR_MAP[node.status];
       svgString = svgStrings[node.node_type](color);
