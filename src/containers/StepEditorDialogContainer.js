@@ -17,7 +17,7 @@ import gs from '../services/GraphService';
 // constants and utils
 import { STEP_INFO_RULE, STATUS_MAP } from '../constants';
 import { NORMAL_NODE, NODE_STATUS_COLOR_MAP } from '../constants/nodes';
-import { mapStepInfoToNode } from '../utils/functions';
+import { mapStepInfoToNode, getColoredEdgeByNode } from '../utils/functions';
 import * as svgStrings from '../assets/svgStrings';
 
 class StepEditorDialogContainer extends React.Component {
@@ -37,7 +37,9 @@ class StepEditorDialogContainer extends React.Component {
         image: imageUrl,
       };
       const nodeToUpdate = mapStepInfoToNode(stepNode);
+      const edgesToUpdate = getColoredEdgeByNode(nodeToUpdate);
       gs.updateNode(nodeToUpdate);
+      gs.updateEdge(edgesToUpdate);
       return new Promise((resolve) => { resolve(); }).then(() => true);
     }
     return new Promise((resolve) => {

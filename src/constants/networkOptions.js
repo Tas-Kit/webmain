@@ -1,4 +1,4 @@
-import { PINK, EDGE_GREY, BLACK } from './colors';
+import { EDGE_GREY, BLACK } from './colors';
 
 const networkOptions = {
   nodes: {
@@ -30,7 +30,7 @@ const networkOptions = {
     },
     color: {
       color: EDGE_GREY,
-      highlight: PINK,
+      // highlight: PINK,
     },
     scaling: {
       min: 2,

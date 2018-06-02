@@ -20,7 +20,7 @@ import {
   END_NODE,
   NORMAL_NODE,
 } from '../constants/nodes';
-import { mapNodeToStepInfo, mapNodeResponseData } from '../utils/functions';
+import { mapNodeToStepInfo, mapNodeResponseData, getColoredEdge } from '../utils/functions';
 
 class GraphViewerContainer extends React.Component {
   componentDidMount = () => { this.initNetwork(); }
@@ -29,8 +29,7 @@ class GraphViewerContainer extends React.Component {
     gs.createGraph(this.graphViewer.graphElement);
 
     // initialize listeners
-    gs.network.on('oncontext', (data) => {
-      data.event.preventDefault();
+    gs.network.on('click', (data) => {
       const nodeId = gs.network.getNodeAt(data.pointer.DOM);
       if (nodeId) {
         const {
@@ -57,8 +56,9 @@ class GraphViewerContainer extends React.Component {
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = mapNodeResponseData(taskNodes);
+    const edges = getColoredEdge(taskEdges, nodes);
     gs.addNode(nodes);
-    gs.addEdge(taskEdges);
+    gs.addEdge(edges);
     gs.fit();
   }
 

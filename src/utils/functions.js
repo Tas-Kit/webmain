@@ -145,3 +145,54 @@ export const mapNodeResponseData = nodes => (
     });
   })
 );
+
+export const getColoredEdge = (edges, nodes) => (
+  edges.map((edge) => {
+    const fromNodeId = edge.from;
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      console.log(node.id);
+      console.log(fromNodeId);
+      console.log(node.id === fromNodeId);
+      if (node.id === fromNodeId) {
+        return {
+          ...edge,
+          color: {
+            color: NODE_STATUS_COLOR_MAP[node.status],
+            highlight: NODE_STATUS_COLOR_MAP[node.status],
+          },
+        };
+      }
+    }
+    return edge;
+  })
+);
+
+export const getColoredEdgeByNode = (node) => {
+  const edges = gs.activeData.edges.get({
+    filter: option => option.from === node.id,
+  });
+
+  return (
+    edges.map(edge => ({
+      ...edge,
+      color: {
+        color: NODE_STATUS_COLOR_MAP[node.status],
+        highlight: NODE_STATUS_COLOR_MAP[node.status],
+      },
+    }))
+  );
+};
+
+export default {
+  getAdaptedWidth,
+  getAdaptedHeight,
+  mapTaskInfoResponseData,
+  mapTaskInfoRequestData,
+  mapStepInfoToNode,
+  logout,
+  mapNodeToRequestData,
+  mapNodeToStepInfo,
+  mapNodeResponseData,
+  getColoredEdge,
+};
