@@ -3,10 +3,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MUISwitch from '@material-ui/core/Switch';
 
 const Switch = (props) => {
-  const { label, checked, onToggle } = props;
+  const { label, checked, onChange } = props;
   return (
     <FormControlLabel
-      control={<MUISwitch checked={checked} onChange={onToggle} color="primary" />}
+      control={<MUISwitch checked={checked} onChange={onChange} color="primary" />}
       label={label}
     />
   );
