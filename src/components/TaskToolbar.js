@@ -92,13 +92,17 @@ const TaskToolbar = (props) => {
         >
           <FormattedMessage id="cloneButton" defaultMessage="Clone" />
         </Button>
-        <LoadingButton
-          buttonName="Save"
-          color={TEAL}
-          loading={savePending}
-          onClick={onGraphSave}
-          className={classNames(classes.saveBt)}
-        />
+
+        {editMode ?
+          <LoadingButton
+            buttonName="Save"
+            color={TEAL}
+            loading={savePending}
+            onClick={onGraphSave}
+            className={classNames(classes.saveBt)}
+          />
+        : null
+        }
 
         {
           userSuperRole === SUPER_ROLE.OWNER ?
