@@ -152,9 +152,6 @@ export const getColoredEdge = (edges, nodes) => (
     const fromNodeId = edge.from;
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
-      console.log(node.id);
-      console.log(fromNodeId);
-      console.log(node.id === fromNodeId);
       if (node.id === fromNodeId) {
         return {
           ...edge,

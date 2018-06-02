@@ -1,6 +1,6 @@
 import * as types from '../constants/actions';
 import * as apiTypes from '../constants/apiTypes';
-import { mapNodeResponseData } from '../utils/functions';
+import { mapNodeResponseData, getColoredEdge } from '../utils/functions';
 import gs from '../services/GraphService';
 
 const initialState = {
@@ -19,8 +19,11 @@ const handleRequest = (request, state) => {
 const handleResponse = (response, state) => {
   switch (response.type) {
     case apiTypes.SAVE_GRAPH: {
+      gs.clearAll();
       const updatedNodes = mapNodeResponseData(response.json.nodes);
+      const updatedEdges = getColoredEdge(response.json.edges, updatedNodes);
       gs.updateNode(updatedNodes);
+      gs.updateEdge(updatedEdges);
       return state;
     }
     default:
