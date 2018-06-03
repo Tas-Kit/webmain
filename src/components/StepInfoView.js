@@ -47,8 +47,10 @@ const styles = () => ({
 class StepInfoView extends React.Component {
   allowTrigger = () => {
     const { info, userTaskRole } = this.props;
-    if (userTaskRole === null) {
-      return false;
+    if (info.status === 'In Progress' && info.assigneeRoles.length === 0) {
+      return true;
+    } else if (info.status === 'Ready For Review' && info.reviewerRoles.length === 0) {
+      return true;
     } else if (info.status === 'In Progress' && info.assigneeRoles.indexOf(userTaskRole) >= 0) {
       return true;
     } else if (info.status === 'Ready For Review' && info.reviewerRoles.indexOf(userTaskRole) >= 0) {

@@ -35,7 +35,6 @@ const StepInfoViewerContainer = (props) => {
     } else {
       toggleTriggerPending();
       const payload = { tid, sid };
-      console.log(payload);
       APIService.sendRequest(url, apiTypes.TRIGGER, payload, 'POST')
         .then((triggered) => {
           if (triggered) {
