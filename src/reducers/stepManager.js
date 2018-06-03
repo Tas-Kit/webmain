@@ -18,6 +18,7 @@ const initialState = {
     optional: false,
   },
   triggerPending: false,
+  isStartEnd: false,
 };
 
 const handleRequest = (request, state) => {
@@ -58,6 +59,9 @@ const stepManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_TRIGGER_PENDING: {
       return { ...state, triggerPending: !state.triggerPending };
+    }
+    case types.SET_IS_START_END: {
+      return { ...state, isStartEnd: action.flag };
     }
     default:
       return state;

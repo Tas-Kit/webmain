@@ -16,7 +16,7 @@ import gs from '../services/GraphService';
 
 // constants and utils
 import { STEP_INFO_RULE, STATUS_MAP } from '../constants';
-import { NORMAL_NODE, NODE_STATUS_COLOR_MAP } from '../constants/nodes';
+import { START_NODE, END_NODE, NORMAL_NODE, NODE_STATUS_COLOR_MAP } from '../constants/nodes';
 import { mapStepInfoToNode, getColoredEdgeByNode } from '../utils/functions';
 import * as svgStrings from '../assets/svgStrings';
 
@@ -28,12 +28,20 @@ class StepEditorDialogContainer extends React.Component {
     const validation = new Validator(stepInfo, STEP_INFO_RULE);
     if (validation.passes()) {
       const color = NODE_STATUS_COLOR_MAP[STATUS_MAP[stepInfo.status]];
-      const svgString = svgStrings[NORMAL_NODE](color);
+      let svgString = svgStrings[NORMAL_NODE](color);
+      let nodeType = NORMAL_NODE;
+      if (stepInfo.name === 'Start') {
+        svgString = svgStrings[START_NODE](color);
+        nodeType = START_NODE;
+      } else if (stepInfo.name === 'End') {
+        svgString = svgStrings[END_NODE](color);
+        nodeType = END_NODE;
+      }
       const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
       const stepNode = {
         ...stepInfo,
         id: gs.activeItemId,
-        node_type: NORMAL_NODE, // current only NORMAL_NODE is available
+        node_type: nodeType, // current only NORMAL_NODE is available
         image: imageUrl,
       };
       const nodeToUpdate = mapStepInfoToNode(stepNode);

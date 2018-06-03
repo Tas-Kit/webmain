@@ -7,7 +7,7 @@ import StepInfoForm from '../components/StepInfoForm';
 import * as stepActions from '../actions/stepActions';
 
 const StepInfoFormContainer = (props) => {
-  const { stepInfo } = props.stepManager;
+  const { stepInfo, isStartEnd } = props.stepManager;
   const { roles } = props.taskManager.taskInfo;
   const { updateStepInfo } = props.actions;
   return (
@@ -15,6 +15,7 @@ const StepInfoFormContainer = (props) => {
       roles={roles}
       info={stepInfo}
       update={updateStepInfo}
+      isStartEnd={isStartEnd}
     />
   );
 };

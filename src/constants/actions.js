@@ -26,6 +26,7 @@ export const UPDATE_STEP_INFO = 'UPDATE_STEP_INFO';
 export const RESET_STEP_INFO = 'RESET_STEP_INFO';
 export const SET_ACTIVE_TASK_ID = 'SET_ACTIVE_TASK_ID';
 export const TOGGLE_TRIGGER_PENDING = 'TOGGLE_TRIGGER_PENDING';
+export const SET_IS_START_END = 'SET_IS_START_END';
 
 // Snackbar Actions
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';

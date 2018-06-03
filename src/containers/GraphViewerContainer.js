@@ -33,23 +33,25 @@ class GraphViewerContainer extends React.Component {
       const nodeId = gs.network.getNodeAt(data.pointer.DOM);
       if (nodeId) {
         const {
-          updateMessage, updateStepInfo, toggleStepViewer,
-          toggleStepEditor,
+          updateStepInfo, toggleStepViewer,
+          toggleStepEditor, setIsStartEnd,
         } = this.props.actions;
         const { editMode } = this.props.currentUserManager;
         const nodeData = gs.getNode(nodeId);
-        if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
-          updateMessage('No step information on start or end node.');
+        // if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
+        //   updateMessage('No step information on start or end node.');
+        // } else {
+        const isStartEnd = nodeData.node_type === START_NODE || nodeData.node_type === END_NODE;
+        setIsStartEnd(isStartEnd);
+        const newStepInfo = mapNodeToStepInfo(nodeData);
+        gs.setActiveItemId(nodeData.id);
+        updateStepInfo(newStepInfo, nodeData.sid);
+        if (editMode) {
+          toggleStepEditor();
         } else {
-          const newStepInfo = mapNodeToStepInfo(nodeData);
-          gs.setActiveItemId(nodeData.id);
-          updateStepInfo(newStepInfo, nodeData.sid);
-          if (editMode) {
-            toggleStepEditor();
-          } else {
-            toggleStepViewer();
-          }
+          toggleStepViewer();
         }
+        // }
       }
     });
 
