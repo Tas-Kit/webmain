@@ -16,5 +16,5 @@ export const toggleTriggerPending = () => ({
 
 export const setIsStartEnd = isStartEnd => ({
   type: types.SET_IS_START_END,
-  isStartEnd,
+  flag: isStartEnd,
 });

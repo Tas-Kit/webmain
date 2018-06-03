@@ -41,7 +41,8 @@ class StepInfoForm extends React.Component {
 
   render() {
     const { info, roles, isStartEnd } = this.props;
-    if (isStartEnd) {
+    console.log(isStartEnd);
+    if (!isStartEnd) {
       return (
         <div style={inline.main}>
           <div style={inline.row}>

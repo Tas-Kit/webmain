@@ -8,6 +8,7 @@ import * as stepActions from '../actions/stepActions';
 
 const StepInfoFormContainer = (props) => {
   const { stepInfo, isStartEnd } = props.stepManager;
+  console.log(props.stepManager);
   const { roles } = props.taskManager.taskInfo;
   const { updateStepInfo } = props.actions;
   return (
