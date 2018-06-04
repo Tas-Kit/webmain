@@ -47,7 +47,7 @@ const styles = () => ({
 class StepInfoView extends React.Component {
   allowTrigger = () => {
     const { info, userTaskRole } = this.props;
-    if (info.status === 'New' && info.node_type === 's'){
+    if (info.status === 'New' && info.nodeType === 's'){
       return true;
     } else if (info.status === 'In Progress' && info.assigneeRoles.length === 0) {
       return true;
