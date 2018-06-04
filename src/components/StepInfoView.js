@@ -4,6 +4,8 @@ import Chip from '@material-ui/core/Chip';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { LoadingButton } from './Button';
+import { START_NODE } from '../constants/nodes';
+import { NEW, IN_PROGRESS, READY_FOR_REVIEW } from '../constants';
 
 const inline = {
   main: {
@@ -47,15 +49,15 @@ const styles = () => ({
 class StepInfoView extends React.Component {
   allowTrigger = () => {
     const { info, userTaskRole } = this.props;
-    if (info.status === 'New' && info.nodeType === 's'){
+    if (info.status === NEW && info.nodeType === START_NODE) {
       return true;
-    } else if (info.status === 'In Progress' && info.assigneeRoles.length === 0) {
+    } else if (info.status === IN_PROGRESS && info.assigneeRoles.length === 0) {
       return true;
-    } else if (info.status === 'Ready For Review' && info.reviewerRoles.length === 0) {
+    } else if (info.status === READY_FOR_REVIEW && info.reviewerRoles.length === 0) {
       return true;
-    } else if (info.status === 'In Progress' && info.assigneeRoles.indexOf(userTaskRole) >= 0) {
+    } else if (info.status === IN_PROGRESS && info.assigneeRoles.indexOf(userTaskRole) >= 0) {
       return true;
-    } else if (info.status === 'Ready For Review' && info.reviewerRoles.indexOf(userTaskRole) >= 0) {
+    } else if (info.status === READY_FOR_REVIEW && info.reviewerRoles.indexOf(userTaskRole) >= 0) {
       return true;
     }
     return false;

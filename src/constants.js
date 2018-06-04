@@ -17,20 +17,26 @@ export const ACCEPTANCES = {
 export const TIME_UNITS = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
 export const STATUS = ['New', 'In Progress', 'Ready For Review', 'Completed', 'Skipped'];
 
+export const NEW = 'New';
+export const IN_PROGRESS = 'In Progress';
+export const READY_FOR_REVIEW = 'Ready For Review';
+export const COMPLETED = 'Completed';
+export const SKIPPED = 'Skipped';
+
 export const STATUS_MAP = {
-  New: 'n',
-  'In Progress': 'ip',
-  'Ready For Review': 'rr',
-  Completed: 'c',
-  Skipped: 's',
+  [NEW]: 'n',
+  [IN_PROGRESS]: 'ip',
+  [READY_FOR_REVIEW]: 'rr',
+  [COMPLETED]: 'c',
+  [SKIPPED]: 's',
 };
 
 export const STATUS_MAP_TWO = {
-  n: 'New',
-  ip: 'In Progress',
-  rr: 'Ready For Review',
-  c: 'Completed',
-  s: 'Skipped',
+  n: NEW,
+  ip: IN_PROGRESS,
+  rr: READY_FOR_REVIEW,
+  c: COMPLETED,
+  s: SKIPPED,
 };
 
 export const TIME_UNITS_MAP = {
