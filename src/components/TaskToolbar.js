@@ -3,11 +3,12 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
-// ui components
+// mui
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import { Tooltip } from '@material-ui/core';
+
 
 // svgs
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
@@ -15,6 +16,8 @@ import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 // i18n
 import { FormattedMessage } from 'react-intl';
 
+// containers and components
+import EditSwitchContainer from '../containers/EditSwitchContainer';
 import { LoadingButton } from './Button';
 
 import {
@@ -60,10 +63,12 @@ const TaskToolbar = (props) => {
     userSuperRole,
     toggleDeleteTask,
     toggleTaskEditor,
+    toggleTaskViewer,
     toggleInvitation,
     toggleQuitTask,
     onGraphSave,
     savePending,
+    editMode,
   } = props;
 
   return (
@@ -72,10 +77,14 @@ const TaskToolbar = (props) => {
         <Button
           key="info"
           color="primary"
-          onClick={toggleTaskEditor}
+          onClick={editMode ? toggleTaskEditor : toggleTaskViewer}
           className={classNames(classes.infoBt)}
         >
-          <FormattedMessage id="infoButton" defaultMessage="Info" />
+          {editMode ?
+            <FormattedMessage id="taskEditButton" defaultMessage="Edit" />
+            :
+            <FormattedMessage id="infoButton" defaultMessage="Info" />
+          }
         </Button>
         <Button
           key="clone"
@@ -83,13 +92,17 @@ const TaskToolbar = (props) => {
         >
           <FormattedMessage id="cloneButton" defaultMessage="Clone" />
         </Button>
-        <LoadingButton
-          buttonName="Save"
-          color={TEAL}
-          loading={savePending}
-          onClick={onGraphSave}
-          className={classNames(classes.saveBt)}
-        />
+
+        {editMode ?
+          <LoadingButton
+            buttonName="Save"
+            color={TEAL}
+            loading={savePending}
+            onClick={onGraphSave}
+            className={classNames(classes.saveBt)}
+          />
+        : null
+        }
 
         {
           userSuperRole === SUPER_ROLE.OWNER ?
@@ -125,6 +138,7 @@ const TaskToolbar = (props) => {
       <IconButton color="inherit" aria-label="Invitation" onClick={toggleInvitation} >
         <SupervisorAccount />
       </IconButton>
+      <EditSwitchContainer />
     </Toolbar >
   );
 };

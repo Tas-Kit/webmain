@@ -7,6 +7,7 @@ import LoadingProgress from '../components/LoadingProgress';
 
 // redux actions
 import * as taskActions from '../actions/taskActions';
+import * as currentUserActions from '../actions/currentUserActions';
 
 // services
 import APIService from '../services/APIService';
@@ -18,6 +19,7 @@ class TaskGraphPage extends React.Component {
   componentDidMount = () => {
     const { taskId } = this.props.match.params;
     this.props.actions.setActiveTaskId(taskId);
+    this.props.actions.resetEditMode();
     this.sendRequest(taskId);
   }
 
@@ -52,7 +54,7 @@ class TaskGraphPage extends React.Component {
 const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...taskActions }, dispatch),
+  actions: bindActionCreators({ ...taskActions, ...currentUserActions }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskGraphPage);

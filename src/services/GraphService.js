@@ -3,6 +3,7 @@ import 'vis/dist/vis-network.min.css';
 import redux from './ReduxService';
 import networkOptions from '../constants/networkOptions';
 import { getAdaptedWidth, getAdaptedHeight } from '../utils/functions';
+import { NODE_STATUS_COLOR_MAP } from '../constants/nodes';
 
 const { DataSet, Network } = vis;
 
@@ -14,6 +15,7 @@ class GraphService {
       edges: new DataSet(),
     };
     this.network = null;
+    this.activeItemId = null;
   }
 
   createGraph = (graphElement) => {
@@ -25,7 +27,16 @@ class GraphService {
         enabled: false,
         initiallyActive: false,
         addEdge: (edgeData, callback) => {
-          const newEdgeData = Object.assign({}, edgeData);
+          const fromNodeId = edgeData.from;
+          const node = this.activeData.nodes.get(fromNodeId);
+          const nodeStatusColor = NODE_STATUS_COLOR_MAP[node.status];
+          const newEdgeData = {
+            ...edgeData,
+            color: {
+              color: nodeStatusColor,
+              highlight: nodeStatusColor,
+            },
+          };
           callback(newEdgeData);
         },
       },
@@ -34,15 +45,16 @@ class GraphService {
     this.network = new Network(graphElement, this.activeData, options);
 
     this.network.on('dragEnd', (data) => {
-      // reactivate addEdge mode if in addEdge mode and end pointer is on an end node
+      // add edge if in addEdge mode
       const { addEdgeSelected } = redux.store.getState().graphManager;
       if (addEdgeSelected) {
         const DOMCoord = data.pointer.DOM;
+        // reactivate addEdge mode if in addEdge mode and end pointer is on an end node
         const endAtNode = this.network.getNodeAt(DOMCoord);
         if (endAtNode) this.network.addEdgeMode();
       }
 
-      // at the end of dragging a node
+      // update node position if at the end of dragging a node
       if (data.nodes.length === 1) {
         const nodeId = data.nodes[0];
         const node = this.activeData.nodes.get(nodeId);
@@ -63,9 +75,13 @@ class GraphService {
     });
   }
 
+  setActiveItemId = (id) => { this.activeItemId = id; }
+
   addNode = (nodeData) => { this.activeData.nodes.add(nodeData); }
 
   updateNode = (nodeData) => { this.activeData.nodes.update(nodeData); }
+
+  updateEdge = (edgeData) => { this.activeData.edges.update(edgeData); }
 
   addEdge = (edgeData) => { this.activeData.edges.add(edgeData); }
 
@@ -76,6 +92,8 @@ class GraphService {
   removeEdge = (edgeData) => { this.activeData.edges.remove(edgeData); }
 
   getNode = nodeId => this.activeData.nodes.get(nodeId)
+
+  getAllEdges = () => this.activeData.edges.get()
 
   clearAllNodes = () => { this.activeData.nodes.clear(); }
 

@@ -96,6 +96,7 @@ const Toolbar = (props) => {
     onDelete,
     deleteSelected,
     addEdgeSelected,
+    editMode,
   } = props;
 
   const generateNodePrototypes = (nodeTypes = []) => (
@@ -117,35 +118,38 @@ const Toolbar = (props) => {
     SUB_TASK_NODE,
   ]);
 
-  return (
-    <div style={inline.main}>
-      <div style={inline.toolbar}>
-        {prototypes.map((item, index) => (
-          <div
-            key={`item_${index + 1}`}
-            draggable="true"
-            style={inline.iconDiv}
-            onDragStart={() => { onDragStart(item.props.nodetype); }}
+  if (editMode) {
+    return (
+      <div style={inline.main}>
+        <div style={inline.toolbar}>
+          {prototypes.map((item, index) => (
+            <div
+              key={`item_${index + 1}`}
+              draggable="true"
+              style={inline.iconDiv}
+              onDragStart={() => { onDragStart(item.props.nodetype); }}
+            >
+              {item}
+            </div>
+          ))}
+          <div style={inline.divider} />
+          <IconButton
+            style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
+            onClick={onAddEdge}
           >
-            {item}
-          </div>
-        ))}
-        <div style={inline.divider} />
-        <IconButton
-          style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
-          onClick={onAddEdge}
-        >
-          <Link style={inline.iconButton} />
-        </IconButton>
-        <IconButton
-          style={deleteSelected ? inline.deleteSelected : inline.delete}
-          onClick={onDelete}
-        >
-          <Delete style={inline.iconButton} />
-        </IconButton>
+            <Link style={inline.iconButton} />
+          </IconButton>
+          <IconButton
+            style={deleteSelected ? inline.deleteSelected : inline.delete}
+            onClick={onDelete}
+          >
+            <Delete style={inline.iconButton} />
+          </IconButton>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return <div />;
 };
 
 export default Toolbar;

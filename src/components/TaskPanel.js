@@ -58,7 +58,7 @@ const inline = {
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, classes,
+    username, tasks, classes, resetEditMode,
   } = props;
   return (
     <Drawer
@@ -86,7 +86,13 @@ const TaskPanel = (props) => {
             const { onTaskClick } = props;
             return (
               <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
-                <ListItem button onClick={() => { onTaskClick(tid); }}>
+                <ListItem
+                  button
+                  onClick={() => {
+                    onTaskClick(tid);
+                    resetEditMode();
+                  }}
+                >
                   <ListItemIcon>
                     <Assignment style={inline.svgIcon} />
                   </ListItemIcon>

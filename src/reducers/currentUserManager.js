@@ -6,6 +6,7 @@ const initialState = {
   lastName: '',
   uid: '',
   email: '',
+  editMode: false,
 };
 
 const handleRequest = (request, state) => {
@@ -19,7 +20,12 @@ const handleResponse = (response, state) => {
   switch (response.type) {
     case 'get_current_user': {
       const { first_name: firstName, last_name: lastName } = response.json;
-      return { ...response.json, firstName, lastName };
+      return {
+        ...state,
+        ...response.json,
+        firstName,
+        lastName,
+      };
     }
     default:
       return state;
@@ -35,7 +41,13 @@ const currentUserManager = (state = initialState, action = {}) => {
       return handleResponse(action.response, state);
     }
     case types.SET_CURRENT_USER: {
-      return { ...action.currentUser };
+      return { ...state, ...action.currentUser };
+    }
+    case types.TOGGLE_EDIT_MODE: {
+      return { ...state, editMode: !state.editMode };
+    }
+    case types.RESET_EDIT_MODE: {
+      return { ...state, editMode: false };
     }
     default:
       return state;

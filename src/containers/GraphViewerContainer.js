@@ -20,46 +20,54 @@ import {
   END_NODE,
   NORMAL_NODE,
 } from '../constants/nodes';
-import { mapNodeToStepInfo, mapNodeResponseData } from '../utils/functions';
+import { mapNodeToStepInfo, mapNodeResponseData, getColoredEdge } from '../utils/functions';
 
 class GraphViewerContainer extends React.Component {
-  componentDidMount = () => {
-    console.log('cdm');
-    this.initNetwork();
-  }
+  componentDidMount = () => { this.initNetwork(); }
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
 
     // initialize listeners
-    gs.network.on('oncontext', (data) => {
-      console.log(data);
-      data.event.preventDefault();
+    gs.network.on('click', (data) => {
       const nodeId = gs.network.getNodeAt(data.pointer.DOM);
       if (nodeId) {
-        const { updateMessage, updateStepInfo, toggleStepViewer } = this.props.actions;
+        const {
+          updateStepInfo, toggleStepViewer,
+          toggleStepEditor, setIsStartEnd,
+        } = this.props.actions;
+        const { editMode } = this.props.currentUserManager;
         const nodeData = gs.getNode(nodeId);
-        if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
-          updateMessage('No step information on start or end node.');
+        // if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
+        //   updateMessage('No step information on start or end node.');
+        // } else {
+        const isStartEnd = nodeData.node_type === START_NODE || nodeData.node_type === END_NODE;
+        setIsStartEnd(isStartEnd);
+        const newStepInfo = mapNodeToStepInfo(nodeData);
+        gs.setActiveItemId(nodeData.id);
+        updateStepInfo(newStepInfo, nodeData.sid);
+        if (editMode) {
+          toggleStepEditor();
         } else {
-          const newStepInfo = mapNodeToStepInfo(nodeData);
-          updateStepInfo(newStepInfo, nodeData.sid);
           toggleStepViewer();
         }
+        // }
       }
     });
 
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = mapNodeResponseData(taskNodes);
+    const edges = getColoredEdge(taskEdges, nodes);
     gs.addNode(nodes);
-    gs.addEdge(taskEdges);
+    gs.addEdge(edges);
     gs.fit();
   }
 
   handleDrop = (e) => {
     const { draggingNodeType } = this.props.graphManager;
-    const { updateMessage } = this.props.actions;
+    const { resetStepInfo, updateMessage } = this.props.actions;
+    resetStepInfo();
     if (draggingNodeType === NORMAL_NODE) {
       const { setNodeCanvasCoord } = this.props.actions;
       const offsetX = 240; // width of drawer
@@ -85,7 +93,11 @@ class GraphViewerContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ taskManager, graphManager }) => ({ taskManager, graphManager });
+const mapStateToProps = store => ({
+  taskManager: store.taskManager,
+  graphManager: store.graphManager,
+  currentUserManager: store.currentUserManager,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({

@@ -10,6 +10,8 @@ export const TOGGLE_INVITATION = 'TOGGLE_INVITATION';
 export const TOGGLE_DELETE_TASK = 'TOGGLE_DELETE_TASK';
 export const TOGGLE_QUIT_TASK = 'TOGGLE_QUIT_TASK';
 export const TOGGLE_STEP_VIEWER = 'TOGGLE_STEP_VIEWER';
+export const TOGGLE_TASK_VIEWER = 'TOGGLE_TASK_VIEWER';
+export const TOGGLE_STEP_EDITOR = 'TOGGLE_STEP_EDITOR';
 
 // Task Actions
 export const UPDATE_TASK_INFO = 'UPDATE_TASK_INFO';
@@ -24,6 +26,7 @@ export const UPDATE_STEP_INFO = 'UPDATE_STEP_INFO';
 export const RESET_STEP_INFO = 'RESET_STEP_INFO';
 export const SET_ACTIVE_TASK_ID = 'SET_ACTIVE_TASK_ID';
 export const TOGGLE_TRIGGER_PENDING = 'TOGGLE_TRIGGER_PENDING';
+export const SET_IS_START_END = 'SET_IS_START_END';
 
 // Snackbar Actions
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
@@ -31,6 +34,8 @@ export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
 
 // Currentuser Actions
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE';
+export const RESET_EDIT_MODE = 'RESET_EDIT_MODE';
 
 // TaskUsers Actions
 export const SET_USER_ROLE = 'SET_USER_ROLE';

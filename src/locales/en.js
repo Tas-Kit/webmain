@@ -1,5 +1,6 @@
 const en = {
   infoButton: 'Info',
+  taskEditButton: 'Edit',
   cloneButton: 'Clone',
   saveButton: 'Save',
   deleteButton: 'Delete',

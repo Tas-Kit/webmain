@@ -1,10 +1,14 @@
 import * as types from '../constants/actions';
 
-const setCurrentUser = (currentUser = {}) => ({
+export const setCurrentUser = (currentUser = {}) => ({
   type: types.SET_CURRENT_USER,
   currentUser,
 });
 
-export default {
-  setCurrentUser,
-};
+export const toggleEditMode = () => ({
+  type: types.TOGGLE_EDIT_MODE,
+});
+
+export const resetEditMode = () => ({
+  type: types.RESET_EDIT_MODE,
+});

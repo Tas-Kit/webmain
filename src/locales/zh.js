@@ -1,5 +1,6 @@
 const zh = {
   infoButton: '信息',
+  taskEditButton: '编辑',
   cloneButton: '克隆',
   saveButton: '保存',
   deleteButton: '删除',

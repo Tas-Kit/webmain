@@ -20,6 +20,7 @@ const GraphToolbarContainer = (props) => {
     toggleAddEdgeButton,
   } = props.actions;
   const { addEdgeSelected } = props.graphManager;
+  const { editMode } = props.currentUserManager;
 
   const handleAddEdge = () => {
     const newAddEdgeSelected = !addEdgeSelected;
@@ -58,11 +59,15 @@ const GraphToolbarContainer = (props) => {
       onAddEdge={handleAddEdge}
       onDelete={handleDelete}
       addEdgeSelected={addEdgeSelected}
+      editMode={editMode}
     />
   );
 };
 
-const mapStateToProps = ({ graphManager }) => ({ graphManager });
+const mapStateToProps = store => ({
+  graphManager: store.graphManager,
+  currentUserManager: store.currentUserManager,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...graphActions, ...snackbarActions }, dispatch),

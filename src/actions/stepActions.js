@@ -13,3 +13,8 @@ export const resetStepInfo = () => ({
 export const toggleTriggerPending = () => ({
   type: types.TOGGLE_TRIGGER_PENDING,
 });
+
+export const setIsStartEnd = isStartEnd => ({
+  type: types.SET_IS_START_END,
+  flag: isStartEnd,
+});

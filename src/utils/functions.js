@@ -105,21 +105,23 @@ export const mapNodeToRequestData = data => ({
 
 export const mapNodeToStepInfo = data => ({
   name: data.label,
-  effortTime: data.expected_effort_num || 'None',
+  effortTime: data.expected_effort_num || '',
   effortUnit: data.expected_effort_unit || '',
-  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : 'None',
+  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
   status: STATUS_MAP_TWO[data.status],
-  description: data.description || 'None',
+  description: data.description || '',
   assigneeRoles: data.assignees,
   reviewerRoles: data.reviewers,
   optional: data.is_optional,
+  nodeType: data.node_type,
 });
 
 export const mapNodeResponseData = nodes => (
   nodes.map((node) => {
     let svgString;
     if (node.node_type === START_NODE || node.node_type === END_NODE) {
-      svgString = svgStrings[node.node_type]();
+      const color = NODE_STATUS_COLOR_MAP[node.status];
+      svgString = svgStrings[node.node_type](color);
     } else {
       const color = NODE_STATUS_COLOR_MAP[node.status];
       svgString = svgStrings[node.node_type](color);
@@ -145,3 +147,51 @@ export const mapNodeResponseData = nodes => (
     });
   })
 );
+
+export const getColoredEdge = (edges, nodes) => (
+  edges.map((edge) => {
+    const fromNodeId = edge.from;
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      if (node.id === fromNodeId) {
+        return {
+          ...edge,
+          color: {
+            color: NODE_STATUS_COLOR_MAP[node.status],
+            highlight: NODE_STATUS_COLOR_MAP[node.status],
+          },
+        };
+      }
+    }
+    return edge;
+  })
+);
+
+export const getColoredEdgeByNode = (node) => {
+  const edges = gs.activeData.edges.get({
+    filter: option => option.from === node.id,
+  });
+
+  return (
+    edges.map(edge => ({
+      ...edge,
+      color: {
+        color: NODE_STATUS_COLOR_MAP[node.status],
+        highlight: NODE_STATUS_COLOR_MAP[node.status],
+      },
+    }))
+  );
+};
+
+export default {
+  getAdaptedWidth,
+  getAdaptedHeight,
+  mapTaskInfoResponseData,
+  mapTaskInfoRequestData,
+  mapStepInfoToNode,
+  logout,
+  mapNodeToRequestData,
+  mapNodeToStepInfo,
+  mapNodeResponseData,
+  getColoredEdge,
+};

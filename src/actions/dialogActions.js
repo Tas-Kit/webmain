@@ -8,8 +8,16 @@ export const toggleTaskEditor = () => ({
   type: types.TOGGLE_TASK_EDITOR,
 });
 
+export const toggleTaskViewer = () => ({
+  type: types.TOGGLE_TASK_VIEWER,
+});
+
 export const toggleStepCreator = () => ({
   type: types.TOGGLE_STEP_CREATOR,
+});
+
+export const toggleStepEditor = () => ({
+  type: types.TOGGLE_STEP_EDITOR,
 });
 
 export const toggleStepViewer = () => ({
@@ -27,4 +35,3 @@ export const toggleDeleteTask = () => ({
 export const toggleQuitTask = () => ({
   type: types.TOGGLE_QUIT_TASK,
 });
-
