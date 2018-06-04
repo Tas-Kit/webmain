@@ -113,6 +113,7 @@ export const mapNodeToStepInfo = data => ({
   assigneeRoles: data.assignees,
   reviewerRoles: data.reviewers,
   optional: data.is_optional,
+  nodeType: data.node_type,
 });
 
 export const mapNodeResponseData = nodes => (

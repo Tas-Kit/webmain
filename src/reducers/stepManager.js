@@ -8,6 +8,7 @@ const initialState = {
   stepId: null,
   stepInfo: {
     name: '',
+    nodeType: '',
     effortTime: '',
     effortUnit: '',
     deadline: '',
