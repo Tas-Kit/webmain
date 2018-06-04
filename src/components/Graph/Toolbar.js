@@ -4,7 +4,7 @@ import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
 
 // contants
-import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, INIT } from '../../constants/colors';
+import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, INIT, SKIPPED } from '../../constants/colors';
 import {
   NORMAL_NODE,
   CHECK_LIST_NODE,
@@ -101,7 +101,12 @@ const Toolbar = (props) => {
 
   const generateNodePrototypes = (nodeTypes = []) => (
     nodeTypes.map((type) => {
-      const svgString = svgStrings[type](INIT);
+      let svgString;
+      if (type === NORMAL_NODE) {
+        svgString = svgStrings[type](INIT);
+      } else {
+        svgString = svgStrings[type](SKIPPED);
+      }
       const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
       return (
         <img src={imageUrl} style={inline.icon} alt="taskSvg" nodetype={type} />
