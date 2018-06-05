@@ -11,7 +11,7 @@ const styles = {
 const InvitationStatus = (props) => {
   const {
     users, roles, userPermission, handleRevokeInvitationClick,
-    handleSuperRoleChange, handleRoleChange, classes,
+    handleSuperRoleChange, handleRoleChange, classes, isLoading,
   } = props;
   return (
     <div className={classes.invitationStatusContainer}>
@@ -24,6 +24,7 @@ const InvitationStatus = (props) => {
           handleRevokeInvitationClick={handleRevokeInvitationClick}
           handleSuperRoleChange={handleSuperRoleChange}
           handleRoleChange={handleRoleChange}
+          isLoading={isLoading}
         />))
       }
     </div>

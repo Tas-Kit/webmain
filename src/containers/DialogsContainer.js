@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
+import { FormattedMessage } from 'react-intl';
 // ui components
 import { PureDisplayDialog, AlertDialog } from '../components/Dialogs';
 
@@ -30,7 +31,6 @@ import * as apiTypes from '../constants/apiTypes';
 // utils
 import { backToMain } from '../utils/functions';
 import { rejectInvitation } from '../utils/api';
-import { FormattedMessage } from 'react-intl';
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;

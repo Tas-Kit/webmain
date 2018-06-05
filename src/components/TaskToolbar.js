@@ -95,13 +95,13 @@ const TaskToolbar = (props) => {
 
         {editMode ?
           <LoadingButton
-            buttonName="Save"
+            buttonName={<FormattedMessage id="saveButton" defaultMessage="Save" />}
             color={TEAL}
             loading={savePending}
             onClick={onGraphSave}
             className={classNames(classes.saveBt)}
           />
-        : null
+          : null
         }
 
         {
