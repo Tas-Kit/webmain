@@ -59,10 +59,12 @@ class GraphService {
         const nodeId = data.nodes[0];
         const node = this.activeData.nodes.get(nodeId);
         const canvasCoord = data.pointer.canvas;
+        // hard code now, TODO put into constants
+        var offset = 120;
         this.updateNode({
           ...node,
-          x: canvasCoord.x,
-          y: canvasCoord.y,
+          x: Math.round(canvasCoord.x / offset) * offset,
+          y: Math.round(canvasCoord.y / offset) * offset,
         });
       }
     });
