@@ -30,6 +30,7 @@ import * as apiTypes from '../constants/apiTypes';
 // utils
 import { backToMain } from '../utils/functions';
 import { rejectInvitation } from '../utils/api';
+import { FormattedMessage } from 'react-intl';
 
 const DialogsContainer = (props) => {
   const { deleteTaskOpen, invitationOpen, quitTaskOpen } = props.dialogManager;
@@ -103,7 +104,7 @@ const DialogsContainer = (props) => {
 
       {/* Invitation Dialog */}
       <PureDisplayDialog
-        title="Invitation"
+        title={<FormattedMessage id="inviteHeading" defaultMessage="Invitation" />}
         open={invitationOpen}
         toggle={toggleInvitation}
       >
@@ -112,7 +113,7 @@ const DialogsContainer = (props) => {
 
       {/* Delete Task Alert Dialog */}
       <AlertDialog
-        title="Delete Task"
+        title={<FormattedMessage id="deleteHeading" defaultMessage="Delete Task" />}
         message={
           <span>Are you sure you want to
             <span style={{ color: PINK }}> permanently </span>
@@ -127,7 +128,7 @@ const DialogsContainer = (props) => {
 
       {/* Quit Task Alert Dialog */}
       <AlertDialog
-        title="Quit Task"
+        title={<FormattedMessage id="quitHeading" defaultMessage="Quit Task" />}
         message={
           <span>Are you sure you want to
             <span style={{ color: PINK }}> permanently </span>

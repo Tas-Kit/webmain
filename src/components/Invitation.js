@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Input } from '@material-ui/core';
 import InvitationStatusContainer from '../containers/InvitationStatusContainer';
 import { LoadingButton } from './Button';
+import { FormattedMessage } from 'react-intl';
 
 
 const styles = {
@@ -45,7 +46,7 @@ const Invitation = (props) => {
         />
         <LoadingButton
           loading={isLoading}
-          buttonName="Invite"
+          buttonName={<FormattedMessage id="inviteButton" defaultMessage="Invite" />}
           className="invite"
           onClick={handleInvitationClick}
           color="primary"
