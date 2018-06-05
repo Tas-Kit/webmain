@@ -12,7 +12,6 @@ import {
 } from '../constants';
 
 import {
-  NODE_COORD_MAP,
   NODE_STATUS_COLOR_MAP,
   START_NODE,
   END_NODE,
@@ -127,13 +126,6 @@ export const mapNodeResponseData = nodes => (
       svgString = svgStrings[node.node_type](color);
     }
     const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-    let canvasCoord;
-    if (node.pos_x && node.pos_y) {
-      canvasCoord = { x: node.pos_x, y: node.pos_y };
-    } else {
-      const DOMCoord = NODE_COORD_MAP[node.node_type];
-      canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
-    }
     return ({
       ...node,
       id: node.sid,
@@ -141,8 +133,8 @@ export const mapNodeResponseData = nodes => (
       shape: 'image',
       image: imageUrl,
       label: node.name,
-      x: canvasCoord.x,
-      y: canvasCoord.y,
+      x: node.pos_x ? node.pos_x : 0.0,
+      y: node.pos_y ? node.pos_y : 0.0,
       size: 40,
     });
   })
