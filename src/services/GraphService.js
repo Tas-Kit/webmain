@@ -29,18 +29,26 @@ class GraphService {
         initiallyActive: false,
         addEdge: (edgeData, callback) => {
           const fromNodeId = edgeData.from;
-          const node = this.activeData.nodes.get(fromNodeId);
-          const nodeStatusColor = NODE_STATUS_COLOR_MAP[node.status];
-          const newEdgeData = {
-            ...edgeData,
-            color: {
-              color: nodeStatusColor,
-              highlight: nodeStatusColor,
-            },
-          };
-          callback(newEdgeData);
-          const graphData = JSON.parse(JSON.stringify(this.activeData));
-          dispatch(graphActions.updateGraphDataJson(graphData));
+          const toNodeId = edgeData.to;
+          const edges = this.activeData.edges.get({
+            filter: items => (items.to === toNodeId && items.from === fromNodeId)
+              || (items.to === fromNodeId && items.from === toNodeId),
+          });
+          const selfConnection = fromNodeId === toNodeId;
+          if (edges.length === 0 && !selfConnection) {
+            const fromNode = this.activeData.nodes.get(fromNodeId);
+            const nodeStatusColor = NODE_STATUS_COLOR_MAP[fromNode.status];
+            const newEdgeData = {
+              ...edgeData,
+              color: {
+                color: nodeStatusColor,
+                highlight: nodeStatusColor,
+              },
+            };
+            callback(newEdgeData);
+            const graphData = JSON.parse(JSON.stringify(this.activeData));
+            dispatch(graphActions.updateGraphDataJson(graphData));
+          }
         },
       },
     };
