@@ -6,6 +6,7 @@ import { Switch } from '../components/Switch';
 // actions
 import * as currentUserActions from '../actions/currentUserActions';
 import * as snackbarActions from '../actions/snackbarActions';
+import * as graphActions from '../actions/graphActions';
 
 // services
 import gs from '../services/GraphService';
@@ -20,7 +21,10 @@ import * as apiTypes from '../constants/apiTypes';
 const EditSwitchContainer = (props) => {
   const { editMode } = props.currentUserManager;
   const { tasksMap, taskId } = props.taskManager;
-  const { toggleEditMode, updateMessage } = props.actions;
+  const {
+    toggleEditMode, updateMessage,
+    setGraphDataOrigin, updateGraphDataJson,
+  } = props.actions;
   let isEditor = false;
   if (Object.prototype.hasOwnProperty.call(tasksMap, taskId)) {
     const superRole = tasksMap[taskId].has_task.super_role;
@@ -39,10 +43,18 @@ const EditSwitchContainer = (props) => {
         .then((success) => {
           if (success) {
             updateMessage('Graph saved successfully.');
+            // save original graph data for checking unsaved changes
+            const graphDataOrigin = gs.activeData;
+            setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
+            updateGraphDataJson(JSON.parse(JSON.stringify(graphDataOrigin)));
           }
         })
         .catch(() => {
           updateMessage('Save graph failed.');
+          // save original graph data for checking unsaved changes
+          const graphDataOrigin = gs.activeData;
+          setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
+          updateGraphDataJson(JSON.parse(JSON.stringify(graphDataOrigin)));
         });
     }
     toggleEditMode();
@@ -66,7 +78,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...currentUserActions, ...snackbarActions }, dispatch),
+  actions: bindActionCreators({ ...currentUserActions, ...snackbarActions, ...graphActions }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditSwitchContainer);

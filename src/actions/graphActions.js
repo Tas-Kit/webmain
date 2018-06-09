@@ -13,3 +13,13 @@ export const setNodeCanvasCoord = coord => ({
 export const toggleAddEdgeButton = () => ({
   type: types.TOGGLE_ADD_EDGE_BUTTON,
 });
+
+export const setGraphDataOrigin = graphDataOrigin => ({
+  type: types.SET_GRAPH_DATA_ORIGIN,
+  graphDataOrigin,
+});
+
+export const updateGraphDataJson = graphData => ({
+  type: types.UPDATE_GRAPH_DATA_JSON,
+  graphData,
+});
