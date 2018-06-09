@@ -60,7 +60,7 @@ export const mapStepInfoToNode = data => ({
   assignees: data.assigneeRoles,
   deadline: data.deadline,
   expected_effort_num: data.effortTime,
-  expected_effort_unit: data.effortUnit,
+  expected_effort_unit: TIME_UNITS_MAP[data.effortUnit],
   is_optional: data.optional,
   id: data.id,
   x: data.x,
@@ -95,7 +95,7 @@ export const mapNodeToRequestData = data => ({
   node_type: data.node_type,
   deadline: (data.deadline === '' || data.deadline === null) ? null : (new Date(data.deadline)).toISOString(),
   expected_effort_unit: (data.expected_effort_unit === '' || data.expected_effort_unit === null) ?
-    null : TIME_UNITS_MAP[data.expected_effort_unit],
+    null : data.expected_effort_unit,
   sid: data.id,
   is_optional: data.is_optional,
   expected_effort_num: (data.expected_effort_num === '' || data.expected_effort_num === null)
@@ -106,7 +106,7 @@ export const mapNodeToRequestData = data => ({
 export const mapNodeToStepInfo = data => ({
   name: data.label,
   effortTime: data.expected_effort_num || '',
-  effortUnit: data.expected_effort_unit || '',
+  effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
   deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
   status: STATUS_MAP_TWO[data.status],
   description: data.description || '',
