@@ -38,9 +38,6 @@ class GraphViewerContainer extends React.Component {
         } = this.props.actions;
         const { editMode } = this.props.currentUserManager;
         const nodeData = gs.getNode(nodeId);
-        // if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
-        //   updateMessage('No step information on start or end node.');
-        // } else {
         const isStartEnd = nodeData.node_type === START_NODE || nodeData.node_type === END_NODE;
         setIsStartEnd(isStartEnd);
         const newStepInfo = mapNodeToStepInfo(nodeData);

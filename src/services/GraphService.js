@@ -3,7 +3,7 @@ import 'vis/dist/vis-network.min.css';
 import redux from './ReduxService';
 import networkOptions from '../constants/networkOptions';
 import { getAdaptedWidth, getAdaptedHeight } from '../utils/functions';
-import { NODE_STATUS_COLOR_MAP } from '../constants/nodes';
+import { NODE_STATUS_COLOR_MAP, NODE_OFFSET } from '../constants/nodes';
 
 const { DataSet, Network } = vis;
 
@@ -59,8 +59,7 @@ class GraphService {
         const nodeId = data.nodes[0];
         const node = this.activeData.nodes.get(nodeId);
         const canvasCoord = data.pointer.canvas;
-        // hard code now, TODO put into constants
-        var offset = 120;
+        const offset = NODE_OFFSET;
         this.updateNode({
           ...node,
           x: Math.round(canvasCoord.x / offset) * offset,
