@@ -62,8 +62,6 @@ class StepEditorDialogContainer extends React.Component {
     const { toggleStepEditor } = this.props.actions;
     return (
       <FormDialog
-        isStep
-        isEditor
         title="Step Editor"
         hints="To edit a step, please fill in the fields below."
         openState={stepEditorOpen}

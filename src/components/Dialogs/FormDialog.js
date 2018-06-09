@@ -52,16 +52,9 @@ class FormDialog extends React.Component {
   }
 
   renderUnsavedChanges = () => {
-    const { isEditor, isTask, isStep } = this.props;
-    let hasUnsaved = false;
-    if (isTask) {
-      const { taskInfo, originalTaskInfo } = this.props.taskManager;
-      hasUnsaved = JSON.stringify(originalTaskInfo) !== JSON.stringify(taskInfo);
-    }
-    if (isStep) {
-      const { stepInfo, originalStepInfo } = this.props.stepManager;
-      hasUnsaved = JSON.stringify(stepInfo) !== JSON.stringify(originalStepInfo);
-    }
+    const { isEditor } = this.props;
+    const { taskInfo, originalTaskInfo } = this.props.taskManager;
+    const hasUnsaved = JSON.stringify(originalTaskInfo) !== JSON.stringify(taskInfo);
     if (isEditor && hasUnsaved) {
       return ' (Unsaved changes)';
     }
@@ -126,17 +119,14 @@ class FormDialog extends React.Component {
 }
 
 FormDialog.defaultProps = {
-  isTask: false,
-  isStep: false,
   isEditor: false,
   hints: '',
   disableButtons: false,
   loading: false,
 };
 
-const mapStateToProps = ({ taskManager, stepManager }) => ({
+const mapStateToProps = ({ taskManager }) => ({
   taskManager,
-  stepManager,
 });
 
 export default connect(mapStateToProps)(FormDialog);

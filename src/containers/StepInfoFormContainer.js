@@ -6,26 +6,20 @@ import StepInfoForm from '../components/StepInfoForm';
 // redux actions
 import * as stepActions from '../actions/stepActions';
 
-class StepInfoFormContainer extends React.Component {
-  componentDidMount = () => {
-    const { stepInfo } = this.props.stepManager;
-    this.props.actions.setStepInfoOrigin(stepInfo);
-  }
-
-  render = () => {
-    const { stepInfo, isStartEnd } = this.props.stepManager;
-    const { roles } = this.props.taskManager.taskInfo;
-    const { updateStepInfo } = this.props.actions;
-    return (
-      <StepInfoForm
-        roles={roles}
-        info={stepInfo}
-        update={updateStepInfo}
-        isStartEnd={isStartEnd}
-      />
-    );
-  }
-}
+const StepInfoFormContainer = (props) => {
+  const { stepInfo, isStartEnd } = props.stepManager;
+  console.log(props.stepManager);
+  const { roles } = props.taskManager.taskInfo;
+  const { updateStepInfo } = props.actions;
+  return (
+    <StepInfoForm
+      roles={roles}
+      info={stepInfo}
+      update={updateStepInfo}
+      isStartEnd={isStartEnd}
+    />
+  );
+};
 
 const mapStateToProps = ({ taskManager, stepManager, dialogManager }) => ({
   taskManager,

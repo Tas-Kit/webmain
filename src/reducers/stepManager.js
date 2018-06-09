@@ -20,7 +20,6 @@ const initialState = {
   },
   triggerPending: false,
   isStartEnd: false,
-  originalStepInfo: null, // the original step info object for checking unsaved changes
 };
 
 const handleRequest = (request, state) => {
@@ -64,9 +63,6 @@ const stepManager = (state = initialState, action = {}) => {
     }
     case types.SET_IS_START_END: {
       return { ...state, isStartEnd: action.flag };
-    }
-    case types.SET_STEP_INFO_ORIGIN: {
-      return { ...state, originalStepInfo: action.stepInfo };
     }
     default:
       return state;
