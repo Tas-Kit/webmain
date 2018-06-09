@@ -18,3 +18,8 @@ export const setIsStartEnd = isStartEnd => ({
   type: types.SET_IS_START_END,
   flag: isStartEnd,
 });
+
+export const setStepInfoOrigin = stepInfo => ({
+  type: types.SET_STEP_INFO_ORIGIN,
+  stepInfo,
+});

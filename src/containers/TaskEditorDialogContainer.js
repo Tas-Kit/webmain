@@ -60,6 +60,7 @@ class TaskEditorDialogContainer extends React.Component {
     const { toggleTaskEditor } = this.props.actions;
     return (
       <FormDialog
+        isTask
         isEditor
         title="Task Editor"
         hints="To edit a task, please fill in the fields below."
