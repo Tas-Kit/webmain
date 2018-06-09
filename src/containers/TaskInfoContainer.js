@@ -7,23 +7,16 @@ import TaskInfo from '../components/TaskInfo';
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 
-class TaskInfoContainer extends React.Component {
-  componentDidMount = () => {
-    const { taskInfo } = this.props.taskManager;
-    this.props.actions.setTaskInfoOrigin(taskInfo);
-  }
-
-  render() {
-    const { taskInfo } = this.props.taskManager;
-    const { updateTaskInfo } = this.props.actions;
-    return (
-      <TaskInfo
-        info={taskInfo}
-        update={updateTaskInfo}
-      />
-    );
-  }
-}
+const TaskInfoContainer = (props) => {
+  const { taskInfo } = props.taskManager;
+  const { updateTaskInfo } = props.actions;
+  return (
+    <TaskInfo
+      info={taskInfo}
+      update={updateTaskInfo}
+    />
+  );
+};
 
 const mapStateToProps = ({ taskManager, dialogManager }) => ({
   taskManager,
