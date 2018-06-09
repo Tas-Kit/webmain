@@ -11,6 +11,7 @@ import { FormDialog } from '../components/Dialogs';
 import * as dialogActions from '../actions/dialogActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
+import * as graphActions from '../actions/graphActions';
 
 // services
 import gs from '../services/GraphService';
@@ -42,6 +43,7 @@ class StepCreatorDialogContainer extends React.Component {
       };
       const nodeToAdd = mapStepInfoToNode(stepNode);
       gs.addNode(nodeToAdd);
+      this.props.actions.updateGraphDataJson(JSON.parse(JSON.stringify(gs.activeData)));
       return new Promise((resolve) => { resolve(); }).then(() => true);
     }
     return new Promise((resolve) => {
@@ -77,7 +79,12 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
+  actions: bindActionCreators({
+    ...dialogActions,
+    ...snackbarActions,
+    ...taskActions,
+    ...graphActions,
+  }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepCreatorDialogContainer);

@@ -7,6 +7,14 @@ const initialState = {
   addEdgeSelected: false,
   draggingNodeType: '',
   canvasCoord: { x: 0, y: 0 },
+  graphDataOrigin: {
+    nodes: [],
+    edges: [],
+  },
+  currentGraphData: {
+    nodes: [],
+    edges: [],
+  },
 };
 
 const handleRequest = (request, state) => {
@@ -47,6 +55,12 @@ const graphManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_ADD_EDGE_BUTTON: {
       return { ...state, addEdgeSelected: !state.addEdgeSelected };
+    }
+    case types.SET_GRAPH_DATA_ORIGIN: {
+      return { ...state, graphDataOrigin: action.graphDataOrigin };
+    }
+    case types.UPDATE_GRAPH_DATA_JSON: {
+      return { ...state, currentGraphData: action.graphData };
     }
     default:
       return state;
