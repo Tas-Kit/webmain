@@ -25,6 +25,7 @@ const initialState = {
   quitPending: false,
   pending: false, // use it only when creating or loading a task
   pendingRequestId: -1,
+  originalTaskInfo: null, // the original task info object for checking unsaved changes
 };
 
 const handleRequest = (request, state) => {
@@ -159,6 +160,9 @@ const taskManager = (state = initialState, action = {}) => {
         taskUsers: (state.taskUsers
           .filter(item => item.basic.uid !== action.userId)),
       };
+    }
+    case types.SET_TASK_INFO_ORIGIN: {
+      return { ...state, originalTaskInfo: action.taskInfo };
     }
     default:
       return state;
