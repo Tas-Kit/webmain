@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 // ui components
 import Button from '@material-ui/core/Button';
@@ -15,7 +14,6 @@ import Close from '@material-ui/icons/Close';
 
 // constants
 import { DIALOG_MESSAGE } from '../../constants';
-import { PINK } from '../../constants/colors';
 
 import { LoadingButton } from '../Button';
 
@@ -38,27 +36,18 @@ const inline = {
     position: 'relative',
     bottom: 10,
   },
-  unsaved: {
-    color: PINK,
-  },
 };
 
 class FormDialog extends React.Component {
+  componentDidMount = () => {
+    this.props.mountMethod();
+  }
+
   handleSave = () => {
     this.props.onSave()
       .then((success) => {
         if (success) this.props.toggle();
       });
-  }
-
-  renderUnsavedChanges = () => {
-    const { isEditor } = this.props;
-    const { taskInfo, originalTaskInfo } = this.props.taskManager;
-    const hasUnsaved = JSON.stringify(originalTaskInfo) !== JSON.stringify(taskInfo);
-    if (isEditor && hasUnsaved) {
-      return ' (Unsaved changes)';
-    }
-    return null;
   }
 
   render() {
@@ -79,7 +68,6 @@ class FormDialog extends React.Component {
       >
         <DialogTitle id="form-dialog-title">
           <span>{title}</span>
-          <span style={inline.unsaved}>{this.renderUnsavedChanges()}</span>
           <IconButton
             color="default"
             style={inline.iconButton}
@@ -119,14 +107,10 @@ class FormDialog extends React.Component {
 }
 
 FormDialog.defaultProps = {
-  isEditor: false,
+  mountMethod: () => {},
   hints: '',
   disableButtons: false,
   loading: false,
 };
 
-const mapStateToProps = ({ taskManager }) => ({
-  taskManager,
-});
-
-export default connect(mapStateToProps)(FormDialog);
+export default FormDialog;

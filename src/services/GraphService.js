@@ -1,9 +1,10 @@
 import vis from 'vis/dist/vis.min';
 import 'vis/dist/vis-network.min.css';
-import redux from './ReduxService';
+import redux, { dispatch } from './ReduxService';
 import networkOptions from '../constants/networkOptions';
 import { getAdaptedWidth, getAdaptedHeight } from '../utils/functions';
-import { NODE_STATUS_COLOR_MAP, NODE_SIZE } from '../constants/nodes';
+import { NODE_STATUS_COLOR_MAP, NODE_OFFSET } from '../constants/nodes';
+import * as graphActions from '../actions/graphActions';
 
 const { DataSet, Network } = vis;
 
@@ -31,10 +32,10 @@ class GraphService {
           const toNodeId = edgeData.to;
           const edges = this.activeData.edges.get({
             filter: items => (items.to === toNodeId && items.from === fromNodeId)
-              || (items.to === fromNodeId && items.from === toNodeId)
-              || (items.from === fromNodeId && items.to === fromNodeId),
+              || (items.to === fromNodeId && items.from === toNodeId),
           });
-          if (edges.length === 0) {
+          const selfConnection = fromNodeId === toNodeId;
+          if (edges.length === 0 && !selfConnection) {
             const fromNode = this.activeData.nodes.get(fromNodeId);
             const nodeStatusColor = NODE_STATUS_COLOR_MAP[fromNode.status];
             const newEdgeData = {
@@ -45,6 +46,8 @@ class GraphService {
               },
             };
             callback(newEdgeData);
+            const graphData = JSON.parse(JSON.stringify(this.activeData));
+            dispatch(graphActions.updateGraphDataJson(graphData));
           }
         },
       },
@@ -67,12 +70,14 @@ class GraphService {
         const nodeId = data.nodes[0];
         const node = this.activeData.nodes.get(nodeId);
         const canvasCoord = data.pointer.canvas;
-        const offset = NODE_SIZE * 3;
+        const offset = NODE_OFFSET;
         this.updateNode({
           ...node,
           x: Math.round(canvasCoord.x / offset) * offset,
           y: Math.round(canvasCoord.y / offset) * offset,
         });
+        const graphData = JSON.parse(JSON.stringify(this.activeData));
+        dispatch(graphActions.updateGraphDataJson(graphData));
       }
     });
 

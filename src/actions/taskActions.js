@@ -46,8 +46,3 @@ export const removeUser = userId => ({
   type: types.REMOVE_USER,
   userId,
 });
-
-export const setTaskInfoOrigin = taskInfo => ({
-  type: types.SET_TASK_INFO_ORIGIN,
-  taskInfo,
-});

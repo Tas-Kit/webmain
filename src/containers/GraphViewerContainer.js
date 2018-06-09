@@ -48,7 +48,6 @@ class GraphViewerContainer extends React.Component {
         } else {
           toggleStepViewer();
         }
-        // }
       }
     });
 
@@ -59,6 +58,11 @@ class GraphViewerContainer extends React.Component {
     gs.addNode(nodes);
     gs.addEdge(edges);
     gs.fit();
+
+    // save original graph data for checking unsaved changes
+    const graphDataOrigin = gs.activeData;
+    this.props.actions.setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
+    this.props.actions.updateGraphDataJson(JSON.parse(JSON.stringify(graphDataOrigin)));
   }
 
   handleDrop = (e) => {
