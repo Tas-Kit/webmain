@@ -15,6 +15,7 @@ import {
   NODE_STATUS_COLOR_MAP,
   START_NODE,
   END_NODE,
+  NODE_SIZE,
 } from '../constants/nodes';
 
 import * as svgStrings from '../assets/svgStrings';
@@ -67,7 +68,7 @@ export const mapStepInfoToNode = data => ({
   node_type: data.node_type,
   image: data.image,
   shape: 'image',
-  size: 40,
+  size: NODE_SIZE,
 });
 
 
@@ -135,7 +136,7 @@ export const mapNodeResponseData = nodes => (
       label: node.name,
       x: node.pos_x ? node.pos_x : 0.0,
       y: node.pos_y ? node.pos_y : 0.0,
-      size: 40,
+      size: NODE_SIZE,
     });
   })
 );
