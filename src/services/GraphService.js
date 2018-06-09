@@ -32,10 +32,10 @@ class GraphService {
           const toNodeId = edgeData.to;
           const edges = this.activeData.edges.get({
             filter: items => (items.to === toNodeId && items.from === fromNodeId)
-              || (items.to === fromNodeId && items.from === toNodeId)
-              || (items.from === fromNodeId && items.to === fromNodeId),
+              || (items.to === fromNodeId && items.from === toNodeId),
           });
-          if (edges.length === 0) {
+          const selfConnection = fromNodeId === toNodeId;
+          if (edges.length === 0 && !selfConnection) {
             const fromNode = this.activeData.nodes.get(fromNodeId);
             const nodeStatusColor = NODE_STATUS_COLOR_MAP[fromNode.status];
             const newEdgeData = {
