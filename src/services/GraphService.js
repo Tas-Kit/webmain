@@ -1,9 +1,10 @@
 import vis from 'vis/dist/vis.min';
 import 'vis/dist/vis-network.min.css';
-import redux from './ReduxService';
+import redux, { dispatch } from './ReduxService';
 import networkOptions from '../constants/networkOptions';
 import { getAdaptedWidth, getAdaptedHeight } from '../utils/functions';
 import { NODE_STATUS_COLOR_MAP, NODE_OFFSET } from '../constants/nodes';
+import * as graphActions from '../actions/graphActions';
 
 const { DataSet, Network } = vis;
 
@@ -38,6 +39,8 @@ class GraphService {
             },
           };
           callback(newEdgeData);
+          const graphData = JSON.parse(JSON.stringify(this.activeData));
+          dispatch(graphActions.updateGraphDataJson(graphData));
         },
       },
     };
@@ -65,6 +68,8 @@ class GraphService {
           x: Math.round(canvasCoord.x / offset) * offset,
           y: Math.round(canvasCoord.y / offset) * offset,
         });
+        const graphData = JSON.parse(JSON.stringify(this.activeData));
+        dispatch(graphActions.updateGraphDataJson(graphData));
       }
     });
 
