@@ -11,10 +11,8 @@ export const JOIN_NODE = 'j';
 export const MULTIPLE_CHOICE_NODE = 'mc';
 export const SUB_TASK_NODE = 'st';
 
-export const NODE_COORD_MAP = {
-  s: { x: 60, y: (window.innerHeight - 128) / 2 },
-  e: { x: window.innerWidth - 300, y: (window.innerHeight - 128) / 2 },
-};
+export const NODE_SIZE = 40;
+export const NODE_OFFSET = NODE_SIZE * 4;
 
 export const NODE_STATUS_COLOR_MAP = {
   n: '#4f86cc',
@@ -25,8 +23,8 @@ export const NODE_STATUS_COLOR_MAP = {
 };
 
 export default {
-  NODE_COORD_MAP,
   NORMAL_NODE,
   START_NODE,
   END_NODE,
+  NODE_SIZE,
 };

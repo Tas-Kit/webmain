@@ -38,9 +38,6 @@ class GraphViewerContainer extends React.Component {
         } = this.props.actions;
         const { editMode } = this.props.currentUserManager;
         const nodeData = gs.getNode(nodeId);
-        // if (nodeData.node_type === START_NODE || nodeData.node_type === END_NODE) {
-        //   updateMessage('No step information on start or end node.');
-        // } else {
         const isStartEnd = nodeData.node_type === START_NODE || nodeData.node_type === END_NODE;
         setIsStartEnd(isStartEnd);
         const newStepInfo = mapNodeToStepInfo(nodeData);
@@ -51,7 +48,6 @@ class GraphViewerContainer extends React.Component {
         } else {
           toggleStepViewer();
         }
-        // }
       }
     });
 
@@ -62,6 +58,11 @@ class GraphViewerContainer extends React.Component {
     gs.addNode(nodes);
     gs.addEdge(edges);
     gs.fit();
+
+    // save original graph data for checking unsaved changes
+    const graphDataOrigin = gs.activeData;
+    this.props.actions.setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
+    this.props.actions.updateGraphDataJson(JSON.parse(JSON.stringify(graphDataOrigin)));
   }
 
   handleDrop = (e) => {

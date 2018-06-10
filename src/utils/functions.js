@@ -12,10 +12,10 @@ import {
 } from '../constants';
 
 import {
-  NODE_COORD_MAP,
   NODE_STATUS_COLOR_MAP,
   START_NODE,
   END_NODE,
+  NODE_SIZE,
 } from '../constants/nodes';
 
 import * as svgStrings from '../assets/svgStrings';
@@ -60,7 +60,7 @@ export const mapStepInfoToNode = data => ({
   assignees: data.assigneeRoles,
   deadline: data.deadline,
   expected_effort_num: data.effortTime,
-  expected_effort_unit: data.effortUnit,
+  expected_effort_unit: TIME_UNITS_MAP[data.effortUnit],
   is_optional: data.optional,
   id: data.id,
   x: data.x,
@@ -68,7 +68,7 @@ export const mapStepInfoToNode = data => ({
   node_type: data.node_type,
   image: data.image,
   shape: 'image',
-  size: 40,
+  size: NODE_SIZE,
 });
 
 
@@ -95,7 +95,7 @@ export const mapNodeToRequestData = data => ({
   node_type: data.node_type,
   deadline: (data.deadline === '' || data.deadline === null) ? null : (new Date(data.deadline)).toISOString(),
   expected_effort_unit: (data.expected_effort_unit === '' || data.expected_effort_unit === null) ?
-    null : TIME_UNITS_MAP[data.expected_effort_unit],
+    null : data.expected_effort_unit,
   sid: data.id,
   is_optional: data.is_optional,
   expected_effort_num: (data.expected_effort_num === '' || data.expected_effort_num === null)
@@ -106,7 +106,7 @@ export const mapNodeToRequestData = data => ({
 export const mapNodeToStepInfo = data => ({
   name: data.label,
   effortTime: data.expected_effort_num || '',
-  effortUnit: data.expected_effort_unit || '',
+  effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
   deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
   status: STATUS_MAP_TWO[data.status],
   description: data.description || '',
@@ -127,13 +127,6 @@ export const mapNodeResponseData = nodes => (
       svgString = svgStrings[node.node_type](color);
     }
     const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-    let canvasCoord;
-    if (node.pos_x && node.pos_y) {
-      canvasCoord = { x: node.pos_x, y: node.pos_y };
-    } else {
-      const DOMCoord = NODE_COORD_MAP[node.node_type];
-      canvasCoord = gs.network.DOMtoCanvas(DOMCoord);
-    }
     return ({
       ...node,
       id: node.sid,
@@ -141,9 +134,9 @@ export const mapNodeResponseData = nodes => (
       shape: 'image',
       image: imageUrl,
       label: node.name,
-      x: canvasCoord.x,
-      y: canvasCoord.y,
-      size: 40,
+      x: node.pos_x ? node.pos_x : 0.0,
+      y: node.pos_y ? node.pos_y : 0.0,
+      size: NODE_SIZE,
     });
   })
 );

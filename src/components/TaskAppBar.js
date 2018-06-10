@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 
 import { APP_BAR_TITLE } from '../constants';
+import { PINK } from '../constants/colors';
 
 const styles = {
   appBar: {
@@ -13,15 +15,39 @@ const styles = {
   flex: {
     flex: 1,
   },
+  unsaved: {
+    color: PINK,
+  },
 };
 
 const TaskAppBar = (props) => {
   const { title = '', classes } = props;
+  const renderTitle = () => {
+    if (title === '') {
+      return 'Task List';
+    }
+    const { editMode } = props.currentUserManager;
+    const { graphDataOrigin, currentGraphData } = props.graphManager;
+    console.log(graphDataOrigin);
+    console.log(currentGraphData);
+    const unsaved = JSON.stringify(graphDataOrigin) !== JSON.stringify(currentGraphData);
+    if (unsaved && editMode) {
+      return (
+        <div>{title}<span className={classes.unsaved}> (Unsaved changes)</span></div>
+      );
+    }
+    return `${title}`;
+  };
   return (
     <AppBar className={classes.appBar} position="static" color="default">
-      {title === '' ? 'Task List' : title}
+      {renderTitle()}
     </AppBar>
   );
 };
 
-export default withStyles(styles)(TaskAppBar);
+const mapStateToProps = store => ({
+  graphManager: store.graphManager,
+  currentUserManager: store.currentUserManager,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(TaskAppBar));

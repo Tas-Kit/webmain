@@ -73,6 +73,13 @@ class StepInfoView extends React.Component {
     update({ ...info, [key]: e.target.checked });
   }
 
+  renderExpectedEfforts = (info) => {
+    if (info.effortTime === '' && info.effortUnit === '') {
+      return null;
+    }
+    return `${info.effortTime} ${info.effortUnit}(s)`;
+  }
+
   render() {
     const {
       info,
@@ -96,7 +103,7 @@ class StepInfoView extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Expected Effort:</span>
-          <span style={inline.fieldContent}>{`${info.effortTime} ${info.effortUnit}`}</span>
+          <span style={inline.fieldContent}>{this.renderExpectedEfforts(info)}</span>
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>Description:</span>
