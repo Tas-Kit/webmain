@@ -12,6 +12,7 @@ import InvitationContainer from './InvitationContainer';
 import TaskCreatorDialogContainer from './TaskCreatorDialogContainer';
 import TaskEditorDialogContainer from './TaskEditorDialogContainer';
 import TaskViewerDialogContainer from './TaskViewerDialogContainer';
+import TaskClonerDialogContainer from './TaskClonerDialogContainer';
 import StepCreatorDialogContainer from './StepCreatorDialogContainer';
 import StepEditorDialogContainer from './StepEditorDialogContainer';
 import StepViewerDialogContainer from './StepViewerDialogContainer';
@@ -92,6 +93,9 @@ const DialogsContainer = (props) => {
 
       {/* Task Viewer */}
       <TaskViewerDialogContainer />
+
+      {/* Task Cloner */}
+      <TaskClonerDialogContainer />
 
       {/* Step Creator */}
       <StepCreatorDialogContainer />

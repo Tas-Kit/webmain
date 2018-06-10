@@ -23,7 +23,7 @@ import { ACCEPTANCE } from '../constants';
 const TaskToolbarContainer = (props) => {
   const {
     toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask, toggleTaskSavePending,
-    updateMessage, toggleTaskViewer,
+    updateMessage, toggleTaskViewer, toggleTaskCloner,
   } = props.actions;
   const {
     taskUsers, tasks, taskId, savePending,
@@ -59,6 +59,7 @@ const TaskToolbarContainer = (props) => {
       userSuperRole={userPermission.super_role}
       toggleTaskEditor={toggleTaskEditor}
       toggleTaskViewer={toggleTaskViewer}
+      toggleTaskCloner={toggleTaskCloner}
       toggleDeleteTask={toggleDeleteTask}
       toggleInvitation={toggleInvitation}
       toggleQuitTask={toggleQuitTask}

@@ -1,15 +1,21 @@
 import * as types from '../constants/actions';
 
 const initialState = {
+  // task related
   taskCreatorOpen: false,
   taskEditorOpen: false,
   taskViewerOpen: false,
+  taskClonerOpen: false,
+  deleteTaskOpen: false,
+  quitTaskOpen: false,
+
+  // step related
   stepCreatorOpen: false,
   stepEditorOpen: false,
   stepViewerOpen: false,
+
+  // others
   invitationOpen: false,
-  deleteTaskOpen: false,
-  quitTaskOpen: false,
 };
 
 const dialogManager = (state = initialState, action = {}) => {
@@ -20,6 +26,8 @@ const dialogManager = (state = initialState, action = {}) => {
       return { ...state, taskEditorOpen: !state.taskEditorOpen };
     case types.TOGGLE_TASK_VIEWER:
       return { ...state, taskViewerOpen: !state.taskViewerOpen };
+    case types.TOGGLE_TASK_CLONER:
+      return { ...state, taskClonerOpen: !state.taskClonerOpen };
     case types.TOGGLE_STEP_CREATOR:
       return { ...state, stepCreatorOpen: !state.stepCreatorOpen };
     case types.TOGGLE_STEP_EDITOR:

@@ -64,6 +64,7 @@ const TaskToolbar = (props) => {
     toggleDeleteTask,
     toggleTaskEditor,
     toggleTaskViewer,
+    toggleTaskCloner,
     toggleInvitation,
     toggleQuitTask,
     onGraphSave,
@@ -88,6 +89,7 @@ const TaskToolbar = (props) => {
         </Button>
         <Button
           key="clone"
+          onClick={toggleTaskCloner}
           className={classNames(classes.cloneBt)}
         >
           <FormattedMessage id="cloneButton" defaultMessage="Clone" />
