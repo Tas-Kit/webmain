@@ -16,7 +16,7 @@ class InvitationStatusContainer extends React.Component {
 
   hanldeRevokeInvitationClick = uid => () => {
     const {
-      // toggleTaskActionPending,
+      toggleInvitationStatusPending,
       updateMessage,
       removeUser,
     } = this.props.actions;
@@ -24,15 +24,18 @@ class InvitationStatusContainer extends React.Component {
     const payload = {
       uid,
     };
+    toggleInvitationStatusPending();
     revokeInvitation(tid, payload)
       .then((success) => {
         if (success) {
           removeUser(uid);
           updateMessage('Invitation was revoked successfully');
         }
+        toggleInvitationStatusPending();
       })
       .catch(() => {
         updateMessage('Revoke invitation failed');
+        toggleInvitationStatusPending();
       });
   };
 
@@ -40,6 +43,7 @@ class InvitationStatusContainer extends React.Component {
     const {
       setUserSuperRole,
       updateMessage,
+      toggleInvitationStatusPending,
     } = this.props.actions;
     const { taskId: tid, taskUsers } = this.props.taskManager;
     const payload = {
@@ -48,6 +52,7 @@ class InvitationStatusContainer extends React.Component {
     };
     const currentOwner = taskUsers
       .find(element => element.has_task.super_role === SUPER_ROLE.OWNER);
+    toggleInvitationStatusPending();
     changeUserSuperRole(tid, payload)
       .then((success) => {
         if (success) {
@@ -56,12 +61,12 @@ class InvitationStatusContainer extends React.Component {
           if (payload.super_role === SUPER_ROLE.OWNER) {
             setUserSuperRole(currentOwner.basic.uid, SUPER_ROLE.ADMIN);
           }
-          // toggleTaskActionPending();
+          toggleInvitationStatusPending();
         }
       })
       .catch(() => {
         updateMessage('Change super role failed');
-        // toggleTaskActionPending();
+        toggleInvitationStatusPending();
       });
   };
 
@@ -69,27 +74,31 @@ class InvitationStatusContainer extends React.Component {
     const {
       setUserRole,
       updateMessage,
+      toggleInvitationStatusPending,
     } = this.props.actions;
     const { taskId: tid } = this.props.taskManager;
     const payload = {
       uid,
       role: e.target.value,
     };
+    toggleInvitationStatusPending();
     changeUserRole(tid, payload)
       .then((success) => {
         if (success) {
           setUserRole(payload.uid, payload.role);
           updateMessage('Role was successfully changed');
         }
+        toggleInvitationStatusPending();
       })
       .catch(() => {
         updateMessage('Change role failed');
+        toggleInvitationStatusPending();
       });
   };
 
   render() {
     const {
-      taskInfo, tasks, taskId, taskUsers,
+      taskInfo, tasks, taskId, taskUsers, invitationStatusPending,
     } = this.props.taskManager;
     const activeTask = tasks.find(task => task.info.tid === taskId);
     const userPermission = activeTask ? activeTask.permission : {};
@@ -102,6 +111,7 @@ class InvitationStatusContainer extends React.Component {
         handleRevokeInvitationClick={this.hanldeRevokeInvitationClick}
         handleSuperRoleChange={this.handleSuperRoleChange}
         handleRoleChange={this.handleRoleChange}
+        isLoading={invitationStatusPending}
       />
     );
   }

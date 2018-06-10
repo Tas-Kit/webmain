@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Input } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
 import InvitationStatusContainer from '../containers/InvitationStatusContainer';
 import { LoadingButton } from './Button';
 
@@ -42,10 +43,11 @@ const Invitation = (props) => {
           value={usernameToInvite}
           onChange={handleUsernameToInviteChange}
           fullWidth
+          disabled={isLoading}
         />
         <LoadingButton
           loading={isLoading}
-          buttonName="Invite"
+          buttonName={<FormattedMessage id="inviteButton" defaultMessage="Invite" />}
           className="invite"
           onClick={handleInvitationClick}
           color="primary"

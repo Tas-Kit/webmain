@@ -31,8 +31,8 @@ const styles = {
 
 const UserStatusRow = (props) => {
   const {
-    user, roles, handleRevokeInvitationClick,
-    userPermission, handleSuperRoleChange, handleRoleChange, classes,
+    user, roles, handleRevokeInvitationClick, userPermission,
+    handleSuperRoleChange, handleRoleChange, isLoading, classes,
   } = props;
   const { username, uid: userId } = user.basic;
   const {
@@ -48,7 +48,7 @@ const UserStatusRow = (props) => {
           value={superRole}
           onChange={handleSuperRoleChange(userId)}
           disabled={userPermission.super_role !== SUPER_ROLE.OWNER
-            || superRole === SUPER_ROLE.OWNER}
+            || superRole === SUPER_ROLE.OWNER || isLoading}
         >
           {Object.keys(SUPER_ROLE).map(key => (
             <MenuItem key={key} value={SUPER_ROLE[key]}>
@@ -61,7 +61,7 @@ const UserStatusRow = (props) => {
         <Select
           value={role || 'none'}
           onChange={handleRoleChange(userId)}
-          disabled={userPermission.super_role === SUPER_ROLE.STANDARD}
+          disabled={userPermission.super_role === SUPER_ROLE.STANDARD || isLoading}
         >
           {roles.length ?
             roles.map(el => (<MenuItem key={el} value={el}>{el}</MenuItem>))
@@ -80,7 +80,8 @@ const UserStatusRow = (props) => {
           onClick={handleRevokeInvitationClick(userId)}
           disabled={userPermission.super_role === SUPER_ROLE.STANDARD
             || (userPermission.super_role !== SUPER_ROLE.OWNER && superRole === SUPER_ROLE.ADMIN)
-            || superRole === SUPER_ROLE.OWNER}
+            || superRole === SUPER_ROLE.OWNER
+            || isLoading}
         >
           <Close />
         </IconButton>
