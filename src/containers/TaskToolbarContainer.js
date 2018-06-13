@@ -23,7 +23,7 @@ import { ACCEPTANCE } from '../constants';
 const TaskToolbarContainer = (props) => {
   const {
     toggleTaskEditor, toggleDeleteTask, toggleInvitation, toggleQuitTask, toggleTaskSavePending,
-    updateMessage, toggleTaskViewer,
+    updateMessage, toggleTaskViewer, toggleTaskCloner, setGraphDataOrigin, updateGraphDataJson,
   } = props.actions;
   const {
     taskUsers, tasks, taskId, savePending,
@@ -46,6 +46,10 @@ const TaskToolbarContainer = (props) => {
         if (success) {
           toggleTaskSavePending();
           updateMessage('Graph saved successfully.');
+          // save original graph data for checking unsaved changes
+          const graphDataOrigin = gs.activeData;
+          setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
+          updateGraphDataJson(JSON.parse(JSON.stringify(graphDataOrigin)));
         }
       })
       .catch(() => {
@@ -59,6 +63,7 @@ const TaskToolbarContainer = (props) => {
       userSuperRole={userPermission.super_role}
       toggleTaskEditor={toggleTaskEditor}
       toggleTaskViewer={toggleTaskViewer}
+      toggleTaskCloner={toggleTaskCloner}
       toggleDeleteTask={toggleDeleteTask}
       toggleInvitation={toggleInvitation}
       toggleQuitTask={toggleQuitTask}
