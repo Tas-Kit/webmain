@@ -12,6 +12,10 @@ export const toggleTaskViewer = () => ({
   type: types.TOGGLE_TASK_VIEWER,
 });
 
+export const toggleTaskCloner = () => ({
+  type: types.TOGGLE_TASK_CLONER,
+});
+
 export const toggleStepCreator = () => ({
   type: types.TOGGLE_STEP_CREATOR,
 });

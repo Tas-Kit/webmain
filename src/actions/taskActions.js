@@ -30,6 +30,9 @@ export const toggleTaskSavePending = () => ({
   type: types.TOGGLE_TASK_SAVE_PENDING,
 });
 
+export const toggleTaskClonePending = () => ({
+  type: types.TOGGLE_TASK_CLONE_PENDING,
+});
 
 export const toggleInvitationStatusPending = () => ({
   type: types.TOGGLE_TASK_INVITATION_STATUS_PENDING,
@@ -51,4 +54,3 @@ export const removeUser = userId => ({
   type: types.REMOVE_USER,
   userId,
 });
-
