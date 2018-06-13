@@ -10,6 +10,7 @@ import TaskToolbar from '../components/TaskToolbar';
 import * as dialogActions from '../actions/dialogActions';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
+import * as graphActions from '../actions/graphActions';
 
 // service
 import gs from '../services/GraphService';
@@ -80,7 +81,12 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions, ...taskActions, ...snackbarActions }, dispatch),
+  actions: bindActionCreators({
+    ...dialogActions,
+    ...taskActions,
+    ...snackbarActions,
+    ...graphActions,
+  }, dispatch),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskToolbarContainer));
