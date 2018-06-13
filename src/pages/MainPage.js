@@ -37,14 +37,14 @@ const styles = {
 
 class MainPage extends React.Component {
   componentDidMount = () => {
-    const url = '/task/?format=json';
+    const url = '/taskservice/task/?format=json';
     APIService.sendRequest(url, apiTypes.GET_TASKS)
       .then(() => {
       })
       .catch(() => {
         this.props.actions.updateMessage('Get tasks failed.');
       });
-    APIService.sendRequest('/user', 'get_current_user')
+    APIService.sendRequest('/userservice/userinfo/', 'get_current_user')
       .then((success) => {
         console.log('get_user api succeed', success);
       })

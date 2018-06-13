@@ -4,7 +4,7 @@ import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 let baseUrl;
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+  baseUrl = 'http://sandbox1.tas-kit.com/api/v1';
 } else {
   baseUrl = 'http://localhost:8001/api/v1';
   if (typeof window !== 'undefined') {
@@ -19,7 +19,7 @@ const defaultOnError = () => {
 
 const handleTimeOut = () => {
   if (window) {
-    window.location.replace('/login');
+    window.location.replace('/web/basic/login');
   }
 };
 
