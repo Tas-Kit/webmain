@@ -51,10 +51,6 @@ const EditSwitchContainer = (props) => {
         })
         .catch(() => {
           updateMessage('Save graph failed.');
-          // save original graph data for checking unsaved changes
-          const graphDataOrigin = gs.activeData;
-          setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
-          updateGraphDataJson(JSON.parse(JSON.stringify(graphDataOrigin)));
         });
     }
     toggleEditMode();
