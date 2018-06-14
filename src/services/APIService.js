@@ -28,7 +28,7 @@ const transformResponse = (res) => {
     return res.json();
   }
   switch (res.status) {
-    case 403:
+    case 401:
       handleTimeOut();
       break;
     default:
