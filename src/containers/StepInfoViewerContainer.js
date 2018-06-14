@@ -29,7 +29,7 @@ const StepInfoViewerContainer = (props) => {
     const { updateMessage, toggleTriggerPending, toggleStepViewer } = props.actions;
     const { taskId: tid } = props.taskManager;
     const { stepId: sid } = props.stepManager;
-    const url = `/task/trigger/${tid}/`;
+    const url = `/taskservice/task/trigger/${tid}/`;
     if (sid === null) {
       updateMessage('Trigger can\'t be performed before the graph is saved.');
     } else {

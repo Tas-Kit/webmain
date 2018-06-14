@@ -49,11 +49,11 @@ const DialogsContainer = (props) => {
     // return a promise
     toggleTaskDeletePending();
     const { taskId } = props.taskManager;
-    const url = `/task/${taskId}/`;
+    const url = `/taskservice/task/${taskId}/`;
     return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskDeletePending();
           updateMessage('Task deleted successfully.');
           backToMain();
@@ -71,7 +71,7 @@ const DialogsContainer = (props) => {
     return rejectInvitation(taskId)
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
           toggleTaskQuitPending();
           updateMessage('Task quit successfully.');
           backToMain();

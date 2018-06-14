@@ -29,11 +29,11 @@ class TaskCreatorDialogContainer extends React.Component {
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskActionPending();
-      const url = '/task/';
+      const url = '/taskservice/task/';
       return APIService.sendRequest(url, apiTypes.SAVE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+            APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
             toggleTaskActionPending();
             updateMessage('Task created successfully.');
             return true;

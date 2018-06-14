@@ -33,7 +33,7 @@ const EditSwitchContainer = (props) => {
 
   const handleEditModeChange = () => {
     if (editMode) {
-      const url = `/task/graph/${taskId}/`;
+      const url = `/taskservice/task/graph/${taskId}/`;
       const payload = {
         tid: taskId,
         nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),

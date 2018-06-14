@@ -32,11 +32,11 @@ class TaskClonerDialogContainer extends React.Component {
     const validation = new Validator(mapTaskInfoRequestData(taskInfo), TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskClonePending();
-      const url = `/task/clone/${taskId}/`;
+      const url = `/taskservice/task/clone/${taskId}/`;
       return APIService.sendRequest(url, apiTypes.CLONE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+            APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
             toggleTaskClonePending();
             updateMessage('Task cloned successfully.');
             return true;

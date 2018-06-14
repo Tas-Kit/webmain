@@ -29,11 +29,11 @@ class TaskEditorDialogContainer extends React.Component {
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskActionPending();
-      const url = `/task/${taskId}/`;
+      const url = `/taskservice/task/${taskId}/`;
       return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+            APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
             toggleTaskActionPending();
             updateMessage('Task modified successfully.');
             return true;

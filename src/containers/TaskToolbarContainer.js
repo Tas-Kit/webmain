@@ -35,7 +35,7 @@ const TaskToolbarContainer = (props) => {
   const activeTask = tasks.find(task => task.info.tid === taskId);
   const userPermission = activeTask ? activeTask.permission : {};
   const handleGraphSave = () => {
-    const url = `/task/graph/${taskId}/`;
+    const url = `/taskservice/task/graph/${taskId}/`;
     const payload = {
       tid: taskId,
       nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),
