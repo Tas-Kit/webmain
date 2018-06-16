@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { FormDialog } from '../components/Dialogs';
 import TaskInfoViewerContainer from '../containers/TaskInfoViewerContainer';
 import * as dialogActions from '../actions/dialogActions';
@@ -11,8 +12,8 @@ const TaskViewerDialogContainer = (props) => {
   return (
     <FormDialog
       disableButtons
-      title="Task Viewer"
-      hints="View the information of this task below."
+      title={<FormattedMessage id="taskViewerTitle" />}
+      hints={<FormattedMessage id="taskViewerHint" />}
       openState={taskViewerOpen}
       toggle={toggleTaskViewer}
       component={<TaskInfoViewerContainer />}

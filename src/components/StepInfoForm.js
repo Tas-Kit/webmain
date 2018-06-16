@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import { FormattedMessage } from 'react-intl';
 
 // ui components
 import { ExpectedEffortSelect, OptionsSelect, MultiSelect } from './Select';
@@ -46,17 +47,17 @@ class StepInfoForm extends React.Component {
       return (
         <div style={inline.main}>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Name*:</span>
+            <span style={inline.fieldName}><FormattedMessage id="nameFieldName" />*:</span>
             <TextInput
               id="name"
               value={info.name}
               onChange={this.handleChange('name')}
               validationRule="required|max:200"
-              errorMessage="Name is required and less than 200 characters."
+              errorMessage={<FormattedMessage id="nameFieldErrorMessage" />}
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Status:</span>
+            <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
             <OptionsSelect
               options={STATUS}
               selectFieldName={info.status}
@@ -64,7 +65,7 @@ class StepInfoForm extends React.Component {
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Deadline:</span>
+            <span style={inline.fieldName}><FormattedMessage id="deadlineFieldName" />:</span>
             <TextField
               id="deadline"
               type="date"
@@ -73,7 +74,7 @@ class StepInfoForm extends React.Component {
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Expected Effort:</span>
+            <span style={inline.fieldName}><FormattedMessage id="expectedFieldName" />:</span>
             <ExpectedEffortSelect
               validationRule="numeric"
               errorMessage="Time value expects a number."
@@ -84,7 +85,7 @@ class StepInfoForm extends React.Component {
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Description:</span>
+            <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
             <TextArea
               id="description"
               value={info.description}
@@ -94,7 +95,7 @@ class StepInfoForm extends React.Component {
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Optional:</span>
+            <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>
             <TaskitCheckbox
               checked={info.optional}
               selectFieldName="optional"
@@ -102,7 +103,7 @@ class StepInfoForm extends React.Component {
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Assignee:</span>
+            <span style={inline.fieldName}><FormattedMessage id="assigneeFieldName" />:</span>
             <MultiSelect
               options={roles}
               selectFieldName={info.assigneeRoles}
@@ -110,7 +111,7 @@ class StepInfoForm extends React.Component {
             />
           </div>
           <div style={inline.row}>
-            <span style={inline.fieldName}>Reviewer:</span>
+            <span style={inline.fieldName}><FormattedMessage id="reviewerFieldName" />:</span>
             <MultiSelect
               options={roles}
               selectFieldName={info.reviewerRoles}
@@ -123,7 +124,7 @@ class StepInfoForm extends React.Component {
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Status:</span>
+          <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
           <OptionsSelect
             options={STATUS}
             selectFieldName={info.status}

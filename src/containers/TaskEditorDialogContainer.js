@@ -3,6 +3,7 @@ import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormDialog } from '../components/Dialogs';
+import { FormattedMessage } from 'react-intl';
 
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';
@@ -60,8 +61,8 @@ class TaskEditorDialogContainer extends React.Component {
     const { toggleTaskEditor } = this.props.actions;
     return (
       <FormDialog
-        title="Task Editor"
-        hints="To edit a task, please fill in the fields below."
+        title={<FormattedMessage id="taskEditorTitle" />}
+        hints={<FormattedMessage id="taskEditorHint" />}
         openState={taskEditorOpen}
         toggle={toggleTaskEditor}
         component={<TaskInfoContainer />}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // ui components
 import Button from '@material-ui/core/Button';
@@ -77,9 +78,9 @@ const AlertDialog = (props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={toggle} color="default" disabled={loading}>No</Button>
+        <Button onClick={toggle} color="default" disabled={loading}><FormattedMessage id="noButton" /></Button>
         <LoadingButton
-          buttonName="Yes"
+          buttonName={<FormattedMessage id="yesButton" />}
           color="secondary"
           loading={loading}
           onClick={handleConfirm}

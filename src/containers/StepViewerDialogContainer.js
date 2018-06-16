@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 import StepInfoViewerContainer from './StepInfoViewerContainer';
 import { FormDialog } from '../components/Dialogs';
@@ -20,8 +21,8 @@ class StepViewerDialogContainer extends React.Component {
     return (
       <FormDialog
         disableButtons
-        title="Step Information"
-        hints="View the information of this step below."
+        title={<FormattedMessage id="stepViewerTitle" />}
+        hints={<FormattedMessage id="stepViewerHint" />}
         openState={stepViewerOpen}
         toggle={toggleStepViewer}
         component={<StepInfoViewerContainer />}

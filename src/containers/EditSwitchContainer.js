@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { Switch } from '../components/Switch';
 
 // actions
@@ -59,7 +60,7 @@ const EditSwitchContainer = (props) => {
   if (isEditor) {
     return (
       <Switch
-        label="Editor"
+        label={<FormattedMessage id="editorLabel" />}
         checked={editMode}
         onChange={handleEditModeChange}
       />

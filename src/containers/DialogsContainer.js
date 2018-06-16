@@ -119,10 +119,7 @@ const DialogsContainer = (props) => {
       <AlertDialog
         title={<FormattedMessage id="deleteHeading" defaultMessage="Delete Task" />}
         message={
-          <span>Are you sure you want to
-            <span style={{ color: PINK }}> permanently </span>
-            remove this task?
-          </span>
+          <FormattedMessage id="deleteTaskHint" />
         }
         openState={deleteTaskOpen}
         toggle={toggleDeleteTask}
@@ -134,10 +131,7 @@ const DialogsContainer = (props) => {
       <AlertDialog
         title={<FormattedMessage id="quitHeading" defaultMessage="Quit Task" />}
         message={
-          <span>Are you sure you want to
-            <span style={{ color: PINK }}> permanently </span>
-            quit from this task?
-          </span>
+          <FormattedMessage id="quitTaskHint" />
         }
         openState={quitTaskOpen}
         toggle={toggleQuitTask}
