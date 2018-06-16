@@ -2,8 +2,8 @@ import React from 'react';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { FormDialog } from '../components/Dialogs';
 import { FormattedMessage } from 'react-intl';
+import { FormDialog } from '../components/Dialogs';
 
 // ui containers
 import TaskInfoContainer from './TaskInfoContainer';

@@ -26,7 +26,6 @@ import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
 // constants
-import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
 
 // utils
