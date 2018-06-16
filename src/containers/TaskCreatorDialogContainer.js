@@ -11,6 +11,7 @@ import TaskInfoContainer from './TaskInfoContainer';
 import * as apiTypes from '../constants/apiTypes';
 import { TASK_INFO_RULE } from '../constants';
 import { mapTaskInfoRequestData } from '../utils/functions';
+import { TASK_SERVICE_URL, TASK_GET_URL } from '../constants/apiUrls';
 
 // services
 import APIService from '../services/APIService';
@@ -29,11 +30,11 @@ class TaskCreatorDialogContainer extends React.Component {
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskActionPending();
-      const url = '/taskservice/task/';
+      const url = TASK_SERVICE_URL;
       return APIService.sendRequest(url, apiTypes.SAVE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
+            APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskActionPending();
             updateMessage('Task created successfully.');
             return true;

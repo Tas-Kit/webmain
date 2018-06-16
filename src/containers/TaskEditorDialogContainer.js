@@ -11,6 +11,7 @@ import TaskInfoContainer from './TaskInfoContainer';
 import { mapTaskInfoRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
 import { TASK_INFO_RULE } from '../constants';
+import { TASK_SERVICE_URL, TASK_GET_URL } from '../constants/apiUrls';
 
 // services
 import APIService from '../services/APIService';
@@ -29,11 +30,11 @@ class TaskEditorDialogContainer extends React.Component {
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskActionPending();
-      const url = `/taskservice/task/${taskId}/`;
+      const url = `${TASK_SERVICE_URL}${taskId}/`;
       return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
+            APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskActionPending();
             updateMessage('Task modified successfully.');
             return true;

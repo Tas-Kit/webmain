@@ -20,6 +20,7 @@ import APIService from '../services/APIService';
 import { mapNodeToRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
 import { ACCEPTANCE } from '../constants';
+import { TASK_GRAPH_URL } from '../constants/apiUrls';
 
 const TaskToolbarContainer = (props) => {
   const {
@@ -35,7 +36,7 @@ const TaskToolbarContainer = (props) => {
   const activeTask = tasks.find(task => task.info.tid === taskId);
   const userPermission = activeTask ? activeTask.permission : {};
   const handleGraphSave = () => {
-    const url = `/taskservice/task/graph/${taskId}/`;
+    const url = `${TASK_GRAPH_URL}${taskId}/`;
     const payload = {
       tid: taskId,
       nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),

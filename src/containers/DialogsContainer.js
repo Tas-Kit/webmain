@@ -28,6 +28,7 @@ import * as taskActions from '../actions/taskActions';
 // constants
 import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
+import { TASK_SERVICE_URL, TASK_GET_URL } from '../constants/apiUrls';
 
 // utils
 import { backToMain } from '../utils/functions';
@@ -49,11 +50,11 @@ const DialogsContainer = (props) => {
     // return a promise
     toggleTaskDeletePending();
     const { taskId } = props.taskManager;
-    const url = `/taskservice/task/${taskId}/`;
+    const url = `${TASK_SERVICE_URL}${taskId}/`;
     return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskDeletePending();
           updateMessage('Task deleted successfully.');
           backToMain();
@@ -71,7 +72,7 @@ const DialogsContainer = (props) => {
     return rejectInvitation(taskId)
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskQuitPending();
           updateMessage('Task quit successfully.');
           backToMain();

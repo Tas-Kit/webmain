@@ -17,6 +17,7 @@ import { mapNodeToRequestData } from '../utils/functions';
 
 // constants
 import * as apiTypes from '../constants/apiTypes';
+import { TASK_GRAPH_URL } from '../constants/apiUrls';
 
 const EditSwitchContainer = (props) => {
   const { editMode } = props.currentUserManager;
@@ -33,7 +34,7 @@ const EditSwitchContainer = (props) => {
 
   const handleEditModeChange = () => {
     if (editMode) {
-      const url = `/taskservice/task/graph/${taskId}/`;
+      const url = `${TASK_GRAPH_URL}${taskId}/`;
       const payload = {
         tid: taskId,
         nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),
