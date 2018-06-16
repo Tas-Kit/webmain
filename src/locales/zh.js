@@ -10,7 +10,17 @@ const zh = {
   quitHeading: '退出任务',
   quitButton: '离开',
   logoutButton: '登出',
+  welcomeMessage: '请挑选一个任务',
   invitationNotification: '您被邀请加入 {taskName}',
+  taskCreatorTitle: '创建任务',
+  taskCreatorHint: '请填写以下表格创建任务',
+  nameFieldName: '名字',
+  nameFieldErrorMessage: '名字必须填写并且不得超过200字符',
+  statusFieldName: '状态',
+  deadlineFieldName: '截止日期',
+  expectedFieldName: '预计任务量',
+  descriptionFieldName: '描述',
+  rolesFieldName: '角色',
 };
 
 export default zh;
