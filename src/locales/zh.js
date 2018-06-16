@@ -45,6 +45,7 @@ const zh = {
   triggerTitle: '你无权启动',
   taskEditorTitle: '编辑任务',
   taskEditorHint: '请填写以下表格以编辑任务',
+  unsaveChangesLabel: '改变没有保存',
 };
 
 export default zh;

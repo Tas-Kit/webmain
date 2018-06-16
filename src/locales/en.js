@@ -45,6 +45,7 @@ const en = {
   triggerTitle: 'You don\'t have the authority to trigger.',
   taskEditorTitle: 'Task Editor',
   taskEditorHint: 'To edit a task, please fill in the fields below',
+  unsaveChangesLabel: 'Unsaved Changes',
 };
 
 export default en;

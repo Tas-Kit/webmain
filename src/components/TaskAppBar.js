@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import { FormattedMessage } from 'react-intl';
 
 import { APP_BAR_TITLE } from '../constants';
 import { PINK } from '../constants/colors';
@@ -33,7 +34,7 @@ const TaskAppBar = (props) => {
     const unsaved = JSON.stringify(graphDataOrigin) !== JSON.stringify(currentGraphData);
     if (unsaved && editMode) {
       return (
-        <div>{title}<span className={classes.unsaved}> (Unsaved changes)</span></div>
+        <div>{title}<span className={classes.unsaved}> (<FormattedMessage id="unsaveChangesLabel" />) </span></div>
       );
     }
     return `${title}`;
