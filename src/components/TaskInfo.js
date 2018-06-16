@@ -90,7 +90,7 @@ class TaskInfo extends React.Component {
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>{<FormattedMessage id='nameFieldName' />}*:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="nameFieldName" />}*:</span>
           <TextInput
             id="name"
             value={info.name}
