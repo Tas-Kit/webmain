@@ -12,6 +12,7 @@ import TaskInfoContainer from './TaskInfoContainer';
 import { mapTaskInfoRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
 import { TASK_INFO_RULE } from '../constants';
+import { TASK_CLONE_URL, TASK_GET_URL } from '../constants/apiUrls';
 
 // services
 import APIService from '../services/APIService';
@@ -33,11 +34,11 @@ class TaskClonerDialogContainer extends React.Component {
     const validation = new Validator(mapTaskInfoRequestData(taskInfo), TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskClonePending();
-      const url = `/taskservice/task/clone/${taskId}/`;
+      const url = `${TASK_CLONE_URL}${taskId}/`;
       return APIService.sendRequest(url, apiTypes.CLONE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/taskservice/task/?format=json', apiTypes.GET_TASKS);
+            APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskClonePending();
             updateMessage('Task cloned successfully.');
             return true;

@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, '/build')));
 app.use(express.static(path.join(__dirname, '/build/static')));
 
 app.get('/healthcheck', (req, res) => {
-  res.status(200).send('healthy');
+  res.status(200).send('HEALTHY');
 });
 
 app.get('*', (req, res) => {
