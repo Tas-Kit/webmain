@@ -22,9 +22,7 @@ export const ACCEPTANCES = {
   [ACCEPTANCE.WAITING]: 'Waiting',
 };
 
-export const TIME_UNITS = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
-
-
+// Status
 export const NEW = currentLocale === 'en' ? 'New' : '新';
 export const IN_PROGRESS = currentLocale === 'en' ? 'In Progress' : '进行中';
 export const READY_FOR_REVIEW = currentLocale === 'en' ? 'Ready For Review' : '待审核';
@@ -49,24 +47,36 @@ export const STATUS_MAP_TWO = {
   s: SKIPPED,
 };
 
+// Time Units
+export const SECOND = currentLocale === 'en' ? 'Second' : '秒';
+export const MINUTE = currentLocale === 'en' ? 'Minute' : '分钟';
+export const HOUR = currentLocale === 'en' ? 'Hour' : '小时';
+export const DAY = currentLocale === 'en' ? 'Day' : '天';
+export const WEEK = currentLocale === 'en' ? 'Week' : '周';
+export const MONTH = currentLocale === 'en' ? 'Month' : '月';
+export const YEAR = currentLocale === 'en' ? 'Year' : '年';
+
+export const TIME_UNITS = [SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR];
+
+
 export const TIME_UNITS_MAP = {
-  Second: 's',
-  Minute: 'm',
-  Hour: 'h',
-  Day: 'd',
-  Week: 'w',
-  Month: 'M',
-  Year: 'y',
+  [SECOND]: 's',
+  [MINUTE]: 'm',
+  [HOUR]: 'h',
+  [DAY]: 'd',
+  [WEEK]: 'w',
+  [MONTH]: 'M',
+  [YEAR]: 'y',
 };
 
 export const TIME_UNITS_MAP_TWO = {
-  s: 'Second',
-  m: 'Minute',
-  h: 'Hour',
-  d: 'Day',
-  w: 'Week',
-  M: 'Month',
-  y: 'Year',
+  s: SECOND,
+  m: MINUTE,
+  h: HOUR,
+  d: DAY,
+  w: WEEK,
+  M: MONTH,
+  y: YEAR,
 };
 
 export const SUPER_ROLE = {
