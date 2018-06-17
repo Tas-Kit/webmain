@@ -6,6 +6,43 @@ const detectLocale = () => {
 };
 const currentLocale = detectLocale();
 
+const enDictionary = {
+  NEW: 'New',
+  IN_PROGRESS: 'In Progress',
+  READY_FOR_REVIEW: 'Rready For Review',
+  COMPLETED: 'Completed',
+  SKIPPED: 'Skipped',
+  SECOND: 'Second',
+  MINUTE: 'Minute',
+  HOUR: 'Hour',
+  DAY: 'Day',
+  WEEK: 'Week',
+  MONTH: 'Month',
+  YEAR: 'Year',
+};
+
+const zhDictionary = {
+  NEW: '新',
+  IN_PROGRESS: '进行中',
+  READY_FOR_REVIEW: '待审核',
+  COMPLETED: '完成',
+  SKIPPED: '跳过',
+  SECOND: '秒',
+  MINUTE: '分钟',
+  HOUR: '小时',
+  DAY: '日',
+  WEEK: '周',
+  MONTH: '月',
+  YEAR: '年',
+};
+
+const dictionaries = {
+  en: enDictionary,
+  zh: zhDictionary,
+};
+
+const currentDictionary = dictionaries[currentLocale];
+
 const ACCEPT = 'a';
 const REJECT = 'r';
 const WAITING = 'w';
@@ -23,11 +60,11 @@ export const ACCEPTANCES = {
 };
 
 // Status
-export const NEW = currentLocale === 'en' ? 'New' : '新';
-export const IN_PROGRESS = currentLocale === 'en' ? 'In Progress' : '进行中';
-export const READY_FOR_REVIEW = currentLocale === 'en' ? 'Ready For Review' : '待审核';
-export const COMPLETED = currentLocale === 'en' ? 'Completed' : '完成';
-export const SKIPPED = currentLocale === 'en' ? 'Skipped' : '跳过';
+
+const {
+  NEW, IN_PROGRESS, READY_FOR_REVIEW, COMPLETED, SKIPPED,
+} = currentDictionary;
+
 
 export const STATUS = [NEW, IN_PROGRESS, READY_FOR_REVIEW, COMPLETED, SKIPPED];
 
@@ -48,13 +85,9 @@ export const STATUS_MAP_TWO = {
 };
 
 // Time Units
-export const SECOND = currentLocale === 'en' ? 'Second' : '秒';
-export const MINUTE = currentLocale === 'en' ? 'Minute' : '分钟';
-export const HOUR = currentLocale === 'en' ? 'Hour' : '小时';
-export const DAY = currentLocale === 'en' ? 'Day' : '天';
-export const WEEK = currentLocale === 'en' ? 'Week' : '周';
-export const MONTH = currentLocale === 'en' ? 'Month' : '月';
-export const YEAR = currentLocale === 'en' ? 'Year' : '年';
+const {
+  SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR,
+} = currentDictionary;
 
 export const TIME_UNITS = [SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR];
 
