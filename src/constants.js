@@ -61,7 +61,7 @@ export const ACCEPTANCES = {
 
 // Status
 
-const {
+export const {
   NEW, IN_PROGRESS, READY_FOR_REVIEW, COMPLETED, SKIPPED,
 } = currentDictionary;
 
@@ -85,7 +85,7 @@ export const STATUS_MAP_TWO = {
 };
 
 // Time Units
-const {
+export const {
   SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR,
 } = currentDictionary;
 
