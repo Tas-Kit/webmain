@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
+import { FormattedMessage } from 'react-intl';
 import { LoadingButton } from './Button';
 import { START_NODE } from '../constants/nodes';
 import { NEW, IN_PROGRESS, READY_FOR_REVIEW } from '../constants';
@@ -90,33 +91,33 @@ class StepInfoView extends React.Component {
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Name:</span>
+          <span style={inline.fieldName}><FormattedMessage id="nameFieldName" />:</span>
           <span style={inline.fieldContent}>{info.name}</span>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Status:</span>
+          <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
           <span style={inline.fieldContent}>{info.status}</span>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Deadline:</span>
+          <span style={inline.fieldName}><FormattedMessage id="deadlineFieldName" />:</span>
           <span style={inline.fieldContent}>{info.deadline}</span>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Expected Effort:</span>
+          <span style={inline.fieldName}><FormattedMessage id="expectedFieldName" />:</span>
           <span style={inline.fieldContent}>{this.renderExpectedEfforts(info)}</span>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Description:</span>
+          <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
           <span style={inline.fieldContent}>{info.description}</span>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Optional:</span>
+          <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>
           <div style={inline.fieldContent}>
             <Checkbox disabled checked={info.optional} />
           </div>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Assignee:</span>
+          <span style={inline.fieldName}><FormattedMessage id="assigneeFieldName" />:</span>
           <div style={inline.fieldContent}>
             {info.assigneeRoles.map(role => (
               <Chip key={`assignee_${role}`} label={role} className={classes.chip} />
@@ -125,7 +126,7 @@ class StepInfoView extends React.Component {
           </div>
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Reviewer:</span>
+          <span style={inline.fieldName}><FormattedMessage id="reviewerFieldName" />:</span>
           <div style={inline.fieldContent}>
             {info.reviewerRoles.map(role => (
               <Chip key={`reviewer_${role}`} label={role} className={classes.chip} />
@@ -133,14 +134,14 @@ class StepInfoView extends React.Component {
             {info.reviewerRoles.length === 0 ? 'None' : null}
           </div>
         </div>
-        <Tooltip title={this.allowTrigger() ? '' : 'You don\'t have the authority to trigger.'}>
+        <Tooltip title={this.allowTrigger() ? '' : <FormattedMessage id="triggerTitle" />}>
           <div style={inline.triggerMain}>
             <LoadingButton
               variant="outlined"
               color="primary"
               className={classes.trigger}
               disabled={!this.allowTrigger()}
-              buttonName="Trigger"
+              buttonName={<FormattedMessage id="triggerButton" />}
               loading={triggerPending}
               onClick={onTrigger}
             />

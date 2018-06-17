@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // mui components
 import TextField from '@material-ui/core/TextField';
@@ -89,17 +90,17 @@ class TaskInfo extends React.Component {
     return (
       <div style={inline.main}>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Name*:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="nameFieldName" />}*:</span>
           <TextInput
             id="name"
             value={info.name}
             onChange={this.handleChange('name')}
             validationRule="required|max:200"
-            errorMessage="Name is required and less than 200 characters."
+            errorMessage={<FormattedMessage id="nameFieldErrorMessage" />}
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Status:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="statusFieldName" />}:</span>
           <OptionsSelect
             options={STATUS}
             selectFieldName={info.status}
@@ -107,7 +108,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Deadline:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="deadlineFieldName" />}:</span>
           <TextField
             id="deadline"
             type="date"
@@ -116,7 +117,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Expected Effort:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="expectedFieldName" />}:</span>
           <ExpectedEffortSelect
             time={info.effortTime}
             timeUnit={info.effortUnit}
@@ -125,7 +126,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Description:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="descriptionFieldName" />}:</span>
           <TextArea
             id="description"
             value={info.description}
@@ -135,7 +136,7 @@ class TaskInfo extends React.Component {
           />
         </div>
         <div style={inline.row}>
-          <span style={inline.fieldName}>Roles:</span>
+          <span style={inline.fieldName}>{<FormattedMessage id="rolesFieldName" />}:</span>
           {info.roles.map((role, index) => (
             <Chip
               key={`role_${index + 1}`}
