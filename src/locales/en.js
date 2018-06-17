@@ -46,6 +46,10 @@ const en = {
   taskEditorTitle: 'Task Editor',
   taskEditorHint: 'To edit a task, please fill in the fields below',
   unsaveChangesLabel: 'Unsaved Changes',
+  numberFieldLabel: 'Number',
+  numberFieldError: 'Please specify a number',
+  unitFieldLabel: 'Unit',
+  unitFieldError: 'Pleas select a unit',
 };
 
 export default en;
