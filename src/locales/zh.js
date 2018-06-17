@@ -46,11 +46,6 @@ const zh = {
   taskEditorTitle: '编辑任务',
   taskEditorHint: '请填写以下表格以编辑任务',
   unsaveChangesLabel: '改变没有保存',
-  n: '新',
-  ip: '正在进行',
-  rr: '准备审核',
-  c: '完成',
-  s: '跳过',
 };
 
 export default zh;

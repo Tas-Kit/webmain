@@ -46,11 +46,6 @@ const en = {
   taskEditorTitle: 'Task Editor',
   taskEditorHint: 'To edit a task, please fill in the fields below',
   unsaveChangesLabel: 'Unsaved Changes',
-  n: 'New',
-  ip: 'In Progress',
-  rr: 'Ready For Review',
-  c: 'Completed',
-  s: 'Skipped',
 };
 
 export default en;

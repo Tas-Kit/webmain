@@ -1,3 +1,11 @@
+const detectLocale = () => {
+  if (navigator) {
+    return navigator.language.split(/[-_]/)[0];
+  }
+  return 'en';
+};
+const currentLocale = detectLocale();
+
 const ACCEPT = 'a';
 const REJECT = 'r';
 const WAITING = 'w';
@@ -15,13 +23,15 @@ export const ACCEPTANCES = {
 };
 
 export const TIME_UNITS = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
-export const STATUS = ['New', 'In Progress', 'Ready For Review', 'Completed', 'Skipped'];
 
-export const NEW = 'New';
-export const IN_PROGRESS = 'In Progress';
-export const READY_FOR_REVIEW = 'Ready For Review';
-export const COMPLETED = 'Completed';
-export const SKIPPED = 'Skipped';
+
+export const NEW = currentLocale === 'en' ? 'New' : '新';
+export const IN_PROGRESS = currentLocale === 'en' ? 'In Progress' : '进行中';
+export const READY_FOR_REVIEW = currentLocale === 'en' ? 'Ready For Review' : '待审核';
+export const COMPLETED = currentLocale === 'en' ? 'Completed' : '完成';
+export const SKIPPED = currentLocale === 'en' ? 'Skipped' : '跳过';
+
+export const STATUS = [NEW, IN_PROGRESS, READY_FOR_REVIEW, COMPLETED, SKIPPED];
 
 export const STATUS_MAP = {
   [NEW]: 'n',

@@ -1,6 +1,6 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { NODE_STATUS_COLOR_MAP } from '../../constants/nodes';
+import { STATUS_MAP_TWO } from '../../constants';
 
 const inline = {
   main: {
@@ -33,7 +33,7 @@ const ColorLegend = () => {
       {statusTypes.map(status => (
         <div key={status} style={inline.legend}>
           <div style={{ ...inline.colorBall, backgroundColor: NODE_STATUS_COLOR_MAP[status] }} />
-          <div style={inline.text}><FormattedMessage id={status} /></div>
+          <div style={inline.text}>{STATUS_MAP_TWO[status]}</div>
         </div>
       ))}
     </div>
