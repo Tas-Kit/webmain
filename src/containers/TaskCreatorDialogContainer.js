@@ -2,9 +2,10 @@ import React from 'react';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { FormDialog } from '../components/Dialogs';
 
-// ui containers
+// ui conFormattedMessage
 import TaskInfoContainer from './TaskInfoContainer';
 
 // constants
@@ -61,8 +62,8 @@ class TaskCreatorDialogContainer extends React.Component {
     const { toggleTaskCreator } = this.props.actions;
     return (
       <FormDialog
-        title="Task Creator"
-        hints="To create a task, please fill in the fields below."
+        title={<FormattedMessage id="taskCreatorTitle" />}
+        hints={<FormattedMessage id="taskCreatorHint" />}
         openState={taskCreatorOpen}
         toggle={toggleTaskCreator}
         component={<TaskInfoContainer />}

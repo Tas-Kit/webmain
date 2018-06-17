@@ -128,7 +128,7 @@ class Notification extends React.Component {
                   }
                 </List>
                 :
-                <p className={classes.notice}>You have no invitation yet</p>
+                <p className={classes.notice}><FormattedMessage id="emptyNotificationMessage" /></p>
             }
           </div>
         </Popover>

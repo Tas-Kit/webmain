@@ -2,6 +2,7 @@ import React from 'react';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { FormDialog } from '../components/Dialogs';
 
 // ui containers
@@ -64,8 +65,8 @@ class TaskClonerDialogContainer extends React.Component {
     const { toggleTaskCloner } = this.props.actions;
     return (
       <FormDialog
-        title="Task Cloner"
-        hints="To clone a task, please fill in the fields below."
+        title={<FormattedMessage id="taskClonerTitle" />}
+        hints={<FormattedMessage id="taskClonerHint" />}
         openState={taskClonerOpen}
         toggle={toggleTaskCloner}
         component={<TaskInfoContainer />}

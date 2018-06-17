@@ -3,6 +3,7 @@ import shortid from 'shortid';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 import StepInfoFormContainer from './StepInfoFormContainer';
 import { FormDialog } from '../components/Dialogs';
@@ -59,8 +60,8 @@ class StepCreatorDialogContainer extends React.Component {
     const { toggleStepCreator } = this.props.actions;
     return (
       <FormDialog
-        title="Step Creator"
-        hints="To create a step, please fill in the fields below."
+        title={<FormattedMessage id="stepCreatorTitle" />}
+        hints={<FormattedMessage id="stepCreatorHint" />}
         openState={stepCreatorOpen}
         toggle={toggleStepCreator}
         onSave={this.handleStepInfoSave}

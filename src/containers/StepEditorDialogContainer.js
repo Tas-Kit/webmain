@@ -2,6 +2,7 @@ import React from 'react';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 import StepInfoFormContainer from './StepInfoFormContainer';
 import { FormDialog } from '../components/Dialogs';
@@ -64,8 +65,8 @@ class StepEditorDialogContainer extends React.Component {
     const { toggleStepEditor } = this.props.actions;
     return (
       <FormDialog
-        title="Step Editor"
-        hints="To edit a step, please fill in the fields below."
+        title={<FormattedMessage id="stepEditorTitle" />}
+        hints={<FormattedMessage id="stepEditorHint" />}
         openState={stepEditorOpen}
         toggle={toggleStepEditor}
         onSave={this.handleStepModify}
