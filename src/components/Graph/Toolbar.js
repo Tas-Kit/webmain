@@ -1,7 +1,9 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // contants
 import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, INIT, SKIPPED } from '../../constants/colors';
@@ -12,6 +14,7 @@ import {
   JOIN_NODE,
   MULTIPLE_CHOICE_NODE,
   SUB_TASK_NODE,
+  NODE_NAME_ID_MAP,
 } from '../../constants/nodes';
 import * as svgStrings from '../../assets/svgStrings';
 
@@ -114,6 +117,8 @@ const Toolbar = (props) => {
     })
   );
 
+  const getTooltip = type => <FormattedMessage id={NODE_NAME_ID_MAP[type]} />;
+
   const prototypes = generateNodePrototypes([
     NORMAL_NODE,
     CHECK_LIST_NODE,
@@ -128,28 +133,38 @@ const Toolbar = (props) => {
       <div style={inline.main}>
         <div style={inline.toolbar}>
           {prototypes.map((item, index) => (
-            <div
-              key={`item_${index + 1}`}
-              draggable="true"
-              style={inline.iconDiv}
-              onDragStart={() => { onDragStart(item.props.nodetype); }}
+            <Tooltip
+              placement="top"
+              id={`node_${index}`}
+              title={getTooltip(item.props.nodetype)}
             >
-              {item}
-            </div>
+              <div
+                key={`item_${index + 1}`}
+                draggable="true"
+                style={inline.iconDiv}
+                onDragStart={() => { onDragStart(item.props.nodetype); }}
+              >
+                {item}
+              </div>
+            </Tooltip>
           ))}
           <div style={inline.divider} />
-          <IconButton
-            style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
-            onClick={onAddEdge}
-          >
-            <Link style={inline.iconButton} />
-          </IconButton>
-          <IconButton
-            style={deleteSelected ? inline.deleteSelected : inline.delete}
-            onClick={onDelete}
-          >
-            <Delete style={inline.iconButton} />
-          </IconButton>
+          <Tooltip placement="top" title={<FormattedMessage id="addEdgeButton" />}>
+            <IconButton
+              style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
+              onClick={onAddEdge}
+            >
+              <Link style={inline.iconButton} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip placement="top" title={<FormattedMessage id="deleteItemButton" />}>
+            <IconButton
+              style={deleteSelected ? inline.deleteSelected : inline.delete}
+              onClick={onDelete}
+            >
+              <Delete style={inline.iconButton} />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
     );

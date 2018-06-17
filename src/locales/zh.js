@@ -50,6 +50,14 @@ const zh = {
   unitFieldLabel: '单位',
   numberFieldError: '请填写一个数字',
   unitFieldError: '请挑选一个单位',
+  basicNode: '基本',
+  checkListNode: '清单',
+  fileNode: '文件',
+  joinNode: '连结',
+  multipleChoiceNode: '多选',
+  subTaskNode: '子任务',
+  addEdgeButton: '添加连结',
+  deleteItemButton: '删除',
 };
 
 export default zh;

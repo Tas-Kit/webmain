@@ -14,6 +14,7 @@ import APIService from '../services/APIService';
 
 // constants
 import * as apiTypes from '../constants/apiTypes';
+import { TASK_GRAPH_URL } from '../constants/apiUrls';
 
 class TaskGraphPage extends React.Component {
   componentDidMount = () => {
@@ -30,7 +31,7 @@ class TaskGraphPage extends React.Component {
   }
 
   sendRequest = (taskId) => {
-    const url = `/taskservice/task/graph/${taskId}/`;
+    const url = `${TASK_GRAPH_URL}${taskId}/`;
     APIService.sendRequest(url, apiTypes.GET_TASK_GRAPH)
       .then((success) => { console.log('get_task_graph api call success:', success); });
   }

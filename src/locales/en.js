@@ -50,6 +50,14 @@ const en = {
   numberFieldError: 'Please specify a number',
   unitFieldLabel: 'Unit',
   unitFieldError: 'Pleas select a unit',
+  basicNode: 'Basic Node',
+  checkListNode: 'Check List Node',
+  fileNode: 'File Node',
+  joinNode: 'Join Node',
+  multipleChoiceNode: 'Multiple Choice Node',
+  subTaskNode: 'Sub Task Node',
+  addEdgeButton: 'Add Edge',
+  deleteItemButton: 'Delete',
 };
 
 export default en;
