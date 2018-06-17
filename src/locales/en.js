@@ -46,6 +46,14 @@ const en = {
   taskEditorTitle: 'Task Editor',
   taskEditorHint: 'To edit a task, please fill in the fields below',
   unsaveChangesLabel: 'Unsaved Changes',
+  basicNode: 'Basic Node',
+  checkListNode: 'Check List Node',
+  fileNode: 'File Node',
+  joinNode: 'Join Node',
+  multipleChoiceNode: 'Multiple Choice Node',
+  subTaskNode: 'Sub Task Node',
+  addEdgeButton: 'Add Edge',
+  deleteItemButton: 'Delete',
 };
 
 export default en;

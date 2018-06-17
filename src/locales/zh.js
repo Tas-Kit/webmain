@@ -46,6 +46,14 @@ const zh = {
   taskEditorTitle: '编辑任务',
   taskEditorHint: '请填写以下表格以编辑任务',
   unsaveChangesLabel: '改变没有保存',
+  basicNode: '基本',
+  checkListNode: '清单',
+  fileNode: '文件',
+  joinNode: '连结',
+  multipleChoiceNode: '多选',
+  subTaskNode: '子任务',
+  addEdgeButton: '添加连结',
+  deleteItemButton: '删除',
 };
 
 export default zh;
