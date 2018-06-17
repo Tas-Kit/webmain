@@ -1,3 +1,48 @@
+const detectLocale = () => {
+  if (navigator) {
+    return navigator.language.split(/[-_]/)[0];
+  }
+  return 'en';
+};
+const currentLocale = detectLocale();
+
+const enDictionary = {
+  NEW: 'New',
+  IN_PROGRESS: 'In Progress',
+  READY_FOR_REVIEW: 'Rready For Review',
+  COMPLETED: 'Completed',
+  SKIPPED: 'Skipped',
+  SECOND: 'Second',
+  MINUTE: 'Minute',
+  HOUR: 'Hour',
+  DAY: 'Day',
+  WEEK: 'Week',
+  MONTH: 'Month',
+  YEAR: 'Year',
+};
+
+const zhDictionary = {
+  NEW: '新',
+  IN_PROGRESS: '进行中',
+  READY_FOR_REVIEW: '待审核',
+  COMPLETED: '完成',
+  SKIPPED: '跳过',
+  SECOND: '秒',
+  MINUTE: '分钟',
+  HOUR: '小时',
+  DAY: '日',
+  WEEK: '周',
+  MONTH: '月',
+  YEAR: '年',
+};
+
+const dictionaries = {
+  en: enDictionary,
+  zh: zhDictionary,
+};
+
+const currentDictionary = dictionaries[currentLocale];
+
 const ACCEPT = 'a';
 const REJECT = 'r';
 const WAITING = 'w';
@@ -14,14 +59,14 @@ export const ACCEPTANCES = {
   [ACCEPTANCE.WAITING]: 'Waiting',
 };
 
-export const TIME_UNITS = ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
-export const STATUS = ['New', 'In Progress', 'Ready For Review', 'Completed', 'Skipped'];
+// Status
 
-export const NEW = 'New';
-export const IN_PROGRESS = 'In Progress';
-export const READY_FOR_REVIEW = 'Ready For Review';
-export const COMPLETED = 'Completed';
-export const SKIPPED = 'Skipped';
+export const {
+  NEW, IN_PROGRESS, READY_FOR_REVIEW, COMPLETED, SKIPPED,
+} = currentDictionary;
+
+
+export const STATUS = [NEW, IN_PROGRESS, READY_FOR_REVIEW, COMPLETED, SKIPPED];
 
 export const STATUS_MAP = {
   [NEW]: 'n',
@@ -39,24 +84,32 @@ export const STATUS_MAP_TWO = {
   s: SKIPPED,
 };
 
+// Time Units
+export const {
+  SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR,
+} = currentDictionary;
+
+export const TIME_UNITS = [SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR];
+
+
 export const TIME_UNITS_MAP = {
-  Second: 's',
-  Minute: 'm',
-  Hour: 'h',
-  Day: 'd',
-  Week: 'w',
-  Month: 'M',
-  Year: 'y',
+  [SECOND]: 's',
+  [MINUTE]: 'm',
+  [HOUR]: 'h',
+  [DAY]: 'd',
+  [WEEK]: 'w',
+  [MONTH]: 'M',
+  [YEAR]: 'y',
 };
 
 export const TIME_UNITS_MAP_TWO = {
-  s: 'Second',
-  m: 'Minute',
-  h: 'Hour',
-  d: 'Day',
-  w: 'Week',
-  M: 'Month',
-  y: 'Year',
+  s: SECOND,
+  m: MINUTE,
+  h: HOUR,
+  d: DAY,
+  w: WEEK,
+  M: MONTH,
+  y: YEAR,
 };
 
 export const SUPER_ROLE = {
