@@ -43,7 +43,7 @@ const zh = {
   stepViewerHint: '以下是此步骤的相关信息',
   trigger: '启动',
   triggerToComplete: '完成',
-  triggerToReview: '等待检阅',
+  triggerToReview: '待审核',
   triggerTitle: '你无权启动',
   taskEditorTitle: '编辑任务',
   taskEditorHint: '请填写以下表格以编辑任务',
