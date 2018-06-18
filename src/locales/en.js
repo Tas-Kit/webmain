@@ -43,7 +43,7 @@ const en = {
   stepViewerHint: 'View the information of this step below',
   trigger: 'Trigger',
   triggerToComplete: 'Complete',
-  triggerToReview: 'Ready For Review',
+  triggerToReview: 'Submit',
   triggerTitle: 'You don\'t have the authority to trigger.',
   taskEditorTitle: 'Task Editor',
   taskEditorHint: 'To edit a task, please fill in the fields below',
