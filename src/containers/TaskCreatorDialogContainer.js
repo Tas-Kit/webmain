@@ -47,6 +47,7 @@ class TaskCreatorDialogContainer extends React.Component {
         .catch(() => {
           updateMessage('Create task failed.');
           toggleTaskActionPending();
+          return false;
         });
     }
     return new Promise((resolve) => {
