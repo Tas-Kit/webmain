@@ -21,6 +21,7 @@ const initialState = {
   tasks: [],
   tasksMap: {},
 
+  createdTid: null,
   createPending: false,
   savePending: false,
   deletePending: false,
@@ -57,10 +58,10 @@ const handleResponse = (response, state) => {
       }));
       return { ...state, tasks, tasksMap };
     }
-    case apiTypes.SAVE_TASK: {
+    case apiTypes.SAVE_TASK:
+    case apiTypes.CLONE_TASK: {
       const { tid } = response.json.task_info;
-      window.location.replace(`/web/main/task/${tid}`);
-      return state;
+      return { ...state, createdTid: tid };
     }
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {

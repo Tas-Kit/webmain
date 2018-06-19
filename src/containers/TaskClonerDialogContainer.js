@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,6 +39,9 @@ class TaskClonerDialogContainer extends React.Component {
       return APIService.sendRequest(url, apiTypes.CLONE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
+            const { createdTid } = this.props.taskManager;
+            const { history } = this.props;
+            history.push(`${createdTid}`);
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskClonePending();
             updateMessage('Task cloned successfully.');
@@ -87,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskClonerDialogContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskClonerDialogContainer));
