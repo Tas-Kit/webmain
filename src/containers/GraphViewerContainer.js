@@ -67,8 +67,9 @@ class GraphViewerContainer extends React.Component {
 
   handleDrop = (e) => {
     const { draggingNodeType } = this.props.graphManager;
-    const { resetStepInfo, updateMessage } = this.props.actions;
+    const { resetStepInfo, updateMessage, setIsStartEnd } = this.props.actions;
     resetStepInfo();
+    setIsStartEnd(false); // clear previous start/end node flag
     if (draggingNodeType === NORMAL_NODE) {
       const { setNodeCanvasCoord } = this.props.actions;
       const offsetX = 240; // width of drawer

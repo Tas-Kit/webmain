@@ -57,6 +57,11 @@ const handleResponse = (response, state) => {
       }));
       return { ...state, tasks, tasksMap };
     }
+    case apiTypes.SAVE_TASK: {
+      const { tid } = response.json.task_info;
+      window.location.replace(`/web/main/task/${tid}`);
+      return state;
+    }
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
         const data = response.json.task_info;
