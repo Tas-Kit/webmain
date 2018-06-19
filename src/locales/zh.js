@@ -50,9 +50,7 @@ const zh = {
   unitFieldLabel: '单位',
   numberFieldError: '请填写一个数字',
   unitFieldError: '请挑选一个单位',
-<<<<<<< HEAD
   usernameFieldPlaceholder: '用户名',
-=======
   basicNode: '基本',
   checkListNode: '清单',
   fileNode: '文件',
@@ -61,7 +59,6 @@ const zh = {
   subTaskNode: '子任务',
   addEdgeButton: '添加连结',
   deleteItemButton: '删除',
->>>>>>> 5f29ca4f7006bb5275bf6ae6cdc053d8e5cb6aff
 };
 
 export default zh;

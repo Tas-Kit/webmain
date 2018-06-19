@@ -50,9 +50,7 @@ const en = {
   unitFieldLabel: 'Unit',
   numberFieldError: 'Please specify a number',
   unitFieldError: 'Pleas select a unit',
-<<<<<<< HEAD
   usernameFieldPlaceholder: 'Username',
-=======
   basicNode: 'Basic Node',
   checkListNode: 'Check List Node',
   fileNode: 'File Node',
@@ -61,7 +59,6 @@ const en = {
   subTaskNode: 'Sub Task Node',
   addEdgeButton: 'Add Edge',
   deleteItemButton: 'Delete',
->>>>>>> 5f29ca4f7006bb5275bf6ae6cdc053d8e5cb6aff
 };
 
 export default en;

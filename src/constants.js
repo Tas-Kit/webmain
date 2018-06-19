@@ -119,17 +119,16 @@ export const TIME_UNITS_MAP_TWO = {
 };
 
 export const { OWNER, ADMIN, STANDARD } = currentDictionary;
-
 export const SUPER_ROLE = {
-  [OWNER]: 10,
-  [ADMIN]: 5,
-  [STANDARD]: 0,
+  OWNER: 10,
+  ADMIN: 5,
+  STANDARD: 0,
 };
 
 export const SUPER_ROLES = {
-  10: OWNER,
-  5: ADMIN,
-  0: STANDARD,
+  [SUPER_ROLE.OWNER]: OWNER,
+  [SUPER_ROLE.ADMIN]: ADMIN,
+  [SUPER_ROLE.STANDARD]: STANDARD,
 };
 
 // Component Size
