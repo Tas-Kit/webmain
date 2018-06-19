@@ -22,9 +22,19 @@ export const NODE_STATUS_COLOR_MAP = {
   s: '#c6ccd2',
 };
 
+export const NODE_NAME_ID_MAP = {
+  [NORMAL_NODE]: 'basicNode',
+  [CHECK_LIST_NODE]: 'checkListNode',
+  [FILE_NODE]: 'fileNode',
+  [JOIN_NODE]: 'joinNode',
+  [MULTIPLE_CHOICE_NODE]: 'multipleChoiceNode',
+  [SUB_TASK_NODE]: 'subTaskNode',
+};
+
 export default {
   NORMAL_NODE,
   START_NODE,
   END_NODE,
   NODE_SIZE,
+  NODE_NAME_ID_MAP,
 };

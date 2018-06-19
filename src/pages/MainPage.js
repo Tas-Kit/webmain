@@ -22,6 +22,7 @@ import * as snackbarActions from '../actions/snackbarActions';
 // constants
 import * as apiTypes from '../constants/apiTypes';
 import { MIN_ALLOW_WINDOW_WIDTH } from '../constants';
+import { TASK_GET_URL, USER_SERVICE_URL } from '../constants/apiUrls';
 
 const styles = {
   taskView: {
@@ -37,14 +38,14 @@ const styles = {
 
 class MainPage extends React.Component {
   componentDidMount = () => {
-    const url = '/taskservice/task/?format=json';
+    const url = TASK_GET_URL;
     APIService.sendRequest(url, apiTypes.GET_TASKS)
       .then(() => {
       })
       .catch(() => {
         this.props.actions.updateMessage('Get tasks failed.');
       });
-    APIService.sendRequest('/userservice/userinfo/', 'get_current_user')
+    APIService.sendRequest(USER_SERVICE_URL, 'get_current_user')
       .then((success) => {
         console.log('get_user api succeed', success);
       })

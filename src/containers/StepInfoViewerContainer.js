@@ -7,6 +7,7 @@ import * as apiTypes from '../constants/apiTypes';
 import * as snackbarActions from '../actions/snackbarActions';
 import * as stepActions from '../actions/stepActions';
 import * as dialogActions from '../actions/dialogActions';
+import { TASK_TRIGGER_URL } from '../constants/apiUrls';
 
 const StepInfoViewerContainer = (props) => {
   const { stepInfo, triggerPending } = props.stepManager;
@@ -29,7 +30,7 @@ const StepInfoViewerContainer = (props) => {
     const { updateMessage, toggleTriggerPending, toggleStepViewer } = props.actions;
     const { taskId: tid } = props.taskManager;
     const { stepId: sid } = props.stepManager;
-    const url = `/taskservice/task/trigger/${tid}/`;
+    const url = `${TASK_TRIGGER_URL}${tid}/`;
     if (sid === null) {
       updateMessage('Trigger can\'t be performed before the graph is saved.');
     } else {
