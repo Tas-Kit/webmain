@@ -56,7 +56,7 @@ const DialogsContainer = (props) => {
           APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskDeletePending();
           updateMessage('Task deleted successfully.');
-          backToMain();
+          props.history.push('/');
         }
       })
       .catch(() => {
