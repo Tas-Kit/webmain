@@ -21,6 +21,7 @@ const initialState = {
   tasks: [],
   tasksMap: {},
 
+  createPending: false,
   savePending: false,
   deletePending: false,
   quitPending: false,
@@ -122,6 +123,9 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_TASK_ACTION_PENDING: {
       return { ...state, pending: !state.pending };
+    }
+    case types.TOGGLE_TASK_CREATE_PENDING: {
+      return { ...state, createPending: !state.createPending };
     }
     case types.TOGGLE_TASK_DELETE_PENDING: {
       return { ...state, deletePending: !state.deletePending };

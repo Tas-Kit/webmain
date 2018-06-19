@@ -26,27 +26,27 @@ class TaskEditorDialogContainer extends React.Component {
   handleTaskModify = () => {
     // return a promise
     const { taskInfo, taskId } = this.props.taskManager;
-    const { toggleTaskActionPending, updateMessage } = this.props.actions;
+    const { toggleTaskCreatePending, updateMessage } = this.props.actions;
     const payload = mapTaskInfoRequestData(taskInfo);
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
-      toggleTaskActionPending();
+      toggleTaskCreatePending();
       const url = `${TASK_SERVICE_URL}${taskId}/`;
       return APIService.sendRequest(url, apiTypes.MODIFY_TASK, payload, 'PATCH')
         .then((success) => {
           if (success) {
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
-            toggleTaskActionPending();
+            toggleTaskCreatePending();
             updateMessage('Task modified successfully.');
             return true;
           }
           updateMessage('Modify task failed.');
-          toggleTaskActionPending();
+          toggleTaskCreatePending();
           return false;
         })
         .catch(() => {
           updateMessage('Modify task failed.');
-          toggleTaskActionPending();
+          toggleTaskCreatePending();
         });
     }
     return new Promise((resolve) => {
@@ -58,7 +58,7 @@ class TaskEditorDialogContainer extends React.Component {
 
   render() {
     const { taskEditorOpen } = this.props.dialogManager;
-    const { pending } = this.props.taskManager;
+    const { createPending } = this.props.taskManager;
     const { toggleTaskEditor } = this.props.actions;
     return (
       <FormDialog
@@ -68,7 +68,7 @@ class TaskEditorDialogContainer extends React.Component {
         toggle={toggleTaskEditor}
         component={<TaskInfoContainer />}
         onSave={this.handleTaskModify}
-        loading={pending}
+        loading={createPending}
       />
     );
   }

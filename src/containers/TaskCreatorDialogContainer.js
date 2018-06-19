@@ -26,27 +26,27 @@ class TaskCreatorDialogContainer extends React.Component {
   handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = this.props.taskManager;
-    const { toggleTaskActionPending, updateMessage } = this.props.actions;
+    const { toggleTaskCreatePending, updateMessage } = this.props.actions;
     const payload = mapTaskInfoRequestData(taskInfo);
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
-      toggleTaskActionPending();
+      toggleTaskCreatePending();
       const url = TASK_SERVICE_URL;
       return APIService.sendRequest(url, apiTypes.SAVE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
-            toggleTaskActionPending();
+            toggleTaskCreatePending();
             updateMessage('Task created successfully.');
             return true;
           }
           updateMessage('Create task failed.');
-          toggleTaskActionPending();
+          toggleTaskCreatePending();
           return false;
         })
         .catch(() => {
           updateMessage('Create task failed.');
-          toggleTaskActionPending();
+          toggleTaskCreatePending();
           return false;
         });
     }
@@ -59,7 +59,7 @@ class TaskCreatorDialogContainer extends React.Component {
 
   render() {
     const { taskCreatorOpen } = this.props.dialogManager;
-    const { pending } = this.props.taskManager;
+    const { createPending } = this.props.taskManager;
     const { toggleTaskCreator } = this.props.actions;
     return (
       <FormDialog
@@ -69,7 +69,7 @@ class TaskCreatorDialogContainer extends React.Component {
         toggle={toggleTaskCreator}
         component={<TaskInfoContainer />}
         onSave={this.handleTaskInfoSave}
-        loading={pending}
+        loading={createPending}
       />
     );
   }
