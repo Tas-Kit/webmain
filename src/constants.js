@@ -19,6 +19,9 @@ const enDictionary = {
   WEEK: 'Week',
   MONTH: 'Month',
   YEAR: 'Year',
+  OWNER: 'Owner',
+  ADMIN: 'Admin',
+  STANDARD: 'Standard',
 };
 
 const zhDictionary = {
@@ -34,6 +37,9 @@ const zhDictionary = {
   WEEK: '周',
   MONTH: '月',
   YEAR: '年',
+  OWNER: '所有者',
+  ADMIN: '管理员',
+  STANDARD: '普通',
 };
 
 const dictionaries = {
@@ -112,16 +118,18 @@ export const TIME_UNITS_MAP_TWO = {
   y: YEAR,
 };
 
+export const { OWNER, ADMIN, STANDARD } = currentDictionary;
+
 export const SUPER_ROLE = {
-  OWNER: 10,
-  ADMIN: 5,
-  STANDARD: 0,
+  [OWNER]: 10,
+  [ADMIN]: 5,
+  [STANDARD]: 0,
 };
 
 export const SUPER_ROLES = {
-  [SUPER_ROLE.OWNER]: 'Owner',
-  [SUPER_ROLE.ADMIN]: 'Admin',
-  [SUPER_ROLE.STANDARD]: 'Standard',
+  10: OWNER,
+  5: ADMIN,
+  0: STANDARD,
 };
 
 // Component Size
