@@ -50,6 +50,7 @@ const zh = {
   unitFieldLabel: '单位',
   numberFieldError: '请填写一个数字',
   unitFieldError: '请挑选一个单位',
+  usernameFieldPlaceholder: '用户名',
 };
 
 export default zh;

@@ -50,6 +50,7 @@ const en = {
   unitFieldLabel: 'Unit',
   numberFieldError: 'Please specify a number',
   unitFieldError: 'Pleas select a unit',
+  usernameFieldPlaceholder: 'Username',
 };
 
 export default en;

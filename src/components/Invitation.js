@@ -39,7 +39,7 @@ const Invitation = (props) => {
         <Input
           className={classes.usernameTextfield}
           id="username"
-          placeholder="username"
+          placeholder={<FormattedMessage id="usernameFieldPlaceholder" />}
           value={usernameToInvite}
           onChange={handleUsernameToInviteChange}
           fullWidth
