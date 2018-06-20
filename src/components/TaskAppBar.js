@@ -25,7 +25,7 @@ const TaskAppBar = (props) => {
   const { title = '', classes } = props;
   const renderTitle = () => {
     if (title === '') {
-      return 'Task List';
+      return <FormattedMessage id="appBarWelcomeMessage" />;
     }
     const { editMode } = props.currentUserManager;
     const { graphDataOrigin, currentGraphData } = props.graphManager;

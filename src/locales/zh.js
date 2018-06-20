@@ -59,6 +59,7 @@ const zh = {
   subTaskNode: '子任务',
   addEdgeButton: '添加连结',
   deleteItemButton: '删除',
+  appBarWelcomeMessage: '欢迎使用太事齐!',
 };
 
 export default zh;

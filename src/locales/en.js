@@ -59,6 +59,7 @@ const en = {
   subTaskNode: 'Sub Task Node',
   addEdgeButton: 'Add Edge',
   deleteItemButton: 'Delete',
+  appBarWelcomeMessage: 'Welcome to Taskit!',
 };
 
 export default en;
