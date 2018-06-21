@@ -1,4 +1,4 @@
-export const DEV_BASE_URL = 'http://sandbox1.tas-kit.com/api/v1';
+export const DEV_BASE_URL = 'http://sandbox.tas-kit.com/api/v1';
 export const LOGIN_URL = '/web/basic/login';
 
 export const USER_SERVICE_URL = '/userservice/userinfo/';
