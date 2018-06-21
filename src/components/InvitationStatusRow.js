@@ -35,6 +35,7 @@ const UserStatusRow = (props) => {
     handleSuperRoleChange, handleRoleChange, isLoading, classes,
   } = props;
   const { username, uid: userId } = user.basic;
+  console.log(userId);
   const {
     role, super_role: superRole, acceptance,
   } = user.has_task;

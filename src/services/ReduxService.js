@@ -1,10 +1,13 @@
 import { createStore, combineReducers } from 'redux';
 import reducers from '../reducers';
 
+const dev = process.env.NODE_ENV !== 'production';
 class ReduxService {
   constructor() {
     const reducer = combineReducers(reducers);
-    this.store = createStore(reducer);
+    /* eslint-disable no-underscore-dangle */
+    this.store = createStore(reducer, dev && (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+    /* eslint-enable */
   }
 
   dispatch = (action) => {

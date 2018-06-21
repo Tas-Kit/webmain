@@ -93,9 +93,11 @@ const handleResponse = (response, state) => {
       return state;
     }
     case apiTypes.CREATE_INVITATION: {
+      const newUser = Object.assign({}, response.json);
+      newUser.basic.uid = newUser.basic.id;
       return {
         ...state,
-        taskUsers: [...state.taskUsers, response.json],
+        taskUsers: [...state.taskUsers, newUser],
       };
     }
     default:

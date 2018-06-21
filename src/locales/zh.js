@@ -52,6 +52,7 @@ const zh = {
   unitFieldLabel: '单位',
   numberFieldError: '请填写一个数字',
   unitFieldError: '请挑选一个单位',
+  usernameFieldPlaceholder: '用户名',
   basicNode: '基本',
   checkListNode: '清单',
   fileNode: '文件',
@@ -60,6 +61,7 @@ const zh = {
   subTaskNode: '子任务',
   addEdgeButton: '添加连结',
   deleteItemButton: '删除',
+  appBarWelcomeMessage: '欢迎使用太事齐!',
 };
 
 export default zh;

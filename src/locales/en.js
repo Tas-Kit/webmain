@@ -49,9 +49,10 @@ const en = {
   taskEditorHint: 'To edit a task, please fill in the fields below',
   unsaveChangesLabel: 'Unsaved Changes',
   numberFieldLabel: 'Number',
-  numberFieldError: 'Please specify a number',
   unitFieldLabel: 'Unit',
+  numberFieldError: 'Please specify a number',
   unitFieldError: 'Pleas select a unit',
+  usernameFieldPlaceholder: 'Username',
   basicNode: 'Basic Node',
   checkListNode: 'Check List Node',
   fileNode: 'File Node',
@@ -60,6 +61,7 @@ const en = {
   subTaskNode: 'Sub Task Node',
   addEdgeButton: 'Add Edge',
   deleteItemButton: 'Delete',
+  appBarWelcomeMessage: 'Welcome to Taskit!',
 };
 
 export default en;
