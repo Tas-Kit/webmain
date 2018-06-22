@@ -33,7 +33,7 @@ const transformResponse = (res) => {
       handleTimeOut();
       break;
     default:
-      defaultOnError();
+      return null;
   }
   return null;
 };
