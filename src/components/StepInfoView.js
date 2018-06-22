@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { FormattedMessage } from 'react-intl';
 import { LoadingButton } from './Button';
-import { START_NODE } from '../constants/nodes';
+import { START_NODE, END_NODE, START_NODE_DISPLAY_LABEL, END_NODE_DISPLAY_LABEL } from '../constants/nodes';
 import { NEW, IN_PROGRESS, READY_FOR_REVIEW } from '../constants';
 
 const inline = {
@@ -92,7 +92,13 @@ class StepInfoView extends React.Component {
       <div style={inline.main}>
         <div style={inline.row}>
           <span style={inline.fieldName}><FormattedMessage id="nameFieldName" />:</span>
-          <span style={inline.fieldContent}>{info.name}</span>
+          <span style={inline.fieldContent}>
+            {
+              (info.nodeType === START_NODE && START_NODE_DISPLAY_LABEL)
+              || ((info.nodeType === END_NODE) && END_NODE_DISPLAY_LABEL)
+              || info.name
+            }
+          </span>
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
