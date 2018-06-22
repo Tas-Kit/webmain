@@ -1,7 +1,35 @@
+const detectLocale = () => {
+  if (navigator) {
+    return navigator.language.split(/[-_]/)[0];
+  }
+  return 'en';
+};
+const currentLocale = detectLocale();
+
+const enDictionary = {
+  START_NODE_DISPLAY_LABEL: 'Start',
+  END_NODE_DISPLAY_LABEL: 'End',
+};
+
+const zhDictionary = {
+  START_NODE_DISPLAY_LABEL: '开始',
+  END_NODE_DISPLAY_LABEL: '结束',
+};
+
+const dictionaries = {
+  en: enDictionary,
+  zh: zhDictionary,
+};
+
+const currentDictionary = dictionaries[currentLocale];
+
 // Node Type
 export const NORMAL_NODE = 'n';
 export const START_NODE = 's';
 export const END_NODE = 'e';
+
+// Node Display Label
+export const { START_NODE_DISPLAY_LABEL, END_NODE_DISPLAY_LABEL } = currentDictionary;
 
 // future node node type
 // name can be changed

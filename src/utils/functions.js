@@ -16,6 +16,8 @@ import {
   START_NODE,
   END_NODE,
   NODE_SIZE,
+  START_NODE_DISPLAY_LABEL,
+  END_NODE_DISPLAY_LABEL,
 } from '../constants/nodes';
 
 import * as svgStrings from '../assets/svgStrings';
@@ -104,25 +106,35 @@ export const mapNodeToRequestData = data => ({
   description: (data.description === null || data.description === '') ? null : data.description,
 });
 
-export const mapNodeToStepInfo = data => ({
-  name: data.label,
-  effortTime: data.expected_effort_num || '',
-  effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
-  deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
-  status: STATUS_MAP_TWO[data.status],
-  description: data.description || '',
-  assigneeRoles: data.assignees,
-  reviewerRoles: data.reviewers,
-  optional: data.is_optional,
-  nodeType: data.node_type,
-});
+export const mapNodeToStepInfo = (data) => {
+  let currName = data.label;
+  if (data.node_type === START_NODE) {
+    currName = 'Start';
+  } else if (data.node_type === END_NODE) {
+    currName = 'End';
+  }
+  return ({
+    name: currName,
+    effortTime: data.expected_effort_num || '',
+    effortUnit: TIME_UNITS_MAP_TWO[data.expected_effort_unit] || '',
+    deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
+    status: STATUS_MAP_TWO[data.status],
+    description: data.description || '',
+    assigneeRoles: data.assignees,
+    reviewerRoles: data.reviewers,
+    optional: data.is_optional,
+    nodeType: data.node_type,
+  });
+};
 
 export const mapNodeResponseData = nodes => (
   nodes.map((node) => {
     let svgString;
+    let displayLabel = node.name;
     if (node.node_type === START_NODE || node.node_type === END_NODE) {
       const color = NODE_STATUS_COLOR_MAP[node.status];
       svgString = svgStrings[node.node_type](color);
+      displayLabel = node.node_type === START_NODE ? START_NODE_DISPLAY_LABEL : END_NODE_DISPLAY_LABEL;
     } else {
       const color = NODE_STATUS_COLOR_MAP[node.status];
       svgString = svgStrings[node.node_type](color);
@@ -134,7 +146,7 @@ export const mapNodeResponseData = nodes => (
       old_id: node.id,
       shape: 'image',
       image: imageUrl,
-      label: node.name,
+      label: displayLabel,
       x: node.pos_x ? node.pos_x : 0.0,
       y: node.pos_y ? node.pos_y : 0.0,
       size: NODE_SIZE,
