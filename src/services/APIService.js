@@ -14,10 +14,6 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const defaultOnError = () => {
-  throw new Error();
-};
-
 const handleTimeOut = () => {
   if (window) {
     window.location.replace(LOGIN_URL);
