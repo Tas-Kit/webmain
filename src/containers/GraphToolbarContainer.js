@@ -32,13 +32,8 @@ const GraphToolbarContainer = (props) => {
   const handleAddEdge = () => {
     resetMode();
     if (!addEdgeSelected) {
-      // const newAddEdgeSelected = !addEdgeSelected;
       toggleAddEdgeButton();
-      // if (newAddEdgeSelected) {
       gs.addEdgeMode();
-      // } else {
-      //   gs.exitEditMode();
-      // }
     }
   };
 
