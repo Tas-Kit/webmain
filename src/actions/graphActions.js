@@ -14,6 +14,10 @@ export const toggleAddEdgeButton = () => ({
   type: types.TOGGLE_ADD_EDGE_BUTTON,
 });
 
+export const toggleDeleteButton = () => ({
+  type: types.TOGGLE_DELETE_BUTTON,
+});
+
 export const setGraphDataOrigin = graphDataOrigin => ({
   type: types.SET_GRAPH_DATA_ORIGIN,
   graphDataOrigin,
