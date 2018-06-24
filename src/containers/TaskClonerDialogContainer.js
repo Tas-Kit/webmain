@@ -44,20 +44,20 @@ class TaskClonerDialogContainer extends React.Component {
             history.push(`${createdTid}`);
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskClonePending();
-            updateMessage('Task cloned successfully.');
+            updateMessage(<FormattedMessage id="taskCloneMsg" />);
             return true;
           }
-          updateMessage('Clone task failed.');
+          updateMessage(<FormattedMessage id="taskCloneFailMsg" />);
           toggleTaskClonePending();
           return false;
         })
         .catch(() => {
-          updateMessage('Clone task failed.');
+          updateMessage(<FormattedMessage id="taskCloneFailMsg" />);
           toggleTaskClonePending();
         });
     }
     return new Promise((resolve) => {
-      updateMessage('Invalid form data. Please check it again.');
+      updateMessage(<FormattedMessage id="invalidFormDataMsg" />);
       resolve();
     })
       .then(() => false);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 // components
 import { GraphViewer } from '../components/Graph';
@@ -81,7 +82,7 @@ class GraphViewerContainer extends React.Component {
       setNodeCanvasCoord(canvasCoord);
       this.props.actions.toggleStepCreator();
     } else {
-      updateMessage('Currently only normal node is available.');
+      updateMessage(<FormattedMessage id="nodeUnavailableMsg" />);
     }
   }
 

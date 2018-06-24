@@ -37,20 +37,20 @@ class TaskEditorDialogContainer extends React.Component {
           if (success) {
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskCreatePending();
-            updateMessage('Task modified successfully.');
+            updateMessage(<FormattedMessage id="taskModifyMsg" />);
             return true;
           }
-          updateMessage('Modify task failed.');
+          updateMessage(<FormattedMessage id="taskModifyFailMsg" />);
           toggleTaskCreatePending();
           return false;
         })
         .catch(() => {
-          updateMessage('Modify task failed.');
+          updateMessage(<FormattedMessage id="taskModifyFailMsg" />);
           toggleTaskCreatePending();
         });
     }
     return new Promise((resolve) => {
-      updateMessage('Invalid form data. Please check it again.');
+      updateMessage(<FormattedMessage id="invalidFormDataMsg" />);
       resolve();
     })
       .then(() => false);
