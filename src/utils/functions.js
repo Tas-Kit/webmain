@@ -71,7 +71,9 @@ export const mapStepInfoToNode = (data) => {
     shape: 'image',
     size: NODE_SIZE,
   };
-  if (data.description) { node.title = data.description; }
+  if (data.description) {
+    node.title = data.description;
+  }
   return node;
 };
 
