@@ -145,9 +145,7 @@ export const mapNodeResponseData = nodes => (
       y: node.pos_y ? node.pos_y : 0.0,
       size: NODE_SIZE,
     };
-    if (node.description) {
-      visNode.title = node.description;
-    }
+    if (node.description) { visNode.title = node.description; }
     return visNode;
   })
 );
