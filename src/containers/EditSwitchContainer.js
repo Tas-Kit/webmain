@@ -57,7 +57,7 @@ const EditSwitchContainer = (props) => {
       APIService.sendRequest(url, apiTypes.SAVE_GRAPH, payload, 'PATCH')
         .then((success) => {
           if (success) {
-            updateMessage('Graph saved successfully.');
+            updateMessage(<FormattedMessage id="graphSaveMsg" />);
             // save original graph data for checking unsaved changes
             const graphDataOrigin = gs.activeData;
             setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
@@ -65,7 +65,7 @@ const EditSwitchContainer = (props) => {
           }
         })
         .catch(() => {
-          updateMessage('Save graph failed.');
+          updateMessage(<FormattedMessage id="graphSaveFailMsg" />);
         });
     }
     toggleEditMode();

@@ -48,7 +48,7 @@ class StepCreatorDialogContainer extends React.Component {
       return new Promise((resolve) => { resolve(); }).then(() => true);
     }
     return new Promise((resolve) => {
-      updateMessage('Invalid form data. Please check it again.');
+      updateMessage(<FormattedMessage id="invalidFormDataMsg" />);
       resolve();
     })
       .then(() => false);

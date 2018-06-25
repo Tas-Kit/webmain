@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 // components
 import { GraphViewer } from '../components/Graph';
@@ -45,14 +46,14 @@ class GraphViewerContainer extends React.Component {
             updateGraphDataJson(JSON.parse(JSON.stringify(gs.activeData)));
           } else {
             // it's either a start or an end node
-            updateMessage('Start/End node can\'t be deleted.');
+            updateMessage(<FormattedMessage id="startEndNodeDeleteMsg" />);
           }
         } else if (nodes.length === 0 && edges.length === 1) {
           // it's an edge to be deleted
           gs.removeEdge(edges);
           updateGraphDataJson(JSON.parse(JSON.stringify(gs.activeData)));
         } else if (nodes.length === 0 && edges.length === 0) {
-          updateMessage('Please select a node or an edge to delete.');
+          updateMessage(<FormattedMessage id="selectNodeToDeleteMsg" />);
         }
       } else {
         // select mode
@@ -108,7 +109,7 @@ class GraphViewerContainer extends React.Component {
       setNodeCanvasCoord(canvasCoord);
       this.props.actions.toggleStepCreator();
     } else {
-      updateMessage('Currently only normal node is available.');
+      updateMessage(<FormattedMessage id="nodeUnavailableMsg" />);
     }
   }
 

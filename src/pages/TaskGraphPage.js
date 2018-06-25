@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import GraphViewerContainer from '../containers/GraphViewerContainer';
 import LoadingProgress from '../components/LoadingProgress';
@@ -41,7 +42,7 @@ class TaskGraphPage extends React.Component {
         if (!success) {
           const { updateMessage, toggleTaskActionPending } = this.props.actions;
           toggleTaskActionPending();
-          updateMessage('No task found.');
+          updateMessage(<FormattedMessage id="noTaskFoundMsg" />);
           this.props.history.push('/task');
         }
       });

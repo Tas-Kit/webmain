@@ -55,12 +55,12 @@ const DialogsContainer = (props) => {
         if (success) {
           APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskDeletePending();
-          updateMessage('Task deleted successfully.');
+          updateMessage(<FormattedMessage id="taskDeleteMsg" />);
           props.history.push('/');
         }
       })
       .catch(() => {
-        updateMessage('Delete task failed.');
+        updateMessage(<FormattedMessage id="taskDeleteFailMsg" />);
         toggleTaskDeletePending();
       });
   };
@@ -73,13 +73,13 @@ const DialogsContainer = (props) => {
         if (success) {
           APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskQuitPending();
-          updateMessage('Task quit successfully.');
+          updateMessage(<FormattedMessage id="taskQuitMsg" />);
           backToMain();
         }
       })
       .catch(() => {
         toggleTaskQuitPending();
-        updateMessage('Quit task failed.');
+        updateMessage(<FormattedMessage id="taskQuitFailMsg" />);
       });
   };
 

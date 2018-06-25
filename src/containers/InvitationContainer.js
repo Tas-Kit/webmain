@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import Invitation from '../components/Invitation';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
@@ -28,12 +29,12 @@ class InvitationContainer extends React.Component {
       .then((success) => {
         this.setState({ isLoading: false });
         if (success) {
-          updateMessage('You have successfully sent the invitation');
+          updateMessage(<FormattedMessage id="sendInvitationMsg" />);
         }
       })
       .catch(() => {
         this.setState({ isLoading: false });
-        updateMessage('Invitation failed');
+        updateMessage(<FormattedMessage id="sendInvitationFailMsg" />);
       });
   };
 

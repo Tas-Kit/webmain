@@ -41,21 +41,21 @@ class TaskCreatorDialogContainer extends React.Component {
             history.push(`task/${createdTid}`);
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskCreatePending();
-            updateMessage('Task created successfully.');
+            updateMessage(<FormattedMessage id="taskCreateMsg" />);
             return true;
           }
-          updateMessage('Create task failed.');
+          updateMessage(<FormattedMessage id="taskCreateFailMsg" />);
           toggleTaskCreatePending();
           return false;
         })
         .catch(() => {
-          updateMessage('Create task failed.');
+          updateMessage(<FormattedMessage id="taskCreateFailMsg" />);
           toggleTaskCreatePending();
           return false;
         });
     }
     return new Promise((resolve) => {
-      updateMessage('Invalid form data. Please check it again.');
+      updateMessage(<FormattedMessage id="invalidFormDataMsg" />);
       resolve();
     })
       .then(() => false);
