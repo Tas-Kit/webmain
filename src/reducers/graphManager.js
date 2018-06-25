@@ -5,6 +5,7 @@ import gs from '../services/GraphService';
 
 const initialState = {
   addEdgeSelected: false,
+  deleteSelected: false,
   draggingNodeType: '',
   canvasCoord: { x: 0, y: 0 },
   graphDataOrigin: {
@@ -55,6 +56,9 @@ const graphManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_ADD_EDGE_BUTTON: {
       return { ...state, addEdgeSelected: !state.addEdgeSelected };
+    }
+    case types.TOGGLE_DELETE_BUTTON: {
+      return { ...state, deleteSelected: !state.deleteSelected };
     }
     case types.SET_GRAPH_DATA_ORIGIN: {
       return { ...state, graphDataOrigin: action.graphDataOrigin };

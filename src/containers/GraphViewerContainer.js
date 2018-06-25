@@ -31,23 +31,50 @@ class GraphViewerContainer extends React.Component {
 
     // initialize listeners
     gs.network.on('click', (data) => {
-      const nodeId = gs.network.getNodeAt(data.pointer.DOM);
-      if (nodeId) {
-        const {
-          updateStepInfo, toggleStepViewer,
-          toggleStepEditor, setIsStartEnd,
-        } = this.props.actions;
-        const { editMode } = this.props.currentUserManager;
-        const nodeData = gs.getNode(nodeId);
-        const isStartEnd = nodeData.node_type === START_NODE || nodeData.node_type === END_NODE;
-        setIsStartEnd(isStartEnd);
-        const newStepInfo = mapNodeToStepInfo(nodeData);
-        gs.setActiveItemId(nodeData.id);
-        updateStepInfo(newStepInfo, nodeData.sid);
-        if (editMode) {
-          toggleStepEditor();
-        } else {
-          toggleStepViewer();
+      const { deleteSelected } = this.props.graphManager;
+      if (deleteSelected) {
+        // delete mode
+        const { nodes, edges } = gs.network.getSelection();
+        const { updateMessage, updateGraphDataJson } = this.props.actions;
+        if (nodes.length === 1) {
+          // it's a node to be deleted
+          const node = gs.getNode(nodes[0]);
+          // start/end node can't be deleted
+          if (node.node_type !== START_NODE && node.node_type !== END_NODE) {
+            gs.removeNode(nodes);
+            gs.removeEdge(edges);
+            updateGraphDataJson(JSON.parse(JSON.stringify(gs.activeData)));
+          } else {
+            // it's either a start or an end node
+            updateMessage(<FormattedMessage id="startEndNodeDeleteMsg" />);
+          }
+        } else if (nodes.length === 0 && edges.length === 1) {
+          // it's an edge to be deleted
+          gs.removeEdge(edges);
+          updateGraphDataJson(JSON.parse(JSON.stringify(gs.activeData)));
+        } else if (nodes.length === 0 && edges.length === 0) {
+          updateMessage(<FormattedMessage id="selectNodeToDeleteMsg" />);
+        }
+      } else {
+        // select mode
+        const nodeId = gs.network.getNodeAt(data.pointer.DOM);
+        if (nodeId) {
+          const {
+            updateStepInfo, toggleStepViewer,
+            toggleStepEditor, setIsStartEnd,
+          } = this.props.actions;
+          const { editMode } = this.props.currentUserManager;
+          const nodeData = gs.getNode(nodeId);
+          const isStartEnd = nodeData.node_type === START_NODE || nodeData.node_type === END_NODE;
+          setIsStartEnd(isStartEnd);
+          const newStepInfo = mapNodeToStepInfo(nodeData);
+          gs.setActiveItemId(nodeData.id);
+          updateStepInfo(newStepInfo, nodeData.sid);
+          if (editMode) {
+            toggleStepEditor();
+          } else {
+            toggleStepViewer();
+          }
         }
       }
     });

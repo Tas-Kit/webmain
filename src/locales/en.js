@@ -91,6 +91,7 @@ const en = {
   taskModifyFailMsg: 'Modify task failed.',
   tasksGetFailMsg: 'Get tasks failed.',
   userGetFailMsg: 'Get user failed',
+  noTaskFoundMsg: 'No task found.',
 };
 
 export default en;
