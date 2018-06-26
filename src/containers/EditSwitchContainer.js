@@ -23,9 +23,11 @@ import { TASK_GRAPH_URL } from '../constants/apiUrls';
 const EditSwitchContainer = (props) => {
   const { editMode } = props.currentUserManager;
   const { tasksMap, taskId } = props.taskManager;
+  const { addEdgeSelected, deleteSelected } = props.graphManager;
   const {
     toggleEditMode, updateMessage,
     setGraphDataOrigin, updateGraphDataJson,
+    toggleAddEdgeButton, toggleDeleteButton,
   } = props.actions;
   let isEditor = false;
   if (Object.prototype.hasOwnProperty.call(tasksMap, taskId)) {
@@ -33,8 +35,19 @@ const EditSwitchContainer = (props) => {
     isEditor = superRole === 5 || superRole === 10;
   }
 
+  const resetMode = () => {
+    if (addEdgeSelected) {
+      toggleAddEdgeButton();
+      gs.exitEditMode();
+    }
+    if (deleteSelected) {
+      toggleDeleteButton();
+    }
+  };
+
   const handleEditModeChange = () => {
     if (editMode) {
+      resetMode();
       const url = `${TASK_GRAPH_URL}${taskId}/`;
       const payload = {
         tid: taskId,
@@ -44,7 +57,7 @@ const EditSwitchContainer = (props) => {
       APIService.sendRequest(url, apiTypes.SAVE_GRAPH, payload, 'PATCH')
         .then((success) => {
           if (success) {
-            updateMessage('Graph saved successfully.');
+            updateMessage(<FormattedMessage id="graphSaveMsg" />);
             // save original graph data for checking unsaved changes
             const graphDataOrigin = gs.activeData;
             setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
@@ -52,7 +65,7 @@ const EditSwitchContainer = (props) => {
           }
         })
         .catch(() => {
-          updateMessage('Save graph failed.');
+          updateMessage(<FormattedMessage id="graphSaveFailMsg" />);
         });
     }
     toggleEditMode();
@@ -73,6 +86,7 @@ const EditSwitchContainer = (props) => {
 const mapStateToProps = store => ({
   currentUserManager: store.currentUserManager,
   taskManager: store.taskManager,
+  graphManager: store.graphManager,
 });
 
 const mapDispatchToProps = dispatch => ({

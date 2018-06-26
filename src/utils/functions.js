@@ -53,25 +53,31 @@ export const mapTaskInfoRequestData = data => ({
   deadline: data.deadline === '' ? null : (new Date(data.deadline)).toISOString(),
 });
 
-export const mapStepInfoToNode = data => ({
-  name: data.name,
-  label: data.name,
-  status: STATUS_MAP[data.status],
-  description: data.description,
-  reviewers: data.reviewerRoles,
-  assignees: data.assigneeRoles,
-  deadline: data.deadline,
-  expected_effort_num: data.effortTime,
-  expected_effort_unit: TIME_UNITS_MAP[data.effortUnit],
-  is_optional: data.optional,
-  id: data.id,
-  x: data.x,
-  y: data.y,
-  node_type: data.node_type,
-  image: data.image,
-  shape: 'image',
-  size: NODE_SIZE,
-});
+export const mapStepInfoToNode = (data) => {
+  const node = {
+    name: data.name,
+    label: data.name,
+    status: STATUS_MAP[data.status],
+    description: data.description,
+    reviewers: data.reviewerRoles,
+    assignees: data.assigneeRoles,
+    deadline: data.deadline,
+    expected_effort_num: data.effortTime,
+    expected_effort_unit: TIME_UNITS_MAP[data.effortUnit],
+    is_optional: data.optional,
+    id: data.id,
+    x: data.x,
+    y: data.y,
+    node_type: data.node_type,
+    image: data.image,
+    shape: 'image',
+    size: NODE_SIZE,
+  };
+  if (data.description) {
+    node.title = data.description;
+  }
+  return node;
+};
 
 
 export const logout = () => {
@@ -140,7 +146,7 @@ export const mapNodeResponseData = nodes => (
       svgString = svgStrings[node.node_type](color);
     }
     const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-    return ({
+    const visNode = {
       ...node,
       id: node.sid,
       old_id: node.id,
@@ -150,7 +156,9 @@ export const mapNodeResponseData = nodes => (
       x: node.pos_x ? node.pos_x : 0.0,
       y: node.pos_y ? node.pos_y : 0.0,
       size: NODE_SIZE,
-    });
+    };
+    if (node.description) { visNode.title = node.description; }
+    return visNode;
   })
 );
 

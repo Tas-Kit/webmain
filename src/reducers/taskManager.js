@@ -21,6 +21,8 @@ const initialState = {
   tasks: [],
   tasksMap: {},
 
+  createdTid: null,
+  createPending: false,
   savePending: false,
   deletePending: false,
   quitPending: false,
@@ -55,6 +57,11 @@ const handleResponse = (response, state) => {
         permission: tasksMap[key].has_task,
       }));
       return { ...state, tasks, tasksMap };
+    }
+    case apiTypes.SAVE_TASK:
+    case apiTypes.CLONE_TASK: {
+      const { tid } = response.json.task_info;
+      return { ...state, createdTid: tid };
     }
     case apiTypes.GET_TASK_GRAPH: {
       if (response.id === state.pendingRequestId) {
@@ -119,6 +126,9 @@ const taskManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_TASK_ACTION_PENDING: {
       return { ...state, pending: !state.pending };
+    }
+    case types.TOGGLE_TASK_CREATE_PENDING: {
+      return { ...state, createPending: !state.createPending };
     }
     case types.TOGGLE_TASK_DELETE_PENDING: {
       return { ...state, deletePending: !state.deletePending };

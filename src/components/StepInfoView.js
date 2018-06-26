@@ -47,9 +47,21 @@ const styles = () => ({
   },
 });
 
-class StepInfoView extends React.Component {
-  allowTrigger = () => {
-    const { info, userTaskRole } = this.props;
+const StepInfoView = (props) => {
+  const getTriggerButtonName = () => {
+    const { info } = props;
+    if (info.status === IN_PROGRESS && info.reviewerRoles.length === 0) {
+      return <FormattedMessage id="triggerToComplete" />;
+    } else if (info.status === IN_PROGRESS && info.reviewerRoles.length > 0) {
+      return <FormattedMessage id="triggerToReview" />;
+    } else if (info.status === READY_FOR_REVIEW) {
+      return <FormattedMessage id="triggerToComplete" />;
+    }
+    return <FormattedMessage id="trigger" />;
+  };
+
+  const allowTrigger = () => {
+    const { info, userTaskRole } = props;
     if (info.status === NEW && info.nodeType === START_NODE) {
       return true;
     } else if (info.status === IN_PROGRESS && info.assigneeRoles.length === 0) {
@@ -62,25 +74,14 @@ class StepInfoView extends React.Component {
       return true;
     }
     return false;
-  }
+  };
 
-  handleChange = key => (e) => {
-    const { info, update } = this.props;
-    update({ ...info, [key]: e.target.value });
-  }
-
-  handleCheckboxChange = key => (e) => {
-    const { info, update } = this.props;
-    update({ ...info, [key]: e.target.checked });
-  }
-
-  renderExpectedEfforts = (info) => {
+  const renderExpectedEfforts = (info) => {
     if (info.effortTime === '' && info.effortUnit === '') {
       return null;
     }
     return `${info.effortTime} ${info.effortUnit}(s)`;
-  }
-
+  };
   render() {
     const {
       info,
@@ -122,40 +123,40 @@ class StepInfoView extends React.Component {
             <Checkbox disabled checked={info.optional} />
           </div>
         </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="assigneeFieldName" />:</span>
-          <div style={inline.fieldContent}>
-            {info.assigneeRoles.map(role => (
-              <Chip key={`assignee_${role}`} label={role} className={classes.chip} />
-            ))}
-            {info.assigneeRoles.length === 0 ? 'None' : null}
-          </div>
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="reviewerFieldName" />:</span>
-          <div style={inline.fieldContent}>
-            {info.reviewerRoles.map(role => (
-              <Chip key={`reviewer_${role}`} label={role} className={classes.chip} />
-            ))}
-            {info.reviewerRoles.length === 0 ? 'None' : null}
-          </div>
-        </div>
-        <Tooltip title={this.allowTrigger() ? '' : <FormattedMessage id="triggerTitle" />}>
-          <div style={inline.triggerMain}>
-            <LoadingButton
-              variant="outlined"
-              color="primary"
-              className={classes.trigger}
-              disabled={!this.allowTrigger()}
-              buttonName={<FormattedMessage id="triggerButton" />}
-              loading={triggerPending}
-              onClick={onTrigger}
-            />
-          </div>
-        </Tooltip>
       </div>
-    );
-  }
-}
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="assigneeFieldName" />:</span>
+        <div style={inline.fieldContent}>
+          {info.assigneeRoles.map(role => (
+            <Chip key={`assignee_${role}`} label={role} className={classes.chip} />
+          ))}
+          {info.assigneeRoles.length === 0 ? 'None' : null}
+        </div>
+      </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="reviewerFieldName" />:</span>
+        <div style={inline.fieldContent}>
+          {info.reviewerRoles.map(role => (
+            <Chip key={`reviewer_${role}`} label={role} className={classes.chip} />
+          ))}
+          {info.reviewerRoles.length === 0 ? 'None' : null}
+        </div>
+      </div>
+      <Tooltip title={allowTrigger() ? '' : <FormattedMessage id="triggerTitle" />}>
+        <div style={inline.triggerMain}>
+          <LoadingButton
+            variant="outlined"
+            color="primary"
+            className={classes.trigger}
+            disabled={!allowTrigger()}
+            buttonName={getTriggerButtonName()}
+            loading={triggerPending}
+            onClick={onTrigger}
+          />
+        </div>
+      </Tooltip>
+    </div>
+  );
+};
 
 export default withStyles(styles)(StepInfoView);

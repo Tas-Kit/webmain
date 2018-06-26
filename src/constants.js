@@ -25,7 +25,7 @@ const enDictionary = {
 };
 
 const zhDictionary = {
-  NEW: '新',
+  NEW: '未开始',
   IN_PROGRESS: '进行中',
   READY_FOR_REVIEW: '待审核',
   COMPLETED: '完成',

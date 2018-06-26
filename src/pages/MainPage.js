@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Route, Switch } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 // pages
 import TasksPage from './TasksPage';
@@ -43,14 +44,14 @@ class MainPage extends React.Component {
       .then(() => {
       })
       .catch(() => {
-        this.props.actions.updateMessage('Get tasks failed.');
+        this.props.actions.updateMessage(<FormattedMessage id="tasksGetFailMsg" />);
       });
     APIService.sendRequest(USER_SERVICE_URL, 'get_current_user')
       .then((success) => {
         console.log('get_user api succeed', success);
       })
       .catch(() => {
-        this.props.actions.updateMessage('Get user failed');
+        this.props.actions.updateMessage(<FormattedMessage id="userGetFailMsg" />);
       });
   };
 

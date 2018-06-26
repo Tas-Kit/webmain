@@ -1,5 +1,6 @@
 import React from 'react';
 import Validator from 'validatorjs';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
@@ -26,31 +27,35 @@ class TaskCreatorDialogContainer extends React.Component {
   handleTaskInfoSave = () => {
     // return a promise
     const { taskInfo } = this.props.taskManager;
-    const { toggleTaskActionPending, updateMessage } = this.props.actions;
+    const { toggleTaskCreatePending, updateMessage } = this.props.actions;
     const payload = mapTaskInfoRequestData(taskInfo);
     const validation = new Validator(payload, TASK_INFO_RULE);
     if (validation.passes()) {
-      toggleTaskActionPending();
+      toggleTaskCreatePending();
       const url = TASK_SERVICE_URL;
       return APIService.sendRequest(url, apiTypes.SAVE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
+            const { createdTid } = this.props.taskManager;
+            const { history } = this.props;
+            history.push(`task/${createdTid}`);
             APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
-            toggleTaskActionPending();
-            updateMessage('Task created successfully.');
+            toggleTaskCreatePending();
+            updateMessage(<FormattedMessage id="taskCreateMsg" />);
             return true;
           }
-          updateMessage('Create task failed.');
-          toggleTaskActionPending();
+          updateMessage(<FormattedMessage id="taskCreateFailMsg" />);
+          toggleTaskCreatePending();
           return false;
         })
         .catch(() => {
-          updateMessage('Create task failed.');
-          toggleTaskActionPending();
+          updateMessage(<FormattedMessage id="taskCreateFailMsg" />);
+          toggleTaskCreatePending();
+          return false;
         });
     }
     return new Promise((resolve) => {
-      updateMessage('Invalid form data. Please check it again.');
+      updateMessage(<FormattedMessage id="invalidFormDataMsg" />);
       resolve();
     })
       .then(() => false);
@@ -58,7 +63,7 @@ class TaskCreatorDialogContainer extends React.Component {
 
   render() {
     const { taskCreatorOpen } = this.props.dialogManager;
-    const { pending } = this.props.taskManager;
+    const { createPending } = this.props.taskManager;
     const { toggleTaskCreator } = this.props.actions;
     return (
       <FormDialog
@@ -68,7 +73,7 @@ class TaskCreatorDialogContainer extends React.Component {
         toggle={toggleTaskCreator}
         component={<TaskInfoContainer />}
         onSave={this.handleTaskInfoSave}
-        loading={pending}
+        loading={createPending}
       />
     );
   }
@@ -84,4 +89,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskCreatorDialogContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskCreatorDialogContainer));

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import StepInfoView from '../components/StepInfoView';
 import APIService from '../services/APIService';
 import * as apiTypes from '../constants/apiTypes';
@@ -32,7 +33,7 @@ const StepInfoViewerContainer = (props) => {
     const { stepId: sid } = props.stepManager;
     const url = `${TASK_TRIGGER_URL}${tid}/`;
     if (sid === null) {
-      updateMessage('Trigger can\'t be performed before the graph is saved.');
+      updateMessage(<FormattedMessage id="cantTriggerMsg" />);
     } else {
       toggleTriggerPending();
       const payload = { tid, sid };
@@ -40,13 +41,13 @@ const StepInfoViewerContainer = (props) => {
         .then((triggered) => {
           if (triggered) {
             toggleTriggerPending();
-            updateMessage('Task triggered successfully.');
+            updateMessage(<FormattedMessage id="triggerMsg" />);
             toggleStepViewer();
           }
         })
         .catch(() => {
           toggleTriggerPending();
-          updateMessage('Trigger task failed.');
+          updateMessage(<FormattedMessage id="triggerFailMsg" />);
         });
     }
   };
