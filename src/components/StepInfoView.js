@@ -82,46 +82,44 @@ const StepInfoView = (props) => {
     }
     return `${info.effortTime} ${info.effortUnit}(s)`;
   };
-  render() {
-    const {
-      info,
-      classes,
-      triggerPending,
-      onTrigger,
-    } = this.props;
-    return (
-      <div style={inline.main}>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="nameFieldName" />:</span>
-          <span style={inline.fieldContent}>
-            {
-              (info.nodeType === START_NODE && START_NODE_DISPLAY_LABEL)
-              || ((info.nodeType === END_NODE) && END_NODE_DISPLAY_LABEL)
-              || info.name
-            }
-          </span>
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
-          <span style={inline.fieldContent}>{info.status}</span>
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="deadlineFieldName" />:</span>
-          <span style={inline.fieldContent}>{info.deadline}</span>
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="expectedFieldName" />:</span>
-          <span style={inline.fieldContent}>{this.renderExpectedEfforts(info)}</span>
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
-          <span style={inline.fieldContent}>{info.description}</span>
-        </div>
-        <div style={inline.row}>
-          <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>
-          <div style={inline.fieldContent}>
-            <Checkbox disabled checked={info.optional} />
-          </div>
+  const {
+    info,
+    classes,
+    triggerPending,
+    onTrigger,
+  } = props;
+  return (
+    <div style={inline.main}>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="nameFieldName" />:</span>
+        <span style={inline.fieldContent}>
+          {
+            (info.nodeType === START_NODE && START_NODE_DISPLAY_LABEL)
+            || ((info.nodeType === END_NODE) && END_NODE_DISPLAY_LABEL)
+            || info.name
+          }
+        </span>
+      </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
+        <span style={inline.fieldContent}>{info.status}</span>
+      </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="deadlineFieldName" />:</span>
+        <span style={inline.fieldContent}>{info.deadline}</span>
+      </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="expectedFieldName" />:</span>
+        <span style={inline.fieldContent}>{renderExpectedEfforts(info)}</span>
+      </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
+        <span style={inline.fieldContent}>{info.description}</span>
+      </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>
+        <div style={inline.fieldContent}>
+          <Checkbox disabled checked={info.optional} />
         </div>
       </div>
       <div style={inline.row}>
@@ -155,7 +153,7 @@ const StepInfoView = (props) => {
           />
         </div>
       </Tooltip>
-    </div>
+    </div >
   );
 };
 
