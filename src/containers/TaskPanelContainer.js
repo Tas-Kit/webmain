@@ -9,15 +9,20 @@ import * as taskActions from '../actions/taskActions';
 import * as currentUserActions from '../actions/currentUserActions';
 
 const TaskPanelContainer = (props) => {
-  const { tasks } = props.taskManager;
+  const { tasks, filter } = props.taskManager;
   const { username } = props.currentUserManager;
-  const { setActiveTaskId, resetEditMode } = props.actions;
+  const { setActiveTaskId, resetEditMode, setFilter } = props.actions;
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
   return (
     <TaskPanel
       username={username}
       tasks={tasks}
       onTaskClick={setActiveTaskId}
       resetEditMode={resetEditMode}
+      filter={filter}
+      handleFilterChange={handleFilterChange}
     />
   );
 };

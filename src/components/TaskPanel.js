@@ -13,6 +13,7 @@ import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Assignment from '@material-ui/icons/Assignment';
+import { TextField } from '@material-ui/core';
 
 
 // react components
@@ -26,11 +27,10 @@ const drawerWidth = 240;
 
 const styles = () => ({
   row: {
-    padding: '12px 24px',
   },
   taskDrawer: {
     position: 'relative',
-    paddingTop: '1em',
+    padding: '2em 1em',
     color: 'white',
     background: grey[800],
     width: drawerWidth,
@@ -58,7 +58,7 @@ const inline = {
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, classes, resetEditMode,
+    username, tasks, classes, resetEditMode, filter, handleFilterChange,
   } = props;
   return (
     <Drawer
@@ -78,9 +78,19 @@ const TaskPanel = (props) => {
 
         <NotificationContainer />
       </Grid>
+      <form >
+        <TextField
+          id="filter"
+          label="Filter"
+          value={filter}
+          onChange={handleFilterChange}
+          fullWidth
+          margin="normal"
+        />
+      </form>
 
       <List component="nav">
-        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
+        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.search(filter) !== -1)
           .map((task) => {
             const { tid, name } = task.info;
             const { onTaskClick } = props;

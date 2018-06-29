@@ -58,3 +58,9 @@ export const removeUser = userId => ({
   type: types.REMOVE_USER,
   userId,
 });
+
+export const setFilter = filter => ({
+  type: types.SET_FILTER,
+  filter,
+});
+
