@@ -13,7 +13,7 @@ import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Assignment from '@material-ui/icons/Assignment';
-import { TextField } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 
 
 // react components
@@ -22,6 +22,7 @@ import NotificationContainer from '../containers/NotificationContainer';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
+import { WHITE } from '../constants/colors';
 
 const drawerWidth = 240;
 
@@ -45,6 +46,15 @@ const styles = () => ({
   },
   expander: {
     flexBasis: '100%',
+  },
+  input: {
+    color: WHITE,
+    margin: '1.5em 0 0.5em',
+    borderBottomColor: WHITE,
+    '&:after': {
+      borderColor: 'WHITE',
+      color: 'WHITE',
+    },
   },
 });
 
@@ -79,13 +89,14 @@ const TaskPanel = (props) => {
         <NotificationContainer />
       </Grid>
       <form >
-        <TextField
+        <Input
           id="filter"
-          label="Filter"
+          placeholder="Filter"
           value={filter}
+          className={classes.input}
           onChange={handleFilterChange}
           fullWidth
-          margin="normal"
+          margin="dense"
         />
       </form>
 
