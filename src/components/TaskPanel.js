@@ -23,6 +23,7 @@ import NotificationContainer from '../containers/NotificationContainer';
 // constant import
 import { ACCEPTANCE } from '../constants';
 import { WHITE } from '../constants/colors';
+import { FormattedMessage } from 'react-intl';
 
 const drawerWidth = 240;
 
@@ -89,15 +90,23 @@ const TaskPanel = (props) => {
         <NotificationContainer />
       </Grid>
       <form >
-        <Input
-          id="filter"
-          placeholder="Filter"
-          value={filter}
-          className={classes.input}
-          onChange={handleFilterChange}
-          fullWidth
-          margin="dense"
-        />
+        <FormattedMessage id="filterPlaceholder">
+          {
+            txt => (
+              <Input
+                id="filter"
+                placeholder={txt}
+                value={filter}
+                className={classes.input}
+                onChange={handleFilterChange}
+                fullWidth
+                margin="dense"
+              />
+            )
+          }
+
+        </FormattedMessage>
+
       </form>
 
       <List component="nav">

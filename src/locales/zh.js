@@ -92,6 +92,7 @@ const zh = {
   tasksGetFailMsg: '获取任务失败。',
   userGetFailMsg: '获取用户失败。',
   noTaskFoundMsg: '没有找到相应的任务。',
+  filterPlaceholder: '过滤',
 };
 
 export default zh;
