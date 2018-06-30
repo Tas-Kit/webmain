@@ -1,3 +1,4 @@
+// trigger build
 import * as types from '../constants/actions';
 
 export const updateTaskInfo = (taskInfo = {}) => ({
