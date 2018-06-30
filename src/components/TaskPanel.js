@@ -36,6 +36,7 @@ const styles = () => ({
     color: 'white',
     background: grey[800],
     width: drawerWidth,
+    display: 'flex',
   },
   taskListItemText: {
     color: 'white',
@@ -92,51 +93,51 @@ const TaskPanel = (props) => {
       <form >
         <FormattedMessage id="filterPlaceholder">
           {
-            txt => (
-              <Input
-                id="filter"
-                placeholder={txt}
-                value={filter}
-                className={classes.input}
-                onChange={handleFilterChange}
-                fullWidth
-                margin="dense"
-              />
-            )
-          }
+              txt => (
+                <Input
+                  id="filter"
+                  placeholder={txt}
+                  value={filter}
+                  className={classes.input}
+                  onChange={handleFilterChange}
+                  fullWidth
+                  margin="dense"
+                />
+              )
+            }
 
         </FormattedMessage>
-
       </form>
 
-      <List component="nav">
-        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
-          .map((task) => {
-            const { tid, name } = task.info;
-            const { onTaskClick } = props;
-            return (
-              <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
-                <ListItem
-                  button
-                  onClick={() => {
-                    onTaskClick(tid);
-                    resetEditMode();
-                  }}
-                >
-                  <ListItemIcon>
-                    <Assignment style={inline.svgIcon} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={name}
-                    classes={{ primary: classes.taskListItemText }}
-                  />
-                </ListItem>
-              </Link>
-            );
-          })
-        }
-      </List>
-      <div className={classes.expander} />
+      <Grid item xs>
+        <List component="nav">
+          {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
+            .map((task) => {
+              const { tid, name } = task.info;
+              const { onTaskClick } = props;
+              return (
+                <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      onTaskClick(tid);
+                      resetEditMode();
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Assignment style={inline.svgIcon} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={name}
+                      classes={{ primary: classes.taskListItemText }}
+                    />
+                  </ListItem>
+                </Link>
+              );
+            })
+          }
+        </List>
+      </Grid>
       <DrawerBottomPanelContainer />
     </Drawer>
   );
