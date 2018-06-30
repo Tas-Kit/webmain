@@ -18,6 +18,7 @@ import {
   NODE_SIZE,
   START_NODE_DISPLAY_LABEL,
   END_NODE_DISPLAY_LABEL,
+  NODE_OFFSET,
 } from '../constants/nodes';
 
 import * as svgStrings from '../assets/svgStrings';
@@ -66,8 +67,8 @@ export const mapStepInfoToNode = (data) => {
     expected_effort_unit: TIME_UNITS_MAP[data.effortUnit],
     is_optional: data.optional,
     id: data.id,
-    x: data.x,
-    y: data.y,
+    x: Math.round(data.x / NODE_OFFSET) * NODE_OFFSET,
+    y: Math.round(data.y / NODE_OFFSET) * NODE_OFFSET,
     node_type: data.node_type,
     image: data.image,
     shape: 'image',
