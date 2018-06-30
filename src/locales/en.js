@@ -92,7 +92,7 @@ const en = {
   tasksGetFailMsg: 'Get tasks failed.',
   userGetFailMsg: 'Get user failed',
   noTaskFoundMsg: 'No task found.',
-  filterPlaceholder: 'Filter',
+  filterPlaceholder: 'Search Task',
 };
 
 export default en;
