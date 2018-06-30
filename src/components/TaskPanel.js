@@ -14,6 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Assignment from '@material-ui/icons/Assignment';
 import { Input } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
 
 
 // react components
@@ -23,7 +24,6 @@ import NotificationContainer from '../containers/NotificationContainer';
 // constant import
 import { ACCEPTANCE } from '../constants';
 import { WHITE } from '../constants/colors';
-import { FormattedMessage } from 'react-intl';
 
 const drawerWidth = 240;
 
