@@ -18,6 +18,7 @@ const initialState = {
   taskUsers: [],
   taskNodes: [],
   taskEdges: [],
+  filter: '',
   tasks: [],
   tasksMap: {},
 
@@ -178,6 +179,12 @@ const taskManager = (state = initialState, action = {}) => {
         ...state,
         taskUsers: (state.taskUsers
           .filter(item => item.basic.uid !== action.userId)),
+      };
+    }
+    case types.SET_FILTER: {
+      return {
+        ...state,
+        filter: action.filter,
       };
     }
     default:

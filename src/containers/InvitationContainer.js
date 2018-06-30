@@ -27,14 +27,14 @@ class InvitationContainer extends React.Component {
     this.setState({ isLoading: true });
     createInvitation(tid, payload)
       .then((success) => {
-        this.setState({ isLoading: false });
         if (success) {
           updateMessage(<FormattedMessage id="sendInvitationMsg" />);
         }
       })
       .catch(() => {
-        this.setState({ isLoading: false });
         updateMessage(<FormattedMessage id="sendInvitationFailMsg" />);
+      }).finally(() => {
+        this.setState({ isLoading: false });
       });
   };
 

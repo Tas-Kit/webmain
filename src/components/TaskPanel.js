@@ -13,6 +13,8 @@ import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Assignment from '@material-ui/icons/Assignment';
+import { Input } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
 
 
 // react components
@@ -21,16 +23,16 @@ import NotificationContainer from '../containers/NotificationContainer';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
+import { WHITE } from '../constants/colors';
 
 const drawerWidth = 240;
 
 const styles = () => ({
   row: {
-    padding: '12px 24px',
   },
   taskDrawer: {
     position: 'relative',
-    paddingTop: '1em',
+    padding: '2em 1em',
     color: 'white',
     background: grey[800],
     width: drawerWidth,
@@ -46,6 +48,15 @@ const styles = () => ({
   expander: {
     flexBasis: '100%',
   },
+  input: {
+    color: WHITE,
+    margin: '1.5em 0 0.5em',
+    borderBottomColor: WHITE,
+    '&:after': {
+      borderColor: 'WHITE',
+      color: 'WHITE',
+    },
+  },
 });
 
 const inline = {
@@ -58,7 +69,7 @@ const inline = {
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, classes, resetEditMode,
+    username, tasks, classes, resetEditMode, filter, handleFilterChange,
   } = props;
   return (
     <Drawer
@@ -78,9 +89,28 @@ const TaskPanel = (props) => {
 
         <NotificationContainer />
       </Grid>
+      <form >
+        <FormattedMessage id="filterPlaceholder">
+          {
+            txt => (
+              <Input
+                id="filter"
+                placeholder={txt}
+                value={filter}
+                className={classes.input}
+                onChange={handleFilterChange}
+                fullWidth
+                margin="dense"
+              />
+            )
+          }
+
+        </FormattedMessage>
+
+      </form>
 
       <List component="nav">
-        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT)
+        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
           .map((task) => {
             const { tid, name } = task.info;
             const { onTaskClick } = props;

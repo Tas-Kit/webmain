@@ -33,6 +33,17 @@ const MultiSelect = (props) => {
           {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
         </div>
       )}
+      MenuProps={{
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        transformOrigin: {
+          vertical: 'top',
+          horizontal: 'left',
+        },
+        getContentAnchorEl: null,
+      }}
     >
       {options.map(option => (
         <MenuItem key={option} value={option}>

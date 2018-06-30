@@ -29,7 +29,7 @@ const transformResponse = (res) => {
       handleTimeOut();
       break;
     default:
-      return null;
+      throw new Error('failed');
   }
   return null;
 };
