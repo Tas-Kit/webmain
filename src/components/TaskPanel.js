@@ -110,7 +110,7 @@ const TaskPanel = (props) => {
       </form>
 
       <List component="nav">
-        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.search(filter) !== -1)
+        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
           .map((task) => {
             const { tid, name } = task.info;
             const { onTaskClick } = props;
