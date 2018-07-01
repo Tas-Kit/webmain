@@ -7,3 +7,15 @@ body {
 *:focus {
     outline: none;
 }
+
+/* vis network tooltip class override */
+.vis-tooltip {
+  background-color: #424242 !important;
+  border-radius: 2px !important;
+  color: white !important;
+  font-size: 10px !important;
+  padding: 6px 8px !important;
+  white-space: normal !important;
+  max-width: 200px !important;
+  line-height: 1.6 !important;
+}

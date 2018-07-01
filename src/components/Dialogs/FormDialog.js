@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // ui components
 import Button from '@material-ui/core/Button';
@@ -90,10 +91,10 @@ class FormDialog extends React.Component {
               color="default"
               disabled={loading}
             >
-              Cancel
+              <FormattedMessage id="cancelButton" />
             </Button>
             <LoadingButton
-              buttonName="Save"
+              buttonName={<FormattedMessage id="saveButton" />}
               color="primary"
               loading={loading}
               onClick={this.handleSave}
@@ -107,7 +108,7 @@ class FormDialog extends React.Component {
 }
 
 FormDialog.defaultProps = {
-  mountMethod: () => {},
+  mountMethod: () => { },
   hints: '',
   disableButtons: false,
   loading: false,

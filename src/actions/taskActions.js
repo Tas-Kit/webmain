@@ -18,6 +18,10 @@ export const toggleTaskActionPending = () => ({
   type: types.TOGGLE_TASK_ACTION_PENDING,
 });
 
+export const toggleTaskCreatePending = () => ({
+  type: types.TOGGLE_TASK_CREATE_PENDING,
+});
+
 export const toggleTaskDeletePending = () => ({
   type: types.TOGGLE_TASK_DELETE_PENDING,
 });
@@ -54,3 +58,9 @@ export const removeUser = userId => ({
   type: types.REMOVE_USER,
   userId,
 });
+
+export const setFilter = filter => ({
+  type: types.SET_FILTER,
+  filter,
+});
+

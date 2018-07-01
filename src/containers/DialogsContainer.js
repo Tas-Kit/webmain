@@ -26,8 +26,8 @@ import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
 // constants
-import { PINK } from '../constants/colors';
 import * as apiTypes from '../constants/apiTypes';
+import { TASK_SERVICE_URL, TASK_GET_URL } from '../constants/apiUrls';
 
 // utils
 import { backToMain } from '../utils/functions';
@@ -49,18 +49,18 @@ const DialogsContainer = (props) => {
     // return a promise
     toggleTaskDeletePending();
     const { taskId } = props.taskManager;
-    const url = `/task/${taskId}/`;
+    const url = `${TASK_SERVICE_URL}${taskId}/`;
     return APIService.sendRequest(url, apiTypes.DELETE_TASK, {}, 'DELETE')
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskDeletePending();
-          updateMessage('Task deleted successfully.');
-          backToMain();
+          updateMessage(<FormattedMessage id="taskDeleteMsg" />);
+          props.history.push('/');
         }
       })
       .catch(() => {
-        updateMessage('Delete task failed.');
+        updateMessage(<FormattedMessage id="taskDeleteFailMsg" />);
         toggleTaskDeletePending();
       });
   };
@@ -71,15 +71,15 @@ const DialogsContainer = (props) => {
     return rejectInvitation(taskId)
       .then((success) => {
         if (success) {
-          APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+          APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
           toggleTaskQuitPending();
-          updateMessage('Task quit successfully.');
+          updateMessage(<FormattedMessage id="taskQuitMsg" />);
           backToMain();
         }
       })
       .catch(() => {
         toggleTaskQuitPending();
-        updateMessage('Quit task failed.');
+        updateMessage(<FormattedMessage id="taskQuitFailMsg" />);
       });
   };
 
@@ -119,10 +119,7 @@ const DialogsContainer = (props) => {
       <AlertDialog
         title={<FormattedMessage id="deleteHeading" defaultMessage="Delete Task" />}
         message={
-          <span>Are you sure you want to
-            <span style={{ color: PINK }}> permanently </span>
-            remove this task?
-          </span>
+          <FormattedMessage id="deleteTaskHint" />
         }
         openState={deleteTaskOpen}
         toggle={toggleDeleteTask}
@@ -134,10 +131,7 @@ const DialogsContainer = (props) => {
       <AlertDialog
         title={<FormattedMessage id="quitHeading" defaultMessage="Quit Task" />}
         message={
-          <span>Are you sure you want to
-            <span style={{ color: PINK }}> permanently </span>
-            quit from this task?
-          </span>
+          <FormattedMessage id="quitTaskHint" />
         }
         openState={quitTaskOpen}
         toggle={toggleQuitTask}

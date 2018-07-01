@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 // ui component
 import TaskToolbar from '../components/TaskToolbar';
@@ -20,6 +21,7 @@ import APIService from '../services/APIService';
 import { mapNodeToRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
 import { ACCEPTANCE } from '../constants';
+import { TASK_GRAPH_URL } from '../constants/apiUrls';
 
 const TaskToolbarContainer = (props) => {
   const {
@@ -35,7 +37,7 @@ const TaskToolbarContainer = (props) => {
   const activeTask = tasks.find(task => task.info.tid === taskId);
   const userPermission = activeTask ? activeTask.permission : {};
   const handleGraphSave = () => {
-    const url = `/task/graph/${taskId}/`;
+    const url = `${TASK_GRAPH_URL}${taskId}/`;
     const payload = {
       tid: taskId,
       nodes: gs.activeData.nodes.get().map(mapNodeToRequestData),
@@ -46,7 +48,7 @@ const TaskToolbarContainer = (props) => {
       .then((success) => {
         if (success) {
           toggleTaskSavePending();
-          updateMessage('Graph saved successfully.');
+          updateMessage(<FormattedMessage id="graphSaveMsg" />);
           // save original graph data for checking unsaved changes
           const graphDataOrigin = gs.activeData;
           setGraphDataOrigin(JSON.parse(JSON.stringify(graphDataOrigin)));
@@ -55,7 +57,7 @@ const TaskToolbarContainer = (props) => {
       })
       .catch(() => {
         toggleTaskSavePending();
-        updateMessage('Save graph failed.');
+        updateMessage(<FormattedMessage id="graphSaveFailMsg" />);
       });
   };
   return (

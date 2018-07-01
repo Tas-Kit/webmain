@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 import StepInfoViewerContainer from './StepInfoViewerContainer';
 import { FormDialog } from '../components/Dialogs';
@@ -10,25 +11,20 @@ import * as dialogActions from '../actions/dialogActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
-class StepViewerDialogContainer extends React.Component {
-  handleStepInfoSave = () => {
-  };
-
-  render() {
-    const { stepViewerOpen } = this.props.dialogManager;
-    const { toggleStepViewer } = this.props.actions;
-    return (
-      <FormDialog
-        disableButtons
-        title="Step Information"
-        hints="View the information of this step below."
-        openState={stepViewerOpen}
-        toggle={toggleStepViewer}
-        component={<StepInfoViewerContainer />}
-      />
-    );
-  }
-}
+const StepViewerDialogContainer = (props) => {
+  const { stepViewerOpen } = props.dialogManager;
+  const { toggleStepViewer } = props.actions;
+  return (
+    <FormDialog
+      disableButtons
+      title={<FormattedMessage id="stepViewerTitle" />}
+      hints={<FormattedMessage id="stepViewerHint" />}
+      openState={stepViewerOpen}
+      toggle={toggleStepViewer}
+      component={<StepInfoViewerContainer />}
+    />
+  );
+};
 
 const mapStateToProps = store => ({
   dialogManager: store.dialogManager,
