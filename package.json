@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "private": true,
-  "homepage": "http://localhost:8001/main",
+  "homepage": "http://sandbox1.tas-kit.com/web/main",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
     "start": "react-scripts start",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import InvitationStatus from '../components/InvitationStatus';
 import * as taskActions from '../actions/taskActions';
 import * as snackbarActions from '../actions/snackbarActions';
@@ -29,12 +30,12 @@ class InvitationStatusContainer extends React.Component {
       .then((success) => {
         if (success) {
           removeUser(uid);
-          updateMessage('Invitation was revoked successfully');
+          updateMessage(<FormattedMessage id="revokeInvitationMsg" />);
         }
         toggleInvitationStatusPending();
       })
       .catch(() => {
-        updateMessage('Revoke invitation failed');
+        updateMessage(<FormattedMessage id="revokeInvitationFailMsg" />);
         toggleInvitationStatusPending();
       });
   };
@@ -57,7 +58,7 @@ class InvitationStatusContainer extends React.Component {
       .then((success) => {
         if (success) {
           setUserSuperRole(payload.uid, payload.super_role);
-          updateMessage('Super role was sucessulfy changed');
+          updateMessage(<FormattedMessage id="changeSuperRoleMsg" />);
           if (payload.super_role === SUPER_ROLE.OWNER) {
             setUserSuperRole(currentOwner.basic.uid, SUPER_ROLE.ADMIN);
           }
@@ -65,7 +66,7 @@ class InvitationStatusContainer extends React.Component {
         }
       })
       .catch(() => {
-        updateMessage('Change super role failed');
+        updateMessage(<FormattedMessage id="changeSuperRoleFailMsg" />);
         toggleInvitationStatusPending();
       });
   };
@@ -86,12 +87,12 @@ class InvitationStatusContainer extends React.Component {
       .then((success) => {
         if (success) {
           setUserRole(payload.uid, payload.role);
-          updateMessage('Role was successfully changed');
+          updateMessage(<FormattedMessage id="changeRoleMsg" />);
         }
         toggleInvitationStatusPending();
       })
       .catch(() => {
-        updateMessage('Change role failed');
+        updateMessage(<FormattedMessage id="changeRoleFailMsg" />);
         toggleInvitationStatusPending();
       });
   };

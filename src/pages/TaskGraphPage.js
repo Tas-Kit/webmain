@@ -1,6 +1,10 @@
+// trigger build
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import TaskToolbarContainer from '../containers/TaskToolbarContainer';
 import GraphViewerContainer from '../containers/GraphViewerContainer';
 import LoadingProgress from '../components/LoadingProgress';
@@ -8,12 +12,14 @@ import LoadingProgress from '../components/LoadingProgress';
 // redux actions
 import * as taskActions from '../actions/taskActions';
 import * as currentUserActions from '../actions/currentUserActions';
+import * as snackbarActions from '../actions/snackbarActions';
 
 // services
 import APIService from '../services/APIService';
 
 // constants
 import * as apiTypes from '../constants/apiTypes';
+import { TASK_GRAPH_URL } from '../constants/apiUrls';
 
 class TaskGraphPage extends React.Component {
   componentDidMount = () => {
@@ -30,9 +36,16 @@ class TaskGraphPage extends React.Component {
   }
 
   sendRequest = (taskId) => {
-    const url = `/task/graph/${taskId}/`;
+    const url = `${TASK_GRAPH_URL}${taskId}/`;
     APIService.sendRequest(url, apiTypes.GET_TASK_GRAPH)
-      .then((success) => { console.log('get_task_graph api call success:', success); });
+      .then((success) => {
+        if (!success) {
+          const { updateMessage, toggleTaskActionPending } = this.props.actions;
+          toggleTaskActionPending();
+          updateMessage(<FormattedMessage id="noTaskFoundMsg" />);
+          this.props.history.push('/task');
+        }
+      });
   }
 
   render() {
@@ -54,7 +67,7 @@ class TaskGraphPage extends React.Component {
 const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...taskActions, ...currentUserActions }, dispatch),
+  actions: bindActionCreators({ ...taskActions, ...currentUserActions, ...snackbarActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskGraphPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskGraphPage));

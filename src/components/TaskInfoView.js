@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
+import { FormattedMessage } from 'react-intl';
 
 const styles = () => ({
   chip: {
@@ -40,27 +41,27 @@ const TaskInfoView = (props) => {
   return (
     <div style={inline.main}>
       <div style={inline.row}>
-        <span style={inline.fieldName}>Name*:</span>
+        <span style={inline.fieldName}><FormattedMessage id="nameFieldName" />*:</span>
         <span style={inline.fieldContent}>{info.name}</span>
       </div>
       <div style={inline.row}>
-        <span style={inline.fieldName}>Status:</span>
+        <span style={inline.fieldName}><FormattedMessage id="statusFieldName" />:</span>
         <span style={inline.fieldContent}>{info.status}</span>
       </div>
       <div style={inline.row}>
-        <span style={inline.fieldName}>Deadline:</span>
+        <span style={inline.fieldName}><FormattedMessage id="deadlineFieldName" />:</span>
         <span style={inline.fieldContent}>{info.deadline}</span>
       </div>
       <div style={inline.row}>
-        <span style={inline.fieldName}>Expected Effort:</span>
+        <span style={inline.fieldName}><FormattedMessage id="expectedFieldName" />:</span>
         <span style={inline.fieldContent}>{`${info.effortTime} ${info.effortUnit}`}</span>
       </div>
       <div style={inline.row}>
-        <span style={inline.fieldName}>Description:</span>
+        <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
         <span style={inline.fieldContent}>{info.description}</span>
       </div>
       <div style={inline.row}>
-        <span style={inline.fieldName}>Roles:</span>
+        <span style={inline.fieldName}><FormattedMessage id="rolesFieldName" />:</span>
         <div style={inline.fieldContent}>
           {info.roles.map(role => (
             <Chip key={`assignee_${role}`} label={role} className={classes.chip} />

@@ -1,10 +1,11 @@
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
+import { DEV_BASE_URL, LOGIN_URL } from '../constants/apiUrls';
 
 let baseUrl;
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'https://sandbox.tas-kit.com/api/v1';
+  baseUrl = DEV_BASE_URL;
 } else {
   baseUrl = 'http://localhost:8001/api/v1';
   if (typeof window !== 'undefined') {
@@ -13,13 +14,9 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const defaultOnError = () => {
-  throw new Error();
-};
-
 const handleTimeOut = () => {
   if (window) {
-    window.location.replace('/login');
+    window.location.replace(LOGIN_URL);
   }
 };
 
@@ -32,7 +29,7 @@ const transformResponse = (res) => {
       handleTimeOut();
       break;
     default:
-      defaultOnError();
+      throw new Error('failed');
   }
   return null;
 };

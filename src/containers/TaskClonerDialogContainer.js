@@ -1,7 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { FormDialog } from '../components/Dialogs';
 
 // ui containers
@@ -11,6 +13,7 @@ import TaskInfoContainer from './TaskInfoContainer';
 import { mapTaskInfoRequestData } from '../utils/functions';
 import * as apiTypes from '../constants/apiTypes';
 import { TASK_INFO_RULE } from '../constants';
+import { TASK_CLONE_URL, TASK_GET_URL } from '../constants/apiUrls';
 
 // services
 import APIService from '../services/APIService';
@@ -32,26 +35,29 @@ class TaskClonerDialogContainer extends React.Component {
     const validation = new Validator(mapTaskInfoRequestData(taskInfo), TASK_INFO_RULE);
     if (validation.passes()) {
       toggleTaskClonePending();
-      const url = `/task/clone/${taskId}/`;
+      const url = `${TASK_CLONE_URL}${taskId}/`;
       return APIService.sendRequest(url, apiTypes.CLONE_TASK, payload, 'POST')
         .then((success) => {
           if (success) {
-            APIService.sendRequest('/task/?format=json', apiTypes.GET_TASKS);
+            const { createdTid } = this.props.taskManager;
+            const { history } = this.props;
+            history.push(`${createdTid}`);
+            APIService.sendRequest(TASK_GET_URL, apiTypes.GET_TASKS);
             toggleTaskClonePending();
-            updateMessage('Task cloned successfully.');
+            updateMessage(<FormattedMessage id="taskCloneMsg" />);
             return true;
           }
-          updateMessage('Clone task failed.');
+          updateMessage(<FormattedMessage id="taskCloneFailMsg" />);
           toggleTaskClonePending();
           return false;
         })
         .catch(() => {
-          updateMessage('Clone task failed.');
+          updateMessage(<FormattedMessage id="taskCloneFailMsg" />);
           toggleTaskClonePending();
         });
     }
     return new Promise((resolve) => {
-      updateMessage('Invalid form data. Please check it again.');
+      updateMessage(<FormattedMessage id="invalidFormDataMsg" />);
       resolve();
     })
       .then(() => false);
@@ -63,8 +69,8 @@ class TaskClonerDialogContainer extends React.Component {
     const { toggleTaskCloner } = this.props.actions;
     return (
       <FormDialog
-        title="Task Cloner"
-        hints="To clone a task, please fill in the fields below."
+        title={<FormattedMessage id="taskClonerTitle" />}
+        hints={<FormattedMessage id="taskClonerHint" />}
         openState={taskClonerOpen}
         toggle={toggleTaskCloner}
         component={<TaskInfoContainer />}
@@ -85,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskClonerDialogContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskClonerDialogContainer));

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Route, Switch } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 // pages
 import TasksPage from './TasksPage';
@@ -22,6 +23,7 @@ import * as snackbarActions from '../actions/snackbarActions';
 // constants
 import * as apiTypes from '../constants/apiTypes';
 import { MIN_ALLOW_WINDOW_WIDTH } from '../constants';
+import { TASK_GET_URL, USER_SERVICE_URL } from '../constants/apiUrls';
 
 const styles = {
   taskView: {
@@ -37,19 +39,19 @@ const styles = {
 
 class MainPage extends React.Component {
   componentDidMount = () => {
-    const url = '/task/?format=json';
+    const url = TASK_GET_URL;
     APIService.sendRequest(url, apiTypes.GET_TASKS)
       .then(() => {
       })
       .catch(() => {
-        this.props.actions.updateMessage('Get tasks failed.');
+        this.props.actions.updateMessage(<FormattedMessage id="tasksGetFailMsg" />);
       });
-    APIService.sendRequest('/user', 'get_current_user')
+    APIService.sendRequest(USER_SERVICE_URL, 'get_current_user')
       .then((success) => {
         console.log('get_user api succeed', success);
       })
       .catch(() => {
-        this.props.actions.updateMessage('Get user failed');
+        this.props.actions.updateMessage(<FormattedMessage id="userGetFailMsg" />);
       });
   };
 

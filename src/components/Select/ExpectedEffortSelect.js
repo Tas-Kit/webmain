@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+import { FormattedMessage } from 'react-intl';
 import { TIME_UNITS } from '../../constants';
 
 const ExpectedEffortSelect = (props) => {
@@ -11,7 +12,7 @@ const ExpectedEffortSelect = (props) => {
     if (time === '' && timeUnit !== '') {
       return (
         <FormHelperText id="time-error" error>
-          Please specify a number.
+          <FormattedMessage id="numberFieldError" />.
         </FormHelperText>
       );
     }
@@ -23,7 +24,7 @@ const ExpectedEffortSelect = (props) => {
     if (time !== '' && timeUnit === '') {
       return (
         <FormHelperText id="unit-error" error>
-          Pleas select a unit.
+          <FormattedMessage id="unitFieldError" />.
         </FormHelperText>
       );
     }
@@ -36,7 +37,7 @@ const ExpectedEffortSelect = (props) => {
         <TextField
           id="time"
           value={props.time}
-          label="Number"
+          label={<FormattedMessage id="numberFieldLabel" />}
           type="number"
           inputProps={{ min: 0.01 }}
           onChange={props.onChangeTime}
@@ -48,7 +49,7 @@ const ExpectedEffortSelect = (props) => {
           select
           id="expected_effort"
           value={props.timeUnit}
-          label="Unit"
+          label={<FormattedMessage id="unitFieldLabel" />}
           onChange={props.onChangeUnit}
         >
           {[
