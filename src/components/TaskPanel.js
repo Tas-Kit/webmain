@@ -1,3 +1,4 @@
+// trigger build
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -65,6 +66,10 @@ const inline = {
     color: grey[400],
     position: 'relative',
   },
+  listItem: {
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
 };
 
 const TaskPanel = (props) => {
@@ -122,6 +127,7 @@ const TaskPanel = (props) => {
                     onTaskClick(tid);
                     resetEditMode();
                   }}
+                  style={inline.listItem}
                 >
                   <ListItemIcon>
                     <Assignment style={inline.svgIcon} />
