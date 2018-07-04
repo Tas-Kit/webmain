@@ -64,7 +64,7 @@ export const mapStepInfoToNode = (data) => {
     assignees: data.assigneeRoles,
     deadline: data.deadline,
     expected_effort_num: data.effortTime,
-    expected_effort_unit: TIME_UNITS_MAP[data.effortUnit],
+    expected_effort_unit: TIME_UNITS_MAP[data.effortUnit] || '',
     is_optional: data.optional,
     id: data.id,
     x: Math.round(data.x / NODE_OFFSET) * NODE_OFFSET,
