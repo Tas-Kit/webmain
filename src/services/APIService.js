@@ -28,6 +28,8 @@ const transformResponse = (res) => {
     case 401:
       handleTimeOut();
       break;
+    case 404:
+      return null;
     default:
       throw new Error('failed');
   }
