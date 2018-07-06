@@ -35,7 +35,7 @@ const PureDisplayDialog = (props) => {
     open, toggle, title, children, hints,
   } = props;
   return (
-    <Dialog open={open} fullWidth aria-labelledby="form-dialog-title">
+    <Dialog open={open} fullWidth>
       <DialogTitle id="form-dialog-title">
         <span>{title}</span>
         <IconButton color="default" style={inline.iconButton} onClick={toggle}>
