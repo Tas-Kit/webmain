@@ -57,10 +57,7 @@ const AlertDialog = (props) => {
   } = props;
 
   return (
-    <Dialog
-      open={openState}
-      aria-labelledby="alert-dialog-title"
-    >
+    <Dialog open={openState}>
       <DialogTitle id="alert-dialog-title">
         <span>{title}</span>
         <IconButton

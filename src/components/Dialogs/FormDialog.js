@@ -63,10 +63,7 @@ class FormDialog extends React.Component {
     } = this.props;
 
     return (
-      <Dialog
-        open={openState}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={openState}>
         <DialogTitle id="form-dialog-title">
           <span>{title}</span>
           <IconButton

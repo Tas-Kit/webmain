@@ -40,11 +40,15 @@ class StepEditorDialogContainer extends React.Component {
         nodeType = END_NODE;
       }
       const imageUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
+      const nodeId = gs.activeItemId;
+      const nodeData = gs.getNode(nodeId);
       const stepNode = {
         ...stepInfo,
         id: gs.activeItemId,
         node_type: nodeType, // current only NORMAL_NODE is available
         image: imageUrl,
+        x: nodeData.x,
+        y: nodeData.y,
       };
       const nodeToUpdate = mapStepInfoToNode(stepNode);
       const edgesToUpdate = getColoredEdgeByNode(nodeToUpdate);
