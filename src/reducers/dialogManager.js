@@ -14,6 +14,9 @@ const initialState = {
   stepEditorOpen: false,
   stepViewerOpen: false,
 
+  // task app related
+  taskAppCreatorOpen: false,
+
   // others
   invitationOpen: false,
 };
@@ -40,6 +43,8 @@ const dialogManager = (state = initialState, action = {}) => {
       return { ...state, deleteTaskOpen: !state.deleteTaskOpen };
     case types.TOGGLE_QUIT_TASK:
       return { ...state, quitTaskOpen: !state.quitTaskOpen };
+    case types.TOGGLE_TASK_APP_CREATOR:
+      return { ...state, taskAppCreatorOpen: !state.taskAppCreatorOpen };
     default:
       return state;
   }

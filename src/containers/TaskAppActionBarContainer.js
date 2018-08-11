@@ -1,7 +1,7 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import TaskAppActionBar from '../components/TaskAppActionBar';
 import { toggleIsCreator } from '../actions/taskAppActions';
+import { toggleTaskAppCreator } from '../actions/dialogActions';
 
 const mapStateToProps = ({ taskAppManager }) => {
   const { isCreatorMode } = taskAppManager;
@@ -13,6 +13,9 @@ const mapStateToProps = ({ taskAppManager }) => {
 const mapDispatchToProps = dispatch => ({
   handleCreatorSwitchChange: () => {
     dispatch(toggleIsCreator());
+  },
+  handleCreateAppClick: () => {
+    dispatch(toggleTaskAppCreator());
   },
 });
 
