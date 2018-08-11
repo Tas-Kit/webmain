@@ -4,6 +4,7 @@ import * as apiTypes from '../constants/apiTypes';
 const initialState = {
   taskApps: {},
   currentTaskAppIds: [],
+  // used for full reducer loading
   isLoading: false,
 
 };
@@ -23,28 +24,31 @@ const handleResponse = (response, state) => {
       const newTaskAppIds = [];
       data.forEach((element) => {
         newTaskAppIds.push(element.app_id);
-        newTaskAppIds[element.app_id] = element;
+        const taskApp = { ...element, isLoading: false };
+        newTaskApps[element.app_id] = taskApp;
       });
       return {
         ...state,
-        taskApps: { ...state.taskApps, newTaskApps },
+        taskApps: newTaskApps,
         currentTaskAppIds: newTaskAppIds,
       };
     }
     case apiTypes.UPDATE_TASK_APP: {
-      const modifiedTaskApp = {};
-      modifiedTaskApp[data.app_id] = data;
+      const modifiedTaskApps = {};
+      const modifiedTaskApp = { ...data, isLoading: false };
+      modifiedTaskApps[data.app_id] = modifiedTaskApp;
       return {
         ...state,
         taskApps: { ...state.taskApps, modifiedTaskApp },
       };
     }
     case apiTypes.UPLOAD_TASK_APP: {
-      const modifiedTaskApp = {};
-      modifiedTaskApp[data.app_id] = data;
+      const modifiedTaskApps = {};
+      const modifiedTaskApp = { ...data, isLoading: false };
+      modifiedTaskApps[data.app_id] = modifiedTaskApp;
       return {
         ...state,
-        taskApps: { ...state.taskApps, modifiedTaskApp },
+        taskApps: { ...state.taskApps, modifiedTaskApps },
       };
     }
     default:
