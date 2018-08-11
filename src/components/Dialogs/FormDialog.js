@@ -60,6 +60,7 @@ class FormDialog extends React.Component {
       hints,
       loading,
       disableButtons,
+      children,
     } = this.props;
 
     return (
@@ -79,7 +80,7 @@ class FormDialog extends React.Component {
           <DialogContentText>
             <span style={inline.text}>{hints}</span>
           </DialogContentText>
-          {component}
+          {component || children}
         </DialogContent>
         {!disableButtons ?
           <DialogActions>
@@ -95,6 +96,7 @@ class FormDialog extends React.Component {
               color="primary"
               loading={loading}
               onClick={this.handleSave}
+              variant="flat"
             />
           </DialogActions>
           : null

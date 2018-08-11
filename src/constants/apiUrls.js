@@ -22,7 +22,7 @@ export const TASK_CLONE_URL = `${TASK_SERVICE_URL}clone/`;
 
 export const TASK_GET_URL = `${TASK_SERVICE_URL}?format=json`;
 
-export const TASK_APP_BASE_URL = '/TaskApp/';
+export const TASK_APP_BASE_URL = '/tastore/TaskApp/';
 
 export default {
   DEV_BASE_URL,
