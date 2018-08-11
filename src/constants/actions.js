@@ -56,3 +56,6 @@ export const TOGGLE_DELETE_BUTTON = 'TOGGLE_DELETE_BUTTON';
 
 // Filter Actions
 export const SET_FILTER = 'SET_FILTER';
+
+// TaskApp Actions
+export const TOGGLE_IS_CREATOR = 'TOGGLE_IS_CREATOR';

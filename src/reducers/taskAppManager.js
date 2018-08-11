@@ -6,7 +6,7 @@ const initialState = {
   currentTaskAppIds: [],
   // used for full reducer loading
   isLoading: false,
-
+  isCreatorMode: false,
 };
 
 const handleRequest = (request, state) => {
@@ -63,6 +63,9 @@ const taskAppManager = (state = initialState, action = {}) => {
     }
     case types.RECEIVE_RESPONSE: {
       return handleResponse(action.response, state);
+    }
+    case types.TOGGLE_IS_CREATOR: {
+      return { ...state, isCreatorMode: !state.isCreatorMode };
     }
     default:
       return state;
