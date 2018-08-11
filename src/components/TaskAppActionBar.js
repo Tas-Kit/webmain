@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, Toolbar, Button, Switch } from '@material-ui/core';
+import { withStyles, Toolbar, Button, Switch, FormControlLabel } from '@material-ui/core';
 
 const styles = {
   flex: {
@@ -24,7 +24,12 @@ const TaskAppActionBar = (props) => {
       <div className={classes.flex}>
         {isCreatorMode && CreatorButton}
       </div>
-      <Switch label="Create App" checked={isCreatorMode} onChange={handleCreatorSwitchChange} />
+      <FormControlLabel
+        control={
+          <Switch checked={isCreatorMode} onChange={handleCreatorSwitchChange} />
+        }
+        label="Create App"
+      />
     </Toolbar>
   );
 };
