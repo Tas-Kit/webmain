@@ -10,6 +10,8 @@ class TaskAppPreviewDialogContainer extends React.Component {
     super(props);
     this.state = {
       task: null,
+      isLoading: false,
+      isError: false,
     };
   }
   componentDidUpdate(prevProps) {
@@ -18,23 +20,29 @@ class TaskAppPreviewDialogContainer extends React.Component {
       if (!isOpen) {
         this.setState({ task: null });
       } else if (appId) {
+        this.setState({ isLoading: true });
         previewTaskApp(appId)
           .then(json => this.setState({
             task: json.task,
-          }));
+          }))
+          .catch(() => this.setState({ isError: true }))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
       }
     }
   }
   render() {
     const { isOpen, handleToggle } = this.props;
-    const { task } = this.state;
+    const { task, isLoading, isError } = this.state;
     return (
       <PureDisplayDialog
         title="Task App Preview"
         open={isOpen}
         toggle={handleToggle}
       >
-        <TaskAppPreviewViewer task={task} />
+        {isLoading ? <p>Loading</p> : <TaskAppPreviewViewer task={task} />}
+        {isError && <p>Network Error</p>}
       </PureDisplayDialog>);
   }
 }
