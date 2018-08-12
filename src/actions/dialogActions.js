@@ -45,3 +45,7 @@ export const toggleTaskAppCreator = appId => ({
   appId,
 });
 
+export const toggleTaskAppPreview = appId => ({
+  type: types.TOGGLE_TASK_APP_PREVIEW,
+  appId,
+});

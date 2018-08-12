@@ -12,12 +12,12 @@ const styles = {
 class TaskAppCardBoard extends React.Component {
   handleCardClick = (aid) => {
     const {
-      showUpdateDialog, isCreatorMode,
+      showUpdateDialog, showPreviewDialog, isCreatorMode,
     } = this.props;
     if (isCreatorMode) {
       return () => showUpdateDialog(aid);
     }
-    return () => { };
+    return () => showPreviewDialog(aid);
   }
 
   handleDownloadClick = aid => (e) => {

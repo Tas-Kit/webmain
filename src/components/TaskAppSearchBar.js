@@ -38,7 +38,7 @@ class TaskAppSearchBar extends React.Component {
           value={keyword}
           onChange={this.handleKeywordChange}
           disabled={isLoading}
-          label="keyword"
+          placeholder="keyword"
         />
         <LoadingButton
           loading={isLoading}

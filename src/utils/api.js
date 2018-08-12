@@ -9,6 +9,20 @@ import {
   TASK_APP_BASE_URL,
 } from '../constants/apiUrls';
 
+import { DEV_BASE_URL } from '../constants/apiUrls';
+
+let baseUrl;
+
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = DEV_BASE_URL;
+} else {
+  baseUrl = 'http://localhost:8001/api/v1';
+  if (typeof window !== 'undefined') {
+    const { location } = window;
+    baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+  }
+}
+
 
 export const rejectInvitation = (taskId) => {
   const url = `${TASK_INVITATION_RESPOND_URL}${taskId}/`;
@@ -70,8 +84,12 @@ export const updateTaskApp = (appId, payload) => {
 };
 
 export const previewTaskApp = (appId) => {
-  const url = `${TASK_APP_BASE_URL}${appId}/download/`;
-  return APIService.sendRequest(url, apiTypes.PREVIEW_TASK_APP);
+  const url = `${baseUrl}${TASK_APP_BASE_URL}${appId}/download/`;
+  return fetch(url, {
+    headers: { Accept: 'application/json' },
+    credentials: 'include',
+    method: 'GET',
+  }).then(res => res.json());
 };
 export const downloadTaskApp = (appId) => {
   const url = `${TASK_APP_BASE_URL}${appId}/download/`;

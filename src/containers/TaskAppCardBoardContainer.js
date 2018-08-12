@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TaskAppCardBoard from '../components/TaskAppCardBoard';
-import { toggleTaskAppCreator } from '../actions/dialogActions';
+import { toggleTaskAppCreator, toggleTaskAppPreview } from '../actions/dialogActions';
 
 const mapStateToProps = (state) => {
   const { taskAppManager } = state;
@@ -13,6 +13,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   showUpdateDialog: (aid) => {
     dispatch(toggleTaskAppCreator(aid));
+  },
+  showPreviewDialog: (aid) => {
+    dispatch(toggleTaskAppPreview(aid));
   },
 
 });
