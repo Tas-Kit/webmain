@@ -7,9 +7,9 @@ import {
   TASK_INVITATION_REVOKE_URL, TASK_GET_URL,
   TASK_INVITATION_CHANGE_URL,
   TASK_APP_BASE_URL,
+  DEV_BASE_URL,
 } from '../constants/apiUrls';
 
-import { DEV_BASE_URL } from '../constants/apiUrls';
 
 let baseUrl;
 
