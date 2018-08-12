@@ -22,7 +22,7 @@ const handleResponse = (response, state) => {
     case apiTypes.GET_CURRENT_TASK_APP: {
       const newTaskApps = {};
       const newTaskAppIds = [];
-      data.forEach((element) => {
+      data.task_app_list.forEach((element) => {
         newTaskAppIds.push(element.app_id);
         const taskApp = { ...element, isLoading: false };
         newTaskApps[element.app_id] = taskApp;

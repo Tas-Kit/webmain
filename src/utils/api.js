@@ -55,7 +55,7 @@ export const getTaskApps = () => {
 
 export const createTaskApp = (payload) => {
   const url = TASK_APP_BASE_URL;
-  return APIService.sendRequest(url, apiTypes.CREATE_TASK_APP, payload, 'POST');
+  return APIService.sendRequest(url, apiTypes.CREATE_TASK_APP, payload, 'POST', 'formData');
 };
 
 export const updateTaskApp = (appId, payload) => {

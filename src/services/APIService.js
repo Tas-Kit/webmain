@@ -1,6 +1,7 @@
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 import { DEV_BASE_URL, LOGIN_URL } from '../constants/apiUrls';
+import queryString from 'query-string';
 
 let baseUrl;
 
@@ -46,7 +47,7 @@ class APIService {
   };
 
   // Returns a promise with a boolean indicating success
-  sendRequest = (url, type, data = {}, method = 'GET') => {
+  sendRequest = (url, type, data = {}, method = 'GET', contentType = 'json') => {
     this.lastRequestId += 1;
     const request = { id: this.lastRequestId, type, data };
     dispatch(sendRequest(request));
@@ -56,8 +57,13 @@ class APIService {
       method,
     };
     if (method === 'POST' || method === 'PATCH') {
-      requestObject.headers['Content-Type'] = 'application/json';
-      requestObject.body = JSON.stringify(data);
+      if (contentType === 'json') {
+        requestObject.headers['Content-Type'] = 'application/json';
+        requestObject.body = JSON.stringify(data);
+      } else if (contentType === 'formData') {
+        requestObject.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        requestObject.body = queryString.stringify(data);
+      }
     }
     const response = { id: this.lastRequestId, type };
     return fetch(`${baseUrl}${url}`, requestObject)

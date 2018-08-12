@@ -14,11 +14,22 @@ class TaskAppCreatorDialogContainer extends React.Component {
       description: '',
     };
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.taskAppCreatorOpen !== this.props.taskAppCreatorOpen) {
+      this.setState({
+        name: '',
+        description: '',
+      });
+    }
+  }
+
   handleValueChange = key => (e) => {
     this.setState({
       [key]: e.target.value,
     });
   }
+
 
   handleTaskAppSave = () => {
     const { showSnackMessage } = this.props;
