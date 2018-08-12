@@ -7,9 +7,8 @@ const TaskSelect = (props) => {
     <Select value={currentTaskId || ''} onChange={handleSelectChange} >
       <MenuItem key="none" value="">None</MenuItem>
       {
-        tasks.map(task => (<MenuItem key={task.info.id} value={task.info.id}>{task.info.name}</MenuItem>))
+        tasks.map(task => (<MenuItem key={task.info.tid} value={task.info.tid}>{task.info.name}</MenuItem>))
       }
-
     </Select >
   );
 };

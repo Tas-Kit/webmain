@@ -34,12 +34,10 @@ const handleResponse = (response, state) => {
       };
     }
     case apiTypes.UPDATE_TASK_APP: {
-      const modifiedTaskApps = {};
-      const modifiedTaskApp = { ...data, isLoading: false };
-      modifiedTaskApps[data.app_id] = modifiedTaskApp;
+      const currTaskApp = data.task_app;
       return {
         ...state,
-        taskApps: { ...state.taskApps, modifiedTaskApp },
+        taskApps: { ...state.taskApps, [currTaskApp.app_id]: currTaskApp },
       };
     }
     case apiTypes.UPLOAD_TASK_APP: {
@@ -49,6 +47,14 @@ const handleResponse = (response, state) => {
       return {
         ...state,
         taskApps: { ...state.taskApps, modifiedTaskApps },
+      };
+    }
+    case apiTypes.CREATE_TASK_APP: {
+      const currTaskApp = data.task_app;
+      return {
+        ...state,
+        currentTaskAppIds: state.currentTaskAppIds.concat([currTaskApp.app_id]),
+        taskApps: { ...state.taskApps, [currTaskApp.app_id]: { ...currTaskApp, isLoading: false } },
       };
     }
     default:

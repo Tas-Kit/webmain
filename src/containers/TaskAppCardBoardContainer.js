@@ -14,6 +14,7 @@ const mapDispatchToProps = dispatch => ({
   showUpdateDialog: (aid) => {
     dispatch(toggleTaskAppCreator(aid));
   },
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskAppCardBoard);

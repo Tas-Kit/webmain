@@ -13,7 +13,9 @@ const styles = {
 };
 
 function TaskAppCard(props) {
-  const { classes, taskApp, handleCardClick } = props;
+  const {
+    classes, taskApp, handleCardClick, handleDownloadClick,
+  } = props;
 
   return (
     <div>
@@ -27,7 +29,7 @@ function TaskAppCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button size="small" onClick={handleDownloadClick}>Download</Button>
         </CardActions>
       </Card>
     </div>

@@ -30,7 +30,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
         this.setState({
           name: currentApp.name,
           description: currentApp.description,
-          tid: currentApp.currentTask,
+          tid: currentApp.current_task,
         });
       }
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, withStyles } from '@material-ui/core';
 import TaskAppCardContainer from '../containers/TaskAppCardContainer';
+import { downloadTaskApp } from '../utils/api';
 
 const styles = {
   root: {
@@ -19,6 +20,11 @@ class TaskAppCardBoard extends React.Component {
     return () => { };
   }
 
+  handleDownloadClick = aid => (e) => {
+    e.stopPropagation();
+    downloadTaskApp(aid);
+  }
+
   render() {
     const {
       taskAppIds, classes,
@@ -33,6 +39,7 @@ class TaskAppCardBoard extends React.Component {
                 <TaskAppCardContainer
                   taskAppId={id}
                   handleCardClick={this.handleCardClick(id)}
+                  handleDownloadClick={this.handleDownloadClick(id)}
                 />
               </Grid>))
           }
