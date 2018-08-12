@@ -4,7 +4,8 @@ import { TextField } from '@material-ui/core';
 import { FormDialog } from '../components/Dialogs';
 import { toggleTaskAppCreator } from '../actions/dialogActions';
 import { updateMessage } from '../actions/snackbarActions';
-import { createTaskApp } from '../utils/api';
+import { createTaskApp, uploadTaskApp, updateTaskApp } from '../utils/api';
+import TaskSelectContainer from '../containers/TaskSelectContainer';
 
 class TaskAppCreatorDialogContainer extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
     this.state = {
       name: '',
       description: '',
+      tid: '',
     };
   }
 
@@ -20,6 +22,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
       this.setState({
         name: '',
         description: '',
+        tid: '',
       });
     }
   }
@@ -30,23 +33,48 @@ class TaskAppCreatorDialogContainer extends React.Component {
     });
   }
 
-
-  handleTaskAppSave = () => {
+  createTaskApp = () => {
     const { showSnackMessage } = this.props;
-    const payload = { ...this.state };
+    const { name, description, tid } = this.state;
+    const payload = { name, description };
     return createTaskApp(payload)
-      .then((success) => {
-        if (success) showSnackMessage('You have successfully create an app');
-        else showSnackMessage('Network Error');
+      .then((data) => {
+        showSnackMessage('You have successfully create an app');
+        if (tid !== '') {
+          return uploadTaskApp(data.task_app.app_id, { tid }).then(() => showSnackMessage('You have successfully upload a task'));
+        }
+        return true;
       })
       .catch((e) => {
         console.log(e);
         showSnackMessage('Network Error');
       });
   }
+
+  updateTaskApp = () => {
+    const { appId, showSnackMessage } = this.props;
+    const { name, description, tid } = this.state;
+    const payload = { name, description };
+    updateTaskApp(appId, payload)
+      .then(data => uploadTaskApp(data.task_app.app_id, { tid })
+        .then(() => showSnackMessage('You have successfully update an app')))
+      .catch((e) => {
+        console.log(e);
+        showSnackMessage('Network Error');
+      });
+  }
+
+  handleTaskAppSave = () => {
+    const { appId } = this.props;
+    if (!appId) {
+      return this.createTaskApp();
+    }
+    return this.updateTaskApp();
+  }
+
   render() {
     const { taskAppCreatorOpen, toggleTaskAppCreatorFunction } = this.props;
-    const { name, description } = this.state;
+    const { name, description, tid } = this.state;
     return (
       <FormDialog
         title="Create Task App"
@@ -71,6 +99,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
             fullWidth
           />
           <TextField id="description" label="description" value={description} onChange={this.handleValueChange('description')} fullWidth />
+          <TaskSelectContainer currentTaskId={tid} handleSelectChange={this.handleValueChange('tid')} />
         </form>
 
       </FormDialog>);

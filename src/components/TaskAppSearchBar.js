@@ -8,7 +8,7 @@ class TaskAppSearchBar extends React.Component {
     super(props);
     this.state = {
       keyword: '',
-      isLoading: '',
+      isLoading: false,
     };
   }
   handleKeywordChange = (e) => {
@@ -42,6 +42,7 @@ class TaskAppSearchBar extends React.Component {
         <LoadingButton
           loading={isLoading}
           buttonName="Search"
+          className="search"
           onClick={this.handleSearchClick}
           color="primary"
           variant="flat"

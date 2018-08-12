@@ -40,7 +40,8 @@ export const toggleQuitTask = () => ({
   type: types.TOGGLE_QUIT_TASK,
 });
 
-export const toggleTaskAppCreator = () => ({
+export const toggleTaskAppCreator = appId => ({
   type: types.TOGGLE_TASK_APP_CREATOR,
+  appId,
 });
 

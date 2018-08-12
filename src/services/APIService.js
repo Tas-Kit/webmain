@@ -72,9 +72,9 @@ class APIService {
         if (json) {
           response.json = json;
           dispatch(receiveResponse(response));
-          return true;
+          return json;
         }
-        return false;
+        return null;
       });
   };
 }
