@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import APIService from '../services/APIService';
 import * as apiTypes from '../constants/apiTypes';
 import { ACCEPTANCE } from '../constants';
@@ -48,8 +49,12 @@ export const changeUserRole = (tid, payload) => {
   return APIService.sendRequest(changeUrl, 'change_role', payload, 'POST');
 };
 
-export const getTaskApps = () => {
-  const url = TASK_APP_BASE_URL;
+export const getTaskApps = (keyword, aid) => {
+  const queryField = {};
+  if (keyword) queryField.keyword = keyword;
+  if (aid) queryField.aid = aid;
+  const query = queryString.stringify(queryField);
+  const url = `${TASK_APP_BASE_URL}?${query}`;
   return APIService.sendRequest(url, apiTypes.GET_CURRENT_TASK_APP);
 };
 
