@@ -18,12 +18,21 @@ class TaskAppCreatorDialogContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.taskAppCreatorOpen !== this.props.taskAppCreatorOpen) {
-      this.setState({
-        name: '',
-        description: '',
-        tid: '',
-      });
+    const { currentApp, taskAppCreatorOpen } = this.props;
+    if (prevProps.taskAppCreatorOpen !== taskAppCreatorOpen) {
+      if (!this.props.taskAppCreatorOpen) {
+        this.setState({
+          name: '',
+          description: '',
+          tid: '',
+        });
+      } else if (currentApp) {
+        this.setState({
+          name: currentApp.name,
+          description: currentApp.description,
+          tid: currentApp.currentTask,
+        });
+      }
     }
   }
 
@@ -55,9 +64,13 @@ class TaskAppCreatorDialogContainer extends React.Component {
     const { appId, showSnackMessage } = this.props;
     const { name, description, tid } = this.state;
     const payload = { name, description };
-    updateTaskApp(appId, payload)
-      .then(data => uploadTaskApp(data.task_app.app_id, { tid })
-        .then(() => showSnackMessage('You have successfully update an app')))
+    return updateTaskApp(appId, payload)
+      .then((data) => {
+        if (tid !== '') {
+          return uploadTaskApp(data.task_app.app_id, { tid }).then(() => showSnackMessage('You have successfully update task'));
+        }
+        return true;
+      })
       .catch((e) => {
         console.log(e);
         showSnackMessage('Network Error');
@@ -73,11 +86,11 @@ class TaskAppCreatorDialogContainer extends React.Component {
   }
 
   render() {
-    const { taskAppCreatorOpen, toggleTaskAppCreatorFunction } = this.props;
+    const { taskAppCreatorOpen, toggleTaskAppCreatorFunction, appId } = this.props;
     const { name, description, tid } = this.state;
     return (
       <FormDialog
-        title="Create Task App"
+        title={appId ? 'Update Task App' : 'Create Task App'}
         openState={taskAppCreatorOpen}
         toggle={toggleTaskAppCreatorFunction}
         onSave={this.handleTaskAppSave}
@@ -106,10 +119,13 @@ class TaskAppCreatorDialogContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ dialogManager }) => {
-  const { taskAppCreatorOpen } = dialogManager;
+const mapStateToProps = ({ dialogManager, taskAppManager }) => {
+  const { taskAppCreatorOpen, taskAppUpdateId: appId } = dialogManager;
+  const { taskApps } = taskAppManager;
   return {
     taskAppCreatorOpen,
+    appId,
+    currentApp: taskApps[appId],
   };
 };
 

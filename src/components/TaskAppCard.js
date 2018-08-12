@@ -13,11 +13,11 @@ const styles = {
 };
 
 function TaskAppCard(props) {
-  const { classes, taskApp } = props;
+  const { classes, taskApp, handleCardClick } = props;
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card} onClick={handleCardClick}>
         <CardContent>
           <Typography variant="headline" component="h2">
             {taskApp.name}

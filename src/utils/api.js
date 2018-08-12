@@ -65,7 +65,8 @@ export const createTaskApp = (payload) => {
 
 export const updateTaskApp = (appId, payload) => {
   const url = `${TASK_APP_BASE_URL}${appId}/`;
-  return APIService.sendRequest(url, apiTypes.UPDATE_TASK_APP, payload, 'POST', 'formData');
+  console.log(payload);
+  return APIService.sendRequest(url, apiTypes.UPDATE_TASK_APP, payload, 'PATCH', 'formData');
 };
 
 export const previewTaskApp = (appId) => {
@@ -77,7 +78,7 @@ export const downloadTaskApp = (appId) => {
   return APIService.sendRequest(url, apiTypes.DOWNLOAD_TASK_APP, {}, 'POST', 'formData');
 };
 export const uploadTaskApp = (appId, payload) => {
-  const url = `${TASK_APP_BASE_URL}${appId}/download/`;
+  const url = `${TASK_APP_BASE_URL}${appId}/upload/`;
   return APIService.sendRequest(url, apiTypes.UPLOAD_TASK_APP, payload, 'POST', 'formData');
 };
 

@@ -8,18 +8,39 @@ const styles = {
   },
 };
 
-const TaskAppCardBoard = (props) => {
-  const { taskAppIds, classes } = props;
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={24}>
-        {taskAppIds.map(id => (
-          <Grid key={id} item xs={4}>
-            <TaskAppCardContainer taskAppId={id} />
-          </Grid>))}
-      </Grid>
-    </div>
-  );
-};
+class TaskAppCardBoard extends React.Component {
+  handleCardClick = (aid) => {
+    const {
+      showUpdateDialog, isCreatorMode,
+    } = this.props;
+    if (isCreatorMode) {
+      return () => showUpdateDialog(aid);
+    }
+    return () => { };
+  }
+
+  render() {
+    const {
+      taskAppIds, classes,
+    } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <Grid container spacing={24}>
+          {
+            taskAppIds.map(id => (
+              <Grid key={id} item xs={4}>
+                <TaskAppCardContainer
+                  taskAppId={id}
+                  handleCardClick={this.handleCardClick(id)}
+                />
+              </Grid>))
+          }
+        </Grid>
+      </div>
+    );
+  }
+}
+
 
 export default withStyles(styles)(TaskAppCardBoard);
