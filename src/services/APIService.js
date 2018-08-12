@@ -1,7 +1,7 @@
+import queryString from 'query-string';
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 import { DEV_BASE_URL, LOGIN_URL } from '../constants/apiUrls';
-import queryString from 'query-string';
 
 let baseUrl;
 
