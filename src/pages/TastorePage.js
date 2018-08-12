@@ -1,9 +1,10 @@
 import React from 'react';
 import TaskAppActionBarContainer from '../containers/TaskAppActionBarContainer';
+import { getTaskApps } from '../utils/api';
 
 class TastorePage extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
+    getTaskApps();
   }
 
   render() {
