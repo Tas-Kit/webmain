@@ -1,4 +1,4 @@
-import queryString from 'query-string';
+import qs from 'qs';
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 import { DEV_BASE_URL, LOGIN_URL } from '../constants/apiUrls';
@@ -62,7 +62,7 @@ class APIService {
         requestObject.body = JSON.stringify(data);
       } else if (contentType === 'formData') {
         requestObject.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        requestObject.body = queryString.stringify(data);
+        requestObject.body = qs.stringify(data);
       }
     }
     const response = { id: this.lastRequestId, type };

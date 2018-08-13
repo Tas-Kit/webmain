@@ -1,4 +1,4 @@
-import queryString from 'query-string';
+import qs from 'qs';
 import APIService from '../services/APIService';
 import * as apiTypes from '../constants/apiTypes';
 import { ACCEPTANCE } from '../constants';
@@ -67,7 +67,7 @@ export const getTaskApps = (keyword, aid) => {
   const queryField = {};
   if (keyword) queryField.keyword = keyword;
   if (aid) queryField.author_id = aid;
-  const query = queryString.stringify(queryField);
+  const query = qs.stringify(queryField);
   const url = `${TASK_APP_BASE_URL}?${query}`;
   return APIService.sendRequest(url, apiTypes.GET_CURRENT_TASK_APP);
 };
