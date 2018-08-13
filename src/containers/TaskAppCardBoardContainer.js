@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   const { taskAppManager } = state;
   return ({
     taskAppIds: taskAppManager.currentTaskAppIds,
+    isLoading: taskAppManager.isLoading,
     isCreatorMode: taskAppManager.isCreatorMode,
   });
 };

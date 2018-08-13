@@ -33,7 +33,7 @@ class TaskAppCardBoard extends React.Component {
 
   render() {
     const {
-      taskAppIds, classes,
+      taskAppIds, classes, isLoading,
     } = this.props;
 
     const Cards = (
@@ -52,7 +52,8 @@ class TaskAppCardBoard extends React.Component {
 
     return (
       <div className={classes.root} >
-        {taskAppIds.length ? Cards : <p className={classes.centerText}>No app with this keyword exists.</p>}
+        {isLoading && <p className={classes.centerText}>Loading...</p>}
+        {isLoading || (taskAppIds.length ? Cards : <p className={classes.centerText}>No app with this keyword exists.</p>)}
       </div>
     );
   }

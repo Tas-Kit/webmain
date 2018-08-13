@@ -11,6 +11,9 @@ const initialState = {
 
 const handleRequest = (request, state) => {
   switch (request.type) {
+    case apiTypes.GET_CURRENT_TASK_APP: {
+      return { ...state, isLoading: true };
+    }
     default:
       return state;
   }
@@ -24,20 +27,20 @@ const handleResponse = (response, state) => {
       const newTaskAppIds = [];
       data.task_app_list.forEach((element) => {
         newTaskAppIds.push(element.app_id);
-        const taskApp = { ...element, isLoading: false };
-        newTaskApps[element.app_id] = taskApp;
+        newTaskApps[element.app_id] = { ...element, isLoading: false };
       });
       return {
         ...state,
         taskApps: newTaskApps,
         currentTaskAppIds: newTaskAppIds,
+        isLoading: false,
       };
     }
     case apiTypes.UPDATE_TASK_APP: {
       const currTaskApp = data.task_app;
       return {
         ...state,
-        taskApps: { ...state.taskApps, [currTaskApp.app_id]: currTaskApp },
+        taskApps: { ...state.taskApps, [currTaskApp.app_id]: { ...currTaskApp, isLoading: false } },
       };
     }
     case apiTypes.UPLOAD_TASK_APP: {
