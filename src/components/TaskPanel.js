@@ -76,8 +76,9 @@ const inline = {
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, classes, resetEditMode, filter, handleFilterChange,
+    username, tasks, classes, resetEditMode, filter, handleFilterChange, onTaskClick,
   } = props;
+
   return (
     <Drawer
       classes={{ paper: classes.taskDrawer }}
@@ -120,7 +121,6 @@ const TaskPanel = (props) => {
         {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
           .map((task) => {
             const { tid, name } = task.info;
-            const { onTaskClick } = props;
             return (
               <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
                 <ListItem
@@ -149,6 +149,10 @@ const TaskPanel = (props) => {
         <Link to="/tastore" key="tastore" style={{ textDecoration: 'none' }}>
           <ListItem
             button
+            onClick={() => {
+              onTaskClick('');
+              resetEditMode();
+            }}
             style={inline.listItem}
           >
             <ListItemIcon>
