@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
-import { FormDialog } from '../components/Dialogs';
+import { FormattedMessage } from 'react-intl';
+import { PureDisplayDialog } from '../components/Dialogs';
 import { toggleTaskAppCreator } from '../actions/dialogActions';
 import { updateMessage } from '../actions/snackbarActions';
 import { createTaskApp, uploadTaskApp, updateTaskApp } from '../utils/api';
 import TaskSelectContainer from '../containers/TaskSelectContainer';
+import LoadingButton from '../components/Button/LoadingButton';
 
 class TaskAppCreatorDialogContainer extends React.Component {
   constructor(props) {
@@ -14,6 +16,8 @@ class TaskAppCreatorDialogContainer extends React.Component {
       name: '',
       description: '',
       tid: '',
+      isInfoLoading: false,
+      isTaskLoading: false,
     };
   }
 
@@ -25,12 +29,16 @@ class TaskAppCreatorDialogContainer extends React.Component {
           name: '',
           description: '',
           tid: '',
+          isInfoLoading: false,
+          isTaskLoading: false,
         });
       } else if (currentApp) {
         this.setState({
           name: currentApp.name,
           description: currentApp.description,
           tid: currentApp.current_task,
+          isInfoLoading: false,
+          isTaskLoading: false,
         });
       }
     }
@@ -43,16 +51,13 @@ class TaskAppCreatorDialogContainer extends React.Component {
   }
 
   createTaskApp = () => {
-    const { showSnackMessage } = this.props;
-    const { name, description, tid } = this.state;
+    const { showSnackMessage, toggleTaskAppCreatorFunction } = this.props;
+    const { name, description } = this.state;
     const payload = { name, description };
     return createTaskApp(payload)
-      .then((data) => {
-        showSnackMessage('You have successfully create an app');
-        if (tid !== '') {
-          return uploadTaskApp(data.task_app.app_id, { tid }).then(() => showSnackMessage('You have successfully upload a task'));
-        }
-        return true;
+      .then(() => {
+        showSnackMessage('You have successfully create a task');
+        toggleTaskAppCreatorFunction();
       })
       .catch((e) => {
         console.log(e);
@@ -62,60 +67,127 @@ class TaskAppCreatorDialogContainer extends React.Component {
 
   updateTaskApp = () => {
     const { appId, showSnackMessage } = this.props;
-    const { name, description, tid } = this.state;
+    const { name, description } = this.state;
     const payload = { name, description };
     return updateTaskApp(appId, payload)
-      .then((data) => {
-        if (tid !== '') {
-          return uploadTaskApp(data.task_app.app_id, { tid }).then(() => showSnackMessage('You have successfully update task'));
-        }
-        return true;
-      })
+      .then(() => showSnackMessage('You have successfully update task'))
       .catch((e) => {
         console.log(e);
         showSnackMessage('Network Error');
       });
   }
 
+  uploadTask = () => {
+    const { appId, showSnackMessage } = this.props;
+    const { tid } = this.state;
+    this.setState({
+      isTaskLoading: true,
+    });
+    return uploadTaskApp(appId, { tid })
+      .then(() => showSnackMessage('You have successfully upload a task'))
+      .catch((e) => {
+        console.log(e);
+        showSnackMessage('Network Error');
+      })
+      .finally(() => {
+        this.setState({
+          isTaskLoading: false,
+        });
+      });
+  }
+
   handleTaskAppSave = () => {
     const { appId } = this.props;
+    let output = null;
+    this.setState({
+      isInfoLoading: true,
+    });
     if (!appId) {
-      return this.createTaskApp();
+      output = this.createTaskApp();
+    } else {
+      output = this.updateTaskApp();
     }
-    return this.updateTaskApp();
+    return output.finally(() => {
+      this.setState({
+        isInfoLoading: false,
+      });
+    });
   }
 
   render() {
     const { taskAppCreatorOpen, toggleTaskAppCreatorFunction, appId } = this.props;
-    const { name, description, tid } = this.state;
+    const {
+      name, description, tid, isInfoLoading, isTaskLoading,
+    } = this.state;
     return (
-      <FormDialog
+      <PureDisplayDialog
         title={appId ? 'Update Task App' : 'Create Task App'}
-        openState={taskAppCreatorOpen}
+        open={taskAppCreatorOpen}
         toggle={toggleTaskAppCreatorFunction}
-        onSave={this.handleTaskAppSave}
-        loading={false}
+        fullWidth={false}
       >
-        <form style={{
-          width: 300,
-          margin: '0.5em 1em',
-        }}
-        >
-          <TextField
-            id="name"
-            label="name"
-            value={name}
+        <section key="info-form">
+          <h3>Info</h3>
+          <form
             style={{
-              marginBottom: '0.5em',
+              marginBottom: '1em',
             }}
-            onChange={this.handleValueChange('name')}
-            fullWidth
-          />
-          <TextField id="description" label="description" value={description} onChange={this.handleValueChange('description')} fullWidth />
-          <TaskSelectContainer currentTaskId={tid} handleSelectChange={this.handleValueChange('tid')} />
-        </form>
+          >
+            <TextField
+              id="name"
+              label="name"
+              value={name}
+              style={{
+                marginBottom: '0.5em',
+              }}
+              onChange={this.handleValueChange('name')}
+              fullWidth
+            />
+            <TextField
+              id="description"
+              label="description"
+              value={description}
+              style={{
+                marginBottom: '0.5em',
+              }}
+              onChange={this.handleValueChange('description')}
+              fullWidth
+            />
+            <LoadingButton
+              buttonName={<FormattedMessage id="saveButton" />}
+              color="primary"
+              loading={isInfoLoading}
+              onClick={this.handleTaskAppSave}
+              variant="raised"
+            />
+          </form>
 
-      </FormDialog>);
+        </section>
+        {
+          appId && (
+            <section key="task-form">
+              <h3>Task</h3>
+              <form
+                style={{
+                  display: 'flex',
+                }}
+              >
+                <TaskSelectContainer style={{ flex: 1 }} currentTaskId={tid} handleSelectChange={this.handleValueChange('tid')} />
+                <LoadingButton
+                  buttonName="Upload Task"
+                  color="primary"
+                  loading={isTaskLoading}
+                  onClick={this.uploadTask}
+                  variant="flat"
+                />
+              </form>
+
+            </section>
+          )
+        }
+
+
+      </PureDisplayDialog>);
   }
 }
 

@@ -32,17 +32,17 @@ const inline = {
 
 const PureDisplayDialog = (props) => {
   const {
-    open, toggle, title, children, hints,
+    open, toggle, title, children, hints, contentProps, fullWidth = true,
   } = props;
   return (
-    <Dialog open={open} fullWidth>
+    <Dialog fullWidth={fullWidth} open={open}>
       <DialogTitle id="form-dialog-title">
         <span>{title}</span>
         <IconButton color="default" style={inline.iconButton} onClick={toggle}>
           <Close />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent {...contentProps}>
         {hints && (
           <DialogContentText>
             <span style={inline.text}>{hints}</span>
