@@ -93,6 +93,10 @@ const en = {
   userGetFailMsg: 'Get user failed',
   noTaskFoundMsg: 'No task found.',
   filterPlaceholder: 'Search Task',
+  downloadButton: 'Download',
+  searchButton: 'Search',
+  createAppButton: 'Create App',
+  uploadTaskButton: 'Upload Task',
 };
 
 export default en;

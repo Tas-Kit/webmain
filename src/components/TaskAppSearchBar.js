@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextField, withStyles, Grid } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
 import LoadingButton from './Button/LoadingButton';
 import { getTaskApps } from '../utils/api';
 
@@ -66,7 +67,7 @@ class TaskAppSearchBar extends React.Component {
           <Grid item>
             <LoadingButton
               loading={isLoading}
-              buttonName="Search"
+              buttonName={<FormattedMessage id="searchButton" />}
               className="search"
               onClick={this.handleSearchClick}
               color="primary"

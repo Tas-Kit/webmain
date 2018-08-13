@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, Toolbar, Button, Switch, FormControlLabel } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
 
 const styles = {
   flex: {
@@ -16,7 +17,7 @@ const TaskAppActionBar = (props) => {
       color="primary"
       onClick={handleCreateAppClick}
     >
-      Create App
+      <FormattedMessage id="createAppButton" />
     </Button>
   );
   return (
@@ -28,7 +29,7 @@ const TaskAppActionBar = (props) => {
         control={
           <Switch checked={isCreatorMode} onChange={handleCreatorSwitchChange} />
         }
-        label="Create App"
+        label={<FormattedMessage id="createAppLabel" />}
       />
     </Toolbar>
   );

@@ -93,6 +93,11 @@ const zh = {
   userGetFailMsg: '获取用户失败。',
   noTaskFoundMsg: '没有找到相应的任务。',
   filterPlaceholder: '查找任务',
+  downloadButton: '下载',
+  searchButton: '搜索',
+  createAppButton: '创建应用',
+  createAppLabel: '创建应用',
+  uploadTaskButton: '上传任务',
 };
 
 export default zh;

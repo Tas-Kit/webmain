@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { FormattedMessage } from 'react-intl';
 
 const styles = {
   card: {
@@ -29,7 +30,7 @@ function TaskAppCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={handleDownloadClick} disabled={!taskApp.current_task || taskApp.isLoading}>Download</Button>
+          <Button color="primary" size="small" onClick={handleDownloadClick} disabled={!taskApp.current_task || taskApp.isLoading}><FormattedMessage id="downloadButton" /></Button>
         </CardActions>
       </Card>
     </div>
