@@ -61,7 +61,6 @@ class TaskAppSearchBar extends React.Component {
               className={classes.searchField}
               onChange={this.handleKeywordChange}
               disabled={isLoading}
-              placeholder="keyword"
             />
           </Grid>
           <Grid item>
