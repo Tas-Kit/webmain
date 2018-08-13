@@ -97,6 +97,10 @@ const en = {
   searchButton: 'Search',
   createAppButton: 'Create App',
   uploadTaskButton: 'Upload Task',
+  updateTaskAppTitle: 'Update Task App',
+  createTaskAppTitle: 'Create Task App',
+  infoLabel: 'Info',
+  taskLabel: 'Task',
 };
 
 export default en;

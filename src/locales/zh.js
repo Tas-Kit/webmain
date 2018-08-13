@@ -98,6 +98,11 @@ const zh = {
   createAppButton: '创建应用',
   createAppLabel: '创建应用',
   uploadTaskButton: '上传任务',
+  updateTaskAppTitle: '更新任务应用',
+  createTaskAppTitle: '创建任务应用',
+  infoLabel: '信息',
+  taskLabel: '任务',
+
 };
 
 export default zh;

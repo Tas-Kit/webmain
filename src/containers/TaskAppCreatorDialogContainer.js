@@ -121,13 +121,13 @@ class TaskAppCreatorDialogContainer extends React.Component {
     } = this.state;
     return (
       <PureDisplayDialog
-        title={appId ? 'Update Task App' : 'Create Task App'}
+        title={appId ? <FormattedMessage id="updateTaskAppTitle" /> : <FormattedMessage id="createTaskAppTitle" />}
         open={taskAppCreatorOpen}
         toggle={toggleTaskAppCreatorFunction}
         fullWidth={false}
       >
         <section key="info-form">
-          <h3>Info</h3>
+          <h3><FormattedMessage id="infoLabel" /></h3>
           <form
             style={{
               marginBottom: '1em',
@@ -135,7 +135,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
           >
             <TextField
               id="name"
-              label="name"
+              label={<FormattedMessage id="nameFieldName" />}
               value={name}
               style={{
                 marginBottom: '0.5em',
@@ -145,7 +145,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
             />
             <TextField
               id="description"
-              label="description"
+              label={<FormattedMessage id="descriptionFieldName" />}
               value={description}
               style={{
                 marginBottom: '0.5em',
@@ -166,7 +166,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
         {
           appId && (
             <section key="task-form">
-              <h3>Task</h3>
+              <h3><FormattedMessage id="taskLabel" /></h3>
               <form
                 style={{
                   display: 'flex',
@@ -174,7 +174,7 @@ class TaskAppCreatorDialogContainer extends React.Component {
               >
                 <TaskSelectContainer style={{ flex: 1 }} currentTaskId={tid} handleSelectChange={this.handleValueChange('tid')} />
                 <LoadingButton
-                  buttonName="Upload Task"
+                  buttonName={<FormattedMessage id="uploadTaskButton" />}
                   color="primary"
                   loading={isTaskLoading}
                   onClick={this.uploadTask}
