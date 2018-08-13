@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TaskAppActionBarContainer from '../containers/TaskAppActionBarContainer';
 import TaskAppCardBoardContainer from '../containers/TaskAppCardBoardContainer';
-import TaskAppSearchBar from '../components/TaskAppSearchBar';
+import TaskAppSearchBarContainer from '../containers/TaskAppSearchBarContainer';
 import { getTaskApps } from '../utils/api';
 
 
@@ -28,7 +28,7 @@ class TastorePage extends React.Component {
     return (
       <div >
         <TaskAppActionBarContainer />
-        <TaskAppSearchBar />
+        <TaskAppSearchBarContainer />
         <TaskAppCardBoardContainer />
       </div>
     );

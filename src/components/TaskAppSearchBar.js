@@ -26,11 +26,20 @@ class TaskAppSearchBar extends React.Component {
     });
   }
 
+  fetchTaskApps = () => {
+    const { isCreatorMode, uid } = this.props;
+    const { keyword } = this.state;
+    if (isCreatorMode) {
+      return getTaskApps(keyword, uid);
+    }
+    return getTaskApps(keyword);
+  }
+
   handleSearchClick = () => {
     this.setState({
       isLoading: true,
     });
-    getTaskApps(this.state.keyword)
+    this.fetchTaskApps()
       .finally(() => {
         this.setState({
           isLoading: false,

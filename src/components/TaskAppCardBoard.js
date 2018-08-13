@@ -7,6 +7,9 @@ const styles = {
   root: {
     padding: '1em',
   },
+  centerText: {
+    textAlign: 'center',
+  },
 };
 
 class TaskAppCardBoard extends React.Component {
@@ -30,20 +33,23 @@ class TaskAppCardBoard extends React.Component {
       taskAppIds, classes,
     } = this.props;
 
+    const Cards = (
+      <Grid container spacing={24}>
+        {
+          taskAppIds.map(id => (
+            <Grid key={id} item xs={4}>
+              <TaskAppCardContainer
+                taskAppId={id}
+                handleCardClick={this.handleCardClick(id)}
+                handleDownloadClick={this.handleDownloadClick(id)}
+              />
+            </Grid>))
+        }
+      </Grid>);
+
     return (
-      <div className={classes.root}>
-        <Grid container spacing={24}>
-          {
-            taskAppIds.map(id => (
-              <Grid key={id} item xs={4}>
-                <TaskAppCardContainer
-                  taskAppId={id}
-                  handleCardClick={this.handleCardClick(id)}
-                  handleDownloadClick={this.handleDownloadClick(id)}
-                />
-              </Grid>))
-          }
-        </Grid>
+      <div className={classes.root} >
+        {taskAppIds.length ? Cards : <p className={classes.centerText}>No app with this keyword exists.</p>}
       </div>
     );
   }

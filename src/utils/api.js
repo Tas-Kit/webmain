@@ -66,7 +66,7 @@ export const changeUserRole = (tid, payload) => {
 export const getTaskApps = (keyword, aid) => {
   const queryField = {};
   if (keyword) queryField.keyword = keyword;
-  if (aid) queryField.aid = aid;
+  if (aid) queryField.author_id = aid;
   const query = queryString.stringify(queryField);
   const url = `${TASK_APP_BASE_URL}?${query}`;
   return APIService.sendRequest(url, apiTypes.GET_CURRENT_TASK_APP);
