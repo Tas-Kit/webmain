@@ -29,7 +29,7 @@ function TaskAppCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={handleDownloadClick}>Download</Button>
+          <Button size="small" onClick={handleDownloadClick} disabled={!taskApp.current_task || taskApp.isLoading}>Download</Button>
         </CardActions>
       </Card>
     </div>
