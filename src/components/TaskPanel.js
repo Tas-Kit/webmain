@@ -8,12 +8,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Assignment from '@material-ui/icons/Assignment';
+import Shop from '@material-ui/icons/Shop';
 import { Input } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 
@@ -141,6 +143,23 @@ const TaskPanel = (props) => {
             );
           })
         }
+      </List>
+      <Divider />
+      <List component="nav">
+        <Link to="/tastore" key="tastore" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            style={inline.listItem}
+          >
+            <ListItemIcon>
+              <Shop style={inline.svgIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Tastore"
+              classes={{ primary: classes.taskListItemText }}
+            />
+          </ListItem>
+        </Link>
       </List>
       <div className={classes.expander} />
       <DrawerBottomPanelContainer />
