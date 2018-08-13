@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import TaskAppCardBoard from '../components/TaskAppCardBoard';
 import { toggleTaskAppCreator, toggleTaskAppPreview } from '../actions/dialogActions';
+import { updateMessage } from '../actions/snackbarActions';
 
 const mapStateToProps = (state) => {
   const { taskAppManager } = state;
@@ -17,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
   showPreviewDialog: (aid) => {
     dispatch(toggleTaskAppPreview(aid));
   },
-
+  showSnackMessage: message => dispatch(updateMessage(message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskAppCardBoard);

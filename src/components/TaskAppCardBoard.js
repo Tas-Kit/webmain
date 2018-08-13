@@ -24,8 +24,11 @@ class TaskAppCardBoard extends React.Component {
   }
 
   handleDownloadClick = aid => (e) => {
+    const { showSnackMessage } = this.props;
     e.stopPropagation();
-    downloadTaskApp(aid);
+    downloadTaskApp(aid)
+      .then(() => showSnackMessage('You have successfully download the task app.'))
+      .catch(() => showSnackMessage('Network Error'));
   }
 
   render() {
