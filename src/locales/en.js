@@ -103,6 +103,7 @@ const en = {
   taskLabel: 'Task',
   taskUnavailableText: 'Task is unavailable',
   taskAppPreviewTitle: 'Task App Preview',
+  loadingText: 'Loading...',
 };
 
 export default en;

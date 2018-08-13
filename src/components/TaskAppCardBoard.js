@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, withStyles } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
 import TaskAppCardContainer from '../containers/TaskAppCardContainer';
 import { downloadTaskApp } from '../utils/api';
 
@@ -52,7 +53,7 @@ class TaskAppCardBoard extends React.Component {
 
     return (
       <div className={classes.root} >
-        {isLoading && <p className={classes.centerText}>Loading...</p>}
+        {isLoading && <p className={classes.centerText}><FormattedMessage id="loadingText" /></p>}
         {isLoading || (taskAppIds.length ? Cards : <p className={classes.centerText}>No app with this keyword exists.</p>)}
       </div>
     );

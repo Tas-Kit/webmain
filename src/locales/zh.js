@@ -104,6 +104,7 @@ const zh = {
   taskLabel: '任务',
   taskUnavailableText: '任务不存在',
   taskAppPreviewTitle: '任务应用概览',
+  loadingText: '正在加载...',
 
 };
 
