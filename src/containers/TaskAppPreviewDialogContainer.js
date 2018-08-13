@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import PureDisplayDialog from '../components/Dialogs/PureDisplayDialog';
 import TaskAppPreviewViewer from '../components/TaskAppPreviewViewer';
 import { toggleTaskAppPreview } from '../actions/dialogActions';
@@ -37,7 +38,7 @@ class TaskAppPreviewDialogContainer extends React.Component {
     const { task, isLoading, isError } = this.state;
     return (
       <PureDisplayDialog
-        title="Task App Preview"
+        title={<FormattedMessage id="taskAppPreviewTitle" />}
         open={isOpen}
         toggle={handleToggle}
       >

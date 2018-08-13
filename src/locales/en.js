@@ -101,6 +101,8 @@ const en = {
   createTaskAppTitle: 'Create Task App',
   infoLabel: 'Info',
   taskLabel: 'Task',
+  taskUnavailableText: 'Task is unavailable',
+  taskAppPreviewTitle: 'Task App Preview',
 };
 
 export default en;

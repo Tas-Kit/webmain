@@ -102,6 +102,8 @@ const zh = {
   createTaskAppTitle: '创建任务应用',
   infoLabel: '信息',
   taskLabel: '任务',
+  taskUnavailableText: '任务不存在',
+  taskAppPreviewTitle: '任务应用概览',
 
 };
 
