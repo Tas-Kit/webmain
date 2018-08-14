@@ -1,16 +1,8 @@
 import React from 'react';
-import { TextField, withStyles, Grid } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { debounce } from 'lodash';
+import { FormattedMessage } from 'react-intl';
 import { getTaskApps } from '../utils/api';
-
-const styles = {
-  root: {
-    padding: '1em',
-  },
-  searchField: {
-    width: '240px',
-  },
-};
 
 class TaskAppSearchBar extends React.Component {
   constructor(props) {
@@ -36,23 +28,21 @@ class TaskAppSearchBar extends React.Component {
   }, 200)
 
   render() {
-    const { classes } = this.props;
     const { keyword, isLoading } = this.state;
     return (
-      <div className={classes.root}>
-        <Grid container justify="center" alignContent="center" spacing={16}>
-          <Grid item>
-            <TextField
-              id="keyword"
-              value={keyword}
-              className={classes.searchField}
-              onChange={this.handleKeywordChange}
-              disabled={isLoading}
-            />
-          </Grid>
-        </Grid>
-
-      </div>);
+      <FormattedMessage id="searchText">
+        {
+          msg => (<TextField
+            id="keyword"
+            value={keyword}
+            fullWidth
+            placeholder={msg}
+            onChange={this.handleKeywordChange}
+            disabled={isLoading}
+          />)
+        }
+      </FormattedMessage>
+    );
   }
 }
-export default withStyles(styles)(TaskAppSearchBar);
+export default TaskAppSearchBar;

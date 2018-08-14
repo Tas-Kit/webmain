@@ -1,16 +1,11 @@
 import React from 'react';
-import { withStyles, Toolbar, Button, Switch, FormControlLabel } from '@material-ui/core';
+import { Toolbar, Button, Switch, FormControlLabel, Grid } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-
-const styles = {
-  flex: {
-    flex: 1,
-  },
-};
+import TaskAppSearchBarContainer from '../containers/TaskAppSearchBarContainer';
 
 const TaskAppActionBar = (props) => {
   const {
-    classes, isCreatorMode, handleCreateAppClick, handleCreatorSwitchChange,
+    isCreatorMode, handleCreateAppClick, handleCreatorSwitchChange,
   } = props;
   const CreatorButton = (
     <Button
@@ -21,18 +16,26 @@ const TaskAppActionBar = (props) => {
     </Button>
   );
   return (
-    <Toolbar >
-      <div className={classes.flex}>
-        {isCreatorMode && CreatorButton}
-      </div>
-      <FormControlLabel
-        control={
-          <Switch checked={isCreatorMode} onChange={handleCreatorSwitchChange} />
-        }
-        label={<FormattedMessage id="createAppLabel" />}
-      />
+    <Toolbar style={{ padding: '1.5em 1em' }} >
+      <Grid container spacing={16} justify="center">
+        <Grid item xs={3} container justify="center" align-content="center">
+          {isCreatorMode && CreatorButton}
+        </Grid>
+        <Grid item xs={6}>
+          <TaskAppSearchBarContainer />
+        </Grid>
+        <Grid item xs={3} container justify="center" align-content="center">
+          <FormControlLabel
+            control={
+              <Switch checked={isCreatorMode} onChange={handleCreatorSwitchChange} />
+            }
+            label={<FormattedMessage id="createAppLabel" />}
+          />
+        </Grid>
+
+      </Grid>
     </Toolbar>
   );
 };
 
-export default withStyles(styles)(TaskAppActionBar);
+export default TaskAppActionBar;

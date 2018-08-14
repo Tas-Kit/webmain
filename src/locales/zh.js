@@ -107,6 +107,7 @@ const zh = {
   loadingText: '正在加载...',
   tastoreText: '任务商店',
   downloadNumberText: '下载量',
+  searchText: '搜索应用',
 };
 
 export default zh;

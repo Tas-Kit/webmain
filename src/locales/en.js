@@ -107,6 +107,7 @@ const en = {
   loadingText: 'Loading...',
   tastoreText: 'Tastore',
   downloadNumberText: 'Download Number',
+  searchText: 'Search Task Apps',
 };
 
 export default en;
