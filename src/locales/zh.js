@@ -96,7 +96,7 @@ const zh = {
   downloadButton: '下载',
   searchButton: '搜索',
   createAppButton: '创建应用',
-  createAppLabel: '创建应用',
+  createAppLabel: '我的原创应用',
   uploadTaskButton: '上传任务',
   updateTaskAppTitle: '更新任务应用',
   createTaskAppTitle: '创建任务应用',
@@ -105,7 +105,7 @@ const zh = {
   taskUnavailableText: '任务不存在',
   taskAppPreviewTitle: '任务应用概览',
   loadingText: '正在加载...',
-
+  tastoreText: '任务商店',
 };
 
 export default zh;

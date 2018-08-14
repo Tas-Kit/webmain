@@ -114,7 +114,7 @@ const TaskPanel = (props) => {
               <Shop style={inline.svgIcon} />
             </ListItemIcon>
             <ListItemText
-              primary="Tastore"
+              primary={<FormattedMessage id="tastoreText" />}
               classes={{ primary: classes.taskListItemText }}
             />
           </ListItem>

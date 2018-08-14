@@ -96,6 +96,7 @@ const en = {
   downloadButton: 'Download',
   searchButton: 'Search',
   createAppButton: 'Create App',
+  createAppLabel: 'My App',
   uploadTaskButton: 'Upload Task',
   updateTaskAppTitle: 'Update Task App',
   createTaskAppTitle: 'Create Task App',
@@ -104,6 +105,7 @@ const en = {
   taskUnavailableText: 'Task is unavailable',
   taskAppPreviewTitle: 'Task App Preview',
   loadingText: 'Loading...',
+  tastoreText: 'Tastore',
 };
 
 export default en;
