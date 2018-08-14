@@ -106,6 +106,7 @@ const zh = {
   taskAppPreviewTitle: '任务应用概览',
   loadingText: '正在加载...',
   tastoreText: '任务商店',
+  downloadNumberText: '下载量',
 };
 
 export default zh;

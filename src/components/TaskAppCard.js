@@ -11,6 +11,9 @@ const styles = {
   card: {
     minWidth: 275,
   },
+  downloadText: {
+    marginTop: '1em',
+  },
 };
 
 function TaskAppCard(props) {
@@ -25,9 +28,13 @@ function TaskAppCard(props) {
           <Typography variant="headline" component="h2">
             {taskApp.name}
           </Typography>
-          <Typography component="p">
+          <Typography component="p" variant="body1">
             {taskApp.description}
           </Typography>
+          <Typography className={classes.downloadText} variant="body1">
+            <FormattedMessage id="downloadNumberText" />: {taskApp.downloads}
+          </Typography>
+
         </CardContent>
         <CardActions>
           <Button color="primary" size="small" onClick={handleDownloadClick} disabled={!taskApp.current_task || taskApp.isLoading}><FormattedMessage id="downloadButton" /></Button>

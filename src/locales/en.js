@@ -106,6 +106,7 @@ const en = {
   taskAppPreviewTitle: 'Task App Preview',
   loadingText: 'Loading...',
   tastoreText: 'Tastore',
+  downloadNumberText: 'Download Number',
 };
 
 export default en;
