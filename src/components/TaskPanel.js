@@ -60,6 +60,9 @@ const styles = () => ({
       color: 'WHITE',
     },
   },
+  navContainer: {
+    marginTop: '1em',
+  },
 });
 
 const inline = {
@@ -97,6 +100,26 @@ const TaskPanel = (props) => {
 
         <NotificationContainer />
       </Grid>
+      <List className={classes.navContainer} component="nav">
+        <Link to="/tastore" key="tastore" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            onClick={() => {
+              onTaskClick('');
+              resetEditMode();
+            }}
+            style={inline.listItem}
+          >
+            <ListItemIcon>
+              <Shop style={inline.svgIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Tastore"
+              classes={{ primary: classes.taskListItemText }}
+            />
+          </ListItem>
+        </Link>
+      </List>
       <form >
         <FormattedMessage id="filterPlaceholder">
           {
@@ -144,27 +167,7 @@ const TaskPanel = (props) => {
           })
         }
       </List>
-      <Divider />
-      <List component="nav">
-        <Link to="/tastore" key="tastore" style={{ textDecoration: 'none' }}>
-          <ListItem
-            button
-            onClick={() => {
-              onTaskClick('');
-              resetEditMode();
-            }}
-            style={inline.listItem}
-          >
-            <ListItemIcon>
-              <Shop style={inline.svgIcon} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Tastore"
-              classes={{ primary: classes.taskListItemText }}
-            />
-          </ListItem>
-        </Link>
-      </List>
+
       <div className={classes.expander} />
       <DrawerBottomPanelContainer />
     </Drawer>

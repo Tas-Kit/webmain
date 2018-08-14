@@ -100,7 +100,6 @@ export const uploadTaskApp = (appId, payload) => {
   return APIService.sendRequest(url, apiTypes.UPLOAD_TASK_APP, payload, 'POST', 'formData');
 };
 
-
 export default {
   rejectInvitation,
   acceptInvitation,

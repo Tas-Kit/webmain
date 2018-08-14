@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, withStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import TaskAppCardContainer from '../containers/TaskAppCardContainer';
-import { downloadTaskApp } from '../utils/api';
+import { downloadTaskApp, getTask } from '../utils/api';
 
 const styles = {
   root: {
@@ -28,7 +28,10 @@ class TaskAppCardBoard extends React.Component {
     const { showSnackMessage } = this.props;
     e.stopPropagation();
     downloadTaskApp(aid)
-      .then(() => showSnackMessage('You have successfully download the task app.'))
+      .then(() => {
+        showSnackMessage('You have successfully download the task app.');
+        return getTask();
+      })
       .catch(() => showSnackMessage('Network Error'));
   }
 
