@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextField, withStyles, Grid } from '@material-ui/core';
-import { FormattedMessage } from 'react-intl';
-import LoadingButton from './Button/LoadingButton';
+import { debounce } from 'lodash';
 import { getTaskApps } from '../utils/api';
 
 const styles = {
@@ -24,29 +23,17 @@ class TaskAppSearchBar extends React.Component {
   handleKeywordChange = (e) => {
     this.setState({
       keyword: e.target.value,
-    });
+    }, this.fetchTaskApps);
   }
 
-  fetchTaskApps = () => {
+  fetchTaskApps = debounce(() => {
     const { isCreatorMode, uid } = this.props;
     const { keyword } = this.state;
     if (isCreatorMode) {
       return getTaskApps(keyword, uid);
     }
     return getTaskApps(keyword);
-  }
-
-  handleSearchClick = () => {
-    this.setState({
-      isLoading: true,
-    });
-    this.fetchTaskApps()
-      .finally(() => {
-        this.setState({
-          isLoading: false,
-        });
-      });
-  }
+  }, 200)
 
   render() {
     const { classes } = this.props;
@@ -63,19 +50,6 @@ class TaskAppSearchBar extends React.Component {
               disabled={isLoading}
             />
           </Grid>
-          <Grid item>
-            <LoadingButton
-              loading={isLoading}
-              buttonName={<FormattedMessage id="searchButton" />}
-              className="search"
-              onClick={this.handleSearchClick}
-              color="primary"
-              variant="raised"
-            />
-
-
-          </Grid>
-
         </Grid>
 
       </div>);
