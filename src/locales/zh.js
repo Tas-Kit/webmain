@@ -93,6 +93,7 @@ const zh = {
   userGetFailMsg: '获取用户失败。',
   noTaskFoundMsg: '没有找到相应的任务。',
   filterPlaceholder: '查找任务',
+  displayWorkflow: '显示工作流',
 };
 
 export default zh;

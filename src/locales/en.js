@@ -93,6 +93,7 @@ const en = {
   userGetFailMsg: 'Get user failed',
   noTaskFoundMsg: 'No task found.',
   filterPlaceholder: 'Search Task',
+  displayWorkflow: 'Display Workflow',
 };
 
 export default en;
