@@ -109,6 +109,7 @@ const zh = {
   downloadNumberText: '下载量',
   searchText: '搜索应用',
   displayWorkflow: '显示工作流',
+  noneText: '暂无',
 };
 
 export default zh;

@@ -109,6 +109,7 @@ const en = {
   downloadNumberText: 'Download Number',
   searchText: 'Search Task Apps',
   displayWorkflow: 'Display Workflow',
+  noneText: 'None',
 };
 
 export default en;
