@@ -7,6 +7,7 @@ const initialState = {
   // used for full reducer loading
   isLoading: false,
   isCreatorMode: false,
+  latestDownloadTid: '',
 };
 
 const handleRequest = (request, state) => {
@@ -43,6 +44,12 @@ const handleResponse = (response, state) => {
         taskApps: { ...state.taskApps, [currTaskApp.app_id]: { ...currTaskApp, isLoading: false } },
       };
     }
+    case apiTypes.DOWNLOAD_TASK_APP: {
+      return {
+        ...state,
+        latestDownloadTid: data.task.tid,
+      };
+    }
     case apiTypes.UPLOAD_TASK_APP: {
       const modifiedTaskApps = {};
       const modifiedTaskApp = { ...data, isLoading: false };
@@ -75,6 +82,9 @@ const taskAppManager = (state = initialState, action = {}) => {
     }
     case types.TOGGLE_IS_CREATOR: {
       return { ...state, isCreatorMode: !state.isCreatorMode };
+    }
+    case types.RESET_LATEST_DOWNLOAD_TID: {
+      return { ...state, latestDownloadTid: '' };
     }
     default:
       return state;

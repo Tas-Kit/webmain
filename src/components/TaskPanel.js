@@ -62,6 +62,9 @@ const styles = () => ({
   navContainer: {
     marginTop: '1em',
   },
+  highlight: {
+    border: '1px white solid',
+  },
 });
 
 const inline = {
@@ -78,7 +81,7 @@ const inline = {
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, classes, resetEditMode, filter, handleFilterChange, onTaskClick,
+    username, tasks, classes, resetEditMode, filter, handleFilterChange, onTaskClick, needHighlightTid, resetNeedHighlightTid,
   } = props;
 
   return (
@@ -148,10 +151,12 @@ const TaskPanel = (props) => {
                 <ListItem
                   button
                   onClick={() => {
+                    if (tid === needHighlightTid) resetNeedHighlightTid();
                     onTaskClick(tid);
                     resetEditMode();
                   }}
                   style={inline.listItem}
+                  className={tid === needHighlightTid && classes.highlight}
                 >
                   <ListItemIcon>
                     <Assignment style={inline.svgIcon} />

@@ -61,4 +61,5 @@ export const SET_FILTER = 'SET_FILTER';
 
 // TaskApp Actions
 export const TOGGLE_IS_CREATOR = 'TOGGLE_IS_CREATOR';
+export const RESET_LATEST_DOWNLOAD_TID = 'RESET_LATEST_DOWNLOAD_TID';
 
