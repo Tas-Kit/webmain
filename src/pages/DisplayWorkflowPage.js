@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 
-import { LoadingButton } from '../components/Button';
+import LoadingProgress from '../components/LoadingProgress';
 
 // redux actions
 import * as taskActions from '../actions/taskActions';
-import * as currentUserActions from '../actions/currentUserActions';
 import * as snackbarActions from '../actions/snackbarActions';
 
 // containers
@@ -27,66 +25,57 @@ const inline = {
     marginLeft: 20,
     marginRight: 20,
   },
+  progress: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
 };
-
-const styles = () => ({
-  chip: {
-    margin: '0px 2.5px',
-  },
-  trigger: {
-    margin: '10px 0px',
-  },
-});
 
 class DisplayWorkflowPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      displayed: false,
+      success: false,
     };
+  }
+
+  componentDidMount = () => {
+    const { taskId } = this.props.match.params;
+    this.props.actions.setActiveTaskId(taskId);
+    this.sendRequest(taskId);
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const { taskId: thisTaskId } = this.props.match.params;
+    const { taskId: nextTaskId } = nextProps.match.params;
+    if (thisTaskId !== nextTaskId) this.sendRequest(nextTaskId);
   }
 
   sendRequest = (taskId) => {
     const url = `${TASK_GRAPH_URL}${taskId}/`;
     APIService.sendRequest(url, apiTypes.GET_TASK_GRAPH)
       .then((success) => {
-        if (success) {
-          this.setState({ displayed: true });
-        } else {
+        if (!success) {
           const { updateMessage, toggleTaskActionPending } = this.props.actions;
           toggleTaskActionPending();
           updateMessage(<FormattedMessage id="noTaskFoundMsg" />);
         }
+        this.setState({ success });
       });
   }
 
-  handleDisplayGraphClick = () => {
-    const { taskId } = this.props.match.params;
-    this.props.actions.setActiveTaskId(taskId);
-    this.sendRequest(taskId);
-  }
-
   render() {
-    const { classes } = this.props;
     const { pending } = this.props.taskManager;
-    const { displayed } = this.state;
+    const { success } = this.state;
     return (
       <div>
-        {!displayed &&
-          <div style={inline.buttonDiv}>
-            <LoadingButton
-              variant="outlined"
-              color="primary"
-              className={classes.trigger}
-              buttonName={<FormattedMessage id="displayWorkflow" defaultMessage="" />}
-              loading={pending}
-              onClick={this.handleDisplayGraphClick}
-            />
-          </div>
-        }
+        {pending && <LoadingProgress style={inline.progress} />}
 
         {/* Pure Graph Viewer */}
-        {displayed && <PureGraphViewerContainer />}
+        {!pending && success && <PureGraphViewerContainer />}
 
         {/* Snack Bar */}
         <SnackbarContainer />
@@ -98,7 +87,7 @@ class DisplayWorkflowPage extends React.Component {
 const mapStateToProps = ({ taskManager }) => ({ taskManager });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...taskActions, ...currentUserActions, ...snackbarActions }, dispatch),
+  actions: bindActionCreators({ ...taskActions, ...snackbarActions }, dispatch),
 });
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(DisplayWorkflowPage));
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayWorkflowPage);
