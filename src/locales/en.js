@@ -108,6 +108,7 @@ const en = {
   tastoreText: 'Tastore',
   downloadNumberText: 'Download Number',
   searchText: 'Search Task Apps',
+  displayWorkflow: 'Display Workflow',
 };
 
 export default en;

@@ -108,6 +108,7 @@ const zh = {
   tastoreText: '任务商店',
   downloadNumberText: '下载量',
   searchText: '搜索应用',
+  displayWorkflow: '显示工作流',
 };
 
 export default zh;
