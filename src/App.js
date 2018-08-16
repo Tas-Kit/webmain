@@ -6,6 +6,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import theme from './constants/theme';
 import MainPage from './pages/MainPage';
+import DisplayWorkflowPage from './pages/DisplayWorkflowPage';
 import ReduxService from './services/ReduxService';
 import AutoIntlProvider from './components/AutoIntlProvider';
 
@@ -17,7 +18,8 @@ const App = () => (
           <CssBaseline />
           <BrowserRouter basename="/web/main">
             <Switch>
-              <Route path="/" component={MainPage} />
+              <Route exact path="/" component={MainPage} />
+              <Route path="/mobile/preview/:taskId" component={DisplayWorkflowPage} />
               <Route component={MainPage} />
             </Switch>
           </BrowserRouter>
