@@ -14,9 +14,12 @@ class PureGraphViewerContainer extends React.Component {
 
   initNetwork = () => {
     gs.createGraph(this.graphViewer.graphElement);
+    // screen object only works for mobile devices
     gs.network.setOptions({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: String(window.screen.width),
+      height: String(window.screen.height),
+      // width: String(window.innerWidth),
+      // height: String(window.innerHeight),
     });
 
     gs.clearAll();
