@@ -9,7 +9,13 @@ import { FormattedMessage } from 'react-intl';
 
 const styles = {
   card: {
-    minWidth: 275,
+    width: 360,
+    height: 144,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  full: {
+    flex: 1,
   },
 };
 
@@ -21,7 +27,7 @@ function TaskAppCard(props) {
   return (
     <div>
       <Card className={classes.card} onClick={handleCardClick}>
-        <CardContent>
+        <CardContent className={classes.full}>
           <Typography variant="headline" component="h2">
             {taskApp.name}
           </Typography>

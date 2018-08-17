@@ -156,7 +156,7 @@ const TaskPanel = (props) => {
                     resetEditMode();
                   }}
                   style={inline.listItem}
-                  className={tid === needHighlightTid && classes.highlight}
+                  className={tid === needHighlightTid ? classes.highlight : ''}
                 >
                   <ListItemIcon>
                     <Assignment style={inline.svgIcon} />

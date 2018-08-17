@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import TaskAppCardContainer from '../containers/TaskAppCardContainer';
 import { downloadTaskApp, getTask } from '../utils/api';
@@ -10,6 +10,12 @@ const styles = {
   },
   centerText: {
     textAlign: 'center',
+  },
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, 360px)',
+    gridGap: '1em',
+    justifyContent: 'space-around',
   },
 };
 
@@ -41,18 +47,17 @@ class TaskAppCardBoard extends React.Component {
     } = this.props;
 
     const Cards = (
-      <Grid container spacing={24}>
+      <div className={classes.gridContainer}>
         {
           taskAppIds.map(id => (
-            <Grid key={id} item xs={4}>
-              <TaskAppCardContainer
-                taskAppId={id}
-                handleCardClick={this.handleCardClick(id)}
-                handleDownloadClick={this.handleDownloadClick(id)}
-              />
-            </Grid>))
+            <TaskAppCardContainer
+              key={id}
+              taskAppId={id}
+              handleCardClick={this.handleCardClick(id)}
+              handleDownloadClick={this.handleDownloadClick(id)}
+            />))
         }
-      </Grid>);
+      </div>);
 
     return (
       <div className={classes.root} >
