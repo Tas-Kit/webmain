@@ -14,6 +14,12 @@ const initialState = {
   stepEditorOpen: false,
   stepViewerOpen: false,
 
+  // task app related
+  taskAppCreatorOpen: false,
+  taskAppUpdateId: '',
+  taskAppPreviewOpen: false,
+  taskAppPreviewId: '',
+
   // others
   invitationOpen: false,
 };
@@ -40,6 +46,14 @@ const dialogManager = (state = initialState, action = {}) => {
       return { ...state, deleteTaskOpen: !state.deleteTaskOpen };
     case types.TOGGLE_QUIT_TASK:
       return { ...state, quitTaskOpen: !state.quitTaskOpen };
+    case types.TOGGLE_TASK_APP_CREATOR: {
+      const { appId } = action;
+      return { ...state, taskAppCreatorOpen: !state.taskAppCreatorOpen, taskAppUpdateId: appId };
+    }
+    case types.TOGGLE_TASK_APP_PREVIEW: {
+      const { appId } = action;
+      return { ...state, taskAppPreviewOpen: !state.taskAppPreviewOpen, taskAppPreviewId: appId };
+    }
     default:
       return state;
   }

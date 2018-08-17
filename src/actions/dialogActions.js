@@ -1,3 +1,4 @@
+// Trigger Build
 import * as types from '../constants/actions';
 
 export const toggleTaskCreator = () => ({
@@ -38,4 +39,14 @@ export const toggleDeleteTask = () => ({
 
 export const toggleQuitTask = () => ({
   type: types.TOGGLE_QUIT_TASK,
+});
+
+export const toggleTaskAppCreator = appId => ({
+  type: types.TOGGLE_TASK_APP_CREATOR,
+  appId,
+});
+
+export const toggleTaskAppPreview = appId => ({
+  type: types.TOGGLE_TASK_APP_PREVIEW,
+  appId,
 });

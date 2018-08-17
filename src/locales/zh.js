@@ -93,7 +93,23 @@ const zh = {
   userGetFailMsg: '获取用户失败。',
   noTaskFoundMsg: '没有找到相应的任务。',
   filterPlaceholder: '查找任务',
+  downloadButton: '下载',
+  searchButton: '搜索',
+  createAppButton: '创建应用',
+  createAppLabel: '我的原创应用',
+  uploadTaskButton: '上传任务',
+  updateTaskAppTitle: '更新任务应用',
+  createTaskAppTitle: '创建任务应用',
+  infoLabel: '信息',
+  taskLabel: '任务',
+  taskUnavailableText: '任务不存在',
+  taskAppPreviewTitle: '任务应用概览',
+  loadingText: '正在加载...',
+  tastoreText: '任务商店',
+  downloadNumberText: '下载量',
+  searchText: '搜索应用',
   displayWorkflow: '显示工作流',
+  noneText: '暂无',
 };
 
 export default zh;

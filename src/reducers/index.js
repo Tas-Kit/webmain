@@ -4,6 +4,7 @@ import dialogManager from './dialogManager';
 import snackbarManager from './snackbarManager';
 import currentUserManager from './currentUserManager';
 import graphManager from './graphManager';
+import taskAppManager from './taskAppManager';
 
 export default {
   taskManager,
@@ -12,4 +13,5 @@ export default {
   snackbarManager,
   currentUserManager,
   graphManager,
+  taskAppManager,
 };

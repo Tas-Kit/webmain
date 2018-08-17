@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 // pages
 import TasksPage from './TasksPage';
 import TaskGraphPage from './TaskGraphPage';
+import TastorePage from './TastorePage';
 
 // containers
 import DialogsContainer from '../containers/DialogsContainer';
@@ -66,6 +67,7 @@ class MainPage extends React.Component {
           <Switch>
             <Route exact path="/" component={TasksPage} />
             <Route path="/task/:taskId" component={TaskGraphPage} />
+            <Route path="/tastore" component={TastorePage} />
             <Route component={TasksPage} />
           </Switch>
         </div>

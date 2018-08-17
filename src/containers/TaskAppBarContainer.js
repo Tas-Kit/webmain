@@ -5,6 +5,7 @@ import TaskAppBar from '../components/TaskAppBar';
 
 const TaskAppBarContainer = (props) => {
   const getTaskTitle = (id) => {
+    if (id === 'tastore') return 'tastore';
     const { tasks } = props.taskManager;
     const taskNameMap = {};
     for (let i = 0; i < tasks.length; i++) {

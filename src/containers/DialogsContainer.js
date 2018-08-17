@@ -16,6 +16,8 @@ import TaskClonerDialogContainer from './TaskClonerDialogContainer';
 import StepCreatorDialogContainer from './StepCreatorDialogContainer';
 import StepEditorDialogContainer from './StepEditorDialogContainer';
 import StepViewerDialogContainer from './StepViewerDialogContainer';
+import TaskAppCreatorDialogContainer from './TaskAppCreatorDialogContainer';
+import TaskAppPreviewDialogContainer from './TaskAppPreviewDialogContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -105,6 +107,12 @@ const DialogsContainer = (props) => {
 
       {/* Step Viewer */}
       <StepViewerDialogContainer />
+
+      {/* Task App Creator */}
+      <TaskAppCreatorDialogContainer />
+
+      {/* Task App Preview */}
+      <TaskAppPreviewDialogContainer />
 
       {/* Invitation Dialog */}
       <PureDisplayDialog

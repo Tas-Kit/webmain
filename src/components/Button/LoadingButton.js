@@ -51,10 +51,10 @@ const LoadingButton = (props) => {
 };
 
 LoadingButton.defaultProps = {
-  className: {},
+  className: '',
   variant: '',
   disabled: false,
-  onClick: () => {},
+  onClick: () => { },
   color: 'primary',
   loading: false,
   buttonName: 'Button',

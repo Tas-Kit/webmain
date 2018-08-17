@@ -93,7 +93,23 @@ const en = {
   userGetFailMsg: 'Get user failed',
   noTaskFoundMsg: 'No task found.',
   filterPlaceholder: 'Search Task',
+  downloadButton: 'Download',
+  searchButton: 'Search',
+  createAppButton: 'Create App',
+  createAppLabel: 'My App',
+  uploadTaskButton: 'Upload Task',
+  updateTaskAppTitle: 'Update Task App',
+  createTaskAppTitle: 'Create Task App',
+  infoLabel: 'Info',
+  taskLabel: 'Task',
+  taskUnavailableText: 'Task is unavailable',
+  taskAppPreviewTitle: 'Task App Preview',
+  loadingText: 'Loading...',
+  tastoreText: 'Tastore',
+  downloadNumberText: 'Download Number',
+  searchText: 'Search Task Apps',
   displayWorkflow: 'Display Workflow',
+  noneText: 'None',
 };
 
 export default en;
