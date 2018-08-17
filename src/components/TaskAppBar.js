@@ -27,6 +27,9 @@ const TaskAppBar = (props) => {
     if (title === '') {
       return <FormattedMessage id="appBarWelcomeMessage" />;
     }
+    if (title === 'tastore') {
+      return <FormattedMessage id="tastoreText" />;
+    }
     const { editMode } = props.currentUserManager;
     const { graphDataOrigin, currentGraphData } = props.graphManager;
     console.log(graphDataOrigin);

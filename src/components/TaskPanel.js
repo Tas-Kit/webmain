@@ -107,7 +107,7 @@ const TaskPanel = (props) => {
           <ListItem
             button
             onClick={() => {
-              onTaskClick('');
+              onTaskClick('tastore');
               resetEditMode();
             }}
             style={inline.listItem}
