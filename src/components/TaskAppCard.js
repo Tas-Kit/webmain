@@ -32,7 +32,8 @@ function TaskAppCard(props) {
             {taskApp.name}
           </Typography>
           <Typography component="p" variant="body1">
-            {taskApp.description}
+            {taskApp.description.slice(0, 40)}
+            {taskApp.description.length > 40 && '...'}
           </Typography>
 
         </CardContent>
