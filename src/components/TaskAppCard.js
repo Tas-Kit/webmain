@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 const styles = {
   card: {
     width: 360,
-    height: 144,
+    height: 120,
     display: 'flex',
     flexDirection: 'column',
   },
