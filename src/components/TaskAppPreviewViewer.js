@@ -8,6 +8,7 @@ const TaskAppPreviewViewer = (props) => {
   return (
     <div>
       <p><FormattedMessage id="nameFieldName" />: {task.name}</p>
+      <p><FormattedMessage id="descriptionFieldName" />: {task.description}</p>
       <p><FormattedMessage id="statusFieldName" />: {STATUS_MAP_TWO[task.status]}</p>
       <p><FormattedMessage id="rolesFieldName" />: {task.roles.join(' ')}</p>
       <p><FormattedMessage id="expectedFieldName" />: {task.expected_effort_unit ? `${task.expected_effort_num} ${TIME_UNITS_MAP_TWO[task.expected_effort_unit]}` : <FormattedMessage id="noneText" />}</p>
