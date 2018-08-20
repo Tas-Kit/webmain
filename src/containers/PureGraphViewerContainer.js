@@ -20,6 +20,13 @@ class PureGraphViewerContainer extends React.Component {
       height: String(window.screen.height),
     });
 
+    window.addEventListener('orientationchange', () => {
+      gs.network.setOptions({
+        width: String(window.screen.width),
+        height: String(window.screen.height),
+      });
+    });
+
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
     const nodes = mapNodeResponseData(taskNodes);
