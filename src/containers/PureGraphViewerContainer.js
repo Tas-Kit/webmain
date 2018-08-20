@@ -18,8 +18,6 @@ class PureGraphViewerContainer extends React.Component {
     gs.network.setOptions({
       width: String(window.screen.width),
       height: String(window.screen.height),
-      // width: String(window.innerWidth),
-      // height: String(window.innerHeight),
     });
 
     gs.clearAll();
