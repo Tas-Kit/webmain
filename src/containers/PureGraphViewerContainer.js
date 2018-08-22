@@ -13,15 +13,24 @@ class PureGraphViewerContainer extends React.Component {
   componentDidMount = () => { this.initNetwork(); }
 
   initNetwork = () => {
-    gs.createGraph(this.graphViewer.graphElement);
+    const isPure = true;
+    gs.createGraph(this.graphViewer.graphElement, isPure);
+    // screen object only works for mobile devices
     gs.network.setOptions({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: String(window.screen.width),
+      height: String(window.screen.height),
+    });
+
+    window.addEventListener('orientationchange', () => {
+      gs.network.setOptions({
+        width: String(window.screen.width),
+        height: String(window.screen.height),
+      });
     });
 
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
-    const nodes = mapNodeResponseData(taskNodes);
+    const nodes = mapNodeResponseData(taskNodes).map(node => ({ ...node, fixed: true }));
     const edges = getColoredEdge(taskEdges, nodes);
     gs.addNode(nodes);
     gs.addEdge(edges);
