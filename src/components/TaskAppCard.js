@@ -6,16 +6,20 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { FormattedMessage } from 'react-intl';
+import { CardHeader, Tooltip, Avatar } from '@material-ui/core';
 
 const styles = {
   card: {
     width: 360,
-    height: 120,
+    height: 160,
     display: 'flex',
     flexDirection: 'column',
   },
   full: {
     flex: 1,
+  },
+  header: {
+    padding: '1em',
   },
 };
 
@@ -24,13 +28,20 @@ function TaskAppCard(props) {
     classes, taskApp, handleCardClick, handleDownloadClick,
   } = props;
 
+  const { username } = taskApp.author;
+
   return (
     <div>
       <Card className={classes.card} onClick={handleCardClick}>
+        <CardHeader
+          avatar={
+            <Tooltip title={username}>
+              <Avatar >{username ? username[0] : ''}</Avatar>
+            </Tooltip>}
+          title={taskApp.name}
+          className={classes.header}
+        />
         <CardContent className={classes.full}>
-          <Typography variant="headline" component="h2">
-            {taskApp.name}
-          </Typography>
           <Typography component="p" variant="body1">
             {taskApp.description.slice(0, 40)}
             {taskApp.description.length > 40 && '...'}
