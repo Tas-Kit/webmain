@@ -21,6 +21,13 @@ const styles = {
   header: {
     padding: '1em',
   },
+  flex: {
+    display: 'flex',
+  },
+  avatar: {
+    width: 32,
+    height: 32,
+  },
 };
 
 function TaskAppCard(props) {
@@ -34,10 +41,6 @@ function TaskAppCard(props) {
     <div>
       <Card className={classes.card} onClick={handleCardClick}>
         <CardHeader
-          avatar={
-            <Tooltip title={username}>
-              <Avatar >{username ? username[0] : ''}</Avatar>
-            </Tooltip>}
           title={taskApp.name}
           className={classes.header}
         />
@@ -48,11 +51,14 @@ function TaskAppCard(props) {
           </Typography>
 
         </CardContent>
-        <CardActions>
+        <CardActions className={classes.flex}>
           <Button color="primary" size="small" onClick={handleDownloadClick} disabled={!taskApp.current_task || taskApp.isLoading}><FormattedMessage id="downloadButton" /></Button>
-          <Typography variant="body1">
+          <Typography className={classes.full} component="span" variant="body1">
             {taskApp.downloads}
           </Typography>
+          <Tooltip title={username}>
+            <Avatar className={classes.avatar} >{username ? username[0] : ''}</Avatar>
+          </Tooltip>
         </CardActions>
       </Card>
     </div>
