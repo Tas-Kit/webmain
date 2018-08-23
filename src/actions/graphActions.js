@@ -32,6 +32,10 @@ export const openNodeDescriptionBox = () => ({
   type: types.OPEN_NODE_DESCRIPTION_BOX,
 });
 
+export const closeNodeDescriptionBox = () => ({
+  type: types.CLOSE_NODE_DESCRIPTION_BOX,
+});
+
 export const updateNodeInfo = nodeData => ({
   type: types.UPDATE_NODE_INFO,
   nodeData,

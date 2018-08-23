@@ -22,8 +22,6 @@ class PureGraphViewerContainer extends React.Component {
     this.adaptScreenSize();
 
     gs.network.on('click', (data) => {
-      console.log('pure graph viewer click');
-      console.log(data);
       if (data.nodes.length === 1) {
         const nodeId = data.nodes[0];
         const node = gs.getNode(nodeId);
@@ -32,8 +30,12 @@ class PureGraphViewerContainer extends React.Component {
           y: data.pointer.DOM.y,
           description: node.description,
         };
-        // this.props.actions.openNodeDescriptionBox();
+        this.props.actions.openNodeDescriptionBox();
         this.props.actions.updateNodeInfo(nodeDataToSend);
+      }
+
+      if (data.nodes.length === 0) {
+        this.props.actions.closeNodeDescriptionBox();
       }
     });
 
@@ -44,7 +46,17 @@ class PureGraphViewerContainer extends React.Component {
 
     gs.clearAll();
     const { taskNodes, taskEdges } = this.props.taskManager;
-    const nodes = mapNodeResponseData(taskNodes).map(node => ({ ...node, fixed: true }));
+    const nodes = mapNodeResponseData(taskNodes).map((node) => {
+      const mobileNode = {
+        ...node,
+        fixed: true, // fix node pos in mobile
+      };
+      if (mobileNode.title) {
+        // disable default vis tooltip in mobile
+        delete mobileNode.title;
+      }
+      return mobileNode;
+    });
     const edges = getColoredEdge(taskEdges, nodes);
     gs.addNode(nodes);
     gs.addEdge(edges);

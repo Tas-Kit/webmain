@@ -25,3 +25,8 @@ export const COMPLETED = '#83b369';
 export const SKIPPED = '#c6ccd2';
 
 export const INIT = '#424242';
+
+// tooltip colors
+export const TOOLTIP_BACKGROUND = '#424242';
+export const TOOLTIP_BOX_SHADOW = 'rgba(0,0,0,.2)';
+export const TOOLTIP_BORDER = '#808074';

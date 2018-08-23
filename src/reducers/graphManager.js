@@ -80,6 +80,9 @@ const graphManager = (state = initialState, action = {}) => {
     case types.OPEN_NODE_DESCRIPTION_BOX: {
       return { ...state, descriptionOpened: true };
     }
+    case types.CLOSE_NODE_DESCRIPTION_BOX: {
+      return { ...state, descriptionOpened: false };
+    }
     default:
       return state;
   }
