@@ -14,6 +14,7 @@ const initialState = {
     deadline: '',
     effortTime: '',
     effortUnit: '',
+    allowLinkSharing: false,
   },
   taskUsers: [],
   taskNodes: [],
