@@ -12,6 +12,7 @@ import * as snackbarActions from '../actions/snackbarActions';
 // containers
 import SnackbarContainer from '../containers/SnackbarContainer';
 import PureGraphViewerContainer from '../containers/PureGraphViewerContainer';
+import NodeDescriptionBoxContainer from '../containers/NodeDescriptionBoxContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -69,6 +70,8 @@ class DisplayWorkflowPage extends React.Component {
 
   render() {
     const { pending } = this.props.taskManager;
+    const { descriptionOpened } = this.props.graphManager;
+    console.log(descriptionOpened);
     const { success } = this.state;
     return (
       <div>
@@ -79,12 +82,15 @@ class DisplayWorkflowPage extends React.Component {
 
         {/* Snack Bar */}
         <SnackbarContainer />
+
+        {/* Node Description Box */}
+        {descriptionOpened && <NodeDescriptionBoxContainer />}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ taskManager }) => ({ taskManager });
+const mapStateToProps = ({ taskManager, graphManager }) => ({ taskManager, graphManager });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...taskActions, ...snackbarActions }, dispatch),
