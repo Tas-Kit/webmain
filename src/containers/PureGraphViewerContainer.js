@@ -18,11 +18,8 @@ class PureGraphViewerContainer extends React.Component {
   initNetwork = () => {
     const isPure = true;
     gs.createGraph(this.graphViewer.graphElement, isPure);
-    // screen object only works for mobile devices
-    gs.network.setOptions({
-      width: String(window.screen.width),
-      height: String(window.screen.height),
-    });
+
+    this.adaptScreenSize();
 
     gs.network.on('click', (data) => {
       console.log('pure graph viewer click');
@@ -35,16 +32,14 @@ class PureGraphViewerContainer extends React.Component {
           y: data.pointer.DOM.y,
           description: node.description,
         };
-        this.props.actions.openNodeDescriptionBox();
+        // this.props.actions.openNodeDescriptionBox();
         this.props.actions.updateNodeInfo(nodeDataToSend);
       }
     });
 
     window.addEventListener('orientationchange', () => {
-      gs.network.setOptions({
-        width: String(window.screen.width),
-        height: String(window.screen.height),
-      });
+      this.adaptScreenSize();
+      gs.fit();
     });
 
     gs.clearAll();
@@ -54,6 +49,14 @@ class PureGraphViewerContainer extends React.Component {
     gs.addNode(nodes);
     gs.addEdge(edges);
     gs.fit();
+  }
+
+  adaptScreenSize = () => {
+    // screen object only works for mobile devices
+    gs.network.setOptions({
+      width: String(window.orientation === 0 ? window.screen.width : window.screen.height),
+      height: String(window.orientation === 0 ? window.screen.height : window.screen.width),
+    });
   }
 
   render() {
