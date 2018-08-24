@@ -16,8 +16,8 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const handleTimeOut = () => {
-  redirectToLogin();
+const handleTimeOut = (currPath) => {
+  redirectToLogin(currPath);
 };
 
 const transformResponse = (res) => {
@@ -26,7 +26,7 @@ const transformResponse = (res) => {
   }
   switch (res.status) {
     case 401:
-      handleTimeOut();
+      handleTimeOut(window.location.pathname);
       break;
     case 404:
       return null;

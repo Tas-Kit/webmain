@@ -100,9 +100,10 @@ export const backToMain = () => {
   }
 };
 
-export const redirectToLogin = () => {
+export const redirectToLogin = (currPath) => {
   if (window) {
-    const query = qs.stringify({ redirect: window.location.pathname });
+    const path = currPath || window.location.pathname;
+    const query = qs.stringify({ redirect: path });
     const destination = `${LOGIN_URL}?${query}/`;
     window.location.replace(destination);
   }
