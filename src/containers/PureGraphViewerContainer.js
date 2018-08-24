@@ -32,9 +32,7 @@ class PureGraphViewerContainer extends React.Component {
         };
         this.props.actions.openNodeDescriptionBox();
         this.props.actions.updateNodeInfo(nodeDataToSend);
-      }
-
-      if (data.nodes.length === 0) {
+      } else if (data.nodes.length === 0) {
         this.props.actions.closeNodeDescriptionBox();
       }
     });
