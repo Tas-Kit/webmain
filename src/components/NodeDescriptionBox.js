@@ -11,7 +11,7 @@ const inline = {
     position: 'absolute',
     backgroundColor: TOOLTIP_BACKGROUND,
     color: WHITE,
-    fontSize: 8,
+    fontSize: 10,
     boxShadow: `3px 3px 10px ${TOOLTIP_BOX_SHADOW}`,
     maxWidth: 150,
     padding: '6px 8px',
