@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Cookies from 'js-cookie';
+import qs from 'qs';
 import {
   MIN_ALLOW_WINDOW_WIDTH,
   DRAWER_WIDTH,
@@ -24,6 +25,8 @@ import {
 import * as svgStrings from '../assets/svgStrings';
 
 import gs from '../services/GraphService';
+
+import { LOGIN_URL } from '../constants/apiUrls';
 
 export const getAdaptedWidth = () => {
   if (window.innerWidth >= MIN_ALLOW_WINDOW_WIDTH) {
@@ -94,6 +97,14 @@ export const logout = () => {
 export const backToMain = () => {
   if (window) {
     window.location.replace('/');
+  }
+};
+
+export const redirectToLogin = () => {
+  if (window) {
+    const query = qs.stringify({ redirect: window.location.pathname });
+    const destination = `${LOGIN_URL}/?${query}`;
+    window.location.replace(destination);
   }
 };
 

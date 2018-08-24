@@ -1,7 +1,8 @@
 import qs from 'qs';
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
-import { DEV_BASE_URL, LOGIN_URL } from '../constants/apiUrls';
+import { DEV_BASE_URL } from '../constants/apiUrls';
+import { redirectToLogin } from '../utils/functions';
 
 let baseUrl;
 
@@ -16,9 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const handleTimeOut = () => {
-  if (window) {
-    window.location.replace(LOGIN_URL);
-  }
+  redirectToLogin();
 };
 
 const transformResponse = (res) => {
