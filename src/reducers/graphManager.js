@@ -16,6 +16,14 @@ const initialState = {
     nodes: [],
     edges: [],
   },
+
+  // description box of each node on mobile
+  descriptionOpened: false,
+  nodeInfo: {
+    x: null,
+    y: null,
+    description: null,
+  },
 };
 
 const handleRequest = (request, state) => {
@@ -65,6 +73,15 @@ const graphManager = (state = initialState, action = {}) => {
     }
     case types.UPDATE_GRAPH_DATA_JSON: {
       return { ...state, currentGraphData: action.graphData };
+    }
+    case types.UPDATE_NODE_INFO: {
+      return { ...state, nodeInfo: action.nodeData };
+    }
+    case types.OPEN_NODE_DESCRIPTION_BOX: {
+      return { ...state, descriptionOpened: true };
+    }
+    case types.CLOSE_NODE_DESCRIPTION_BOX: {
+      return { ...state, descriptionOpened: false };
     }
     default:
       return state;

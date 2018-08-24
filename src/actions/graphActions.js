@@ -27,3 +27,16 @@ export const updateGraphDataJson = graphData => ({
   type: types.UPDATE_GRAPH_DATA_JSON,
   graphData,
 });
+
+export const openNodeDescriptionBox = () => ({
+  type: types.OPEN_NODE_DESCRIPTION_BOX,
+});
+
+export const closeNodeDescriptionBox = () => ({
+  type: types.CLOSE_NODE_DESCRIPTION_BOX,
+});
+
+export const updateNodeInfo = nodeData => ({
+  type: types.UPDATE_NODE_INFO,
+  nodeData,
+});
