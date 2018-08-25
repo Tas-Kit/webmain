@@ -25,15 +25,14 @@ const transformResponse = (res) => {
     return res.json();
   }
   switch (res.status) {
-    case 401:
-      handleTimeOut(window.location.pathname);
-      break;
     case 404:
       return null;
+    case 401:
+      handleTimeOut(window.location.pathname);
+      throw new Error(res);
     default:
-      throw new Error('failed');
+      throw new Error(res);
   }
-  return null;
 };
 
 class APIService {
