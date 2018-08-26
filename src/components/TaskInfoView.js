@@ -69,6 +69,12 @@ const TaskInfoView = (props) => {
           {info.roles.length === 0 ? 'None' : null}
         </div>
       </div>
+      <div style={inline.row}>
+        <span style={inline.fieldName}><FormattedMessage id="allowLinkSharingFieldName" />:</span>
+        <div style={inline.fieldContent}>
+          {info.allowLinkSharing ? <FormattedMessage id="yesButton" /> : <FormattedMessage id="noButton" />}
+        </div>
+      </div>
     </div>
   );
 };

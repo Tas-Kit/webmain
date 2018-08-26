@@ -4,7 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import PureDisplayDialog from '../components/Dialogs/PureDisplayDialog';
 import TaskAppPreviewViewer from '../components/TaskAppPreviewViewer';
 import { toggleTaskAppPreview } from '../actions/dialogActions';
-import { previewTaskApp } from '../utils/api';
+import { updateMessage } from '../actions/snackbarActions';
+import { downloadTaskApp, previewTaskApp, getTask } from '../utils/api';
 
 class TaskAppPreviewDialogContainer extends React.Component {
   constructor(props) {
@@ -33,8 +34,17 @@ class TaskAppPreviewDialogContainer extends React.Component {
       }
     }
   }
+  handleDownloadClick = aid => (e) => {
+    e.stopPropagation();
+    downloadTaskApp(aid)
+      .then(() => {
+        updateMessage('You have successfully download the task app.');
+        return getTask();
+      })
+      .catch(() => updateMessage('Network Error'));
+  }
   render() {
-    const { isOpen, handleToggle } = this.props;
+    const { isOpen, handleToggle, appId } = this.props;
     const { task, isLoading, isError } = this.state;
     return (
       <PureDisplayDialog
@@ -42,7 +52,7 @@ class TaskAppPreviewDialogContainer extends React.Component {
         open={isOpen}
         toggle={handleToggle}
       >
-        {isLoading ? <p>Loading</p> : <TaskAppPreviewViewer task={task} />}
+        {isLoading ? <p>Loading</p> : <TaskAppPreviewViewer task={task} handleDownloadClick={this.handleDownloadClick(appId)} />}
         {isError && <p>Network Error</p>}
       </PureDisplayDialog>);
   }

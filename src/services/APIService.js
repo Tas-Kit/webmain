@@ -1,7 +1,8 @@
 import qs from 'qs';
 import { dispatch } from './ReduxService';
 import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
-import { DEV_BASE_URL, LOGIN_URL } from '../constants/apiUrls';
+import { DEV_BASE_URL } from '../constants/apiUrls';
+import { redirectToLogin } from '../utils/functions';
 
 let baseUrl;
 
@@ -15,10 +16,8 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const handleTimeOut = () => {
-  if (window) {
-    window.location.replace(LOGIN_URL);
-  }
+const handleTimeOut = (currPath) => {
+  redirectToLogin(currPath);
 };
 
 const transformResponse = (res) => {
@@ -26,15 +25,14 @@ const transformResponse = (res) => {
     return res.json();
   }
   switch (res.status) {
-    case 401:
-      handleTimeOut();
-      break;
     case 404:
       return null;
+    case 401:
+      handleTimeOut(window.location.pathname);
+      throw new Error(res);
     default:
-      throw new Error('failed');
+      throw new Error(res);
   }
-  return null;
 };
 
 class APIService {

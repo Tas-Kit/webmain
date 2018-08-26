@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Cookies from 'js-cookie';
+import qs from 'qs';
 import {
   MIN_ALLOW_WINDOW_WIDTH,
   DRAWER_WIDTH,
@@ -25,6 +26,8 @@ import * as svgStrings from '../assets/svgStrings';
 
 import gs from '../services/GraphService';
 
+import { LOGIN_URL } from '../constants/apiUrls';
+
 export const getAdaptedWidth = () => {
   if (window.innerWidth >= MIN_ALLOW_WINDOW_WIDTH) {
     return window.innerWidth - DRAWER_WIDTH;
@@ -42,6 +45,7 @@ export const mapTaskInfoResponseData = data => ({
   effortUnit: data.expected_effort_unit ? TIME_UNITS_MAP_TWO[data.expected_effort_unit] : '',
   description: data.description || '',
   deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
+  allowLinkSharing: data.allow_link_sharing,
 });
 
 export const mapTaskInfoRequestData = data => ({
@@ -52,6 +56,7 @@ export const mapTaskInfoRequestData = data => ({
   expected_effort_unit: data.effortUnit === '' ? null : TIME_UNITS_MAP[data.effortUnit],
   description: data.description.trim() === '' ? null : data.description,
   deadline: data.deadline === '' ? null : (new Date(data.deadline)).toISOString(),
+  allow_link_sharing: data.allowLinkSharing,
 });
 
 export const mapStepInfoToNode = (data) => {
@@ -92,6 +97,15 @@ export const logout = () => {
 export const backToMain = () => {
   if (window) {
     window.location.replace('/');
+  }
+};
+
+export const redirectToLogin = (currPath) => {
+  if (window) {
+    const path = currPath || window.location.pathname;
+    const query = qs.stringify({ redirect: path });
+    const destination = `${LOGIN_URL}?${query}/`;
+    window.location.replace(destination);
   }
 };
 

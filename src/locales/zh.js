@@ -110,6 +110,7 @@ const zh = {
   searchText: '搜索应用',
   displayWorkflow: '显示工作流',
   noneText: '暂无',
+  allowLinkSharingFieldName: '允许链接分享',
 };
 
 export default zh;

@@ -110,6 +110,7 @@ const en = {
   searchText: 'Search Task Apps',
   displayWorkflow: 'Display Workflow',
   noneText: 'None',
+  allowLinkSharingFieldName: 'Allow Link Sharing',
 };
 
 export default en;

@@ -17,6 +17,7 @@ import TextArea from './TextArea';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
+import { Switch } from './Switch';
 
 const inline = {
   main: {
@@ -81,6 +82,11 @@ class TaskInfo extends React.Component {
   handleChange = key => (e) => {
     const { info, update } = this.props;
     update({ ...info, [key]: e.target.value });
+  }
+
+  handleSwitch = key => (e) => {
+    const { info, update } = this.props;
+    update({ ...info, [key]: e.target.checked });
   }
 
   render() {
@@ -158,6 +164,10 @@ class TaskInfo extends React.Component {
           <IconButton color="primary" style={inline.iconButton} onClick={this.handleAddRole}>
             {inputingRole && roleName !== '' ? <Check /> : <AddRole />}
           </IconButton>
+        </div>
+        <div style={inline.row}>
+          <span style={inline.fieldName}>{<FormattedMessage id="allowLinkSharingFieldName" />}:</span>
+          <Switch checked={info.allowLinkSharing} onChange={this.handleSwitch('allowLinkSharing')} value="allowLinkSharing" />
         </div>
       </div>
     );
