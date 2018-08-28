@@ -54,6 +54,10 @@ const styles = {
   deleteBt: {
     fontSize: 12,
   },
+  tooltipLabel: {
+    fontSize: '0.9rem',
+    width: 240,
+  },
 };
 
 const TaskToolbar = (props) => {
@@ -98,11 +102,17 @@ const TaskToolbar = (props) => {
           >
             <FormattedMessage id="cloneButton" defaultMessage="Clone" />
           </Button> :
-          <Tooltip key="cloneDisabledReason" id="cloneDisabledReason" title={<FormattedMessage id="disableCloneReason" />}>
+          <Tooltip
+            classes={{
+              tooltip: classes.tooltipLabel,
+            }}
+            key="cloneDisabledReason"
+            id="cloneDisabledReason"
+            title={<FormattedMessage id="disableCloneReason" />}
+          >
             <span>
               <Button
                 key="clone"
-                onClick={toggleTaskCloner}
                 className={classNames(classes.cloneBt)}
                 disabled
               >
