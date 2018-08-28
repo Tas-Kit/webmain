@@ -46,6 +46,7 @@ export const mapTaskInfoResponseData = data => ({
   description: data.description || '',
   deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
   allowLinkSharing: data.allow_link_sharing,
+  origin: data.origin,
 });
 
 export const mapTaskInfoRequestData = data => ({

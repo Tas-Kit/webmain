@@ -70,7 +70,10 @@ const TaskToolbar = (props) => {
     onGraphSave,
     savePending,
     editMode,
+    taskInfo,
   } = props;
+
+  const canClone = !(taskInfo.origin || userSuperRole === SUPER_ROLE.STANDARD);
 
   return (
     <Toolbar>
@@ -87,13 +90,27 @@ const TaskToolbar = (props) => {
             <FormattedMessage id="infoButton" defaultMessage="Info" />
           }
         </Button>
-        <Button
-          key="clone"
-          onClick={toggleTaskCloner}
-          className={classNames(classes.cloneBt)}
-        >
-          <FormattedMessage id="cloneButton" defaultMessage="Clone" />
-        </Button>
+        {canClone ?
+          <Button
+            key="clone"
+            onClick={toggleTaskCloner}
+            className={classNames(classes.cloneBt)}
+          >
+            <FormattedMessage id="cloneButton" defaultMessage="Clone" />
+          </Button> :
+          <Tooltip key="cloneDisabledReason" id="cloneDisabledReason" title={<FormattedMessage id="disableCloneReason" />}>
+            <span>
+              <Button
+                key="clone"
+                onClick={toggleTaskCloner}
+                className={classNames(classes.cloneBt)}
+                disabled
+              >
+                <FormattedMessage id="cloneButton" defaultMessage="Clone" />
+              </Button>
+            </span>
+          </Tooltip>
+        }
 
         {editMode ?
           <LoadingButton
