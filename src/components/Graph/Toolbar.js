@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import Link from '@material-ui/icons/Link';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 
 // contants
 import { LIGHT_PINK, TRANSPARENT_LIGHT_BLUE, INIT, SKIPPED } from '../../constants/colors';
@@ -92,6 +93,12 @@ const inline = {
   },
 };
 
+const styles = {
+  tooltipLabel: {
+    fontSize: '0.9rem',
+  },
+};
+
 const Toolbar = (props) => {
   const {
     onDragStart,
@@ -100,6 +107,7 @@ const Toolbar = (props) => {
     deleteSelected,
     addEdgeSelected,
     editMode,
+    classes,
   } = props;
 
   const generateNodePrototypes = (nodeTypes = []) => (
@@ -136,6 +144,9 @@ const Toolbar = (props) => {
             <Tooltip
               placement="top"
               id={`node_${index}`}
+              classes={{
+                tooltip: classes.tooltipLabel,
+              }}
               title={getTooltip(item.props.nodetype)}
             >
               <div
@@ -149,7 +160,13 @@ const Toolbar = (props) => {
             </Tooltip>
           ))}
           <div style={inline.divider} />
-          <Tooltip placement="top" title={<FormattedMessage id="addEdgeButton" />}>
+          <Tooltip
+            placement="top"
+            title={<FormattedMessage id="addEdgeButton" />}
+            classes={{
+              tooltip: classes.tooltipLabel,
+            }}
+          >
             <IconButton
               style={addEdgeSelected ? inline.addEdgeSelected : inline.addEdge}
               onClick={onAddEdge}
@@ -157,7 +174,13 @@ const Toolbar = (props) => {
               <Link style={inline.iconButton} />
             </IconButton>
           </Tooltip>
-          <Tooltip placement="top" title={<FormattedMessage id="deleteItemButton" />}>
+          <Tooltip
+            placement="top"
+            title={<FormattedMessage id="deleteItemButton" />}
+            classes={{
+              tooltip: classes.tooltipLabel,
+            }}
+          >
             <IconButton
               style={deleteSelected ? inline.deleteSelected : inline.delete}
               onClick={onDelete}
@@ -172,4 +195,4 @@ const Toolbar = (props) => {
   return <div />;
 };
 
-export default Toolbar;
+export default withStyles(styles)(Toolbar);
