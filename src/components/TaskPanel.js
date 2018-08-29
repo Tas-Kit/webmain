@@ -38,6 +38,8 @@ const styles = () => ({
     color: 'white',
     background: grey[800],
     width: drawerWidth,
+    overflow: 'hidden',
+    minHeight: 300,
   },
   taskListItemText: {
     color: 'white',
@@ -47,8 +49,9 @@ const styles = () => ({
   taskListItemIcon: {
     color: grey[400],
   },
-  expander: {
-    flexBasis: '100%',
+  expand: {
+    flex: '1',
+    overflow: 'auto',
   },
   input: {
     color: WHITE,
@@ -90,89 +93,90 @@ const TaskPanel = (props) => {
       variant="permanent"
       anchor="left"
     >
-      <Grid
-        container
-        justify="space-between"
-        alignItems="center"
-        className={classes.row}
-      >
-        <Tooltip id="tooltip-username" title={username}>
-          <Avatar >{username ? username[0] : ''}</Avatar>
-        </Tooltip>
+      <div>
+        <Grid
+          container
+          justify="space-between"
+          alignItems="center"
+          className={classes.row}
+        >
+          <Tooltip id="tooltip-username" title={username}>
+            <Avatar >{username ? username[0] : ''}</Avatar>
+          </Tooltip>
 
-        <NotificationContainer />
-      </Grid>
-      <List className={classes.navContainer} component="nav">
-        <Link to="/tastore" key="tastore" style={{ textDecoration: 'none' }}>
-          <ListItem
-            button
-            onClick={() => {
-              onTaskClick('tastore');
-              resetEditMode();
-            }}
-            style={inline.listItem}
-          >
-            <ListItemIcon>
-              <Shop style={inline.svgIcon} />
-            </ListItemIcon>
-            <ListItemText
-              primary={<FormattedMessage id="tastoreText" />}
-              classes={{ primary: classes.taskListItemText }}
-            />
-          </ListItem>
-        </Link>
-      </List>
-      <form >
-        <FormattedMessage id="filterPlaceholder">
-          {
-            txt => (
-              <Input
-                id="filter"
-                placeholder={txt}
-                value={filter}
-                className={classes.input}
-                onChange={handleFilterChange}
-                fullWidth
-                margin="dense"
+          <NotificationContainer />
+        </Grid>
+        <List className={classes.navContainer} component="nav">
+          <Link to="/tastore" key="tastore" style={{ textDecoration: 'none' }}>
+            <ListItem
+              button
+              onClick={() => {
+                onTaskClick('tastore');
+                resetEditMode();
+              }}
+              style={inline.listItem}
+            >
+              <ListItemIcon>
+                <Shop style={inline.svgIcon} />
+              </ListItemIcon>
+              <ListItemText
+                primary={<FormattedMessage id="tastoreText" />}
+                classes={{ primary: classes.taskListItemText }}
               />
-            )
+            </ListItem>
+          </Link>
+        </List>
+        <form >
+          <FormattedMessage id="filterPlaceholder">
+            {
+              txt => (
+                <Input
+                  id="filter"
+                  placeholder={txt}
+                  value={filter}
+                  className={classes.input}
+                  onChange={handleFilterChange}
+                  fullWidth
+                  margin="dense"
+                />
+              )
+            }
+
+          </FormattedMessage>
+
+        </form>
+      </div>
+      <div className={classes.expand}>
+        <List component="nav">
+          {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
+            .map((task) => {
+              const { tid, name } = task.info;
+              return (
+                <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      if (tid === needHighlightTid) resetNeedHighlightTid();
+                      onTaskClick(tid);
+                      resetEditMode();
+                    }}
+                    style={inline.listItem}
+                    className={tid === needHighlightTid ? classes.highlight : ''}
+                  >
+                    <ListItemIcon>
+                      <Assignment style={inline.svgIcon} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={name}
+                      classes={{ primary: classes.taskListItemText }}
+                    />
+                  </ListItem>
+                </Link>
+              );
+            })
           }
-
-        </FormattedMessage>
-
-      </form>
-
-      <List component="nav">
-        {tasks.filter(task => task.permission.acceptance === ACCEPTANCE.ACCEPT && task.info.name.indexOf(filter) !== -1)
-          .map((task) => {
-            const { tid, name } = task.info;
-            return (
-              <Link to={`/task/${tid}`} key={tid} style={{ textDecoration: 'none' }}>
-                <ListItem
-                  button
-                  onClick={() => {
-                    if (tid === needHighlightTid) resetNeedHighlightTid();
-                    onTaskClick(tid);
-                    resetEditMode();
-                  }}
-                  style={inline.listItem}
-                  className={tid === needHighlightTid ? classes.highlight : ''}
-                >
-                  <ListItemIcon>
-                    <Assignment style={inline.svgIcon} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={name}
-                    classes={{ primary: classes.taskListItemText }}
-                  />
-                </ListItem>
-              </Link>
-            );
-          })
-        }
-      </List>
-
-      <div className={classes.expander} />
+        </List>
+      </div>
       <DrawerBottomPanelContainer />
     </Drawer>
   );
