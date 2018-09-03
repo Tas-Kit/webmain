@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { debounce } from 'lodash';
 import { convertEditorStateToMarkdown, convertMarkdwonToEditorState } from '../utils/functions';
 import './MarkdownEdtior.css';
 
@@ -13,12 +14,19 @@ class CustomEditor extends Component {
   }
   uplodaImage = (file) => { }
 
+  debouncedConvertEditorStateToMarkdown = debounce(
+    (editorState) => {
+      const { onChange } = this.props;
+      const e = {};
+      e.target = {};
+      e.target.value = convertEditorStateToMarkdown(editorState);
+      onChange(e);
+    }
+    , 200,
+  )
+
   handleEditorStateChange = (editorState) => {
-    const { onChange } = this.props;
-    const e = {};
-    e.target = {};
-    e.target.value = convertEditorStateToMarkdown(editorState);
-    onChange(e);
+    this.debouncedConvertEditorStateToMarkdown(editorState);
     this.setState({ editorState });
   }
 

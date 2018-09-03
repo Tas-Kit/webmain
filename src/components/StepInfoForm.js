@@ -7,6 +7,7 @@ import { ExpectedEffortSelect, OptionsSelect, MultiSelect } from './Select';
 import { TaskitCheckbox } from './TaskitCheckbox';
 import TextInput from './TextInput';
 import TextArea from './TextArea';
+import Editor from './Editor';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -86,13 +87,7 @@ class StepInfoForm extends React.Component {
           </div>
           <div style={inline.row}>
             <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
-            <TextArea
-              id="description"
-              value={info.description}
-              onChange={this.handleChange('description')}
-              validationRule="max:2000"
-              errorMessage="Description should be no more than 2000 characters."
-            />
+            <Editor key={info.name} value={info.description} onChange={this.handleChange('description')} />
           </div>
           <div style={inline.row}>
             <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>
