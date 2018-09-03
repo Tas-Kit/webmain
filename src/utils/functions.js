@@ -1,6 +1,8 @@
 import moment from 'moment';
 import Cookies from 'js-cookie';
 import qs from 'qs';
+import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
+import { convertToRaw, convertFromRaw, EditorState } from 'draft-js';
 import {
   MIN_ALLOW_WINDOW_WIDTH,
   DRAWER_WIDTH,
@@ -211,6 +213,37 @@ export const getColoredEdgeByNode = (node) => {
       },
     }))
   );
+};
+
+export const convertEditorStateToMarkdown = (editorState) => {
+  const entityItems = {
+    image: {
+      open() {
+        return '';
+      },
+      close(entity) {
+        return `![](${entity.data.src})`;
+      },
+    },
+  };
+  const rawEditorState = convertToRaw(editorState.getCurrentContent());
+  return draftToMarkdown(rawEditorState, entityItems);
+};
+
+export const convertMarkdwonToEditorState = (markDownString) => {
+  const blockEntities = {
+    image(item) {
+      return {
+        type: 'atomic',
+        mutability: 'IMMUTABLE',
+        data: {
+          src: item.src,
+        },
+      };
+    },
+  };
+  const rawEditorState = markdownToDraft(markDownString, blockEntities);
+  return EditorState.createWithContent(convertFromRaw(rawEditorState));
 };
 
 export default {

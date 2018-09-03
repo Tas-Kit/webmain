@@ -129,6 +129,7 @@ const TaskToolbar = (props) => {
             loading={savePending}
             onClick={onGraphSave}
             className={classNames(classes.saveBt)}
+            variant="flat"
           />
           : null
         }
