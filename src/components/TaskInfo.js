@@ -13,7 +13,6 @@ import Check from '@material-ui/icons/Check';
 // ui components
 import { ExpectedEffortSelect, OptionsSelect } from './Select';
 import TextInput from './TextInput';
-import TextArea from './TextArea';
 import Editor from '../components/Editor';
 
 // constants

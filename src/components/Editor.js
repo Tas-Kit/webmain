@@ -12,7 +12,16 @@ class CustomEditor extends Component {
     super(props);
     this.state = { editorState: EditorState.createEmpty() };
   }
-  uplodaImage = (file) => { }
+
+  componentDidMount = () => {
+    this.setState({ editorState: convertMarkdwonToEditorState(this.props.value) });
+  }
+  // image: uploadCallback: This is image upload callBack. It should return a promise that resolves to give image src. Default value is true.
+  //   Both above options of uploadEnabled and uploadCallback should be present for upload to be enabled.
+  // Promise should resolve to return an object {
+  //   data: {
+  //     link: <THE_URL>}}.
+  uplodaImage = () => Promise.resolve({ link: '' })
 
   debouncedConvertEditorStateToMarkdown = debounce(
     (editorState) => {
@@ -30,10 +39,6 @@ class CustomEditor extends Component {
     this.setState({ editorState });
   }
 
-  componentDidMount = () => {
-    this.setState({ editorState: convertMarkdwonToEditorState(this.props.value) });
-  }
-
   render() {
     const { editorState } = this.state;
     return (
@@ -48,7 +53,10 @@ class CustomEditor extends Component {
             inline: { inDropdown: true },
             list: { inDropdown: true },
             history: { inDropdown: true },
-            image: { uploadCallback: this.uplodaImage },
+            image: {
+              uploadCallback: this.uplodaImag,
+              inputAccept: 'image/jpg',
+            },
           }}
         />
       </div>

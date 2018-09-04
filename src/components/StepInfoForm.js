@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import { ExpectedEffortSelect, OptionsSelect, MultiSelect } from './Select';
 import { TaskitCheckbox } from './TaskitCheckbox';
 import TextInput from './TextInput';
-import TextArea from './TextArea';
 import Editor from './Editor';
 
 // constants
