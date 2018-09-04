@@ -106,7 +106,6 @@ export const uploadImage = (file) => {
   const payload = new FormData();
   payload.append('path', imagePath);
   payload.append('image', file);
-  console.log(payload);
   return APIService.sendRequest(url, '', payload, 'POST', 'multipart');
 };
 
