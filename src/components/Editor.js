@@ -4,7 +4,15 @@ import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { debounce } from 'lodash';
 import { convertEditorStateToMarkdown, convertMarkdwonToEditorState } from '../utils/functions';
+import { uploadImage } from '../utils/api';
 import './MarkdownEdtior.css';
+
+let env = '';
+if (process.env.NODE_ENV === 'development') {
+  env = 'sandbox';
+} else {
+  env = '';
+}
 
 
 class CustomEditor extends Component {
@@ -16,12 +24,10 @@ class CustomEditor extends Component {
   componentDidMount = () => {
     this.setState({ editorState: convertMarkdwonToEditorState(this.props.value) });
   }
-  // image: uploadCallback: This is image upload callBack. It should return a promise that resolves to give image src. Default value is true.
-  //   Both above options of uploadEnabled and uploadCallback should be present for upload to be enabled.
-  // Promise should resolve to return an object {
-  //   data: {
-  //     link: <THE_URL>}}.
-  uplodaImage = () => Promise.resolve({ link: '' })
+  uploadImageCallback = file => uploadImage(file).then((data) => {
+    const link = `http://d48mbtbdhxub1.cloudfront.net/${env}/task/description/jpg/${data.iid}.jpg`;
+    return { data: { link } };
+  })
 
   debouncedConvertEditorStateToMarkdown = debounce(
     (editorState) => {
@@ -49,13 +55,15 @@ class CustomEditor extends Component {
           onEditorStateChange={this.handleEditorStateChange}
           editorState={editorState}
           toolbar={{
-            options: ['inline', 'blockType', 'list', 'history', 'image'],
+            options: ['image', 'inline', 'blockType', 'list', 'history'],
             inline: { inDropdown: true },
             list: { inDropdown: true },
             history: { inDropdown: true },
             image: {
-              uploadCallback: this.uplodaImag,
-              inputAccept: 'image/jpg',
+              uploadEnabled: true,
+              uploadCallback: this.uploadImageCallback,
+              previewImage: true,
+              accept: 'image/jpeg,image/jpg',
             },
           }}
         />

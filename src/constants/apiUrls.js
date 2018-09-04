@@ -24,6 +24,8 @@ export const TASK_GET_URL = `${TASK_SERVICE_URL}?format=json`;
 
 export const TASK_APP_BASE_URL = '/tastore/TaskApp/';
 
+export const UPLOAD_IMAGE_URL = '/userservice/upload_image/';
+
 export default {
   DEV_BASE_URL,
   LOGIN_URL,
@@ -38,4 +40,5 @@ export default {
   TASK_TRIGGER_URL,
   TASK_CLONE_URL,
   TASK_APP_BASE_URL,
+  UPLOAD_IMAGE_URL,
 };
