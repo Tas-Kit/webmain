@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { FormattedMessage } from 'react-intl';
-import MarkdownViewer from './MarkdownViewer'
+import MarkdownViewer from './MarkdownViewer';
 
 
 const styles = () => ({
