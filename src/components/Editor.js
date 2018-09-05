@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { debounce } from 'lodash';
 import { convertEditorStateToMarkdown, convertMarkdwonToEditorState } from '../utils/functions';
 import { uploadImage } from '../utils/api';
 import './MarkdownEdtior.css';
 
-let env = '';
-if (process.env.NODE_ENV === 'development') {
-  env = 'sandbox';
-} else {
-  env = '';
-}
+const env = process.env.REACT_APP_DEPLOY_ENV || '';
+const imageCDNUrl = process.env.REACT_APP_IMAGE_CDN_URL || '';
 
 
 class CustomEditor extends Component {
@@ -25,7 +20,7 @@ class CustomEditor extends Component {
     this.setState({ editorState: convertMarkdwonToEditorState(this.props.value) });
   }
   uploadImageCallback = file => uploadImage(file).then((data) => {
-    const link = `http://d48mbtbdhxub1.cloudfront.net/${env}/task/description/jpg/${data.iid}.jpg`;
+    const link = `${imageCDNUrl}/${env}/task/description/jpg/${data.iid}.jpg`;
     return { data: { link } };
   })
 
@@ -63,6 +58,7 @@ class CustomEditor extends Component {
               uploadEnabled: true,
               uploadCallback: this.uploadImageCallback,
               previewImage: true,
+              alignmentEnabled: false,
               accept: 'image/jpeg,image/jpg',
             },
           }}

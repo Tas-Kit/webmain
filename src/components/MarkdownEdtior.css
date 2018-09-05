@@ -537,6 +537,8 @@
   margin-bottom: 6px;
   position: relative;
 }
+
+
 .rdw-image-modal {
   position: absolute;
   top: 35px;
@@ -788,6 +790,10 @@
 }
 .rdw-image-imagewrapper {
   position: relative;
+  width: 100%;
+}
+.rdw-image-imagewrapper img {
+  width: 100%;
 }
 .rdw-image-center {
   display: flex;

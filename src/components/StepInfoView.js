@@ -4,10 +4,10 @@ import Chip from '@material-ui/core/Chip';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { FormattedMessage } from 'react-intl';
-import ReactMarkdown from 'react-markdown';
 import { LoadingButton } from './Button';
 import { START_NODE, END_NODE, START_NODE_DISPLAY_LABEL, END_NODE_DISPLAY_LABEL } from '../constants/nodes';
 import { NEW, IN_PROGRESS, READY_FOR_REVIEW } from '../constants';
+import MarkdownViewer from './MarkdownViewer'
 
 const inline = {
   main: {
@@ -115,7 +115,7 @@ const StepInfoView = (props) => {
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
-        <ReactMarkdown source={info.description} />
+        <MarkdownViewer source={info.description} />
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>
