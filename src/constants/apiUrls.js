@@ -26,6 +26,8 @@ export const TASK_APP_BASE_URL = '/tastore/TaskApp/';
 
 export const UPLOAD_IMAGE_URL = '/userservice/upload_image/';
 
+export const IMAGE_CDN_URL = 'http://d48mbtbdhxub1.cloudfront.net';
+
 export default {
   DEV_BASE_URL,
   LOGIN_URL,
@@ -41,4 +43,5 @@ export default {
   TASK_CLONE_URL,
   TASK_APP_BASE_URL,
   UPLOAD_IMAGE_URL,
+  IMAGE_CDN_URL,
 };

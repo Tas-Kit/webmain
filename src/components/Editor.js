@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 import { debounce } from 'lodash';
-import { convertEditorStateToMarkdown, convertMarkdwonToEditorState } from '../utils/functions';
+import { convertEditorStateToMarkdown, convertMarkdwonToEditorState, getCurrentEnv } from '../utils/functions';
 import { uploadImage } from '../utils/api';
+import { IMAGE_CDN_URL } from '../constants/apiUrls';
 import './MarkdownEdtior.css';
 
-const env = process.env.REACT_APP_DEPLOY_ENV || '';
-const imageCDNUrl = process.env.REACT_APP_IMAGE_CDN_URL || '';
+const imageCDNUrl = IMAGE_CDN_URL;
 
 
 class CustomEditor extends Component {
@@ -20,6 +20,7 @@ class CustomEditor extends Component {
     this.setState({ editorState: convertMarkdwonToEditorState(this.props.value) });
   }
   uploadImageCallback = file => uploadImage(file).then((data) => {
+    const env = getCurrentEnv();
     const link = `${imageCDNUrl}/${env}/task/description/jpg/${data.iid}.jpg`;
     return { data: { link } };
   })
@@ -60,6 +61,10 @@ class CustomEditor extends Component {
               previewImage: true,
               alignmentEnabled: false,
               accept: 'image/jpeg,image/jpg',
+              defaultSize: {
+                height: 'auto',
+                width: '100%',
+              },
             },
           }}
         />

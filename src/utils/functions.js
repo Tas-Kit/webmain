@@ -30,6 +30,8 @@ import gs from '../services/GraphService';
 
 import { LOGIN_URL } from '../constants/apiUrls';
 
+const dev = process.env.NODE_ENV === 'development';
+
 export const getAdaptedWidth = () => {
   if (window.innerWidth >= MIN_ALLOW_WINDOW_WIDTH) {
     return window.innerWidth - DRAWER_WIDTH;
@@ -225,6 +227,22 @@ export const convertMarkdwonToEditorState = (markDownString) => {
   return EditorState.createWithContent(convertFromRaw(rawEditorState));
 };
 
+
+export const getCurrentEnv = () => {
+  let env = 'sandbox';
+  if (!dev) {
+    const currDomain = window.location.origin;
+    if (currDomain.indexOf('sandbox') !== -1) {
+      env = 'sandbox';
+    } else if (currDomain.indexOf('staging') !== -1) {
+      env = 'staging';
+    } else {
+      env = 'www';
+    }
+  }
+  return env;
+};
+
 export default {
   getAdaptedWidth,
   getAdaptedHeight,
@@ -236,4 +254,5 @@ export default {
   mapNodeToStepInfo,
   mapNodeResponseData,
   getColoredEdge,
+  getCurrentEnv,
 };
