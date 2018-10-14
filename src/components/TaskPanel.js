@@ -18,10 +18,10 @@ import Shop from '@material-ui/icons/Shop';
 import { Input } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 
-
 // react components
 import DrawerBottomPanelContainer from '../containers/DrawerBottomPanelContainer';
 import NotificationContainer from '../containers/NotificationContainer';
+import MiniApp from '../assets/mini-app.svg';
 
 // constant import
 import { ACCEPTANCE } from '../constants';
@@ -62,6 +62,10 @@ const styles = () => ({
   navContainer: {
     marginTop: '1em',
   },
+  miniAppContainer: {
+    marginLeft: '0.8em',
+    paddingTop: 0,
+  },
   highlight: {
     border: '1px white solid',
   },
@@ -73,6 +77,10 @@ const inline = {
     color: grey[400],
     position: 'relative',
   },
+  miniApp: {
+    top: 1.5,
+    position: 'relative',
+  },
   listItem: {
     paddingLeft: 5,
     paddingRight: 5,
@@ -81,7 +89,9 @@ const inline = {
 
 const TaskPanel = (props) => {
   const {
-    username, tasks, classes, resetEditMode, filter, handleFilterChange, onTaskClick, needHighlightTid, resetNeedHighlightTid,
+    username, tasks, classes, resetEditMode, filter, handleFilterChange,
+    onTaskClick, needHighlightTid, resetNeedHighlightTid,
+    miniAppList, openMiniApp,
   } = props;
 
   return (
@@ -122,6 +132,26 @@ const TaskPanel = (props) => {
           </ListItem>
         </Link>
       </List>
+
+      {/* mini-app 列表 */}
+      <List className={classes.miniAppContainer} component="nav">
+        {miniAppList.map(item => (
+          <ListItem
+            button
+            onClick={openMiniApp}
+            style={inline.listItem}
+          >
+            <ListItemIcon>
+              <img alt="" src={MiniApp} style={inline.miniApp} />
+            </ListItemIcon>
+            <ListItemText
+              primary={item.name}
+              classes={{ primary: classes.taskListItemText }}
+            />
+          </ListItem>
+        ))}
+      </List>
+
       <form >
         <FormattedMessage id="filterPlaceholder">
           {

@@ -2,6 +2,7 @@ import lightBlue from '@material-ui/core/colors/lightBlue';
 import orange from '@material-ui/core/colors/orange';
 import teal from '@material-ui/core/colors/teal';
 import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
 
 export const LIGHT_BLUE = lightBlue.A700;
 export const TRANSPARENT_LIGHT_BLUE = 'rgba(0, 145, 234, 0.58)';
@@ -30,3 +31,6 @@ export const INIT = '#424242';
 export const TOOLTIP_BACKGROUND = '#424242';
 export const TOOLTIP_BOX_SHADOW = 'rgba(0,0,0,.2)';
 export const TOOLTIP_BORDER = '#808074';
+
+// mini-app list
+export const MINI_APP = grey[400];

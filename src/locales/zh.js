@@ -30,6 +30,7 @@ const zh = {
   noButton: '否',
   emptyNotificationMessage: '暂时还没有邀请',
   cancelButton: '取消',
+  confirmButton: '确定',
   quitTaskHint: '你确定要永久退出这一任务吗',
   optionalFieldName: '可选',
   assigneeFieldName: '指定人',

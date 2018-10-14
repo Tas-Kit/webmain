@@ -68,6 +68,7 @@ class APIService {
       .then(res => transformResponse(res))
       .then((json) => {
         if (json) {
+          console.log(response);
           response.json = json;
           dispatch(receiveResponse(response));
           return json;

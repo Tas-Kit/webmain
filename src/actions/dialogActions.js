@@ -50,3 +50,7 @@ export const toggleTaskAppPreview = appId => ({
   type: types.TOGGLE_TASK_APP_PREVIEW,
   appId,
 });
+
+export const toggleMiniAppPassword = () => ({
+  type: types.TOGGLE_MINI_APP_PASSWORD,
+});

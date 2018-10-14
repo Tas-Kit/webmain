@@ -24,6 +24,8 @@ export const TASK_GET_URL = `${TASK_SERVICE_URL}?format=json`;
 
 export const TASK_APP_BASE_URL = '/tastore/TaskApp/';
 
+export const MINI_APP_BASE_URL = '/platform/miniapp/';
+
 export default {
   DEV_BASE_URL,
   LOGIN_URL,

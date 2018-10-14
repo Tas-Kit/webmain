@@ -30,6 +30,7 @@ const en = {
   noButton: 'No',
   emptyNotificationMessage: 'You have no invitation yet',
   cancelButton: 'Cancel',
+  confirmButton: 'Confirm',
   quitTaskHint: 'Are you sure you want to permanently quit from this task?',
   optionalFieldName: 'optional',
   assigneeFieldName: 'Assignee',

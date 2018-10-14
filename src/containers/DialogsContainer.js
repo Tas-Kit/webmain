@@ -18,6 +18,7 @@ import StepEditorDialogContainer from './StepEditorDialogContainer';
 import StepViewerDialogContainer from './StepViewerDialogContainer';
 import TaskAppCreatorDialogContainer from './TaskAppCreatorDialogContainer';
 import TaskAppPreviewDialogContainer from './TaskAppPreviewDialogContainer';
+import MiniAppPasswordDialogContainer from './MiniAppPasswordDialogContainer';
 
 // services
 import APIService from '../services/APIService';
@@ -113,6 +114,9 @@ const DialogsContainer = (props) => {
 
       {/* Task App Preview */}
       <TaskAppPreviewDialogContainer />
+
+      {/* Mini App Password */}
+      <MiniAppPasswordDialogContainer />
 
       {/* Invitation Dialog */}
       <PureDisplayDialog
