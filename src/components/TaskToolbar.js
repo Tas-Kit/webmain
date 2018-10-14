@@ -54,6 +54,10 @@ const styles = {
   deleteBt: {
     fontSize: 12,
   },
+  tooltipLabel: {
+    fontSize: '0.9rem',
+    width: 240,
+  },
 };
 
 const TaskToolbar = (props) => {
@@ -70,7 +74,10 @@ const TaskToolbar = (props) => {
     onGraphSave,
     savePending,
     editMode,
+    taskInfo,
   } = props;
+
+  const canClone = !(taskInfo.origin || userSuperRole === SUPER_ROLE.STANDARD);
 
   return (
     <Toolbar>
@@ -87,13 +94,33 @@ const TaskToolbar = (props) => {
             <FormattedMessage id="infoButton" defaultMessage="Info" />
           }
         </Button>
-        <Button
-          key="clone"
-          onClick={toggleTaskCloner}
-          className={classNames(classes.cloneBt)}
-        >
-          <FormattedMessage id="cloneButton" defaultMessage="Clone" />
-        </Button>
+        {canClone ?
+          <Button
+            key="clone"
+            onClick={toggleTaskCloner}
+            className={classNames(classes.cloneBt)}
+          >
+            <FormattedMessage id="cloneButton" defaultMessage="Clone" />
+          </Button> :
+          <Tooltip
+            classes={{
+              tooltip: classes.tooltipLabel,
+            }}
+            key="cloneDisabledReason"
+            id="cloneDisabledReason"
+            title={<FormattedMessage id="disableCloneReason" />}
+          >
+            <span>
+              <Button
+                key="clone"
+                className={classNames(classes.cloneBt)}
+                disabled
+              >
+                <FormattedMessage id="cloneButton" defaultMessage="Clone" />
+              </Button>
+            </span>
+          </Tooltip>
+        }
 
         {editMode ?
           <LoadingButton
@@ -102,6 +129,7 @@ const TaskToolbar = (props) => {
             loading={savePending}
             onClick={onGraphSave}
             className={classNames(classes.saveBt)}
+            variant="flat"
           />
           : null
         }

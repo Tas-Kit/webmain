@@ -1,6 +1,8 @@
 import moment from 'moment';
 import Cookies from 'js-cookie';
 import qs from 'qs';
+import { mdToDraftjs, draftjsToMd } from 'draftjs-md-converter';
+import { convertToRaw, convertFromRaw, EditorState } from 'draft-js';
 import {
   MIN_ALLOW_WINDOW_WIDTH,
   DRAWER_WIDTH,
@@ -28,6 +30,8 @@ import gs from '../services/GraphService';
 
 import { LOGIN_URL } from '../constants/apiUrls';
 
+const dev = process.env.NODE_ENV === 'development';
+
 export const getAdaptedWidth = () => {
   if (window.innerWidth >= MIN_ALLOW_WINDOW_WIDTH) {
     return window.innerWidth - DRAWER_WIDTH;
@@ -46,6 +50,7 @@ export const mapTaskInfoResponseData = data => ({
   description: data.description || '',
   deadline: data.deadline ? moment(data.deadline).format('YYYY-MM-DD') : '',
   allowLinkSharing: data.allow_link_sharing,
+  origin: data.origin,
 });
 
 export const mapTaskInfoRequestData = data => ({
@@ -212,6 +217,32 @@ export const getColoredEdgeByNode = (node) => {
   );
 };
 
+export const convertEditorStateToMarkdown = (editorState) => {
+  const rawEditorState = convertToRaw(editorState.getCurrentContent());
+  return draftjsToMd(rawEditorState);
+};
+
+export const convertMarkdwonToEditorState = (markDownString) => {
+  const rawEditorState = mdToDraftjs(markDownString);
+  return EditorState.createWithContent(convertFromRaw(rawEditorState));
+};
+
+
+export const getCurrentEnv = () => {
+  let env = 'sandbox';
+  if (!dev) {
+    const currDomain = window.location.origin;
+    if (currDomain.indexOf('sandbox') !== -1) {
+      env = 'sandbox';
+    } else if (currDomain.indexOf('staging') !== -1) {
+      env = 'staging';
+    } else {
+      env = 'www';
+    }
+  }
+  return env;
+};
+
 export default {
   getAdaptedWidth,
   getAdaptedHeight,
@@ -223,4 +254,5 @@ export default {
   mapNodeToStepInfo,
   mapNodeResponseData,
   getColoredEdge,
+  getCurrentEnv,
 };

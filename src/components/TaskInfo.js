@@ -13,7 +13,7 @@ import Check from '@material-ui/icons/Check';
 // ui components
 import { ExpectedEffortSelect, OptionsSelect } from './Select';
 import TextInput from './TextInput';
-import TextArea from './TextArea';
+import Editor from '../components/Editor';
 
 // constants
 import { STATUS, TEXT_FIELD_TITLE } from '../constants';
@@ -133,13 +133,7 @@ class TaskInfo extends React.Component {
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>{<FormattedMessage id="descriptionFieldName" />}:</span>
-          <TextArea
-            id="description"
-            value={info.description}
-            onChange={this.handleChange('description')}
-            validationRule="max:2000"
-            errorMessage="Description should be no more than 2000 characters."
-          />
+          <Editor key={info.name} value={info.description} onChange={this.handleChange('description')} />
         </div>
         <div style={inline.row}>
           <span style={inline.fieldName}>{<FormattedMessage id="rolesFieldName" />}:</span>
