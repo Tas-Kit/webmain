@@ -79,3 +79,4 @@ class APIService {
 }
 
 export default new APIService();
+export { baseUrl };

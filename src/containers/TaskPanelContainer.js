@@ -25,6 +25,13 @@ class TaskPanelContainer extends React.Component {
     setFilter(e.target.value);
   };
 
+  handleOpenMiniApp = (aid) => {
+    console.log(aid);
+    const { toggleMiniAppPassword } = this.props.actions;
+    toggleMiniAppPassword();
+    this.props.actions.updateAid(aid);
+  }
+
   render() {
     const { tasks, filter } = this.props.taskManager;
     const { username } = this.props.currentUserManager;
@@ -32,9 +39,7 @@ class TaskPanelContainer extends React.Component {
     const { miniAppList } = this.props.miniAppManager;
     const {
       setActiveTaskId, resetEditMode, resetLatestDownloadTid,
-      toggleMiniAppPassword,
     } = this.props.actions;
-    console.log(toggleMiniAppPassword);
     return (
       <TaskPanel
         username={username}
@@ -46,7 +51,7 @@ class TaskPanelContainer extends React.Component {
         needHighlightTid={latestDownloadTid}
         resetNeedHighlightTid={resetLatestDownloadTid}
         miniAppList={miniAppList}
-        openMiniApp={toggleMiniAppPassword}
+        openMiniApp={this.handleOpenMiniApp}
       />
     );
   }

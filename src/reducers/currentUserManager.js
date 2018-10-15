@@ -1,4 +1,5 @@
 import * as types from '../constants/actions';
+import * as apiTypes from '../constants/apiTypes';
 
 const initialState = {
   username: 'user',
@@ -7,6 +8,7 @@ const initialState = {
   uid: '',
   email: '',
   editMode: false,
+  platformRootKey: null,
 };
 
 const handleRequest = (request, state) => {
@@ -25,6 +27,13 @@ const handleResponse = (response, state) => {
         ...response.json,
         firstName,
         lastName,
+      };
+    }
+    case apiTypes.AUTHENTICATE_USER: {
+      const { platform_root_key: platformRootKey } = response.json;
+      return {
+        ...state,
+        platformRootKey,
       };
     }
     default:

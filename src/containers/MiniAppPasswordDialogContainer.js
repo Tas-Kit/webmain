@@ -1,10 +1,14 @@
 import React from 'react';
+import { stringify } from 'qs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import { FormDialog } from '../components/Dialogs';
 import TextInput from '../components/TextInput';
+import API, { baseUrl } from '../services/APIService';
+import { AUTHENTICATE_USER_URL, MINI_APP_BASE_URL } from '../constants/apiUrls';
+import * as apiTypes from '../constants/apiTypes';
 
 import * as dialogActions from '../actions/dialogActions';
 
@@ -25,6 +29,37 @@ class MiniAppPasswordDialogContainer extends React.Component {
 
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
+  }
+
+  handleSubmit = (e) => {
+    const { username } = this.props.currentUserManager;
+    const { password } = this.state;
+    const data = {
+      username,
+      password,
+    };
+    API.sendRequest(AUTHENTICATE_USER_URL, apiTypes.AUTHENTICATE_USER, data, 'POST', 'formData')
+      .then((success) => {
+        if (success) {
+          const { aid } = this.props.miniAppManager;
+          const { platformRootKey, uid } = this.props.currentUserManager;
+          const requestData = { uid };
+          const url = `${baseUrl}${MINI_APP_BASE_URL}${aid}/?${stringify(requestData)}`;
+          fetch(url, {
+            headers: { PlatformRootKey: platformRootKey, Accept: 'application/json' },
+            credentials: 'include',
+            method: 'GET',
+            withCredentials: true,
+          })
+            .then(res => res.json())
+            .then((json) => {
+              console.log(json);
+              const { key, app, aid: appId } = json.mini_app;
+              const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html/aid=${appId}&app_root_key=${key}`;
+              window.open(newUrl);
+            });
+        }
+      });
   }
 
   render() {
@@ -61,6 +96,7 @@ class MiniAppPasswordDialogContainer extends React.Component {
 const mapStateToProps = state => ({
   miniAppManager: state.miniAppManager,
   dialogManager: state.dialogManager,
+  currentUserManager: state.currentUserManager,
 });
 
 const mapDispatchToProps = dispatch => ({
