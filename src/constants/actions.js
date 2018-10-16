@@ -69,3 +69,4 @@ export const RESET_LATEST_DOWNLOAD_TID = 'RESET_LATEST_DOWNLOAD_TID';
 
 // Mini App Actions
 export const UPDATE_AID = 'UPDATE_AID';
+export const UPDATE_MINI_APP_KEY = 'UPDATE_MINI_APP_KEY';

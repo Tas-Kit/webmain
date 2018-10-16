@@ -25,11 +25,16 @@ class TaskPanelContainer extends React.Component {
     setFilter(e.target.value);
   };
 
-  handleOpenMiniApp = (aid) => {
-    console.log(aid);
-    const { toggleMiniAppPassword } = this.props.actions;
-    toggleMiniAppPassword();
-    this.props.actions.updateAid(aid);
+  handleOpenMiniApp = (aid, app) => {
+    const { key } = this.props.miniAppManager;
+    if (key === '') {
+      const { toggleMiniAppPassword } = this.props.actions;
+      toggleMiniAppPassword();
+      this.props.actions.updateAid(aid);
+    } else {
+      const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${aid}&app_root_key=${key}`;
+      window.open(newUrl);
+    }
   }
 
   render() {

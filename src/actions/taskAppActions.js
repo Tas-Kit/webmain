@@ -13,7 +13,13 @@ export const updateAid = aid => ({
   aid,
 });
 
+export const updateMiniAppKey = key => ({
+  type: types.UPDATE_MINI_APP_KEY,
+  key,
+});
+
 export default {
   toggleIsCreator,
   updateAid,
+  updateMiniAppKey,
 };

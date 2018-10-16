@@ -138,7 +138,7 @@ const TaskPanel = (props) => {
         {miniAppList.map(item => (
           <ListItem
             button
-            onClick={() => openMiniApp(item.aid)}
+            onClick={() => openMiniApp(item.aid, item.app)}
             style={inline.listItem}
           >
             <ListItemIcon>

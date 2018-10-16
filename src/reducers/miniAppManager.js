@@ -4,6 +4,7 @@ import * as apiTypes from '../constants/apiTypes';
 const initialState = {
   miniAppList: [],
   aid: '',
+  key: '',
 };
 
 const handleResponse = (response, state) => {
@@ -25,6 +26,9 @@ const miniAppManager = (state = initialState, action = {}) => {
     case types.UPDATE_AID: {
       console.log(action);
       return { ...state, aid: action.aid };
+    }
+    case types.UPDATE_MINI_APP_KEY: {
+      return { ...state, key: action.key };
     }
     default:
       return state;

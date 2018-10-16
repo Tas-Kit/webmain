@@ -11,6 +11,7 @@ import { AUTHENTICATE_USER_URL, MINI_APP_BASE_URL } from '../constants/apiUrls';
 import * as apiTypes from '../constants/apiTypes';
 
 import * as dialogActions from '../actions/dialogActions';
+import * as taskAppActions from '../actions/taskAppActions';
 
 const inline = {
   main: {
@@ -31,7 +32,9 @@ class MiniAppPasswordDialogContainer extends React.Component {
     this.setState({ password: e.target.value });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = () => {
+    const { toggleMiniAppPassword } = this.props.actions;
+    toggleMiniAppPassword();
     const { username } = this.props.currentUserManager;
     const { password } = this.state;
     const data = {
@@ -53,9 +56,9 @@ class MiniAppPasswordDialogContainer extends React.Component {
           })
             .then(res => res.json())
             .then((json) => {
-              console.log(json);
               const { key, app, aid: appId } = json.mini_app;
-              const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html/aid=${appId}&app_root_key=${key}`;
+              this.props.actions.updateMiniAppKey(key);
+              const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${appId}&app_root_key=${key}`;
               window.open(newUrl);
             });
         }
@@ -100,7 +103,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(dialogActions, dispatch),
+  actions: bindActionCreators({
+    ...dialogActions,
+    ...taskAppActions,
+  }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MiniAppPasswordDialogContainer);
