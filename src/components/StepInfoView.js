@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { LoadingButton } from './Button';
 import { START_NODE, END_NODE, START_NODE_DISPLAY_LABEL, END_NODE_DISPLAY_LABEL } from '../constants/nodes';
 import { NEW, IN_PROGRESS, READY_FOR_REVIEW } from '../constants';
+import MarkdownViewer from './MarkdownViewer';
 
 const inline = {
   main: {
@@ -114,7 +115,7 @@ const StepInfoView = (props) => {
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
-        <span style={inline.fieldContent}>{info.description}</span>
+        <MarkdownViewer source={info.description} />
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="optionalFieldName" />:</span>

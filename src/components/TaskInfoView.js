@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { FormattedMessage } from 'react-intl';
+import MarkdownViewer from './MarkdownViewer';
+
 
 const styles = () => ({
   chip: {
@@ -58,7 +60,7 @@ const TaskInfoView = (props) => {
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="descriptionFieldName" />:</span>
-        <span style={inline.fieldContent}>{info.description}</span>
+        <MarkdownViewer source={info.description} />
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="rolesFieldName" />:</span>

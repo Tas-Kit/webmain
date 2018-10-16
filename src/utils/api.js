@@ -8,10 +8,12 @@ import {
   TASK_INVITATION_CHANGE_URL,
   TASK_APP_BASE_URL,
   DEV_BASE_URL,
+  UPLOAD_IMAGE_URL,
 } from '../constants/apiUrls';
 
 
 let baseUrl;
+const imagePath = '/task/description/jpg/';
 
 if (process.env.NODE_ENV === 'development') {
   baseUrl = DEV_BASE_URL;
@@ -98,6 +100,13 @@ export const downloadTaskApp = (appId) => {
 export const uploadTaskApp = (appId, payload) => {
   const url = `${TASK_APP_BASE_URL}${appId}/upload/`;
   return APIService.sendRequest(url, apiTypes.UPLOAD_TASK_APP, payload, 'POST', 'formData');
+};
+export const uploadImage = (file) => {
+  const url = `${UPLOAD_IMAGE_URL}`;
+  const payload = new FormData();
+  payload.append('path', imagePath);
+  payload.append('image', file);
+  return APIService.sendRequest(url, '', payload, 'POST', 'multipart');
 };
 
 export default {

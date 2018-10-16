@@ -29,7 +29,7 @@ const TaskToolbarContainer = (props) => {
     updateMessage, toggleTaskViewer, toggleTaskCloner, setGraphDataOrigin, updateGraphDataJson,
   } = props.actions;
   const {
-    taskUsers, tasks, taskId, savePending,
+    taskUsers, tasks, taskId, savePending, taskInfo,
   } = props.taskManager;
   const { editMode } = props.currentUserManager;
   const acceptedUsers = taskUsers
@@ -73,6 +73,7 @@ const TaskToolbarContainer = (props) => {
       onGraphSave={handleGraphSave}
       savePending={savePending}
       editMode={editMode}
+      taskInfo={taskInfo}
     />
   );
 };

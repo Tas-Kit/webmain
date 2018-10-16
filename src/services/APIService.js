@@ -61,6 +61,8 @@ class APIService {
       } else if (contentType === 'formData') {
         requestObject.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         requestObject.body = qs.stringify(data);
+      } else if (contentType === 'multipart') {
+        requestObject.body = data;
       }
     }
     const response = { id: this.lastRequestId, type };

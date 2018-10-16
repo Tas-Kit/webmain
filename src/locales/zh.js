@@ -112,6 +112,7 @@ const zh = {
   displayWorkflow: '显示工作流',
   noneText: '暂无',
   allowLinkSharingFieldName: '允许链接分享',
+  disableCloneReason: '你只能在不是普通用户的情况下克隆原创任务',
 };
 
 export default zh;
