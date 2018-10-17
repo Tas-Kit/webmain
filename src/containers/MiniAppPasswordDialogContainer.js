@@ -12,6 +12,7 @@ import * as apiTypes from '../constants/apiTypes';
 
 import * as dialogActions from '../actions/dialogActions';
 import * as taskAppActions from '../actions/taskAppActions';
+import * as snackbarActions from '../actions/snackbarActions';
 
 const inline = {
   main: {
@@ -33,8 +34,7 @@ class MiniAppPasswordDialogContainer extends React.Component {
   }
 
   handleSubmit = () => {
-    const { toggleMiniAppPassword } = this.props.actions;
-    toggleMiniAppPassword();
+    const { toggleMiniAppPassword, updateMessage } = this.props.actions;
     const { username } = this.props.currentUserManager;
     const { password } = this.state;
     const data = {
@@ -44,6 +44,7 @@ class MiniAppPasswordDialogContainer extends React.Component {
     API.sendRequest(AUTHENTICATE_USER_URL, apiTypes.AUTHENTICATE_USER, data, 'POST', 'formData')
       .then((success) => {
         if (success) {
+          toggleMiniAppPassword();
           const { aid } = this.props.miniAppManager;
           const { platformRootKey, uid } = this.props.currentUserManager;
           const requestData = { uid };
@@ -61,6 +62,8 @@ class MiniAppPasswordDialogContainer extends React.Component {
               const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${appId}&app_root_key=${key}`;
               window.open(newUrl);
             });
+        } else {
+          updateMessage(<FormattedMessage id="miniAppPasswordWrong" />);
         }
       });
   }
@@ -80,6 +83,7 @@ class MiniAppPasswordDialogContainer extends React.Component {
         <main style={inline.main}>
           <TextInput
             id="mini-app-username"
+            type="password"
             width={200}
             value={password}
             onChange={this.handlePasswordChange}
@@ -106,6 +110,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...dialogActions,
     ...taskAppActions,
+    ...snackbarActions,
   }, dispatch),
 });
 

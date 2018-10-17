@@ -30,6 +30,8 @@ const transformResponse = (res) => {
     case 401:
       handleTimeOut(window.location.pathname);
       throw new Error(res);
+    case 400:
+      return null;
     default:
       throw new Error(res);
   }

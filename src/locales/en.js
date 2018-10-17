@@ -113,6 +113,7 @@ const en = {
   noneText: 'None',
   allowLinkSharingFieldName: 'Allow Link Sharing',
   disableCloneReason: 'You can only clone when the task is original and you are not a standard member',
+  miniAppPasswordWrong: 'Wrong password.',
 };
 
 export default en;

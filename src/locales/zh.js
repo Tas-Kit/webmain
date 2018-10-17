@@ -113,6 +113,7 @@ const zh = {
   noneText: '暂无',
   allowLinkSharingFieldName: '允许链接分享',
   disableCloneReason: '你只能在不是普通用户的情况下克隆原创任务',
+  miniAppPasswordWrong: '密码错误。',
 };
 
 export default zh;

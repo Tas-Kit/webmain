@@ -12,6 +12,7 @@ const TextInput = (props) => {
     errorMessage,
     onChange,
     width,
+    type,
   } = props;
   let validator;
   const data = { value };
@@ -21,6 +22,7 @@ const TextInput = (props) => {
   return (
     <FormControl style={{ width }}>
       <TextField
+        type={type}
         id={id}
         value={value}
         onChange={onChange}
@@ -38,6 +40,7 @@ const TextInput = (props) => {
 TextInput.defaultProps = {
   validationRule: '',
   width: 200,
+  type: 'text',
 };
 
 export default TextInput;
