@@ -68,7 +68,7 @@ class APIService {
       }
     }
     const response = { id: this.lastRequestId, type };
-    return fetch(`${baseUrl}${url}`, requestObject)
+    return fetch(`${apiBaseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))
       .then((json) => {
         if (json) {
