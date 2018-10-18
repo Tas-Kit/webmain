@@ -2,6 +2,7 @@ export const DEV_BASE_URL = 'http://sandbox.tas-kit.com/api/v1';
 export const LOGIN_URL = '/web/basic/login';
 
 export const USER_SERVICE_URL = '/userservice/userinfo/';
+export const AUTHENTICATE_USER_URL = '/userservice/exempt/login/';
 
 export const TASK_SERVICE_URL = '/taskservice/task/';
 
@@ -24,6 +25,8 @@ export const TASK_GET_URL = `${TASK_SERVICE_URL}?format=json`;
 
 export const TASK_APP_BASE_URL = '/tastore/TaskApp/';
 
+export const MINI_APP_BASE_URL = '/platform/miniapp/';
+
 export const UPLOAD_IMAGE_URL = '/userservice/upload_image/';
 
 export const IMAGE_CDN_URL = 'http://d48mbtbdhxub1.cloudfront.net';
@@ -32,6 +35,7 @@ export default {
   DEV_BASE_URL,
   LOGIN_URL,
   USER_SERVICE_URL,
+  AUTHENTICATE_USER_URL,
   TASK_SERVICE_URL,
   TASK_INVITATION_URL,
   TASK_INVITATION_RESPOND_URL,
@@ -42,6 +46,7 @@ export default {
   TASK_TRIGGER_URL,
   TASK_CLONE_URL,
   TASK_APP_BASE_URL,
+  MINI_APP_BASE_URL,
   UPLOAD_IMAGE_URL,
   IMAGE_CDN_URL,
 };

@@ -4,15 +4,15 @@ import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 import { DEV_BASE_URL } from '../constants/apiUrls';
 import { redirectToLogin } from '../utils/functions';
 
-let baseUrl;
+let apiBaseUrl;
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = DEV_BASE_URL;
+  apiBaseUrl = DEV_BASE_URL;
 } else {
-  baseUrl = 'http://localhost:8001/api/v1';
+  apiBaseUrl = 'http://localhost:8001/api/v1';
   if (typeof window !== 'undefined') {
     const { location } = window;
-    baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+    apiBaseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
   }
 }
 
@@ -30,6 +30,8 @@ const transformResponse = (res) => {
     case 401:
       handleTimeOut(window.location.pathname);
       throw new Error(res);
+    case 400:
+      return null;
     default:
       throw new Error(res);
   }
@@ -66,10 +68,11 @@ class APIService {
       }
     }
     const response = { id: this.lastRequestId, type };
-    return fetch(`${baseUrl}${url}`, requestObject)
+    return fetch(`${apiBaseUrl}${url}`, requestObject)
       .then(res => transformResponse(res))
       .then((json) => {
         if (json) {
+          console.log(response);
           response.json = json;
           dispatch(receiveResponse(response));
           return json;
@@ -79,4 +82,7 @@ class APIService {
   };
 }
 
+const baseUrl = apiBaseUrl;
+
 export default new APIService();
+export { baseUrl };
