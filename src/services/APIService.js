@@ -4,15 +4,15 @@ import { sendRequest, receiveResponse } from '../actions/APIServiceActions';
 import { DEV_BASE_URL } from '../constants/apiUrls';
 import { redirectToLogin } from '../utils/functions';
 
-let baseUrl;
+let apiBaseUrl;
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = DEV_BASE_URL;
+  apiBaseUrl = DEV_BASE_URL;
 } else {
-  baseUrl = 'http://localhost:8001/api/v1';
+  apiBaseUrl = 'http://localhost:8001/api/v1';
   if (typeof window !== 'undefined') {
     const { location } = window;
-    baseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
+    apiBaseUrl = `${location.protocol}//${location.host}/api/v1`; // (or whatever)
   }
 }
 
@@ -81,6 +81,8 @@ class APIService {
       });
   };
 }
+
+const baseUrl = apiBaseUrl;
 
 export default new APIService();
 export { baseUrl };
