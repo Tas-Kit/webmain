@@ -59,7 +59,7 @@ class MiniAppPasswordDialogContainer extends React.Component {
             .then((json) => {
               const { key, app, aid: appId } = json.mini_app;
               this.props.actions.updateMiniAppKey(key);
-              const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${appId}&app_root_key=${key}`;
+              const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html?#aid=${appId}&key=${key}`;
               window.open(newUrl);
             });
         } else {
