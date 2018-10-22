@@ -32,7 +32,7 @@ class TaskPanelContainer extends React.Component {
       toggleMiniAppPassword();
       this.props.actions.updateAid(aid);
     } else {
-      const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${aid}&app_root_key=${key}`;
+      const newUrl = `${window.location.origin.toString()}/web/app/${app}/index.html?#aid=${aid}&key=${key}`;
       window.open(newUrl);
     }
   }
