@@ -24,7 +24,6 @@ const miniAppManager = (state = initialState, action = {}) => {
       return handleResponse(action.response, state);
     }
     case types.UPDATE_AID: {
-      console.log(action);
       return { ...state, aid: action.aid };
     }
     case types.UPDATE_MINI_APP_KEY: {

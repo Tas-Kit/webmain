@@ -18,3 +18,8 @@ export const setIsStartEnd = isStartEnd => ({
   type: types.SET_IS_START_END,
   flag: isStartEnd,
 });
+
+export const updateComponentInfo = json => ({
+  type: types.UPDATE_COMPONENT_INFO,
+  json,
+});

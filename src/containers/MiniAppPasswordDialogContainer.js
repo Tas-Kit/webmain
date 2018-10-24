@@ -29,6 +29,10 @@ class MiniAppPasswordDialogContainer extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.actions.updateAid('');
+  }
+
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
   }
@@ -45,23 +49,51 @@ class MiniAppPasswordDialogContainer extends React.Component {
       .then((success) => {
         if (success) {
           toggleMiniAppPassword();
+
           const { aid } = this.props.miniAppManager;
-          const { platformRootKey, uid } = this.props.currentUserManager;
-          const requestData = { uid };
-          const url = `${baseUrl}${MINI_APP_BASE_URL}${aid}/?${stringify(requestData)}`;
-          fetch(url, {
-            headers: { PlatformRootKey: platformRootKey, Accept: 'application/json' },
-            credentials: 'include',
-            method: 'GET',
-            withCredentials: true,
-          })
-            .then(res => res.json())
-            .then((json) => {
-              const { key, app, aid: appId } = json.mini_app;
-              this.props.actions.updateMiniAppKey(key);
-              const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${appId}&app_root_key=${key}`;
-              window.open(newUrl);
-            });
+          if (aid !== '') {
+            // Continue to open a new url of the mini app
+            const { platformRootKey, uid } = this.props.currentUserManager;
+            const requestData = { uid };
+            const url = `${baseUrl}${MINI_APP_BASE_URL}${aid}/?${stringify(requestData)}`;
+            fetch(url, {
+              headers: { PlatformRootKey: platformRootKey, Accept: 'application/json' },
+              credentials: 'include',
+              method: 'GET',
+              withCredentials: true,
+            })
+              .then(res => res.json())
+              .then((json) => {
+                const { key, app, aid: appId } = json.mini_app;
+                this.props.actions.updateMiniAppKey(key);
+                const newUrl = `http://sandbox.tas-kit.com/web/app/${app}/index.html#/aid=${appId}&app_root_key=${key}`;
+                window.open(newUrl);
+              });
+          } else {
+            // continue to render some components in step info
+            const { cmpInfo } = this.props.stepManager;
+            console.log(cmpInfo);
+            const keys = Object.keys(cmpInfo.components);
+            console.log(keys);
+            const components = [];
+            for (let i = 0; i < keys.length; i++) {
+              const key = keys[i];
+              components.push(cmpInfo.components[key]);
+            }
+            const url = `http://sandbox.tas-kit.com/web/app/${components[0].app}/component/${components[0].cmp}.js`;
+            fetch(url, {
+              headers: { Accept: 'application/json' },
+              credentials: 'include',
+              method: 'GET',
+              withCredentials: true,
+            })
+              .then(res => {
+                console.log(res);
+              })
+              // .then((json) => {
+              //   console.log(json);
+              // });
+          }
         } else {
           updateMessage(<FormattedMessage id="miniAppPasswordWrong" />);
         }
@@ -101,6 +133,7 @@ class MiniAppPasswordDialogContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  stepManager: state.stepManager,
   miniAppManager: state.miniAppManager,
   dialogManager: state.dialogManager,
   currentUserManager: state.currentUserManager,

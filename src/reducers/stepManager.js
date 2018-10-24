@@ -20,6 +20,9 @@ const initialState = {
   },
   triggerPending: false,
   isStartEnd: false,
+
+  // components related
+  cmpInfo: {},
 };
 
 const handleRequest = (request, state) => {
@@ -63,6 +66,9 @@ const stepManager = (state = initialState, action = {}) => {
     }
     case types.SET_IS_START_END: {
       return { ...state, isStartEnd: action.flag };
+    }
+    case types.UPDATE_COMPONENT_INFO: {
+      return { ...state, cmpInfo: action.json }
     }
     default:
       return state;
