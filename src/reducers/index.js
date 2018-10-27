@@ -6,6 +6,7 @@ import currentUserManager from './currentUserManager';
 import graphManager from './graphManager';
 import taskAppManager from './taskAppManager';
 import miniAppManager from './miniAppManager';
+import stepComponent from './stepComponent';
 
 export default {
   taskManager,
@@ -16,4 +17,5 @@ export default {
   graphManager,
   taskAppManager,
   miniAppManager,
+  stepComponent,
 };

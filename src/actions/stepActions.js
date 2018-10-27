@@ -23,3 +23,8 @@ export const updateComponentInfo = json => ({
   type: types.UPDATE_COMPONENT_INFO,
   json,
 });
+
+export const componentFetched = componentJs => ({
+  type: types.COMPONENT_FETCHED,
+  componentJs,
+});

@@ -105,6 +105,7 @@ class TaskInfo extends React.Component {
             errorMessage={<FormattedMessage id="nameFieldErrorMessage" />}
           />
         </div>
+
         <div style={inline.row}>
           <span style={inline.fieldName}>{<FormattedMessage id="statusFieldName" />}:</span>
           <OptionsSelect

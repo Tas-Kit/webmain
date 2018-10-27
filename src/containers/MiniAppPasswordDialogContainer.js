@@ -3,7 +3,9 @@ import { stringify } from 'qs';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
+import safeEval from 'safe-eval';
 import Button from '@material-ui/core/Button';
+
 import { FormDialog } from '../components/Dialogs';
 import TextInput from '../components/TextInput';
 import API, { baseUrl } from '../services/APIService';
@@ -13,6 +15,8 @@ import * as apiTypes from '../constants/apiTypes';
 import * as dialogActions from '../actions/dialogActions';
 import * as taskAppActions from '../actions/taskAppActions';
 import * as snackbarActions from '../actions/snackbarActions';
+import * as stepActions from '../actions/stepActions';
+
 
 const inline = {
   main: {
@@ -82,17 +86,16 @@ class MiniAppPasswordDialogContainer extends React.Component {
             }
             const url = `http://sandbox.tas-kit.com/web/app/${components[0].app}/component/${components[0].cmp}.js`;
             fetch(url, {
-              headers: { Accept: 'application/json' },
-              credentials: 'include',
               method: 'GET',
-              withCredentials: true,
+              headers: { Accept: 'application/json' },
             })
-              .then(res => {
-                console.log(res);
-              })
-              // .then((json) => {
-              //   console.log(json);
-              // });
+              .then(res => res.text())
+              .then((componentJs) => {
+                if (componentJs) {
+                  const actionData = safeEval(componentJs);
+                  this.props.actions.componentFetched(actionData);
+                }
+              });
           }
         } else {
           updateMessage(<FormattedMessage id="miniAppPasswordWrong" />);
@@ -144,6 +147,7 @@ const mapDispatchToProps = dispatch => ({
     ...dialogActions,
     ...taskAppActions,
     ...snackbarActions,
+    ...stepActions,
   }, dispatch),
 });
 

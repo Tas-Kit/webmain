@@ -1,46 +1,39 @@
 {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "rules": {
-    "max-len": [
-      0
-    ],
-    "func-names": [
-      "error",
-      "never"
-    ],
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
-      }
-    ],
-    "no-plusplus": [
-      2,
-      {
-        "allowForLoopAfterthoughts": true
-      }
-    ],
-    "no-prototype-builtins": "warn",
-    "no-underscore-dangle": "warn",
-    "react/prop-types": [
-      0
-    ],
-    "no-console": [
-      0
-    ],
-    "linebreak-style": [
-      0
-    ],
-    "jsx-a11y/anchor-is-valid": [
-      0
-    ],
-    "react/no-did-update-set-state": "off"
-  },
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb", "prettier"],
+  "settings": {
+    "import/resolver": "node"
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": true
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/sort-comp": "off",
+    "linebreak-style": ["off", "unix"],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "quotes": ["warn", "single"],
+    "max-len": ["warn", 80],
+    "no-unused-vars": "warn",
+    "no-prototype-builtins": "warn",
+    "no-plusplus": "off",
+    "prefer-template": "warn",
+    "prefer-const": "warn",
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/no-did-update-set-state": "warn",
+    "react/prop-types": "off",
+    "react/jsx-wrap-multilines": "off"
   }
 }

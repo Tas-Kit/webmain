@@ -73,3 +73,4 @@ export const UPDATE_MINI_APP_KEY = 'UPDATE_MINI_APP_KEY';
 
 // Step Component Actions
 export const UPDATE_COMPONENT_INFO = 'UPDATE_COMPONENT_INFO';
+export const COMPONENT_FETCHED = 'COMPONENT_FETCHED';

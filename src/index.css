@@ -19,3 +19,11 @@ body {
   max-width: 200px !important;
   line-height: 1.6 !important;
 }
+
+.ant-slider-tooltip {
+  z-index: 1399 !important;
+}
+
+.ant-tooltip {
+  z-index: 1399 !important;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
+import { Modal, Slider } from 'antd';
 
 import StepInfoViewerContainer from './StepInfoViewerContainer';
 import { FormDialog } from '../components/Dialogs';
@@ -11,7 +12,7 @@ import * as dialogActions from '../actions/dialogActions';
 import * as snackbarActions from '../actions/snackbarActions';
 import * as taskActions from '../actions/taskActions';
 
-const StepViewerDialogContainer = (props) => {
+const StepViewerDialogContainer = props => {
   const { stepViewerOpen } = props.dialogManager;
   const { toggleStepViewer } = props.actions;
   return (
@@ -30,11 +31,17 @@ const mapStateToProps = store => ({
   dialogManager: store.dialogManager,
   stepManager: store.stepManager,
   snackbarManager: store.snackbarManager,
-  graphManager: store.graphManager,
+  graphManager: store.graphManager
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...dialogActions, ...snackbarActions, ...taskActions }, dispatch),
+  actions: bindActionCreators(
+    { ...dialogActions, ...snackbarActions, ...taskActions },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(StepViewerDialogContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StepViewerDialogContainer);

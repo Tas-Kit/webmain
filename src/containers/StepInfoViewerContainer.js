@@ -17,7 +17,7 @@ class StepInfoViewerContainer extends React.Component {
     console.log(stepId);
 
     const url = `${TASK_SERVICE_URL}${taskId}/${stepId}/component/`;
-    API.sendRequest(url, apiTypes.GET_STEP_COMPONENT).then((json) => {
+    API.sendRequest(url, apiTypes.GET_STEP_COMPONENT).then(json => {
       if (json) {
         this.props.actions.updateComponentInfo(json);
         const { platformRootKey } = this.props.currentUserManager;
@@ -32,14 +32,18 @@ class StepInfoViewerContainer extends React.Component {
     });
   }
 
-  getUserIndex = (name) => {
+  getUserIndex = name => {
     const { taskUsers } = this.props.taskManager;
     const users = taskUsers.map(user => user.basic.username);
     return users.indexOf(name);
   };
 
   handleTrigger = () => {
-    const { updateMessage, toggleTriggerPending, toggleStepViewer } = this.props.actions;
+    const {
+      updateMessage,
+      toggleTriggerPending,
+      toggleStepViewer
+    } = this.props.actions;
     const { taskId: tid } = this.props.taskManager;
     const { stepId: sid } = this.props.stepManager;
     const url = `${TASK_TRIGGER_URL}${tid}/`;
@@ -49,7 +53,7 @@ class StepInfoViewerContainer extends React.Component {
       toggleTriggerPending();
       const payload = { tid, sid };
       API.sendRequest(url, apiTypes.TRIGGER, payload, 'POST')
-        .then((triggered) => {
+        .then(triggered => {
           if (triggered) {
             toggleTriggerPending();
             updateMessage(<FormattedMessage id="triggerMsg" />);
@@ -66,6 +70,7 @@ class StepInfoViewerContainer extends React.Component {
   render() {
     const { stepInfo, triggerPending } = this.props.stepManager;
     const { taskUsers } = this.props.taskManager;
+    const { hasComponent, dataComponents } = this.props.stepComponent;
 
     // user's role in this task
     const { username } = this.props.currentUserManager;
@@ -81,20 +86,29 @@ class StepInfoViewerContainer extends React.Component {
         userTaskRole={userTaskRole}
         onTrigger={this.handleTrigger}
         triggerPending={triggerPending}
+        componentLoaded={hasComponent}
+        dataComponents={dataComponents}
       />
     );
   }
 }
 
-const mapStateToProps = store => ({
-  taskManager: store.taskManager,
-  stepManager: store.stepManager,
-  dialogManager: store.dialogManager,
-  currentUserManager: store.currentUserManager,
+const mapStateToProps = state => ({
+  taskManager: state.taskManager,
+  stepManager: state.stepManager,
+  dialogManager: state.dialogManager,
+  currentUserManager: state.currentUserManager,
+  stepComponent: state.stepComponent
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...snackbarActions, ...stepActions, ...dialogActions }, dispatch),
+  actions: bindActionCreators(
+    { ...snackbarActions, ...stepActions, ...dialogActions },
+    dispatch
+  )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(StepInfoViewerContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StepInfoViewerContainer);
