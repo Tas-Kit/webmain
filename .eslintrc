@@ -20,10 +20,11 @@
     "linebreak-style": ["off", "unix"],
     "indent": ["warn", 2, { "SwitchCase": 1 }],
     "quotes": ["warn", "single"],
-    "max-len": ["warn", 80],
+    "max-len": "off",
     "no-unused-vars": "warn",
     "no-prototype-builtins": "warn",
     "no-plusplus": "off",
+    "no-console": "off",
     "prefer-template": "warn",
     "prefer-const": "warn",
     "react/jsx-filename-extension": [
@@ -32,7 +33,7 @@
         "extensions": [".js", ".jsx"]
       }
     ],
-    "react/no-did-update-set-state": "warn",
+    "react/no-did-update-set-state": "off",
     "react/prop-types": "off",
     "react/jsx-wrap-multilines": "off"
   }
