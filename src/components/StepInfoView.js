@@ -126,6 +126,8 @@ const StepInfoView = props => {
         return (
           <Slider
             range
+            min={data.valueRange.min}
+            max={data.valueRange.max}
             step={getStep()}
             defaultValue={getValue()}
             tipFormatter={displayValue}
