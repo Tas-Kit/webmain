@@ -149,7 +149,7 @@ const StepInfoView = props => {
     triggerPending,
     onTrigger,
     componentLoaded,
-    dataComponents
+    objects
   } = props;
   return (
     <div style={inline.main}>
@@ -228,8 +228,10 @@ const StepInfoView = props => {
 
       {/* Step Components */}
       {componentLoaded &&
-        dataComponents.map(component => (
-          <Fragment>{renderComponent(component)}</Fragment>
+        objects.map(object => (
+          <Fragment>
+            {object.components.map(renderComponent)}
+          </Fragment>
         ))}
 
       <Tooltip

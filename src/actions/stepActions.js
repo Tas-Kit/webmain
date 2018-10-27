@@ -24,7 +24,7 @@ export const updateComponentInfo = json => ({
   json,
 });
 
-export const componentFetched = componentJs => ({
+export const componentFetched = objects => ({
   type: types.COMPONENT_FETCHED,
-  componentJs,
+  objects,
 });

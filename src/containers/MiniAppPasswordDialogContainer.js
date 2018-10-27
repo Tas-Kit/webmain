@@ -84,18 +84,28 @@ class MiniAppPasswordDialogContainer extends React.Component {
               const key = keys[i];
               components.push(cmpInfo.components[key]);
             }
-            const url = `http://sandbox.tas-kit.com/web/app/${components[0].app}/component/${components[0].cmp}.js`;
-            fetch(url, {
-              method: 'GET',
-              headers: { Accept: 'application/json' },
+
+            const fetchComponent = (app, cmp) => {
+              const url = `http://sandbox.tas-kit.com/web/app/${app}/component/${cmp}.js`;
+              return fetch(url, {
+                method: 'GET',
+                headers: { Accept: 'application/json' }
+              })
+                .then(res => res.text())
+            }
+
+            const asyncRequests = [];
+            for (let i = 0; i < components.length; i++) {
+              const { app, cmp } = components[i];
+              asyncRequests.push(fetchComponent(app, cmp));
+            }
+
+            Promise.all(asyncRequests).then(responses => {
+              console.log(responses);
+              const objects = responses.map(response => safeEval(response));
+              this.props.actions.componentFetched(objects);
             })
-              .then(res => res.text())
-              .then((componentJs) => {
-                if (componentJs) {
-                  const actionData = safeEval(componentJs);
-                  this.props.actions.componentFetched(actionData);
-                }
-              });
+
           }
         } else {
           updateMessage(<FormattedMessage id="miniAppPasswordWrong" />);

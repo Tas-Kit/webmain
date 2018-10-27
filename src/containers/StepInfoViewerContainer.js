@@ -70,7 +70,7 @@ class StepInfoViewerContainer extends React.Component {
   render() {
     const { stepInfo, triggerPending } = this.props.stepManager;
     const { taskUsers } = this.props.taskManager;
-    const { hasComponent, dataComponents } = this.props.stepComponent;
+    const { hasComponent, objects } = this.props.stepComponent;
 
     // user's role in this task
     const { username } = this.props.currentUserManager;
@@ -87,7 +87,7 @@ class StepInfoViewerContainer extends React.Component {
         onTrigger={this.handleTrigger}
         triggerPending={triggerPending}
         componentLoaded={hasComponent}
-        dataComponents={dataComponents}
+        objects={objects}
       />
     );
   }
