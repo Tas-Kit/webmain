@@ -22,7 +22,7 @@ const inline = {
 };
 
 class MiniAppPasswordDialogContainer extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       password: '',
@@ -31,6 +31,26 @@ class MiniAppPasswordDialogContainer extends React.Component {
 
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
+  }
+
+  openMiniApp(){
+    const { aid } = this.props.miniAppManager;
+    const { platformRootKey, uid } = this.props.currentUserManager;
+    const requestData = { uid };
+    const url = `${baseUrl}${MINI_APP_BASE_URL}${aid}/?${stringify(requestData)}`;
+    fetch(url, {
+      headers: { PlatformRootKey: platformRootKey, Accept: 'application/json' },
+      credentials: 'include',
+      method: 'GET',
+      withCredentials: true,
+    })
+      .then(res => res.json())
+      .then((json) => {
+        const { key, app, aid: appId } = json.mini_app;
+        this.props.actions.updateMiniAppKey(key);
+        const newUrl = `${window.location.origin.toString()}/web/app/${app}/index.html?#aid=${appId}&key=${key}`;
+        window.open(newUrl);
+      });
   }
 
   handleSubmit = () => {
@@ -45,23 +65,13 @@ class MiniAppPasswordDialogContainer extends React.Component {
       .then((success) => {
         if (success) {
           toggleMiniAppPassword();
-          const { aid } = this.props.miniAppManager;
-          const { platformRootKey, uid } = this.props.currentUserManager;
-          const requestData = { uid };
-          const url = `${baseUrl}${MINI_APP_BASE_URL}${aid}/?${stringify(requestData)}`;
-          fetch(url, {
-            headers: { PlatformRootKey: platformRootKey, Accept: 'application/json' },
-            credentials: 'include',
-            method: 'GET',
-            withCredentials: true,
-          })
-            .then(res => res.json())
-            .then((json) => {
-              const { key, app, aid: appId } = json.mini_app;
-              this.props.actions.updateMiniAppKey(key);
-              const newUrl = `${window.location.origin.toString()}/web/app/${app}/index.html?#aid=${appId}&key=${key}`;
-              window.open(newUrl);
-            });
+          const { miniAppPasswordAction } = this.props.dialogManager;
+          if (miniAppPasswordAction === "openMiniApp"){
+            this.openMiniApp();
+          }
+          else if (miniAppPasswordAction !== null && miniAppPasswordAction !== undefined) {
+            miniAppPasswordAction(this.props);
+          }
         } else {
           updateMessage(<FormattedMessage id="miniAppPasswordWrong" />);
         }

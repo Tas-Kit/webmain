@@ -12,6 +12,11 @@ import { TASK_TRIGGER_URL } from '../constants/apiUrls';
 
 const StepInfoViewerContainer = (props) => {
   const { stepInfo, triggerPending } = props.stepManager;
+  const { taskId: tid } = props.taskManager;
+  const { stepId: sid } = props.stepManager;
+  stepInfo.tid = tid;
+  stepInfo.sid = sid;
+
   const { taskUsers } = props.taskManager;
 
   const getUserIndex = (name) => {

@@ -114,6 +114,7 @@ const en = {
   allowLinkSharingFieldName: 'Allow Link Sharing',
   disableCloneReason: 'You can only clone when the task is original and you are not a standard member',
   miniAppPasswordWrong: 'Wrong password.',
+  customComponent: 'Custom Component',
 };
 
 export default en;

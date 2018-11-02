@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
 import TaskPanel from '../components/TaskPanel';
+import { baseUrl } from '../services/APIService';
+import { stringify } from 'qs';
 
 import * as taskActions from '../actions/taskActions';
 import * as currentUserActions from '../actions/currentUserActions';
@@ -29,11 +31,24 @@ class TaskPanelContainer extends React.Component {
     const { key } = this.props.miniAppManager;
     if (key === '') {
       const { toggleMiniAppPassword } = this.props.actions;
-      toggleMiniAppPassword();
+      toggleMiniAppPassword('openMiniApp');
       this.props.actions.updateAid(aid);
     } else {
-      const newUrl = `${window.location.origin.toString()}/web/app/${app}/index.html?#aid=${aid}&key=${key}`;
-      window.open(newUrl);
+      const { platformRootKey, uid } = this.props.currentUserManager;
+      const requestData = { uid };
+      const url = `${baseUrl}${MINI_APP_BASE_URL}${aid}/?${stringify(requestData)}`;
+      fetch(url, {
+        headers: { PlatformRootKey: platformRootKey, Accept: 'application/json' },
+        credentials: 'include',
+        method: 'GET',
+        withCredentials: true,
+      }).then(res => res.json())
+        .then((json) => {
+          const { key, app, aid: appId } = json.mini_app;
+          this.props.actions.updateMiniAppKey(key);
+          const newUrl = `${window.location.origin.toString()}/web/app/${app}/index.html?#aid=${appId}&key=${key}`;
+          window.open(newUrl);
+        });
     }
   }
 

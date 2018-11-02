@@ -23,6 +23,7 @@ const initialState = {
   // others
   invitationOpen: false,
   miniAppPasswordOpen: false,
+  miniAppPasswordAction: null
 };
 
 const dialogManager = (state = initialState, action = {}) => {
@@ -56,7 +57,12 @@ const dialogManager = (state = initialState, action = {}) => {
       return { ...state, taskAppPreviewOpen: !state.taskAppPreviewOpen, taskAppPreviewId: appId };
     }
     case types.TOGGLE_MINI_APP_PASSWORD: {
-      return { ...state, miniAppPasswordOpen: !state.miniAppPasswordOpen };
+      const { miniAppPasswordAction } = action;
+      let result = { ...state, miniAppPasswordOpen: !state.miniAppPasswordOpen };
+      if (miniAppPasswordAction !== undefined){
+        result.miniAppPasswordAction = miniAppPasswordAction;
+      }
+      return result;
     }
     default:
       return state;
