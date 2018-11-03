@@ -16,7 +16,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import * as dialogActions from '../actions/dialogActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { baseUrl } from '../services/APIService';
 
 var request = axios.create({
   baseURL: (window.location && window.location.origin && window.location.origin.indexOf('localhost') === -1
@@ -61,27 +60,32 @@ class EditorComponent extends React.Component {
 
   renderRangeSlider(){
     let valueRange = this.props.valueRange;
-    this.props.properties[this.props.propertyStart] = this.props.defaultValue[0];
-    this.props.properties[this.props.propertyEnd] = this.props.defaultValue[1];
-    this.component = <Slider
-      range
-      min={valueRange.min}
-      max={valueRange.max}
-      step={valueRange.step}
-      marks={this.props.marks}
-      defaultValue={this.props.defaultValue}
-      tipFormatter={this.props.format}
-      onChange={this.onChange} />
+    let value = this.state.value;
+    if (value === undefined){
+      value = this.props.defaultValue;
+    }
+    this.props.properties[this.props.propertyStart] = value[0];
+    this.props.properties[this.props.propertyEnd] = value[1];
+    this.component = <div>
+      <Slider
+        range
+        min={valueRange.min}
+        max={valueRange.max}
+        step={valueRange.step}
+        marks={this.props.marks}
+        defaultValue={this.props.defaultValue}
+        tipFormatter={this.props.format}
+        onChange={this.onChange} />
+      <p>{this.props.format(value[0]) + ' ~ ' + this.props.format(value[1])}</p>
+      </div>
   }
 
   onChange(value, child){
       if (this.props.type === 'picklist'){
-        this.props.properties[this.props.propertyValue] = value.target.value;
         this.setState({value: value.target.value});
       }
       else if (this.props.type === 'rangeSlider') {
-        this.props.properties[this.props.propertyStart] = value[0];
-        this.props.properties[this.props.propertyEnd] = value[1];
+        this.setState({value: value});
       }
   }
 
@@ -92,14 +96,15 @@ class EditorComponent extends React.Component {
     if (format === undefined){
       format = (value) => value;
     }
-    if (this.state.value === undefined){
-      this.state.value = values[0];
+    let value = this.state.value;
+    if (value === undefined){
+      value = values[0];
     }
-    this.props.properties[this.props.propertyValue] = this.state.value;
+    this.props.properties[this.props.propertyValue] = value;
     for (let value of values){
       options.push(<MenuItem key={value} value={value}>{format(value)}</MenuItem>);
     }
-    this.component = (<Select value={this.state.value} onChange={this.onChange}>
+    this.component = (<Select value={value} onChange={this.onChange}>
       {options}
       </Select>);
   }
