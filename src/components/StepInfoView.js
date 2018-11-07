@@ -6,6 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { FormattedMessage } from 'react-intl';
 import { LoadingButton } from './Button';
 import { START_NODE, END_NODE, START_NODE_DISPLAY_LABEL, END_NODE_DISPLAY_LABEL } from '../constants/nodes';
+import TComponentManager from './TComponent'
 import { NEW, IN_PROGRESS, READY_FOR_REVIEW } from '../constants';
 import MarkdownViewer from './MarkdownViewer';
 
@@ -122,6 +123,12 @@ const StepInfoView = (props) => {
         <div style={inline.fieldContent}>
           <Checkbox disabled checked={info.optional} />
         </div>
+      </div>
+      <div>
+        <span style={inline.fieldName}><FormattedMessage id="customComponent" />:</span>
+        <TComponentManager
+          tid={info.tid}
+          sid={info.sid}/>
       </div>
       <div style={inline.row}>
         <span style={inline.fieldName}><FormattedMessage id="assigneeFieldName" />:</span>
